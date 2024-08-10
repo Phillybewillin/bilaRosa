@@ -1,0 +1,169 @@
+@use '../../scss/' as *;
+
+
+.spotlight {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    //border-radius: 10px;
+    position: relative;
+    height: 100vh;
+
+    @include mobile {
+        height: 600px;
+    }
+    @include tablet {
+        height: 600px;
+    }
+
+}
+.spotlight-number{
+  position: absolute;
+    margin-top: 4.5rem;
+    font-size: 1.5rem;
+    margin-left: 10px;
+    padding: 1.2rem;
+    color: $main-bg;
+    background-color: rgba(0, 0, 0, 0.692);
+    border-radius: 10px;
+    font-weight: 400;
+    @include mobile {
+        font-size: 1rem;
+    }
+    @include tablet {
+        font-size: 1rem;
+    }
+}
+.spotlight-name{
+    font-size: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.139);
+    border-radius: 10px;
+    font-weight: 400;
+    @include mobile {
+        font-size: 1rem;
+    }
+    @include tablet {
+        font-size: 1rem;
+    }
+}
+.spotlight-image{
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    border-radius: 10px;
+    @include mobile {
+        height: 600px;
+    }
+    @include tablet {
+        height: 600px;
+    }
+}
+.spotlight-content{
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 18rem;
+    margin-bottom: 1rem;
+    gap: .2rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+    background-image: linear-gradient(180deg, transparent, $body-bg);
+    font-size: smaller;
+    font-weight: 300;
+    
+}
+.modal{
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  border-radius: 10px;
+ backdrop-filter: blur(10px);
+ &_content{
+    
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+   
+    @include mobile {
+        padding: .5rem;
+    }
+    @include tablet {
+        padding: .5rem;
+    }
+ }
+}
+
+.spon{
+    background-color: rgba(0, 0, 0, 0.409);
+    padding: .4rem;
+    border-radius: 5px;
+    color: $main-bg;
+    font-weight: 400;
+    text-decoration: line-through;
+    
+}
+.spotlight-genres{
+    font-size: smaller;
+    font-weight: 400;
+    padding: .5rem;
+    background-color: rgba(0, 0, 0, 0.112);
+    border-radius: 15px;
+    @include tablet {
+        margin: .5rem;
+        font-size: x-small;
+    }
+}
+.spotlight-overview{
+    font-size: smaller;
+    font-weight: 300;
+    padding: .8rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    @include tablet {
+        margin: .5rem;
+        font-size:x-small;
+    }
+}
+.spotty{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: small;
+  font-weight: 300;
+  gap: 5px;
+}
+.genre {
+    display: inline-block;
+    padding: 5px;
+    margin: 2.5px;
+    border-radius: 5px;
+  }
+  
+  .genre.a {
+    background-color: #00000073;
+  }
+  
+  .genre.comedy {
+    background-color: #0000007e;
+  }
+  
+  .genre.r {
+    background-color: #fb00d98a;
+  }

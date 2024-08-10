@@ -1,0 +1,132 @@
+@use '../../scss/' as *;
+
+.filters {
+    margin-top: 6rem;
+    min-height: fit-content;
+    height: 100%;
+    padding: 1rem;
+    //background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    position: relative;
+    gap: 1rem;
+}
+.gen{
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    align-items: center;
+    justify-content: center;
+    padding: .5rem;
+
+}
+.cbut{
+    display: flex;
+    margin-bottom: 1rem;
+    gap: .5rem;
+}
+.genrezz{
+    background-color: rgb(39, 39, 39);
+    border: 1px solid $black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: smaller;
+    gap: .5rem;
+    transition: all 0.7s ease-in-out;
+    &:hover{
+        
+    gap: .5rem; 
+}
+}
+
+.movie-gridk{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr));
+    align-items: center;
+    gap: 8px;
+    
+    
+
+    @include tablet {
+        grid-template-columns: repeat(auto-fill, minmax(min(150px, 100%), 1fr));
+        left: 0;
+    }
+
+    @include mobile {
+        grid-template-columns: repeat(auto-fill, minmax(min(100px, 100%), 1fr));
+    
+    }
+    
+}
+
+.lod{
+    display: flex;
+    justify-content: flex-end;
+    text-align: center;
+    padding: .4rem;
+
+}
+
+.checkbox-custom {
+    display: inline-block;
+    width: 20px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
+    border: 2px solid #fff; /* Red border */
+    background-color: #202020; /* Grey background */
+    position: relative;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 10px; /* Space between checkbox and text */
+}
+
+.checkbox-custom::after {
+    content: '\2713'; /* Unicode checkmark character */
+    font-size: 16px; /* Adjust size as needed */
+    color: #fff; /* White color */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0); /* Initially hidden */
+    transition: transform 0.2s ease;
+}
+
+input[type="checkbox"] {
+    opacity: 0; /* Hide the default checkbox */
+    position: absolute;
+    left: -9999px; /* Move off screen */
+}
+
+.checkbox-custom input[type="checkbox"]:checked + .checkbox-custom::after {
+    transform: translate(-50%, -50%) scale(1); /* Show checkmark */
+}
+
+.checkbox-text {
+    transition: color 0.3s ease;
+}
+
+.checkbox-label:hover .checkbox-custom {
+    background-color: #aaa; /* Grey background on hover */
+}
+
+.checkbox-label:hover .checkbox-text {
+    color: $main-bg; /* Red text color on hover */
+}
+
+.checkbox-label.checked .checkbox-custom {
+    background-color: $main-bg; /* Red background when checked */
+    border-color: $main-bg; /* Red border when checked */
+}
+
+.checkbox-label.checked .checkbox-text {
+    color: grey;
+    border-bottom: 2px solid $main-bg;
+    text-decoration: underline;
+     /* Red text color when checked */
+}
+
+input[type="radio"] {
+    accent-color: $main-bg;
+}

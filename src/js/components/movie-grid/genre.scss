@@ -1,0 +1,138 @@
+@use '../../scss/' as *;
+
+.tags{
+  
+    top: 50px;
+    z-index: 99;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    overflow: auto;
+    gap: 10px;
+    padding: 5px;
+    border-radius: 20px;
+    stroke-width: 1px;
+    scrollbar-width: 10px;
+    scrollbar-color: #1a1a1a78 #00000000;
+ 
+    @include mobile {
+        top: 30px;
+
+    }
+    
+
+  
+}
+.tag{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: white;
+    font-size: small;
+    padding: 5px 10px;
+    height: 35px;
+    min-width: 60px;
+    text-align: center;
+    background: rgba(20, 20, 20, 0.952);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.5s ease-in-out;
+    &:hover{
+      transform: scale(1.1);
+        //border: 1px solid #28ec0e;
+        transition: all 0.5s ease-in-out;
+    }
+    
+    @include mobile {
+        font-size: smaller;
+        padding: 5px 10px;
+        height: 27px;
+        min-width: 50px;
+
+    }
+}
+.tagOutline{
+    position: relative;
+    padding: 2.5px;
+    border-radius: 10px;
+    background: #15151560;
+    transition: all 0.5s ease-in-out;
+
+    @include mobile {
+        padding: 2px;
+    }
+
+}
+
+.tag.selected {
+    border-radius: 8px;
+    color: rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
+    transition: all 0.5s ease-in-out;
+}
+.tagOutline.selected::before{
+    content: "";
+  position: absolute;
+  top: 0;
+  left: 1;
+  bottom: 0;
+  right: 0;
+  border-radius: 10px;
+  background: linear-gradient(
+    45deg,
+    #ff0008,
+    #ffca3a,
+    #8ac926,
+    #13ece8,
+    #4c00b7,
+    #ff6700
+  );
+  background-size: 450%;
+  z-index: -1;
+  animation: glow 20s linear infinite;
+  width: 100%;
+}.tagOutline.selected::after{
+    content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 10px;
+  background: linear-gradient(
+    45deg,
+    #ff0008,
+    #ffca3a,
+    #8ac926,
+    #13ece8,
+    #4c00b7,
+    #ff6700
+  );
+  background-size: 400%;
+   z-index: -1;
+  animation: glow 20s linear infinite;
+  width: 100%;
+    
+}
+.tagOutline.selected::after {
+    filter: blur(25px);
+    transform: translate3d(0, 0, 0);
+    border-radius: 10px;
+  }
+@keyframes glow {
+    0% {
+      background-position: 0 0;
+    }
+  
+    50% {
+      background-position: 100% 0;
+    }
+  
+    100% {
+      background-position: 0 0;
+    }
+  }
+

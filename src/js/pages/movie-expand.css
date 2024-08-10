@@ -1,0 +1,55 @@
+.movie-list {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 5px;
+    
+  }
+  
+  .movie-container {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    
+
+ 
+  }
+  
+  .movie-image {
+    width: 200px;
+    height: 550px;
+    object-fit: cover;
+    background-size: cover;
+    transition: all 0.5s ease-in-out;
+    border-radius: 20px;
+
+  }
+  .expanded{
+    width: 1500px;
+  }
+  
+  .movie-container:hover .movie-image {
+    width: 1500px;
+    transition: all .5s ease-in-out;
+    object-fit: cover;
+  }
+  
+  .movie-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+  
+  }
+  
+  .movie-container:hover .movie-overlay {
+    background-color: rgba(3, 3, 3, 0.637);
+    color: white;
+    opacity: 1;
+    transition: all .5s ease-out;
+  }
+  

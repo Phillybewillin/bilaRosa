@@ -1,0 +1,36 @@
+@use '../../scss/' as *;
+@use '../../scss/breakpoint' as *;
+
+
+
+
+.movie-list {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    min-height: 150px;
+    overflow-y: hidden;
+    padding: 0.3rem;
+    scroll-behavior: smooth;
+    border: 2px solid rgb(26, 26, 26);
+    border-radius: 15px;
+    .wrappwe{
+        min-height: 150px;
+    }
+
+    .swiper-slide {
+        width: 18%;
+
+    
+
+        @include tablet {
+            width: 25%;
+        }
+
+        @include mobile {
+            width: 37%;
+        }
+    }
+
+} 
+

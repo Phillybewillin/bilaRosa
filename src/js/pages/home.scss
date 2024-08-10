@@ -1,0 +1,141 @@
+@use '../scss/' as *;
+@use '../scss/breakpoint' as *;
+
+
+
+.section-tit{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.continue-watching-title{
+    display: flex;
+    justify-content: center;
+    padding: .5rem;
+
+    text-decoration: overline;
+    background-color: $body-bg;
+}
+.searchmovie{
+    display: flex;
+    //justify-content: flex-start;
+    padding: 0 0.3rem;
+    align-items: center;
+    font-weight: 400;
+    input {
+        background-color: rgba(0, 0, 0, 0.61);
+        //border-bottom: 1px solid $main-bg;
+        color: white;
+        padding: .8rem 1.5rem;
+        margin-bottom: 1rem;
+        border-radius: 30px;
+        width: 500px;
+
+       
+    }
+    ::placeholder{
+        color: white;
+        
+    }
+    
+}
+.villa{
+    text-decoration: none;
+    background-color:rgb(20, 20, 20);
+    border-radius: 5px;
+    padding: 10px;
+    font-size: .75rem;
+    font-weight: 300;
+    color: white;
+    margin-bottom: .4rem;
+    border-left: 8px solid $main-bg;
+    border-right: 8px solid $main-bg;
+    width: 25%; 
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    @include mobile {
+        padding: 5px;
+        margin-bottom: .5rem;
+        font-size: small;
+    }
+}
+.continue-watching-container{
+  background-color: rgba(11, 11, 11, 0.393);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 4px;
+    margin-bottom: 1%;
+    overflow: auto;
+    border: 2px solid rgb(26, 26, 26);
+    border-radius: 10px;
+
+}
+.continue-watching{
+    z-index: 50;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease-in-out;
+    overflow: auto;
+    border: 1.5px solid transparent;
+    border-radius: 10px;
+}
+.continue-watching:hover{
+  border: 1.5px solid $main-bg;
+  transform: scale(.9);
+  transition: all 0.5s ease-in-out;
+  border-radius: 10px;
+}
+.cat{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 4px ;
+    border : 1px solid $main-bg;
+    border-radius: 5px;
+    margin: 5px;
+}
+.trendTV{
+    border: 2px solid rgb(26, 26, 26);
+    border-radius: 15px;
+   padding: 0.3rem;
+   // margin: 10px;
+    .swiper-slide {
+        width: 18%;
+        @include tablet {
+            width: 25%;
+        }
+
+        @include mobile {
+            width: 37%;
+        }
+    }
+}
+.bluez{
+    background-color: rgba(20, 20, 20, 0.785);
+    color: $main-bg;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px ;
+    font-size: x-small;
+    text-decoration: underline;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    @include tablet {
+        font-size: xx-small;
+    }
+    @include mobile {
+        font-size: xx-small;
+    }
+
+}
+  

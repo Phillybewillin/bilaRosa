@@ -1,0 +1,82 @@
+@use "../../scss/" as *;
+
+
+.seasons {
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.208);
+    padding: 7px;
+    border-radius: 10px;
+    font-weight: 400;
+    @include tablet {
+        padding: 5px;
+    }
+
+    @include mobile {
+       overflow: auto;
+        padding: 1px;
+    }
+    
+}
+.seasons__title{
+    margin-bottom: .5rem;
+    display: flex;
+    font-size: smaller;
+    justify-content: center;
+    text-align: center;
+    font-weight: 300;
+}
+.seasons__content {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: auto;
+    gap: 5px;
+    //justify-content: center;
+    
+}
+.seas {
+    font-weight: 400;
+    text-align: center; 
+    padding: .5rem;
+    border-radius: 10px;
+    @include flex(center, center);
+    flex-direction: row;
+    font-size: 13px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border: 1.4px solid $main-bg;
+    &:hover {
+        //transform: scale(1);
+        transition: all 0.3s ease-in-out;
+        background-color: rgb(255, 255, 255);
+        color: black;
+        border: 1.5px solid transparent;
+    }
+
+    @include mobile {
+        font-size: 10px;
+    }
+
+}
+.episodes__time {
+   position: absolute;
+   background-color: rgba(0, 0, 0, 0.511);
+   color: $main-bg;
+   padding: 5px;
+   bottom : 0;
+   right: 0;
+   border-radius: 10px;
+   font-size: 10px;
+   font-weight: 500;
+}
+
+.seasons__name {
+    position: relative;
+    width: 100%;
+  
+    background-color: rgba(21, 21, 21, 0.135);
+    padding: 5px;
+    font-weight: 300;
+    font-size: .7rem;
+    border-radius: 10px;
+}

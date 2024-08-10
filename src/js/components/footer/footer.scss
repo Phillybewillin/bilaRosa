@@ -1,0 +1,83 @@
+@use '../../scss/' as *;
+
+
+
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    padding: 2rem 1rem;
+    color: $white;
+    
+    
+
+    &__content {
+       @include flex(center ,center);
+        max-width: 1000px;
+        
+
+        &__logo {
+            @include flex(center, space-between);
+            margin-bottom: .4rem;
+            font-size: 13px;
+
+
+        }
+
+        &__menus {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+
+            @include mobile {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        &__menu {
+            @include flex(center, space-evenly);
+            text-align: center;
+            flex-direction: row;
+            margin: .3rem;
+            font-size: .7rem;
+            font-weight: 500;
+            background-color:rgb(26, 26, 26);
+
+            & > * ~ * {
+                margin-top: .5rem;
+            }
+        }
+        
+    }
+}
+
+.acca{
+  gap: 10px;
+}
+.logo{
+    font-size: smaller;
+    color: $white;
+}
+.footer__content__logo{
+  background-color: rgb(26, 26, 26);
+  padding: 10px;
+  border-radius: 10px;
+
+}
+.Diss{
+  padding: 10px;
+  color: $main-bg;
+}
+.footer__content__menu{
+   background-color: rgb(22, 22, 22);
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+.links{ 
+  display: flex;
+  justify-content: space-around;
+}
+.splitter{
+  margin :0  20px;
+}

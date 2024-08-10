@@ -1,0 +1,56 @@
+@use '../../scss/' as *;
+
+
+
+.movie-gridz{
+   //position: relative;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-wrap: wrap;
+   gap: 10px;
+   margin-bottom: .1rem;
+   width: 100%;
+   @include mobile {
+       width: 100%;
+       flex-direction: column;
+   }
+    
+}
+.d{
+  &:hover{
+    border: 2px solid $main-bg;
+  }
+  border: 2px solid transparent;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  @include tablet {
+    width: 100%;
+    height: 230px;
+  }
+  @include mobile {
+    width: 100%;
+    height: 200px;
+  }
+}
+.movie-imgx{
+    width: 180px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.movie-titlex{
+    margin-top: 2px;
+    font-size: .7rem;
+    //width: 100px;
+    padding: 5px;
+    background-color: #212121;
+    border-radius: 5px;
+    color: $white;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

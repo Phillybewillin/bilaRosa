@@ -1,0 +1,134 @@
+@use './js/scss/' as *;
+
+@import url('https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap');
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 100%;
+
+  @include tablet {
+    font-size: 80%;
+  }
+
+  @include mobile {
+    font-size: 60%;
+  }
+}
+
+body {
+  font-family: $font-family;
+  font-weight: 400;
+  line-height: 1.5;
+  background-color: $body-bg;
+  color: $txt-bg;
+
+  @include mobile {
+    margin-bottom: 1rem;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+@media(hover :hover){
+  a:hover{
+    color: $main-bg;
+  }
+}
+
+button,
+input {
+  outline: 0;
+  border: 0;
+}
+
+
+ul {
+  list-style-type: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+iframe {
+  border: 0;
+}
+
+.container {
+
+  max-width: 1660px;
+  margin: auto;
+}
+
+.mb-3 {
+  min-height: auto;
+  margin-bottom: 3rem;
+  
+}
+
+.mb-2 {
+  min-height: auto;
+  margin-bottom: 2rem;
+}
+
+.section {
+  padding: 0 .7rem;
+}
+
+.section__header {
+  @include flex(center, center);
+}
+#spinner{
+  @include flex(center, center);
+  //backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.169);
+  height: 30px;
+  width: 30px;
+  border: 3px solid;
+  border-radius: 50%;
+  border-color: $main-bg $main-bg $main-bg transparent;
+  animation: spinner-rotate 1.5s linear infinite;
+  position: absolute;
+  top: 50%;
+  left: 49%;
+  transform: translate(-50%, -50%);
+}
+@keyframes spinner-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $main-bg;
+  border-radius: 30px;
+  width: 4px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1b1b1b;
+}  
+

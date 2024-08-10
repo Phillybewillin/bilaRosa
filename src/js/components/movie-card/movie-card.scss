@@ -1,0 +1,138 @@
+@use '../../scss/' as *;
+
+.movie-card {
+    position: relative;
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 155%;
+    border-radius: $border-radius;
+    margin-bottom: .2rem;
+    transition: all .5s ease-in-out;
+    
+    .inCinema{
+        display: flex;
+        position: absolute;
+        top: 2px;
+        
+        right: 2px;
+        background-color: rgba(0, 0, 0, 0.491);
+        padding: 8px;
+        border-radius: $border-radius;
+        font-size: 12px;
+        font-weight: 500;
+        //color: white;
+    }
+    @media (hover:hover) {
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            opacity: 0;
+            transition: opacity 1s ease;
+            border: 2px solid $main-bg;
+            border-radius: $border-radius;
+        
+        }
+        .btnz{
+            transform: translate(-20%, -20%) scale(0);
+            //background-color: rgba(0, 0, 0, 0.877);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: auto;
+            color: white;
+            border-radius: 7px;
+            transition: all .5s ease-in-out;
+        }
+
+        &:hover::before{
+            background-image: linear-gradient(180deg, rgba(0, 0, 0, 0), rgb(0, 0, 0));
+
+            opacity: 1;
+            //backdrop-filter: blur(10px);
+            //transition: all .8s ease-in-out;
+        }
+
+        &:hover .btnz {
+            
+            color: $main-bg;
+            transform: translate(0%, -100%) scale(1);
+        
+        }
+
+    }
+}
+
+.infomovie{
+    position: relative;
+    background-color: rgba(19, 19, 19, 0.957);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    //border-top:  2px solid black;
+    //border: 1.4px solid $main-bg;
+    justify-content: space-between;
+    gap: 0.1rem;
+    padding: .5rem;
+    font-size: .65rem;
+    font-weight: 400;
+    border-radius: $border-radius;
+
+
+    @include mobile {
+        font-size: 8px;
+        padding: .2rem .5rem;
+        font-weight: 300;
+    }
+    .title{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        background-color: rgba(26, 26, 26, 0.97);
+        border-radius: 10px;
+        padding: 2px;
+        font-size: .64rem;
+        font-weight: 400;
+
+        @include mobile {
+            font-size: 8px;
+        }
+    }
+    .cat{
+        display: inline-flex;
+        align-items: center;
+        //justify-content: center;
+        background-color: rgba(29, 29, 29, 0.514);
+        border: none;
+       justify-content: space-around;}
+}
+.year{
+  background-color: rgb(39, 39, 39);
+  font-weight: 400;
+  padding: 2px 7px;
+  border-radius: 5px;
+  color: $main-bg;
+}
+
+.vote{
+  background-color: $main-bg;
+  font-weight: 400;
+  padding: 2px 7px;
+  border-radius: 5px;
+  color: rgb(24, 24, 24);
+}
+.catz{
+  background-color: rgb(39, 39, 39);
+  font-weight: 400;
+  padding: 2px 7px;
+  border-radius: 5px;
+  color: $main-bg;
+}
+
+

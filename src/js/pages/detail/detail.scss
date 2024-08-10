@@ -1,0 +1,314 @@
+@use "../../scss/" as *;
+
+
+.banner {
+    height: 100vh;
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        @include overlay();
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(to top, $body-bg, rgba(127, 117, 117, 0));
+
+    }
+}
+.movie-content_poste {
+    &__img{
+        border: 2px solid $main-bg;
+        backdrop-filter: blur(10px);
+    }
+}
+
+.loaded {
+    opacity: 1;
+    
+}
+.w200 {
+    opacity: 0;
+  
+}
+
+
+.movie-content {
+    backdrop-filter: blur(10px);
+    background-color: #0000009a;
+    border-radius: 10px;
+    @include flex(flex-start, flex-start);
+    max-width: 1280px;
+     margin-left: auto;
+    margin-right: auto;
+    margin-top: -450px;
+    position: relative;
+    padding: 2rem ;
+
+    &__poster {
+        flex: 1;
+
+        @include mobile {
+            //display: none;
+        }
+
+        &__img {
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: $border-radius;
+            padding-top: 155%;
+            filter: drop-shadow(0 0 10px rgba(24, 24, 24, 0.822));
+            
+        }
+    }
+
+    &__info {
+        //background-color: #00000070;
+        border-radius: $border-radius;
+        padding: 2rem;
+        width: 84%;
+        font-weight: 200;
+        //padding-left: 2rem;
+        position: relative;
+
+
+        @include mobile {
+            width: 100%;
+            padding-left: .8rem;
+            font-size: 15px;
+        }
+
+        & > * ~ * {
+            margin-top: 1rem;
+        }
+
+        .title {
+            
+            border-radius: $border-radius;
+            font-size: 1.8rem;
+            line-height: 1;
+        }
+
+        .genres {
+            & > * ~ * {
+                margin-left: .5rem;
+            }
+
+            &__item {
+                background-color: #0000005e;
+                padding: .5rem 1.5rem;
+                border: 2px solid;
+                border-radius: 20px;
+                font-size: .7rem;
+                font-weight: 500;
+                //backdrop-filter: blur(10px);
+            }
+
+            @include mobile {
+                font-size: 1.2rem;
+            }
+        }
+        .secz{
+            
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 7px 5px;
+            
+            border-radius: 10px;
+            font-size: small;
+            font-weight: 300;
+            
+           @include mobile {
+            
+            font-size: 1rem;
+           }
+        
+        
+        }
+        
+        
+    }
+
+    @include tablet {
+        margin-top: -400px;
+    }
+
+    @include mobile {
+        margin-top: -400px;
+    }
+
+}
+
+.casts {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+
+    &__item {
+
+        &__img {
+           position: relative;
+            padding: 60px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            margin-bottom: .2rem;
+
+            
+              transform-origin: center;
+              transition: transform 0.3s ease-in-out;
+          
+            
+            &:hover {
+              transform: scale(1.1);
+            }
+            
+        }
+
+        &__name {
+            font-size: .6rem;
+            text-align: center;
+            color: rgb(211, 211, 211);
+            background-color: rgb(45, 45, 45);
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-weight: 600;
+        }
+        &__char{
+          position: absolute;
+          top: 0;
+          right: 0;
+            font-size: .5rem;
+            text-align: bottom;
+            color: rgb(255, 255, 255);
+            background-color: rgba(6, 6, 6, 0.479);
+            border-radius: 5px;
+            padding: 5px;
+            font-weight: 600;
+        }
+    }
+       @include mobile {
+      &__item {
+        &__img {
+          padding: 40px;
+          background-size: cover;
+          background-position: center;
+          border-radius: 10px;
+          margin-bottom: .1rem;
+          
+      }
+
+           font-size: .7rem;
+           font-weight: 400;
+
+       }
+
+       }
+}
+
+.video{
+    margin-bottom: 2rem;
+
+    &__title{
+        font-size: 1.3rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+}
+
+.runtime{
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    font-weight: 400;
+    align-items: center;
+    gap: 0.1rem;
+    padding: 7px 7px;
+    width: auto;
+    background-color: rgba(19, 19, 19, 0.438);
+    border-radius: 10px;
+
+}
+.release-date{
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    font-weight: 400;
+    gap: 0.1rem;
+    padding: 7px 5px;
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.37);
+    border-radius: 10px;
+    
+}
+.language{
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    font-weight: 400;
+    align-items: center;
+    gap: 0.1rem;
+    padding: 7px 7px;
+    width: auto;
+    background-color: rgba(19, 19, 19, 0.438);
+    border-radius: 10px;
+}
+.rating{
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    font-weight: 400;
+    align-items: center;
+    gap: 0.1rem;
+    padding: 7px 7px;
+    width: auto;
+    background-color: rgba(19, 19, 19, 0.438);
+    border-radius: 10px;
+
+}
+.overview{
+    background-color: #00000056;
+    font-size: .8rem;
+    font-weight: 400;
+    padding: 10px;
+    //line-height: 1;
+    margin-top: 1rem;
+    text-align: center;
+    border-radius: 10px;
+}
+
+
+.section-video{
+    padding: 0 20px;
+    
+    &__title{
+        border: 2px solid white;
+        font-size: 1.3rem;
+        font-weight: 200;
+        margin-bottom: 1rem;
+    }
+
+    
+}
+
+

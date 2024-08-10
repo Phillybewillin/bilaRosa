@@ -1,0 +1,98 @@
+@use "../../scss/" as *;
+
+button{
+    cursor: pointer;
+    font-family:$font-family;
+}
+.btn{
+    //border: 3px solid transparent;
+    background-color: $white;
+    color : $black;
+    border-radius: $border-radius;
+    padding: .5rem 1.8rem;
+    font-size: .8rem;
+    font-weight: 500;
+    position: relative;
+    margin-bottom: 1rem;
+}
+.btnprime{
+  //border: 3px solid transparent;
+  background-color: $black;
+  color : $main-bg;
+  border-radius: $border-radius;
+  padding: .5rem 1.8rem;
+  font-size: .8rem;
+  font-weight: 500;
+  position: relative;
+  margin-bottom: 1rem;
+
+}
+.btnprime2{
+  background-color: $black;
+  color : $main-bg;
+  border-radius: $border-radius;
+  padding: .5rem 1.8rem;
+  font-size: .8rem;
+  font-weight: 500;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  margin-bottom: 0;
+}
+.btnprime:hover{
+    box-shadow: 0px 0px 5px $main-bg;
+    
+}
+
+.btnprime2:hover{
+  opacity: 0.8;
+}
+
+.btn:hover{
+   opacity: 0.8;
+    //box-shadow: 0px 0px 20px $main-bg;
+}
+
+.btn-outline{
+    background-color: transparent;
+    color: $main-bg;
+    border: 3px solid $txt-bg;
+    box-shadow: unset;
+    transition: color .3s ease, background-color .3s ease;
+}
+
+.btn-outline:hover{
+    box-shadow: unset;
+    color: $black;
+    background-color: $txt-bg;
+
+}
+.btn.small{
+  
+    border-width: 1.4px;
+    border-radius: 30px;
+    padding: .2rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    
+}
+.btn.blue{
+    color: $black;
+    background-color: rgba(255, 255, 255, 0.192);
+    backdrop-filter: blur(10px);
+    border-radius: 5px;
+    font-size: small;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-right: 3px solid $main-bg;
+    border: 2px solid $black;
+    transition: .5s ease-in-out;
+    &:hover{
+        transform: scale(1.05);
+        background-color: rgba(255, 255, 255, 0.192);
+        border: 2px solid $main-bg;
+        color: $main-bg;
+        transition: .5s ease-in-out;
+    }
+}
+

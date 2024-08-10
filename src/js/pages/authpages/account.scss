@@ -1,0 +1,36 @@
+@use '../../scss/' as *;
+
+
+.account {
+   display: flex;
+   align-items: self-start;
+   justify-content: space-between;
+  
+   margin-top: 4rem
+   
+
+}
+.accountleft{
+    width: 50%;
+    float: left;
+    right: 1rem;
+    padding: 1rem ;
+}
+.accountright{
+    
+    width: 50%;
+    float: right;
+    padding: 1rem;
+}
+
+.account__title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(26, 26, 26, 0.717);
+    border-radius: 30px;
+    padding: .8rem ;
+    margin-bottom: .3rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
