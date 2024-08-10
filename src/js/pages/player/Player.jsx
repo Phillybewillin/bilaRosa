@@ -116,10 +116,10 @@ export default function Player() {
         </div>
          
         <MediaPlayer
-          title={title ? `Watching ${decodeURIComponent(title)}` : 'Watching'}
+          title={title ? `Currently Watching ${decodeURIComponent(title)}` : 'Watching'}
           src={playerSource}
           id="player"
-          autoPlay={true}
+          autoPlay={false}
           playsInline
         >
           <MediaProvider>
