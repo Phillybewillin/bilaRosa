@@ -57,12 +57,37 @@ const Spotlight = () => {
               "--swiper-navigation-color": "#1eff00",
             "--swiper-navigation-background-color": "#000000",}}
           >  
-          <SwiperSlide>
+           <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">#1</h1>
-                <img src={'https://image.tmdb.org/t/p/original/kpIYvbD8uEw4wsYryGHfZORKzVM.jpg'} alt='D2' className="spotlight-image" />
+                <img src={'https://image.tmdb.org/t/p/original/wsgni4E1UnBuvFouUUanSdniQi0.jpg'} alt='D2' className="spotlight-image" />
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .1</h4>
+                
+                  <h2 className="spotlight-name">Twisters</h2>
+                  
+                  <p className="spotlight-genres">
+                    <span className="genre a">Action</span>
+                    <span className="genre a">Adventure</span>
+                    <span className="genre a">Drama</span>
+                  </p>
+                  <div className="spotty">
+                   <h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  <p className="spotlight-overview">As storm season intensifies, the paths of former storm chaser Kate Carter and reckless social-media superstar Tyler Owens collide when terrifying phenomena never seen before are unleashed.</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/movie/718821')}>Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 718821, "Twisters")}>Watch Now </Button>
+                  </div>
+                  </div>
+              </div>
+            </SwiperSlide>
+          <SwiperSlide>
+              <div className="spotlight-item">
+              <h1 className="spotlight-number">#2</h1>
+                <img src={'https://image.tmdb.org/t/p/original/kpIYvbD8uEw4wsYryGHfZORKzVM.jpg'} alt='D2' className="spotlight-image" />
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .2</h4>
                   
                   <h2 className="spotlight-name">The Umbrella Academy</h2>
                   
@@ -87,10 +112,10 @@ const Spotlight = () => {
             </SwiperSlide>
             <SwiperSlide>
               <div className="spotlight-item">
-              <h1 className="spotlight-number">#2</h1>
+              <h1 className="spotlight-number">#3</h1>
                 <img src={'https://image.tmdb.org/t/p/original/lgkPzcOSnTvjeMnuFzozRO5HHw1.jpg'} alt='D2' className="spotlight-image" />
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .2</h4>
+                  <h4 className="spon">#Spotlight .3</h4>
               
 
                   <h2 className="spotlight-name">Despicable Me 4</h2>
@@ -115,10 +140,10 @@ const Spotlight = () => {
             </SwiperSlide>
           <SwiperSlide>
               <div className="spotlight-item">
-                <h1 className="spotlight-number">#3</h1>
+                <h1 className="spotlight-number">#4</h1>
                 <img src={'https://image.tmdb.org/t/p/original/qOdR46ymkVXuhnpnL2cBdjqjvnA.jpg'} alt='D2' className="spotlight-image" />
                 <div className="spotlight-content">
-                  <h4 className="spon"> #Spotlight .3</h4>
+                  <h4 className="spon"> #Spotlight .4</h4>
   
                   <h2 className="spotlight-name">MaXXXine</h2>
                   
@@ -141,10 +166,10 @@ const Spotlight = () => {
             </SwiperSlide>
             <SwiperSlide>
               <div className="spotlight-item">
-                <h1 className="spotlight-number">#4</h1>
+                <h1 className="spotlight-number">#5</h1>
                 <img src={'https://image.tmdb.org/t/p/original/j02v9Ylr1lctZ2NmCUvSfSMlBGu.jpg'} alt='D2' className="spotlight-image" />
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .4</h4>
+                  <h4 className="spon">#Spotlight .5</h4>
                  
                   <h2 className="spotlight-name">House Of The Dragon</h2>
                 
@@ -169,10 +194,10 @@ const Spotlight = () => {
             </SwiperSlide>
           <SwiperSlide>
               <div className="spotlight-item">
-                <h1 className="spotlight-number">#5</h1>
+                <h1 className="spotlight-number">#6</h1>
                 <img src={'https://image.tmdb.org/t/p/original/zaWcEOR1pL0pgv0g3TIAN7p4OXK.jpg'} alt='D2' className="spotlight-image" />
                 <div className="spotlight-content">
-                  <h4 className="spon"> #Spotlight .5</h4>
+                  <h4 className="spon"> #Spotlight .6</h4>
             
                   <h2 className="spotlight-name">A Quiet Place: Day 1</h2>
               
@@ -194,10 +219,10 @@ const Spotlight = () => {
             </SwiperSlide>
             <SwiperSlide>
               <div className="spotlight-item">
-                <h1 className="spotlight-number">#6</h1>
-                <img src={'https://image.tmdb.org/t/p/original/letUA32spwcZuRaSHlCgcXcdM1m.jpg'} alt='D2' className="spotlight-image" />
+                <h1 className="spotlight-number">#7</h1>
+                <img src={'https://image.tmdb.org/t/p/original/eLrtC7aXWE2WpAQEmetVAmmGHX4.jpg'} alt='D2' className="spotlight-image" />
                 <div className="spotlight-content">
-                <h4 className="spon">#Spotlight .6</h4>
+                <h4 className="spon">#Spotlight .7</h4>
                 
                   <h2 className="spotlight-name">Bad Boys: Ride or Die</h2>
                   
@@ -218,30 +243,7 @@ const Spotlight = () => {
               </div>
             </SwiperSlide>
            
-            <SwiperSlide>
-              <div className="spotlight-item">
-                <img src={'https://image.tmdb.org/t/p/original/wkPPRIducGfsbaUPsWfw0MCQdX7.jpg'} alt='D2' className="spotlight-image" />
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .7<div className="7"></div></h4>
-                
-                  <h2 className="spotlight-name">Thelma</h2>
-                  
-                  <p className="spotlight-genres">
-                    <span className="genre a">Action</span>
-                    <span className="genre a">Adventure</span>
-                    <span className="genre a">Comedy</span>
-                  </p>
-                  <div className="spotty">
-                   <h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  <p className="spotlight-overview">When 93-year-old Thelma Post gets duped by a phone scammer pretending to be her grandson, she sets out on a treacherous quest across the city to reclaim what was taken from her</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/movie/1051891')}>Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer(1051891, "Thelma")}>Watch Now </Button>
-                  </div>
-                  </div>
-              </div>
-            </SwiperSlide>
+           
             
             <SwiperSlide>
               <div className="spotlight-item">
@@ -324,7 +326,7 @@ const Spotlight = () => {
            
             <SwiperSlide>
               <div className="spotlight-item">
-                <img src={'https://image.tmdb.org/t/p/original/kF2Y0VALBirXF6POiBZG7j5ifv5.jpg'} alt='D2' className="spotlight-image" />
+                <img src={'https://image.tmdb.org/t/p/original/dNkLpb8aWhYo5mNoxkgaDkQeFxq.jpg'} alt='D2' className="spotlight-image" />
                 <div className="spotlight-content">
                   <h4 className="spon">Spotlight .11</h4>
                 
