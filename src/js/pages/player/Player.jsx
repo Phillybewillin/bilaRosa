@@ -9,7 +9,6 @@ import '@vidstack/react/player/styles/plyr/theme.css';
 import axios from "axios";
 import "./player.scss";
 import apiConfig from "../../api/apiConfig";
-
 export default function Player() {
   const { title, id, season_number, episode_number } = useParams();
   const [playerSource, setPlayerSource] = useState("");
@@ -35,25 +34,42 @@ export default function Player() {
 
   const fetchData = async (showTMDBid, seasonNumber, episodeNumber) => {
     try {
-      let url = `${testurl}/vidsrc/${showTMDBid}`;
+      let baseurl = `${testurl}/vidsrc?id=${showTMDBid}`;
+      let additionalParams = "";
+    
       if (seasonNumber && episodeNumber) {
-        url += `?s=${seasonNumber}&e=${episodeNumber}`;
+        additionalParams = `&s=${seasonNumber}&e=${episodeNumber}`;
       }
+    
+      let url = baseurl + additionalParams + "&provider=flixhq";
       const response = await axios.get(url);
-      const data = response.data;
+      const dataz = response.data;
 
-      const source1 = data.source1?.data?.source;
-      const source2 = data.source2?.data?.source;
+      //console.log(dataz);
 
-      if (data.source1?.success && source1) {
-        setPlayerSource(cleanUrl(source1));
-        setTextTracks(mapSubtitlesToTracks(data.source1.data.subtitles));
-      } else if (data.source2?.success && source2) {
-        setPlayerSource(cleanUrl(source2));
-        setTextTracks(mapSubtitlesToTracks(data.source2.data.subtitles));
-      } else {
-        console.error("No valid source found");
+      const sources = dataz?.data?.sources;
+      const subtitles = dataz?.data?.subtitles;
+
+      //console.log(sources);
+      //console.log(subtitles);
+
+      const selectedSource = sources.find(source => source.quality === "auto");
+      console.log(selectedSource);
+      if (selectedSource) {
+        //console.log(selectedSource);
+        setPlayerSource(selectedSource.url);
+
+        if (subtitles && subtitles.length > 0) {
+          setTextTracks(mapSubtitlesToTracks(subtitles));
+          console.log(setTextTracks);
+          console.log(textTracks);
+        } else {
+          setTextTracks([]);
+        }
+        
+
       }
+      
     } catch (error) {
       console.error("Failed to fetch data:", error);
     }
@@ -66,12 +82,12 @@ export default function Player() {
 
   const mapSubtitlesToTracks = (subtitles) => {
     return subtitles.map((subtitle) => ({
-      src: subtitle.file,
-      label: subtitle.label,
-      kind: "subtitles",
-      srclang: subtitle.label.toLowerCase().replace(/[^a-z]+/g, "-"), // simplified language tag
-    }));
+      src: subtitle.url,
+      lang: subtitle.lang,
+   }));
   };
+  console.log(setTextTracks);
+  console.log(textTracks);
 
   useEffect(() => {
     if (playerSource) {
@@ -116,11 +132,13 @@ export default function Player() {
         </div>
          
         <MediaPlayer
-          title={title ? `Currently Watching ${decodeURIComponent(title)}` : 'Watching'}
+          title={title ? `Watching ${decodeURIComponent(title)}` : 'Watching'}
           src={playerSource}
           id="player"
+          load="eager"
           autoPlay={false}
           playsInline
+          crossOrigin=""
         >
           <MediaProvider>
             {textTracks.map(track => (
