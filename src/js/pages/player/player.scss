@@ -16,13 +16,13 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  backdrop-filter: blur(5px);
+  //backdrop-filter: blur(5px);
   font-size: 12px;
   position: absolute;
   top: 0;
   left: 0;
   padding: .5rem;
-  background-color: #16161609;
+  background-color: #16161600;
   z-index: 20;
   border-radius: 10px;
   margin: 10px;
@@ -30,7 +30,7 @@
 .navi{
   display: flex;
   align-items: center;
-  background-color: #26262642;
+  background-color: #141414aa;
   border-radius: 5px;
   padding: 6px;
   cursor: pointer;
@@ -38,7 +38,7 @@
   color: $main-bg;
 }
 .navih{
-  background-color: rgba(255, 255, 255, 0.073);
+  background-color: rgba(4, 4, 4, 0.514);
   border-radius: 5px;
   padding: 6px;
   cursor: pointer;
@@ -56,24 +56,59 @@
 #player {
   width: 100%;
   height: 100vh;
-  aspect-ratio: unset;
+  
 }
-.episodesover{
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: row;
-  background-color: rgba(16, 16, 16, 0.842);
-  overflow: auto;
-  padding: 7px;
+.error-message{
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%,-50%);
+  z-index: 10;
+  font-size: 14px;
+  color: $main-bg;
+  background-color: rgb(17, 17, 17);
+  padding: 10px;
+  text-align: center;
   border-radius: 10px;
   
 }
-.episodes_item{
+.error-text{
+  background-color: #161616;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.quality-selector{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+
+  @include mobile {
+    display: none;
+  }
+}
+.episode_list{
+  display: flex;
+  justify-content: flex-start;
+  //align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: rgba(16, 16, 16, 0.842);
+  overflow: auto;
+  padding: 8px;
+  border-radius: 10px;
+  gap: 10px;
+  
+
+  
+}
+.episodes_itemz{
   display: flex;
   align-items: center;
   background-color: #181818;
-  padding: 8px;
+  padding: 10px;
   margin-left: 5px;
   border-radius: 5px;
   flex-direction: row;
@@ -82,19 +117,22 @@
   color: white;
   font-size: 11px;
   text-align: center;
+  @include mobile {
+    font-size: 10px;
+  }
 }
 .actively{
   background-color: white;
   color: black;
 }
 
-.episodes_item:hover{
+.episodes_itemz:hover{
   background-color: $main-bg;
   color: black;
 }
 .vds-video-layout {
   --video-brand: #f5f5f5;
-  --video-controls-color: #ffffff;
+  --video-controls-color: #ededed;
   --video-focus-ring-color: rgb(78 156 246);
   --video-focus-ring: 0 0 0 3px var(--media-focus-ring-color);
   --video-font-family: sans-serif;
@@ -148,7 +186,7 @@
 .vds-audio-layout,
 .vds-video-layout {
   /* Shared. */
-  --media-brand: #f5f5f5;
+  --media-brand: #ff0040;
   //--media-controls-color: #f5f5f5;
   --media-font-family: sans-serif;
 
@@ -159,9 +197,9 @@
   --media-buffering-track-fill-color: #1eff00;
   --media-buffering-track-fill-offset: 50;
   --media-buffering-track-fill-opacity: 0.75;
-  --media-buffering-track-fill-width: 9;
+  --media-buffering-track-fill-width: 7;
   --media-buffering-track-opacity: 0.25;
-  --media-buffering-track-width: 8;
+  --media-buffering-track-width: 6;
   --media-buffering-transition: opacity 200ms ease;
 
   /* Buttons. */
@@ -241,11 +279,11 @@
   --media-thumbnail-max-height: calc(var(--media-thumbnail-max-width) / var(--aspect-ratio));
 
   /* Time. */
-  --media-time-bg: rgba(20, 20, 20, 0.53);
+  --media-time-bg: rgba(20, 20, 20, 0.295);
   --media-time-border-radius: 10px;
   --media-time-border: unset;
   --media-time-color: #ffffff;
-  --media-time-divider-color: #232323;
+  --media-time-divider-color: #2bff00;
   --media-time-divider-gap: 2.5px;
   --media-time-font-size: 14px;
   --media-time-font-weight: 400;
@@ -264,7 +302,7 @@
 
   /* Slider Tracks. */
   --media-slider-track-width: 100%;
-  --media-slider-track-bg: rgb(255 255 255 / 0.3);
+  --media-slider-track-bg: rgba(28, 28, 28, 0.3);
   --media-slider-track-border-radius: 1px;
   --media-slider-track-fill-bg: var(--media-brand);
   --media-slider-track-fill-live-bg: #dc2626;
