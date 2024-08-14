@@ -82,62 +82,63 @@ const Spotlight = () => {
                   </div>
               </div>
             </SwiperSlide>
-          <SwiperSlide>
-              <div className="spotlight-item">
-              <h1 className="spotlight-number">#2</h1>
-                <img src={'https://image.tmdb.org/t/p/original/kpIYvbD8uEw4wsYryGHfZORKzVM.jpg'} alt='D2' className="spotlight-image" />
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .2</h4>
-                  
-                  <h2 className="spotlight-name">The Umbrella Academy</h2>
-                  
-                  <p className="spotlight-genres">
-                    <span className="genre a">Action & Adventure</span>
-                    <span className="genre a">Sci-Fi & Fantasy</span>
-                    <span className="genre a">Drama</span>
-
-
-                  </p>
-                  <div className="spotty">
-                   <h6 className="genre a">SERIES</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  
-                  <p className="spotlight-overview"> A dysfunctional family of superheroes comes together to solve the mystery of their father's death, the threat of the apocalypse and more.</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('tv/75006')}>Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(75006, "The Umbrella Academy" ,1 ,1)}>Watch Now</Button>
-                  </div>
-                </div>
-              </div>
-            </SwiperSlide>
             <SwiperSlide>
               <div className="spotlight-item">
-              <h1 className="spotlight-number">#3</h1>
-                <img src={'https://image.tmdb.org/t/p/original/lgkPzcOSnTvjeMnuFzozRO5HHw1.jpg'} alt='D2' className="spotlight-image" />
+                <h1 className="spotlight-number">#2</h1>
+                <img src={'https://image.tmdb.org/t/p/original/j02v9Ylr1lctZ2NmCUvSfSMlBGu.jpg'} alt='D2' className="spotlight-image" />
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .3</h4>
-              
-
-                  <h2 className="spotlight-name">Despicable Me 4</h2>
-                  
+                  <h4 className="spon">#Spotlight .2</h4>
+                 
+                  <h2 className="spotlight-name">House Of The Dragon</h2>
+                
                   <p className="spotlight-genres">
-                    <span className="genre a">Animation & Comedy</span>
-          
-                    <span className="genre a">Family</span>
+                    <span className="genre a">Sci-Fi</span>
+                    <span className="genre a">Fantasy</span>
+                    <span className="genre a">Drama</span>
                     <span className="genre a">Action</span>
+                    <span className="genre a">Adventure</span>
                   </p>
                   <div className="spotty">
-                   <h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                   <h6 className="genre a">Series</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
                   </div>
                   
-                  <p className="spotlight-overview">Gru and Lucy and their girls—Margo, Edith and Agnes—welcome a new member to the Gru family, Gru Jr.</p>
+                  <p className="spotlight-overview">The Targaryen dynasty is at the absolute apex of its power,with 15 dragons, they start to fall when A son's birth throws the kingdom into chaos as the rightful heir is challenged.</p>
                   <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/movie/519182')}>Details</Button>
-                  <Button className="btn" onClick={() => handlePlayer( 519182, "Despicable Me 4" )}>Watch Now</Button>
+                  <Button className="btnprime" onClick={() => navigate('/tv/94997')}>Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(94997, "House Of The Dragon" ,1 ,1 )}>Watch Now</Button>
+                  </div>
+                  </div>
+              </div>
+            </SwiperSlide>
+         
+            <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">#3</h1>
+                <img src={'https://image.tmdb.org/t/p/original/8UT3WWsmhH5o2hRWTLs5jYTJm4v.jpg'} alt='D2' className="spotlight-image" />
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .3</h4>
+               
+                  <h2 className="spotlight-name">Fly Me to the Moon</h2>
+                 
+                  <p className="spotlight-genres">
+                    <span className="genre a">Romance</span>
+                    <span className="genre a">&</span>
+                    <span className="genre a">Comedy</span>
+                  </p>
+                  <div className="spotty">
+                   <h6 className="genre a">Movies</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  
+                  <p className="spotlight-overview">Sparks fly in all directions as marketing maven Kelly Jones, brought in to fix NASA's public image, wreaks havoc on Apollo 11 launch director Cole Davis' already difficult task of putting a man on the moon.</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/movie/956842')}>Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer(956842, "Fly Me to the Moon")}>Watch Now</Button>
                   </div>
                  </div>
               </div>
             </SwiperSlide>
+            
+           
           <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">#4</h1>
@@ -166,32 +167,33 @@ const Spotlight = () => {
             </SwiperSlide>
             <SwiperSlide>
               <div className="spotlight-item">
-                <h1 className="spotlight-number">#5</h1>
-                <img src={'https://image.tmdb.org/t/p/original/j02v9Ylr1lctZ2NmCUvSfSMlBGu.jpg'} alt='D2' className="spotlight-image" />
+              <h1 className="spotlight-number">#5</h1>
+                <img src={'https://image.tmdb.org/t/p/original/lgkPzcOSnTvjeMnuFzozRO5HHw1.jpg'} alt='D2' className="spotlight-image" />
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .5</h4>
-                 
-                  <h2 className="spotlight-name">House Of The Dragon</h2>
-                
+              
+
+                  <h2 className="spotlight-name">Despicable Me 4</h2>
+                  
                   <p className="spotlight-genres">
-                    <span className="genre a">Sci-Fi</span>
-                    <span className="genre a">Fantasy</span>
-                    <span className="genre a">Drama</span>
+                    <span className="genre a">Animation & Comedy</span>
+          
+                    <span className="genre a">Family</span>
                     <span className="genre a">Action</span>
-                    <span className="genre a">Adventure</span>
                   </p>
                   <div className="spotty">
-                   <h6 className="genre a">Series</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                   <h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
                   </div>
                   
-                  <p className="spotlight-overview">The Targaryen dynasty is at the absolute apex of its power,with 15 dragons, they start to fall when A son's birth throws the kingdom into chaos as the rightful heir is challenged.</p>
+                  <p className="spotlight-overview">Gru and Lucy and their girls—Margo, Edith and Agnes—welcome a new member to the Gru family, Gru Jr.</p>
                   <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/tv/94997')}>Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(94997, "House Of The Dragon" ,1 ,1 )}>Watch Now</Button>
+                  <Button className="btnprime" onClick={() => navigate('/movie/519182')}>Details</Button>
+                  <Button className="btn" onClick={() => handlePlayer( 519182, "Despicable Me 4" )}>Watch Now</Button>
                   </div>
-                  </div>
+                 </div>
               </div>
             </SwiperSlide>
+           
           <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">#6</h1>
@@ -247,6 +249,7 @@ const Spotlight = () => {
             
             <SwiperSlide>
               <div className="spotlight-item">
+                <h1 className="spotlight-number">#8</h1>
                 <img src={'https://image.tmdb.org/t/p/original/mBZZn19lrNnzr1341z7rnZ7cdCh.jpg'} alt='D2' className="spotlight-image" />
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .8</h4>
@@ -272,51 +275,55 @@ const Spotlight = () => {
             </SwiperSlide>
             <SwiperSlide>
               <div className="spotlight-item">
-                <img src={'https://image.tmdb.org/t/p/original/s5znBQmprDJJ553IMQfwEVlfroH.jpg'} alt='D2' className="spotlight-image" />
+              <h1 className="spotlight-number">#9</h1>
+                <img src={'https://image.tmdb.org/t/p/original/kpIYvbD8uEw4wsYryGHfZORKzVM.jpg'} alt='D2' className="spotlight-image" />
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .9</h4>
-               
-                  <h2 className="spotlight-name">The Ministry of Ungentlemanly Warfare</h2>
-                 
+                  
+                  <h2 className="spotlight-name">The Umbrella Academy</h2>
+                  
                   <p className="spotlight-genres">
-                    <span className="genre a">Action</span>
-                    <span className="genre a">War</span>
-                    <span className="genre a">Comedy</span>
+                    <span className="genre a">Action & Adventure</span>
+                    <span className="genre a">Sci-Fi & Fantasy</span>
+                    <span className="genre a">Drama</span>
+
+
                   </p>
                   <div className="spotty">
-                   <h6 className="genre a">Movies</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                   <h6 className="genre a">SERIES</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
                   </div>
                   
-                  <p className="spotlight-overview">During World War II, the British Army assigns a group of competent soldiers to carry out a mission against the Nazi forces behind enemy lines... A true story about a secret British WWII organization</p>
+                  <p className="spotlight-overview"> A dysfunctional family of superheroes comes together to solve the mystery of their father's death, the threat of the apocalypse and more.</p>
                   <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/movie/799583')}>Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer(799583, "The Ministry of Ungentlemanly Warfare")}>Watch Now</Button>
+                  <Button className="btnprime" onClick={() => navigate('tv/75006')}>Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(75006, "The Umbrella Academy" ,1 ,1)}>Watch Now</Button>
                   </div>
-                 </div>
+                </div>
               </div>
             </SwiperSlide>
-            
             <SwiperSlide>
               <div className="spotlight-item">
-                <img src={'https://image.tmdb.org/t/p/original/aFmqXViWzIKmhR8Cy4QDqPU6pIL.jpg'} alt='D2' className="spotlight-image" />
+              <h1 className="spotlight-number">#10</h1>
+                <img src={'https://image.tmdb.org/t/p/original/1cVt0Tm7erwYT5lyae9vUkPr4XY.jpg'} alt='D2' className="spotlight-image" />
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .10</h4>
                   
-                  <h2 className="spotlight-name">Kingdom</h2>
+                  <h2 className="spotlight-name">Solar Opposites</h2>
                   
                   <p className="spotlight-genres">
-                    <span className="genre a">Drama</span>
-                    <span className="genre a">Mystery</span>
+                    <span className="genre a">Comedy</span>
+                    <span className="genre a">Animation</span>
+                    <span className="genre a">Sci-Fi & Fantasy</span>
 
                   </p>
                   <div className="spotty">
                    <h6 className="genre a">SERIES</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2019</h6>
                   </div>
                   
-                  <p className="spotlight-overview">In this zombie thriller set in Korea's medieval Joseon dynasty which has been defeated by corruption and famine, a mysterious rumor of the king’s death spreads, as does a strange plague that renders the infected immune to death and hungry for flesh.</p>
+                  <p className="spotlight-overview">A family of aliens from a much better world must take refuge in middle America after the destruction of their planet. Their mission: protect the Pupa, a living super computer that will one day evolve into its true form, consume them and terraform the Earth.</p>
                   <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/tv/70593')}>Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(70593, "Kingdom" ,1 ,1 )}>Watch Now</Button>
+                  <Button className="btnprime" onClick={() => navigate('/tv/97645')}>Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(97645, "Solar Opposites" ,1 ,1 )}>Watch Now</Button>
                   </div>
                  </div>
               </div>
@@ -326,6 +333,7 @@ const Spotlight = () => {
            
             <SwiperSlide>
               <div className="spotlight-item">
+              <h1 className="spotlight-number">#11</h1>
                 <img src={'https://image.tmdb.org/t/p/original/dNkLpb8aWhYo5mNoxkgaDkQeFxq.jpg'} alt='D2' className="spotlight-image" />
                 <div className="spotlight-content">
                   <h4 className="spon">Spotlight .11</h4>
