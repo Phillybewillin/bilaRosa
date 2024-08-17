@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import React, { useState, useEffect , useRef } from "react";
+import { useNavigate, useParams, useLocation  } from "react-router-dom";
 import '@vidstack/react/player/styles/default/theme.css';
 import '@vidstack/react/player/styles/default/layouts/video.css';
 import { defaultLayoutIcons, DefaultVideoLayout } from '@vidstack/react/player/layouts/default';
-import { MediaPlayer, MediaProvider, Track  , Spinner} from '@vidstack/react';
+import { MediaPlayer, MediaProvider, Track , LocalMediaStorage} from '@vidstack/react';
 import '@vidstack/react/player/styles/base.css';
 import '@vidstack/react/player/styles/plyr/theme.css';
 import axios from "axios";
@@ -22,16 +22,28 @@ export default function Player() {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const testurl = import.meta.env.VITE_CORS_URL;
+
+  const testurl = import.meta.env.VITE_FETCH_URL_TEST;
   const navigate = useNavigate();
   const location = useLocation();
+  
 
   useEffect(() => {
     if (title) {
-      const decodedTitle = decodeURIComponent(title);
-      document.title = `Watching ${decodedTitle}`;
-    }
+      const decodedTitles = decodeURIComponent(title);
+      const  decodedTitle = decodedTitles
+        .replace(/-/g, ' ')
+         .split(' ')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+           .join(' ');
+        document.title = `Watching ${decodedTitle}`;
 
+      if (season_number && episode_number) {
+        document.title = `Watching ${decodedTitle} - S${season_number} -E${episode_number}`;
+      }
+  
+    }
+   
     if (id) {
       fetchData(id, season_number, currentEpisode);
       fetchEpisodes(id, season_number);
@@ -57,14 +69,16 @@ export default function Player() {
       }
 
       const sourcesData = dataz?.data?.sources || [];
-      const subtitles = dataz?.data?.subtitles || [];
+      //const subtitles =  || [];
 
       setSources(sourcesData);
 
       const initialSource = sourcesData.find(source => source.quality === quality);
       setPlayerSource(initialSource ? initialSource.url : "");
 
-      setTextTracks(mapSubtitlesToTracks(subtitles));
+      setTextTracks(mapSubtitlesToTracks(dataz?.data?.subtitles));
+
+      console.log(dataz?.data?.subtitles);
     } catch (error) {
       console.error("Failed to fetch data:", error);
       setErrorMessage(error.message || "An unexpected error occurred.");
@@ -74,12 +88,17 @@ export default function Player() {
   };
 
   const mapSubtitlesToTracks = (subtitles) => {
+    console.log(subtitles)
+    if (!subtitles) {
+      return [];
+    }
     return subtitles.map((subtitle) => ({
       src: subtitle.url,
-      lang: subtitle.lang,
+      label: subtitle.lang || '',
+      kind: "subtitles",
+      srclang: subtitle.lang.toLowerCase().replace(/[^a-z]+/g, "-"), // simplified language tag
     }));
   };
-
   const fetchEpisodes = async (id, selectedSeason) => {
     if (id && selectedSeason) {
       try {
@@ -106,6 +125,7 @@ export default function Player() {
     fetchData(id, season_number, episodeNumber);
   };
 
+
   const handleBack = () => {
     navigate(-1);
   };
@@ -119,7 +139,7 @@ export default function Player() {
     const newSource = sources.find(source => source.quality === selectedQuality);
     setPlayerSource(newSource ? newSource.url : playerSource);
   };
-
+  
   return (
     <ErrorBoundary>
       {loading ? (
@@ -152,13 +172,16 @@ export default function Player() {
             </div>
 
             <MediaPlayer
-              title={title ? `Currently Watching ${decodeURIComponent(title)} ` : 'Watching'}
+              title={document.title && season_number && episode_number ? `Currently Watching ${document.title} - S${season_number} -E${episode_number} ` : ` Currently Watching ${document.title} ` }
               src={playerSource}
               id="player"
               load="eager"
-              autoPlay={false}
+              //ref={playerRef}
+              storage={new CustomLocalMediaStorage}
               playsInline
               crossOrigin=""
+              autoPlay={false}
+             
             >
               <MediaProvider>
                 {textTracks.map(track => (
@@ -170,7 +193,8 @@ export default function Player() {
             </MediaPlayer>
           </div>
 
-          <div className="episode-selector">
+         {episodes.length > 0 && ( <div className="episode-selector">
+            <h4 className="episodes_itemz">Episodes</h4>
             <ul className="episode_list">
               {episodes.map((episode, index) => (
                 <li
@@ -183,8 +207,50 @@ export default function Player() {
               ))}
             </ul>
           </div>
+          )}
         </>
       )}
     </ErrorBoundary>
   );
+}
+
+class CustomLocalMediaStorage extends LocalMediaStorage {
+  // Override the save method to customize what you store
+  save(player) {
+    const { id, type } = player.options;
+    const currentTime = player.currentTime;
+
+    let storageKey;
+    if (type === 'movie') {
+      storageKey = `movie-${id}`;
+    } else if (type === 'episode') {
+      const { season_number, episode_number } = player.options;
+      storageKey = `show-${id}-s${season_number}e${episode_number}`;
+    }
+
+    // Store the current time in local storage
+    localStorage.setItem(storageKey, JSON.stringify({ currentTime }));
+  }
+
+  // Override the load method to retrieve the custom data
+  load(player) {
+    const { id, type } = player.options;
+
+    let storageKey;
+    if (type === 'movie') {
+      storageKey = `movie-${id}`;
+    } else if (type === 'episode') {
+      const { season_number, episode_number } = player.options;
+      storageKey = `show-${id}-s${season_number}e${episode_number}`;
+    }
+
+    const storedData = localStorage.getItem(storageKey);
+
+    if (storedData) {
+      const { currentTime } = JSON.parse(storedData);
+      return {
+        currentTime: parseFloat(currentTime),
+      };
+    }
+  }
 }
