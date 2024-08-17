@@ -116,10 +116,16 @@ const MovieCard = (props) => {
       </Link>
           
           <div loading="lazy"  className="infomovie">
-            <div className="title">{item.title || item.name || <Skeleton count={1}/>}
-            <p loading="lazy" lazy="true" onClick={saveShow} style={{cursor : 'pointer' , color : saved ? 'red' : 'white'}}>
-          {saved ? <i class='bx bxs-bookmark-plus'  style={{fontSize :'19px'}}></i> :<i class='bx bx-bookmark-plus' style={{fontSize :'16px'}}></i>}
+            <div className="title">
+              <div className="titlename">
+                {item.title || item.name || <Skeleton count={1}/>}
+              </div> 
+              <div className="savemovie">
+                 <p onClick={saveShow} style={{cursor : 'pointer' , color : saved ? 'white' : 'black'}}>
+          {saved ? <i class='bx bxs-bookmark-plus'  style={{fontSize :'19px'}}></i> :<i class='bx bx-bookmark-plus' style={{fontSize :'18px'}}></i>}
            </p>
+              </div>
+           
             </div>
             <div className="cat"> <div className="catz">{props.category || <Skeleton count={1}/>}</div>
             <h4 className='year'>
