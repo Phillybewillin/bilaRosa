@@ -23,7 +23,7 @@ export default function Player() {
   const [errorMessage, setErrorMessage] = useState("");
 
 
-  const testurl = import.meta.env.VITE_CORS_URL;
+  const testurl = import.meta.env.VITE_FETCH_URL_TEST;
   const navigate = useNavigate();
   const location = useLocation();
   
@@ -172,7 +172,7 @@ export default function Player() {
             </div>
 
             <MediaPlayer
-              title={document.title && season_number && episode_number ? `Currently Watching ${document.title} - S${season_number} -E${episode_number} ` : ` Currently Watching ${document.title} ` }
+              title={document.title && season_number && episode_number ? `Currently ${document.title} ` : ` Currently ${document.title} ` }
               src={playerSource}
               id="player"
               load="eager"
