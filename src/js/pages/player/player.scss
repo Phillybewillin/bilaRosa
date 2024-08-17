@@ -92,6 +92,9 @@
   color: #ff0040;
   display: flex;
 
+  @include tablet {
+    display: none;
+  }
   @include mobile {
     display: none;
   }
