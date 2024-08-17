@@ -93,10 +93,11 @@
     .title{
         display: flex;
         align-items: center;
-        justify-content: space-around;
-        background-color: rgba(26, 26, 26, 0.97);
-        border-radius: 10px;
-        padding: 2px;
+        justify-content: space-between;
+        gap: 10px;
+        background-color: #1a1a1a;
+        border-radius: 5px;
+        padding: 1px;
         font-size: .64rem;
         font-weight: 400;
 
@@ -108,12 +109,12 @@
         display: inline-flex;
         align-items: center;
         //justify-content: center;
-        background-color: rgba(29, 29, 29, 0.514);
+        background-color: #191919;
         border: none;
-       justify-content: space-around;}
+       justify-content: space-between;}
 }
 .year{
-  background-color: rgb(39, 39, 39);
+  background-color: #232323;
   font-weight: 400;
   padding: 2px 7px;
   border-radius: 5px;
@@ -124,15 +125,27 @@
   background-color: $main-bg;
   font-weight: 400;
   padding: 2px 7px;
-  border-radius: 5px;
-  color: rgb(24, 24, 24);
+  border-radius: 10px;
+  color: rgb(0, 0, 0);
 }
 .catz{
-  background-color: rgb(39, 39, 39);
+  background-color: #232323;
   font-weight: 400;
   padding: 2px 7px;
   border-radius: 5px;
   color: $main-bg;
 }
-
+.titlename{
+ background-color: #171717;
+ padding: 7px;
+ border-radius: 5px;
+}
+.savemovie{
+  align-items: center;
+  text-align: center;
+  background-color: $main-bg;
+  padding: 2px 3px;
+  border-radius: 5px;
+  padding-top: 4px;
+}
 
