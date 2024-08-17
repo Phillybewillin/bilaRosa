@@ -22,7 +22,7 @@
   top: 0;
   left: 0;
   padding: .5rem;
-  background-color: #16161600;
+  background-color: #1414145f;
   z-index: 20;
   border-radius: 10px;
   margin: 10px;
@@ -35,10 +35,10 @@
   padding: 6px;
   cursor: pointer;
   margin: 0 7px;
-  color: $main-bg;
+  color: #ff0040;
 }
 .navih{
-  background-color: rgba(4, 4, 4, 0.514);
+  background-color: rgba(4, 4, 4, 0.315);
   border-radius: 5px;
   padding: 6px;
   cursor: pointer;
@@ -46,12 +46,12 @@
  
 }
 .navi:hover{
-  background-color: rgba(255, 255, 255, 0.47);
+  background-color: rgba(255, 255, 255, 0.884);
   color: #161616;
 }
 .navih:hover{
-  background-color: rgb(255, 255, 255);
-  color: #161616;
+  background-color: rgb(18, 18, 18);
+  color: $main-bg;
 }
 #player {
   width: 100%;
@@ -81,12 +81,17 @@
 }
 .quality-selector{
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 5px;
+  right: 5px;
   z-index: 10;
-   @include tablet {
-    display: none;
-  }
+  background-color: rgba(255, 255, 255, 0.192);
+  border-radius: 5px;
+  padding: 6px;
+  cursor: not-allowed;
+  margin: 0 10px;
+  color: #ff0040;
+  display: flex;
+
   @include mobile {
     display: none;
   }
