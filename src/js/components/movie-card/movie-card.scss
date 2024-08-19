@@ -6,8 +6,11 @@
     background-size: cover;
     background-repeat: no-repeat;
     padding-top: 155%;
-    border-radius: $border-radius;
-    margin-bottom: .2rem;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(to right, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
+
     transition: all .5s ease-in-out;
     
     .inCinema{
@@ -34,8 +37,8 @@
             right: 0;
             opacity: 0;
             transition: opacity 1s ease;
-            border: 2px solid $main-bg;
-            border-radius: $border-radius;
+           // border: 2px solid $main-bg;
+           // border-radius: $border-radius;
         
         }
         .btnz{
@@ -52,17 +55,21 @@
         }
 
         &:hover::before{
-            background-image: linear-gradient(180deg, rgba(0, 0, 0, 0), rgb(0, 0, 0));
-
+            background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.452), rgb(0, 0, 0));
+            padding-top: 200%;
             opacity: 1;
             //backdrop-filter: blur(10px);
-            //transition: all .8s ease-in-out;
+            transition: all .8s ease-in-out;
         }
 
         &:hover .btnz {
-            
+            background-color: #2928280d;
             color: $main-bg;
+            //padding: 10px;
+            //width: 25%;
+            border-radius: $border-radius;
             transform: translate(0%, -100%) scale(1);
+            transition: all .5s ease-in-out;
         
         }
 
@@ -75,14 +82,16 @@
     text-align: center;
     display: flex;
     flex-direction: column;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     //border-top:  2px solid black;
     //border: 1.4px solid $main-bg;
     justify-content: space-between;
-    gap: 0.1rem;
+    //gap: 0.1rem;
     padding: .5rem;
     font-size: .65rem;
     font-weight: 400;
-    border-radius: $border-radius;
+    //border-radius: $border-radius;
 
 
     @include mobile {
@@ -95,7 +104,7 @@
         align-items: center;
         justify-content: space-between;
         gap: 10px;
-        background-color: #1a1a1a;
+        //background-color: #1a1a1a;
         border-radius: 5px;
         padding: 1px;
         font-size: .64rem;
@@ -106,7 +115,7 @@
         }
     }
     .cat{
-        display: inline-flex;
+        display: flex;
         align-items: center;
         //justify-content: center;
         background-color: #191919;
@@ -122,7 +131,7 @@
 }
 
 .vote{
-  background-color: $main-bg;
+  background-color: grey;
   font-weight: 400;
   padding: 2px 7px;
   border-radius: 10px;
@@ -133,7 +142,7 @@
   font-weight: 400;
   padding: 2px 7px;
   border-radius: 5px;
-  color: $main-bg;
+  color: white;
 }
 .titlename{
  background-color: #171717;
@@ -143,8 +152,8 @@
 .savemovie{
   align-items: center;
   text-align: center;
-  background-color: $main-bg;
-  padding: 2px 3px;
+  background-color: grey;
+  padding: 0 3px;
   border-radius: 5px;
   padding-top: 4px;
 }
