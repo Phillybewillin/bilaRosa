@@ -49,18 +49,20 @@
     font-weight: 300;
     color: white;
     margin-bottom: .4rem;
-    border-left: 8px solid $main-bg;
-    border-right: 8px solid $main-bg;
-    width: 25%; 
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(to right, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
+width: 25%; 
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 
     @include mobile {
+        width: 60%;
         padding: 5px;
         margin-bottom: .5rem;
         font-size: small;
-        width:75%;
     }
 }
 .continue-watching-container{
@@ -72,7 +74,11 @@
     padding: 4px;
     margin-bottom: 1%;
     overflow: auto;
-    border: 2px solid rgb(26, 26, 26);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(to right, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
     border-radius: 10px;
 
 }
@@ -104,8 +110,8 @@
 }
 .trendTV{
     border: 2px solid rgb(26, 26, 26);
-    border-radius: 15px;
-   padding: 0.3rem;
+    border-radius: 8px;
+   padding: 0.1rem;
    // margin: 10px;
     .swiper-slide {
         width: 18%;
