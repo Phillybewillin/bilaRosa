@@ -3,7 +3,7 @@ import { useNavigate, useParams, useLocation  } from "react-router-dom";
 import '@vidstack/react/player/styles/default/theme.css';
 import '@vidstack/react/player/styles/default/layouts/video.css';
 import { defaultLayoutIcons, DefaultVideoLayout } from '@vidstack/react/player/layouts/default';
-import { MediaPlayer, MediaProvider, Track , LocalMediaStorage} from '@vidstack/react';
+import { MediaPlayer, MediaProvider, Track , LocalMediaStorage ,Menu ,useVideoQualityOptions} from '@vidstack/react';
 import '@vidstack/react/player/styles/base.css';
 import '@vidstack/react/player/styles/plyr/theme.css';
 import axios from "axios";
@@ -13,19 +13,19 @@ import ErrorBoundary from "../../pages/Errorboundary"; // Import the ErrorBounda
 import Button from "../../components/button/Button";
 export default function Player() {
   const { title, id, season_number, episode_number } = useParams();
-  const [playerSource, setPlayerSource] = useState("");
+  const [playerSource, setPlayerSource] = useState([]);
   const [textTracks, setTextTracks] = useState([]);
   const [episodes, setEpisodeData] = useState([]);
   const [currentEpisode, setCurrentEpisode] = useState(episode_number);
   const [quality, setQuality] = useState("auto");
-  const [sources, setSources] = useState([]);
+  //const [sources, setSources] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
-
-
+  //const customStorage = useRef(new CustomLocalMediaStorage());
+ 
   const testurl = import.meta.env.VITE_CORS_URL;
   const navigate = useNavigate();
-  const location = useLocation();
+ // const location = useLocation();
   
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function Player() {
         document.title = `Watching ${decodedTitle}`;
 
       if (season_number && episode_number) {
-        document.title = `Watching ${decodedTitle} - S${season_number} -E${episode_number}`;
+        document.title = `Watching ${decodedTitle} - S${season_number} -E${currentEpisode}`;
       }
   
     }
@@ -71,14 +71,14 @@ export default function Player() {
       const sourcesData = dataz?.data?.sources || [];
       //const subtitles =  || [];
 
-      setSources(sourcesData);
-
+      //setPlayerSource(formattedSources(dataz?.data?.sources));
+      //setQuality(dataz?.data?.sources?.map(source => source.quality));
       const initialSource = sourcesData.find(source => source.quality === quality);
       setPlayerSource(initialSource ? initialSource.url : "");
 
       setTextTracks(mapSubtitlesToTracks(dataz?.data?.subtitles));
 
-      console.log(dataz?.data?.subtitles);
+      //console.log(dataz?.data?.subtitles);
     } catch (error) {
       console.error("Failed to fetch data:", error);
       setErrorMessage(error.message || "An unexpected error occurred.");
@@ -87,8 +87,20 @@ export default function Player() {
     }
   };
 
+  const formattedSources = (sources) =>  {
+    console.log(sources)
+
+    return sources.map((source) => ({
+      src: source.url,
+      type: 'application/x-mpegURL',
+      label: source.quality,
+      default: source.quality === 'auto',
+      
+  }));
+
+  }
   const mapSubtitlesToTracks = (subtitles) => {
-    console.log(subtitles)
+    //console.log(subtitles)
     if (!subtitles) {
       return [];
     }
@@ -96,7 +108,8 @@ export default function Player() {
       src: subtitle.url,
       label: subtitle.lang || '',
       kind: "subtitles",
-      srclang: subtitle.lang.toLowerCase().replace(/[^a-z]+/g, "-"), // simplified language tag
+      //default: subtitle.lang === 'English',
+      //srclang: subtitle.lang.toLowerCase().replace(/[^a-z]+/g, "-"), // simplified language tag
     }));
   };
   const fetchEpisodes = async (id, selectedSeason) => {
@@ -120,8 +133,11 @@ export default function Player() {
 
   const handleEpisodeClick = (episodeNumber) => {
     setCurrentEpisode(episodeNumber);
-    const newUrl = `${location.pathname.split('?')[0]}?s=${season_number}&e=${episodeNumber}`;
-    navigate(newUrl, { replace: true });
+     const currentUrl = window.location.href;
+    const urlParts = currentUrl.split('/');
+    urlParts[urlParts.length - 1] = episodeNumber.toString();
+    const newUrl = urlParts.join('/');
+    window.history.pushState({}, '', newUrl );
     fetchData(id, season_number, episodeNumber);
   };
 
@@ -133,12 +149,55 @@ export default function Player() {
   const handleHome = () => {
     navigate('/');
   };
+  class CustomLocalMediaStorage extends LocalMediaStorage {
+    // Override the save method to customize what you store
+    
 
-  const handleQualityChange = (selectedQuality) => {
-    setQuality(selectedQuality);
-    const newSource = sources.find(source => source.quality === selectedQuality);
-    setPlayerSource(newSource ? newSource.url : playerSource);
-  };
+    save(player) {
+      let type = season_number && episodeNumber ? 'tv' : 'movie'; 
+      const { id  } = useParams();
+          const currentTime = player.currentTime;
+        if (player.options && player.options.id && player.options.type) {
+           player.options;
+           player.currentTime;
+        }
+     
+      let storageKey;
+      if (type === 'movie') {
+        storageKey = `movie-${id}`;
+      } else if (type === 'tv') {
+        const { season_number, episodeNumber } = player.options;
+        storageKey = `show-${id}-s${season_number}e${episodeNumber}`;
+      }
+  
+      // Store the current time in local storage
+      localStorage.setItem(storageKey, JSON.stringify({ currentTime }));
+    }
+  
+    // Override the load method to retrieve the custom data
+    load(player) {
+      const { id, type } = player.options;
+  
+      let storageKey;
+      if (type === 'movie') {
+        storageKey = `movie-${id}`;
+      } else if (type === 'tv') {
+        const { season_number, episodeNumber } = player.options;
+        storageKey = `show-${id}-s${season_number}e${episodeNumber}`;
+      }
+  
+      const storedData = localStorage.getItem(storageKey);
+  
+      if (storedData) {
+        const { currentTime } = JSON.parse(storedData);
+        return {
+          currentTime: parseFloat(currentTime),
+        };
+      }
+    }
+  }
+
+
   
   return (
     <ErrorBoundary>
@@ -148,27 +207,17 @@ export default function Player() {
         </div>
       ) : errorMessage ? (
         <div className="error-message">
-          <p className="error-text">{errorMessage}</p>
           <p className="error-text">No playerble resource found</p>
-          <Button className="btnprime " onClick={handleBack}>Go Back</Button>
+         
+          <p className="error-text">{errorMessage}</p>
+           <Button className="btnprime " onClick={handleHome}>Try another show</Button>
         </div>
       ) : (
-        <>
+        <> 
           <div className="player-container">
             <div className="menu">
-              <div className="navih" onClick={handleHome}> Home</div>
-              <div className="navi" onClick={handleBack}><i className="bx bx-arrow-back"></i>Back to Details</div>
-            </div>
-
-            <div className="quality-selector">
-              <label htmlFor="quality"><i className="bx bx-gear"></i></label>
-              <select id="quality" value={quality} onChange={(e) => handleQualityChange(e.target.value)}>
-                {sources.map((source) => (
-                  <option key={source.quality} value={source.quality}>
-                    {source.quality === "auto" ? "Auto" : `${source.quality}p`}
-                  </option>
-                ))}
-              </select>
+              <div className="navih" onClick={handleHome}><i className="bx bx-home" ></i></div>
+              <div className="navi" onClick={handleBack}><i className='bx bx-undo'></i>Back to Details</div>
             </div>
 
             <MediaPlayer
@@ -176,25 +225,28 @@ export default function Player() {
               src={playerSource}
               id="player"
               load="eager"
-              //ref={playerRef}
-              storage={new CustomLocalMediaStorage}
+              storage={new CustomLocalMediaStorage()}       
               playsInline
               crossOrigin=""
-              autoPlay={false}
+              autoQuality={true}
+             
+              preload="metadata"
+               autoPlay={false}
              
             >
+              
               <MediaProvider>
                 {textTracks.map(track => (
                   <Track {...track} key={track.src} />
                 ))}
               </MediaProvider>
               <DefaultVideoLayout icons={defaultLayoutIcons} />
-              <source src={playerSource} type="application/x-mpegURL" />
+             
             </MediaPlayer>
           </div>
 
          {episodes.length > 0 && ( <div className="episode-selector">
-            <h4 className="episodes_itemz">Episodes</h4>
+            <h4 className="episodes_title"><i class='bx bx-grid-horizontal ' ></i>Episodes</h4>
             <ul className="episode_list">
               {episodes.map((episode, index) => (
                 <li
@@ -202,7 +254,7 @@ export default function Player() {
                   key={index}
                   onClick={() => handleEpisodeClick(episode.episode_number)}
                 >
-                  {episode.episode_number}.{episode.name}
+                  {episode.episode_number}.  {episode.name}
                 </li>
               ))}
             </ul>
@@ -214,43 +266,4 @@ export default function Player() {
   );
 }
 
-class CustomLocalMediaStorage extends LocalMediaStorage {
-  // Override the save method to customize what you store
-  save(player) {
-    const { id, type } = player.options;
-    const currentTime = player.currentTime;
 
-    let storageKey;
-    if (type === 'movie') {
-      storageKey = `movie-${id}`;
-    } else if (type === 'episode') {
-      const { season_number, episode_number } = player.options;
-      storageKey = `show-${id}-s${season_number}e${episode_number}`;
-    }
-
-    // Store the current time in local storage
-    localStorage.setItem(storageKey, JSON.stringify({ currentTime }));
-  }
-
-  // Override the load method to retrieve the custom data
-  load(player) {
-    const { id, type } = player.options;
-
-    let storageKey;
-    if (type === 'movie') {
-      storageKey = `movie-${id}`;
-    } else if (type === 'episode') {
-      const { season_number, episode_number } = player.options;
-      storageKey = `show-${id}-s${season_number}e${episode_number}`;
-    }
-
-    const storedData = localStorage.getItem(storageKey);
-
-    if (storedData) {
-      const { currentTime } = JSON.parse(storedData);
-      return {
-        currentTime: parseFloat(currentTime),
-      };
-    }
-  }
-}
