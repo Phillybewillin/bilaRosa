@@ -105,16 +105,10 @@ const handlecardClick = (id, category, title, poster_path) => {
            navigation = {true}
            cssMode = {true}
            grabCursor = {true}
-            effect={'coverflow'}
-       centeredSlides={true}
+            //effect={'coverflow'}
+       centeredSlides={false}
       slidesPerView={'auto'}
-       coverflowEffect={{
-         rotate: 100,
-         stretch: 0,
-         depth: 40,
-         modifier: 1,
-         slideShadows: false,
-       }}
+       
        
        className="mySwiper"
        style={{
@@ -295,7 +289,7 @@ const handlecardClick = (id, category, title, poster_path) => {
             </div>
             <ToastContainer theme="dark" position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#1eff00' , color : 'white', borderRadius : '10px'}}/>
            
-            <div className="infoo" style={{width: '100%', backgroundColor: 'pink' , padding: '10px', textAlign: 'center',color : 'black',display: 'flex', justifyContent: 'center', alignItems: 'center'}}><h4><a href="https://www.buymeacoffee.com/_.0__3__0._" target="_blank" rel="noreferrer"><i className="bx bxs-heart"></i></a> </h4></div>
+            <div className="infoo" style={{width: '100%', backgroundColor: 'pink' , padding: '10px', textAlign: 'center',color : 'black',display: 'flex', justifyContent: 'center', alignItems: 'center'}}><h4><a href="https://www.buymeacoffee.com/_.0__3__0._" target="_blank" rel="noreferrer"><i class='bx bxs-donate-heart'></i></a> </h4></div>
         </>
     );
 }
