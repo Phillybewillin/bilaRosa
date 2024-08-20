@@ -7,24 +7,24 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Autoplay , Pagination } from "swiper/modules";
-//import { TMDBIdToUrlId } from "@/backend/metadata/tmdb";
+
 const Spotlight = () => {
 
     const navigate = useNavigate();
     const handleEpisodeClick = (id , title ,selectedSeason, episodeNumber) => {
-      console.log(selectedSeason , episodeNumber);
-      console.log(id , title  )
+      //console.log(selectedSeason , episodeNumber);
+      //console.log(id , title  )
         //console.log('handlePlayer function called', id, title , selectedSeason , episodeNumber);
 
         if (title && id && selectedSeason && episodeNumber) {
             const encodedTitle = encodeURIComponent(title.replace(/ /g, '-').toLowerCase());
             console.log(`Navigating to: /watch/${encodedTitle}/${id}/${selectedSeason}/${episodeNumber}`);
             navigate(`/watch/${encodedTitle}/${id}/${selectedSeason}/${episodeNumber}`);
-            console.log(id, title );
+            //console.log(id, title );
         }
     };
     const handlePlayer = (itemId, itemName) => {
-      console.log('handlePlayer function called', itemId, itemName);
+      //console.log('handlePlayer function called', itemId, itemName);
 
       if (itemName && itemId) {
           const encodedTitle = encodeURIComponent(itemName.replace(/ /g, '-').toLowerCase());
@@ -33,21 +33,24 @@ const Spotlight = () => {
           console.log(itemId);
       }
   };
+ 
     return (
       <>
         <div className="spotlight">
         
           <Swiper
+            //onSlideChange={handleSlideChange}
             spaceBetween={5}
             slidesPerView={1}
             navigation = {true}
+            speed={800}
             //pagination={{ clickable: true }}
             modules={[Navigation , Autoplay  ]}
-            className="spotlight-swiper"
+            className="swiper"
             cssMode = {true}
             grabCursor = {true}
 
-            autoplay={{ delay: 15000 }}
+            autoplay={{ delay: 10000 }}
             style={{ "--swiper-navigation-position": "absolute",
               "--swiper-navigation-margin-top": "10px",
               "--swiper-navigation-margin-bottom": "20px",
@@ -60,9 +63,34 @@ const Spotlight = () => {
           <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">#1</h1>
+                <img src={'https://image.tmdb.org/t/p/original/coATv42PoiLqAFKStJiMZs2r6Zb.jpg'} alt='D2' className="spotlight-image" />
+                <div className="spotlight-content">
+                  <h4 className="spon"> #Spotlight .1</h4>
+            
+                  <h2 className="spotlight-name">Inside Out 2</h2>
+              
+                  <p className="spotlight-genres">
+                    <span className="genre a">Animation</span>
+                    <span className="genre a">Comedy</span>
+                    <span className="genre a">Family</span>
+                  </p>
+                  <div className="spotty">
+                   <h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  
+                  <p className="spotlight-overview"> Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who’ve long been running a successful....</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/movie/1022789')}>Details</Button>
+                  <Button className="btn" onClick={() => handlePlayer( 1022789, "Inside Out 2")}>Watch Now</Button></div>
+                  </div>
+                 </div>
+            </SwiperSlide>
+          <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">#2</h1>
                 <img src={'https://image.tmdb.org/t/p/original/8xMR5w9qfpwhTJzjjvfj2ywvIF3.jpg'} alt='D2' className="spotlight-image" />
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .1</h4>
+                  <h4 className="spon">#Spotlight .2</h4>
                
                   <h2 className="spotlight-name">Fly Me to the Moon</h2>
                  
@@ -85,10 +113,10 @@ const Spotlight = () => {
             </SwiperSlide> 
            <SwiperSlide>
               <div className="spotlight-item">
-              <h1 className="spotlight-number">#2</h1>
-                <img src={'https://image.tmdb.org/t/p/original/58D6ZAvOKxlHjyX9S8qNKSBE9Y.jpg'} alt='D2' className="spotlight-image" />
+              <h1 className="spotlight-number">#3</h1>
+                <img src={'https://image.tmdb.org/t/p/original/A7MEYn25BeGGrleczbCLNaNb9D1.jpg'} alt='D2' className="spotlight-image" />
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .2</h4>
+                  <h4 className="spon">#Spotlight .3</h4>
                 
                   <h2 className="spotlight-name">Twisters</h2>
                   
@@ -106,32 +134,6 @@ const Spotlight = () => {
                   <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 718821, "Twisters")}>Watch Now </Button>
                   </div>
                   </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">#3</h1>
-                <img src={'https://image.tmdb.org/t/p/original/5nkutE9iQzgH4RH5XT1cd3QkVmd.jpg'} alt='D2' className="spotlight-image" />
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .3</h4>
-                
-                  <h2 className="spotlight-name">Bad Monkey</h2>
-                  
-                  <p className="spotlight-genres">
-                    <span className="genre a">Comedy</span>
-                    <span className="genre a">Crime</span>
-                    
-                  </p>
-                  <div className="spotty">
-                   <h6 className="genre a">Series</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  
-                  <p className="spotlight-overview">A detective turned restaurant inspector in Southern Florida is pulled into a world of greed and corruption after a tourist finds a severed arm while fishing. And yes, there's a monkey.</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/tv/130853')}>Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 130853, "Bad Monkey" ,1 ,1 )}>Watch Now </Button>
-                  </div>
-                 </div>
               </div>
             </SwiperSlide>
             <SwiperSlide>
@@ -164,10 +166,37 @@ const Spotlight = () => {
             </SwiperSlide>
             <SwiperSlide>
               <div className="spotlight-item">
-              <h1 className="spotlight-number">#5</h1>
-                <img src={'https://image.tmdb.org/t/p/original/lgkPzcOSnTvjeMnuFzozRO5HHw1.jpg'} alt='D2' className="spotlight-image" />
+                <h1 className="spotlight-number">#5</h1>
+                <img src={'https://image.tmdb.org/t/p/original/5nkutE9iQzgH4RH5XT1cd3QkVmd.jpg'} alt='D2' className="spotlight-image" />
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .5</h4>
+                
+                  <h2 className="spotlight-name">Bad Monkey</h2>
+                  
+                  <p className="spotlight-genres">
+                    <span className="genre a">Comedy</span>
+                    <span className="genre a">Crime</span>
+                    
+                  </p>
+                  <div className="spotty">
+                   <h6 className="genre a">Series</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  
+                  <p className="spotlight-overview">A detective turned restaurant inspector in Southern Florida is pulled into a world of greed and corruption after a tourist finds a severed arm while fishing. And yes, there's a monkey.</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/tv/130853')}>Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 130853, "Bad Monkey" ,1 ,1 )}>Watch Now </Button>
+                  </div>
+                 </div>
+              </div>
+            </SwiperSlide>
+            
+            <SwiperSlide>
+              <div className="spotlight-item">
+              <h1 className="spotlight-number">#6</h1>
+                <img src={'https://image.tmdb.org/t/p/original/lgkPzcOSnTvjeMnuFzozRO5HHw1.jpg'} alt='D2' className="spotlight-image" />
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .6</h4>
               
 
                   <h2 className="spotlight-name">Despicable Me 4</h2>
@@ -195,10 +224,10 @@ const Spotlight = () => {
            
           <SwiperSlide>
               <div className="spotlight-item">
-                <h1 className="spotlight-number">#6</h1>
+                <h1 className="spotlight-number">#7</h1>
                 <img src={'https://image.tmdb.org/t/p/original/viKEEaaCaZ0hZ2nGuvIEozlLooL.jpg'} alt='D2' className="spotlight-image" />
                 <div className="spotlight-content">
-                  <h4 className="spon"> #Spotlight .6</h4>
+                  <h4 className="spon"> #Spotlight .7</h4>
   
                   <h2 className="spotlight-name">MaXXXine</h2>
                   
@@ -221,31 +250,7 @@ const Spotlight = () => {
             </SwiperSlide>
             
            
-          <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">#7</h1>
-                <img src={'https://image.tmdb.org/t/p/original/zaWcEOR1pL0pgv0g3TIAN7p4OXK.jpg'} alt='D2' className="spotlight-image" />
-                <div className="spotlight-content">
-                  <h4 className="spon"> #Spotlight .7</h4>
-            
-                  <h2 className="spotlight-name">A Quiet Place: Day 1</h2>
-              
-                  <p className="spotlight-genres">
-                    <span className="genre a">Action</span>
-                    <span className="genre a">Horror</span>
-                    <span className="genre a">Thriller</span>
-                  </p>
-                  <div className="spotty">
-                   <h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  
-                  <p className="spotlight-overview"> Forty years after his unforgettable first case in Beverly Hills, Detroit cop Axel Foley returns to do what he does best: solve crimes and cause chaos.</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/movie/762441')}>Details</Button>
-                  <Button className="btn" onClick={() => handlePlayer( 762441, "A Quiet Place: Day 1")}>Watch Now</Button></div>
-                  </div>
-                 </div>
-            </SwiperSlide>
+          
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">#8</h1>
