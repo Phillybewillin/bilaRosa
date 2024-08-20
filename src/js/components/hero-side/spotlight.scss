@@ -2,6 +2,7 @@
 
 
 .spotlight {
+ 
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -23,9 +24,13 @@
     font-size: 1.5rem;
     margin-left: 10px;
     padding: 1.2rem;
-    color: $main-bg;
-    background-color: rgba(0, 0, 0, 0.692);
-    border-radius: 10px;
+    border-left: 3.5px solid transparent;
+    border-image: linear-gradient(to top, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
+  
+    color: lighten($color: #eeeeee, $amount: 4);
+    color-scheme: light;
+    background-color: rgba(0, 0, 0, 0.365);
+    border-radius: 5px;
     font-weight: 400;
     @include mobile {
         font-size: 1rem;
@@ -36,14 +41,17 @@
 }
 .spotlight-name{
     font-size: 1.5rem;
-    background-color: rgba(0, 0, 0, 0.139);
+    border-bottom: 5px solid transparent;
+    border-image: linear-gradient(to right, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
+  
+    //background-color: rgba(0, 0, 0, 0.139);
     border-radius: 10px;
     font-weight: 400;
     @include mobile {
-        font-size: 1rem;
+        font-size: 1.3rem;
     }
     @include tablet {
-        font-size: 1rem;
+        font-size: 1.4rem;
     }
 }
 .spotlight-image{
@@ -110,14 +118,16 @@
  }
 }
 
-.spon{
-    background-color: rgba(0, 0, 0, 0.409);
-    padding: .4rem;
-    border-radius: 5px;
-    color: $main-bg;
-    font-weight: 400;
-    text-decoration: line-through;
-    
+.spon {
+  background-color: rgba(0, 0, 0, 0.409);
+  padding: .4rem;
+  border-radius: 5px;
+  font-weight: 600;
+  text-decoration: line-through;
+  background-image: linear-gradient(to right, rgb(55, 0, 255), rgb(255, 0, 128));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .spotlight-genres{
     font-size: smaller;
@@ -146,7 +156,7 @@
   align-items: center;
   justify-content: center;
   font-size: small;
-  font-weight: 300;
+  font-weight: 300; 
   gap: 5px;
 }
 .genre {
