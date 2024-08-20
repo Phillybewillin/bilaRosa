@@ -11,6 +11,7 @@ import "./player.scss";
 import apiConfig from "../../api/apiConfig";
 import ErrorBoundary from "../../pages/Errorboundary"; // Import the ErrorBoundary component
 import Button from "../../components/button/Button";
+import Spinner from "./Spinner";
 export default function Player() {
   const { title, id, season_number, episode_number } = useParams();
   const [playerSource, setPlayerSource] = useState([]);
@@ -21,8 +22,7 @@ export default function Player() {
   //const [sources, setSources] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
-  //const customStorage = useRef(new CustomLocalMediaStorage());
- 
+
   const testurl = import.meta.env.VITE_CORS_URL;
   const navigate = useNavigate();
  // const location = useLocation();
@@ -99,6 +99,8 @@ export default function Player() {
   }));
 
   }
+
+  
   const mapSubtitlesToTracks = (subtitles) => {
     //console.log(subtitles)
     if (!subtitles) {
@@ -108,8 +110,6 @@ export default function Player() {
       src: subtitle.url,
       label: subtitle.lang || '',
       kind: "subtitles",
-      //default: subtitle.lang === 'English',
-      //srclang: subtitle.lang.toLowerCase().replace(/[^a-z]+/g, "-"), // simplified language tag
     }));
   };
   const fetchEpisodes = async (id, selectedSeason) => {
@@ -130,7 +130,7 @@ export default function Player() {
       }
     }
   };
-
+  
   const handleEpisodeClick = (episodeNumber) => {
     setCurrentEpisode(episodeNumber);
      const currentUrl = window.location.href;
@@ -149,62 +149,12 @@ export default function Player() {
   const handleHome = () => {
     navigate('/');
   };
-  class CustomLocalMediaStorage extends LocalMediaStorage {
-    // Override the save method to customize what you store
-    
-
-    save(player) {
-      let type = season_number && episodeNumber ? 'tv' : 'movie'; 
-      const { id  } = useParams();
-          const currentTime = player.currentTime;
-        if (player.options && player.options.id && player.options.type) {
-           player.options;
-           player.currentTime;
-        }
-     
-      let storageKey;
-      if (type === 'movie') {
-        storageKey = `movie-${id}`;
-      } else if (type === 'tv') {
-        const { season_number, episodeNumber } = player.options;
-        storageKey = `show-${id}-s${season_number}e${episodeNumber}`;
-      }
   
-      // Store the current time in local storage
-      localStorage.setItem(storageKey, JSON.stringify({ currentTime }));
-    }
-  
-    // Override the load method to retrieve the custom data
-    load(player) {
-      const { id, type } = player.options;
-  
-      let storageKey;
-      if (type === 'movie') {
-        storageKey = `movie-${id}`;
-      } else if (type === 'tv') {
-        const { season_number, episodeNumber } = player.options;
-        storageKey = `show-${id}-s${season_number}e${episodeNumber}`;
-      }
-  
-      const storedData = localStorage.getItem(storageKey);
-  
-      if (storedData) {
-        const { currentTime } = JSON.parse(storedData);
-        return {
-          currentTime: parseFloat(currentTime),
-        };
-      }
-    }
-  }
-
-
   
   return (
     <ErrorBoundary>
       {loading ? (
-        <div id="spinner">
-          
-        </div>
+        <Spinner />
       ) : errorMessage ? (
         <div className="error-message">
           <p className="error-text">No playerble resource found</p>
@@ -221,14 +171,15 @@ export default function Player() {
             </div>
 
             <MediaPlayer
+              storage={`custom-storage-key-${id}-${season_number}-${episode_number}`} 
               title={document.title && season_number && episode_number ? `Currently ${document.title} ` : ` Currently ${document.title} ` }
               src={playerSource}
               id="player"
               load="eager"
-              storage={new CustomLocalMediaStorage()}       
+                     
               playsInline
               crossOrigin=""
-              autoQuality={true}
+             // autoQuality={true}
              
               preload="metadata"
                autoPlay={false}
@@ -246,7 +197,7 @@ export default function Player() {
           </div>
 
          {episodes.length > 0 && ( <div className="episode-selector">
-            <h4 className="episodes_title"><i class='bx bx-grid-horizontal ' ></i>Episodes</h4>
+            <h4 className="episodes_title"><i className='bx bx-grid-horizontal ' ></i>Episodes</h4>
             <ul className="episode_list">
               {episodes.map((episode, index) => (
                 <li
