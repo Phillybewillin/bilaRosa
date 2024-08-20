@@ -44,10 +44,10 @@ export default defineConfig((config) => {
           name: "Zilla-XR",
           short_name: "ZillaXR",
           description: "Stream a wide range of Movies and Series up to 4k for Free, Watch Movies online without interuptions and without ads .",
-          background_color: "#ffffff",
-          theme_color: "#ffffff",
+          background_color: "#000000",
+          theme_color: "#000000",
           display: "standalone",
-          start_url: "/",
+          start_url: "https://www.zilla-xr.xyz",
           orientation: "any",
           icons: [
             {
