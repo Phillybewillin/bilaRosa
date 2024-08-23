@@ -142,8 +142,13 @@ export default function Player() {
   };
 
 
-  const handleBack = () => {
-    navigate(-1);
+ const handleBack = (season_number , episode_number ,id ) => {
+    if(season_number && episode_number){
+      navigate(`/tv/${id}`)
+    }else{
+      navigate(-1);
+    }
+    
   };
 
   const handleHome = () => {
@@ -170,19 +175,19 @@ export default function Player() {
               <div className="navi" onClick={handleBack}><i className='bx bx-undo'></i>Back to Details</div>
             </div>
 
-            <MediaPlayer
-              storage={`custom-storage-key-${id}-${season_number}-${episode_number}`} 
+             <MediaPlayer
+              //storage={`custom-storage-key-${id}-${season_number}-${episode_number}`} 
               title={document.title && season_number && episode_number ? `Currently ${document.title} ` : ` Currently ${document.title} ` }
               src={playerSource}
               id="player"
+              streamType="on-demand"
               load="eager"
-                     
+              viewType='video'
+              logLevel='warn'
+              crossOrigin
               playsInline
-              crossOrigin=""
-             // autoQuality={true}
-             
               preload="metadata"
-               autoPlay={false}
+              autoPlay={false}
              
             >
               
