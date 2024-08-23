@@ -33,7 +33,7 @@ const Detail = () => {
         const getDetail = async () => {
             const response = await tmdbApi.detail(category, id, {params: {}});
             setItem(response);
-            window.scrollTo(0, 0);
+            //window.scrollTo(0, 0);
            // console.log(response);
         }
         getDetail();
@@ -155,7 +155,7 @@ const Detail = () => {
     
     const [like , setLike] = useState(false);
    
-    const [iframeSrc, setIframeSrc] = useState('');
+   
          
         // Function to set the iframe src based on the item type
 
@@ -203,13 +203,13 @@ const Detail = () => {
         const navigate = useNavigate();
   
         const handlePlayer = (itemId, itemName) => {
-          console.log('handlePlayer function called', itemId, itemName);
+          //console.log('handlePlayer function called', itemId, itemName);
 
           if (itemName && itemId) {
               const encodedTitle = encodeURIComponent(itemName.replace(/ /g, '-').toLowerCase());
               console.log(`Navigating to: /watch/${encodedTitle}/${itemId}`);
               navigate(`/watch/${encodedTitle}/${itemId}`);
-              console.log(itemId, itemName);
+              //console.log(itemId, itemName);
           }
       };
 
@@ -238,8 +238,8 @@ const Detail = () => {
                                     ))
                                 }
                                </div>
-                              <p onClick={saveShow} style={{position : 'absolute' , top : '4px' , right : '5px' , cursor : 'pointer' , color : like ? 'red' : 'white'}}>
-                                     {like ? <i className='bx bx-happy-heart-eyes' style={{fontSize :'15px'}}></i> :<i className="bx bx-bookmark" style={{fontSize :'15px'}}></i> }
+                              <p onClick={saveShow} style={{position : 'absolute', backgroundColor : 'black' , padding : '3px' ,borderRadius : '5px', top : '4px' , right : '5px' , cursor : 'pointer' , color : like ? 'red' : 'white'}}>
+                                     {like ? <i className='bx bxs-bookmark-plus'  style={{fontSize :'17px'}}></i> :<i className='bx bx-bookmark-plus' style={{fontSize :'17px'}}></i> }
                                </p>
                                <div className="secz">
                                 <div className="runtime"><i className="bx bx-time"></i>{item.runtime || item.episode_run_time} min</div>
@@ -262,24 +262,29 @@ const Detail = () => {
                               id={item.id} title={item.name || item.title}/>
                               }
                               {category === 'movie' && 
+                              <>
+                              <div className="playbtn" onClick={() => handlePlayer(item.id, item.name || item.title)}><i className='bx bx-play-circle' style={{color: 'white', fontSize: '50px'}}></i>Play</div>
+                        
+                        <div className="butz">
+
+                        <Button className="btn" onClick={() => handlePlayer(item.id, item.name || item.title)}>Watch Now</Button>
+                      </div>
+                              </>
                             
-                            <div className="butz">
- 
-                            <Button className="btn" onClick={() => handlePlayer(item.id, item.name || item.title)}>Watch Now</Button>
-                          </div>
                              }  
 
-                                  <div className="overview">
-                                       <div className="overview">
-                                           <h4>Casts</h4>
-                                       </div>
-                                       <CastList id={item.id}/> 
-                                   </div>
+                                 
                            </div>
                        </div> 
+                       <div className="overview">
+                                       <div className="overview">
+                                           <h4 className='titledetails'>Casts</h4>
+                                       </div>
+                                       <CastList id={item.id}/> 
+                        </div>
                        <div className="section mb-3">
                                <div className="overview">
-                                   <h3>You might also like</h3>
+                                   <h3 className='titledetails'>You might also like</h3>
                                </div>
                                <MovieList category={category} type="similar" id={item.id}/>
                            </div>
