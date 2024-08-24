@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useRef , useEffect } from 'react';
+import { useRef , useEffect ,useCallback } from 'react';
 
 import { Link , NavLink} from 'react-router-dom';
 import apiConfig from '../../api/apiConfig';
@@ -39,7 +39,8 @@ const headerNav = [
     }
 ]
 
-export const Header = React.memo(() => {
+// eslint-disable-next-line react/display-name
+const Header = React.memo(() => {
     //const { user , logOut } = React.useContext(UserAuth) || {};
     const [showModal, setShowModal] = React.useState(false);
     const [showSignup, setShowSignup] = React.useState(true);
@@ -53,14 +54,14 @@ export const Header = React.memo(() => {
     const { user, logOut } = UserAuth();
     const  navigate= useNavigate(); // Move useNavigate here
 
-    const handlelogout = async () => {
+    const handlelogout = useCallback(async () => {
         try {
             await logOut();
             navigate('/'); // Now you can use navigate here
         } catch (error) {
             console.log(error);
         }
-    };
+    }, [logOut, navigate]);
     //const { pathname } = useLocation();
     const headerRef = useRef(null);
 
@@ -109,11 +110,26 @@ export const Header = React.memo(() => {
     return (
         <>
         <div ref={headerRef} className="header">
-       
-       <div className="header__wrap container">
-           <div className="logo">
+        <div className="logo" onClick={() => navigate('/')}>
                <img src={logo} alt="ZillaXR"/>
-           </div>
+       </div>
+       
+        <div className="mlrowa">
+         <div className="searchmovie">
+        <Input
+          type="text"
+          placeholder="What do you wanna watch...."
+          value={searchValue}
+          onChange={handleInputChange}
+        />
+        <div className="mds">
+          <Mlist movies={movies || []} />
+        </div>
+      </div>
+    </div>
+
+   
+       <div className="header__wrap container">
            <nav className="header__nav">
             {headerNav.map((navItem) => (
               <NavLink
@@ -127,19 +143,7 @@ export const Header = React.memo(() => {
             ))}
           </nav>
         
-          <div className="mlrow2">
-      <div className="searchmovie">
-        <Input
-          type="text"
-          placeholder="What do you wanna watch...."
-          value={searchValue}
-          onChange={handleInputChange}
-        />
-        <div className="mds">
-          <Mlist movies={movies || []} />
-        </div>
-      </div>
-    </div>
+         
                      
     {user?.email? (
               
@@ -188,7 +192,6 @@ export const Header = React.memo(() => {
         </>
         
     );
-}
-)
+}, );
 
 export default Header;
