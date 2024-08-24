@@ -5,6 +5,9 @@ i {
     font-size: 1.3rem;
 }
 .logo {
+   background-color: rgba(8, 8, 8, 0.747);
+   border-radius: 10px;
+   margin-left: 20px;
     font-size: 1.3rem;
     font-weight: 500;
     color: $main-bg;
@@ -13,7 +16,7 @@ i {
     @include flex(center, flex-start);
 
     img {
-        margin-right: 20px;
+        //margin-right: 20px;
         width: 40px;
 
         @include mobile {
@@ -75,7 +78,6 @@ i {
     height: $header-height;
     position: fixed;
     top: 0;
-    right: 0;
     left: 0;
     width: 100%;
     z-index: 50;
@@ -107,6 +109,7 @@ i {
 
     &__nav {
         @include flex(center, space-around);
+        
 
         & > * ~ * {
             margin-left: 1rem;
@@ -211,7 +214,7 @@ i {
     align-items: center;
     justify-content: flex-end;
     margin-top: 1rem;
-    margin-left: 7rem;
+    //margin-left: 7rem;
     
     @include mobile {
         margin-left: 0;
@@ -221,35 +224,41 @@ i {
 }
 
 .iconbox{
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(48, 48, 48, 0.436);
     //backdrop-filter: blur(10px);
-    padding: 4px 10px;
+    padding: 5px 12px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: smaller;
-    gap: .5rem;
+    font-size:.6rem;
+    gap: .1rem;
     transition: all 0.7s ease-in-out;
-    &:hover{
-        .iconv{
-            font-size: smaller;
-            background-color: rgba(7, 7, 7, 0.733);
-            color: $main-bg;
-            border-radius: 10px;
-            padding: 2px 10px;
-            font-weight: 500;
-            opacity: 1;
-            transition: all 0.3s ease-in-out;
-        }
-    }
+    
+    &::after{
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      transition: width 0.5s ease;
+      height: 2px;
+      background-color: $main-bg;
+  }
+  &.active::after ,&:hover::after{
+      width: 100%;
+      
+  }
+   
 }
 .iconv{
-    opacity: 0;
+    opacity: 1;
     //font-size: 1.2rem;
     font-weight: 250;
     transition: all 0.3s ease-in-out;
+  
     @include mobile {
         opacity: 1;
         font-size: 1rem;
@@ -264,21 +273,30 @@ i {
     width: 100%;
     max-height: 70vh;
     border-radius: 10px;
-    margin-top: 30rem;
+    margin-top: calc(100vh - 7rem);
     overflow: auto;
-
+   
+    @include tablet {
+        margin-top: calc(100vh - 10rem);
+        width: 75vw;
+       
+        
+    }
     @include mobile {
-        margin-top: 74rem;
+      margin-top: calc(100vh - 10rem);
+       
         
     }
 }
+
 .searchmovie{
+   margin-left: -150px;
     display: flex;
     //justify-content: flex-start;
     padding: 0 0.3rem;
     position: relative;
     align-items: center;
-    width: 100%;
+    width: 500px;
     input {
         background-color: rgba(0, 0, 0, 0.795);
         //border: 2px solid $main-bg;
@@ -295,10 +313,12 @@ i {
         color: $main-bg;
     }
     @include tablet {
+      margin-left: 0;
        width: 300px; 
       
     }
     @include mobile {
+        margin-left: 0;
         width: 280px;
         
     }
