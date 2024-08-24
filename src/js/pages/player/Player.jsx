@@ -1,9 +1,9 @@
-import React, { useState, useEffect , useRef } from "react";
-import { useNavigate, useParams, useLocation  } from "react-router-dom";
+import React, { useState, useEffect , useCallback } from "react";
+import { useNavigate, useParams,  } from "react-router-dom";
 import '@vidstack/react/player/styles/default/theme.css';
 import '@vidstack/react/player/styles/default/layouts/video.css';
 import { defaultLayoutIcons, DefaultVideoLayout } from '@vidstack/react/player/layouts/default';
-import { MediaPlayer, MediaProvider, Track , LocalMediaStorage ,Menu ,useVideoQualityOptions} from '@vidstack/react';
+import { MediaPlayer, MediaProvider, Track } from '@vidstack/react';
 import '@vidstack/react/player/styles/base.css';
 import '@vidstack/react/player/styles/plyr/theme.css';
 import axios from "axios";
@@ -48,11 +48,11 @@ export default function Player() {
       fetchData(id, season_number, currentEpisode);
       fetchEpisodes(id, season_number);
     }
-  }, [title, id, season_number, currentEpisode]);
+  }, [title, id, season_number, currentEpisode, episode_number]);
 
-  const fetchData = async (showTMDBid, seasonNumber, episodeNumber) => {
+  const fetchData = useCallback(async (showTMDBid, seasonNumber, episodeNumber) => {
     try {
-      setLoading(true); // Start loading
+      setLoading(false); // Start loading
       let baseurl = `${testurl}/vidsrc?id=${showTMDBid}`;
       let additionalParams = "";
 
@@ -85,20 +85,7 @@ export default function Player() {
     } finally {
       setLoading(false); // End loading
     }
-  };
-
-  const formattedSources = (sources) =>  {
-    console.log(sources)
-
-    return sources.map((source) => ({
-      src: source.url,
-      type: 'application/x-mpegURL',
-      label: source.quality,
-      default: source.quality === 'auto',
-      
-  }));
-
-  }
+  }, [testurl, quality]);
 
   
   const mapSubtitlesToTracks = (subtitles) => {
@@ -132,12 +119,11 @@ export default function Player() {
   };
   
   const handleEpisodeClick = (episodeNumber) => {
+    const url = new URL(window.location.href);
+    url.pathname = url.pathname.replace(/\/\d+$/, `/${episodeNumber}`);
+    window.history.pushState({}, '', url.toString());
+  
     setCurrentEpisode(episodeNumber);
-     const currentUrl = window.location.href;
-    const urlParts = currentUrl.split('/');
-    urlParts[urlParts.length - 1] = episodeNumber.toString();
-    const newUrl = urlParts.join('/');
-    window.history.pushState({}, '', newUrl );
     fetchData(id, season_number, episodeNumber);
   };
 
@@ -154,6 +140,11 @@ export default function Player() {
   const handleHome = () => {
     navigate('/');
   };
+  const [autoPlay, setAutoPlay] = useState(false);
+
+const handleCanPlay = () => {
+  setAutoPlay(true);
+};
   
   
   return (
@@ -165,7 +156,8 @@ export default function Player() {
           <p className="error-text">No playerble resource found</p>
          
           <p className="error-text">{errorMessage}</p>
-           <Button className="btnprime " onClick={handleHome}>Try another show</Button>
+           <Button className="btn " onClick={handleHome}>Try another show</Button>
+           <Button className="btn " onClick={handleBack}>Back to Details</Button>
         </div>
       ) : (
         <> 
@@ -186,8 +178,10 @@ export default function Player() {
               logLevel='warn'
               crossOrigin
               playsInline
-              preload="metadata"
-              autoPlay={false}
+              preload="auto"
+              onLoadedMetadata={handleCanPlay}
+              
+              autoPlay={autoPlay}
              
             >
               
@@ -201,21 +195,24 @@ export default function Player() {
             </MediaPlayer>
           </div>
 
-         {episodes.length > 0 && ( <div className="episode-selector">
-            <h4 className="episodes_title"><i className='bx bx-grid-horizontal ' ></i>Episodes</h4>
-            <ul className="episode_list">
-              {episodes.map((episode, index) => (
-                <li
-                  className={`episodes_itemz ${currentEpisode == episode.episode_number ? "actively" : ""}`}
-                  key={index}
-                  onClick={() => handleEpisodeClick(episode.episode_number)}
-                >
-                  {episode.episode_number}.  {episode.name}
-                </li>
-              ))}
-            </ul>
-          </div>
-          )}
+          {episodes.length > 0 && (
+      <div className="episode-selector">
+        <h4 className="episodes_title"><i className='bx bx-grid-horizontal'></i>Episodes</h4>
+        <ul className="episode_list">
+          {episodes
+            .filter(episode => new Date(episode.air_date) <= new Date()) // Filter out unreleased episodes
+            .map((episode, index) => (
+              <li
+                className={`episodes_itemz ${currentEpisode == episode.episode_number ? "actively" : ""}`}
+                key={index}
+                onClick={() => handleEpisodeClick(episode.episode_number)}
+              >
+                {episode.episode_number}. {episode.name}
+              </li>
+            ))}
+        </ul>
+      </div>
+    )}
         </>
       )}
     </ErrorBoundary>
