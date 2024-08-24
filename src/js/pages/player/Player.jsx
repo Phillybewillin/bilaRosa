@@ -23,7 +23,7 @@ export default function Player() {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const testurl = import.meta.env.VITE_CORS_URL;
+  const testurl = import.meta.env.VITE_FETCH_URL_TEST;
   const navigate = useNavigate();
  // const location = useLocation();
   
@@ -128,8 +128,8 @@ export default function Player() {
   };
 
 
- const handleBack = (season_number , episode_number ,id ) => {
-    if(season_number && episode_number){
+ const handleBack = ( ) => {
+    if(id && season_number && episode_number){
       navigate(`/tv/${id}`)
     }else{
       navigate(-1);
