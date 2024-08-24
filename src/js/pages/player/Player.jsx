@@ -23,7 +23,7 @@ export default function Player() {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const testurl = import.meta.env.VITE_FETCH_URL_TEST;
+  const testurl = import.meta.env.VITE_CORS_URL;
   const navigate = useNavigate();
  // const location = useLocation();
   
