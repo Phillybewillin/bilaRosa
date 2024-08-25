@@ -18,6 +18,8 @@ export default function Player() {
   const [textTracks, setTextTracks] = useState([]);
   const [episodes, setEpisodeData] = useState([]);
   const [currentEpisode, setCurrentEpisode] = useState(episode_number);
+  const [episodeChanged, setEpisodeChanged] = useState(false);
+
   const [quality, setQuality] = useState("auto");
   //const [sources, setSources] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,11 +47,22 @@ export default function Player() {
     }
    
     if (id) {
-      fetchData(id, season_number, currentEpisode);
+      //fetchData(id, season_number, currentEpisode);
       fetchEpisodes(id, season_number);
     }
-  }, [title, id, season_number, currentEpisode, episode_number]);
-
+  }, [title, id, season_number ,currentEpisode]);
+  
+  useEffect(() => {
+    if (episodeChanged) {
+      fetchData(id, season_number, currentEpisode);
+      setEpisodeChanged(false);
+    }
+  }, [episodeChanged]);
+  
+  // When the currentEpisode value changes, set the episodeChanged flag to true
+  useEffect(() => {
+    setEpisodeChanged(true);
+  }, [currentEpisode]);
   const fetchData = useCallback(async (showTMDBid, seasonNumber, episodeNumber) => {
     try {
       setLoading(false); // Start loading
@@ -122,9 +135,9 @@ export default function Player() {
     const url = new URL(window.location.href);
     url.pathname = url.pathname.replace(/\/\d+$/, `/${episodeNumber}`);
     window.history.pushState({}, '', url.toString());
-  
+    setLoading(true);
     setCurrentEpisode(episodeNumber);
-    fetchData(id, season_number, episodeNumber);
+    //fetchData(id, season_number, episodeNumber);
   };
 
 
