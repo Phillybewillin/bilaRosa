@@ -48,8 +48,8 @@
 
 
 .movie-content {
-    backdrop-filter: blur(5px);
-    background-color: #0000009a;
+    //backdrop-filter: blur(5px);
+    background-color: #00000063;
     border-radius: 10px;
     @include flex(flex-start, flex-start);
     max-width: 1280px;
@@ -61,27 +61,34 @@
 
     &__poster {
         flex: 1;
+        position: absolute;
+        top: 30px;
+        right: 20px;
+       // z-index: 99;
 
         @include mobile {
-            //display: none;
+            display: none;
         }
 
         &__img {
+            width: 200px;
+          
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
             border-radius: $border-radius;
             padding-top: 155%;
-            filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.822));
+            filter: drop-shadow(0 0 5px rgba(39, 39, 39, 0.164));
             
         }
     }
 
     &__info {
-        //background-color: #00000070;
+       backdrop-filter: blur(10px);
+        background-color: #000000a9;
         border-radius: $border-radius;
         padding: 2rem;
-        width: 84%;
+        width: 75%;
         font-weight: 200;
         //padding-left: 2rem;
         position: relative;
@@ -98,10 +105,10 @@
         }
 
         .title {
-            padding-top: 100px;
+            padding-top: 20px;
             font-weight: 400;
             
-            font-size: 1.8rem;
+            font-size: 2rem;
             line-height: 1;
 
             @include mobile {
@@ -359,15 +366,11 @@
   padding: 10px;
   position: absolute;
   cursor: pointer;
-  scale: 1.1;
-  top: 20%;
+  scale: 1.4;
+  top: 29%;
   left: 80%;
   transform: translate(-50%, -50%);
-  background-image: linear-gradient(to right, rgb(55, 0, 255), rgb(255, 0, 128));
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
- // border-bottom: 5px solid transparent;
+  border-bottom: 5px solid transparent;
   transition: all .5s ease-in-out;
   @include mobile {
     display: none;
