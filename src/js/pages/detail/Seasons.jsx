@@ -57,13 +57,6 @@ const Seasons = ({ id , title}) => {
     };
 
 
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    };
-
     return (
         <div className="seasons-episodes">
             <div className="seasons">
@@ -85,25 +78,31 @@ const Seasons = ({ id , title}) => {
                         <h4 className="episodes__title">Season {selectedSeason}</h4>
                         <div className="episodes__list">
                             {episodes && episodes.map((episode) => (
-                                <div className="episodes__item" key={episode.id} onClick={() => handleEpisodeClick( id , title ,selectedSeason, episode.episode_number)}>
+                              <>
+                              <div className="episodes__item" key={episode.id} onClick={() => handleEpisodeClick( id , title ,selectedSeason, episode.episode_number)}>
                                     <img src={`https://image.tmdb.org/t/p/w1280${episode.still_path}`} alt="" />
                                     <h2 className="episodes__name">{episode.name}</h2>
-                                    <p className="episodes__number">episode:{episode.episode_number}</p>
-                                    <p className="episodes__date">{episode.air_date}</p>
                                     <p className="episodes__time">{episode.runtime} min</p>
+                                     <p className="episodes__date">{episode.air_date}</p>
+                               
                                     
-                                    <Button className="btnprime2" onClick={() => handleEpisodeClick( id , title ,selectedSeason, episode.episode_number)} style={{ width: '50%' }}>Play</Button>
-                                
+                                    
                                 </div>
-                            ))}
+                                <div className="episodes__desc">
+                                <p className="episodes__number">episode:{episode.episode_number}</p>
+                                   
+                                <p className="episodes__time">{episode.air_date}</p>
+                                    
+                                  {episode.overview}
+                                  </div>
+                            
+                              </>
+                                ))}
                         </div>
                     </div>
                 </div>
             )}
 
-            <div className="scrolltotop" onClick={scrollToTop} style={{ position: 'fixed', bottom: '50px', right: '20px', cursor: 'pointer', fontSize: '20px', backgroundColor: 'black', borderRadius: '50%', width: '40px', height: '40px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#00ffbb' }}>
-                <i className="bx bx-chevron-up"></i>
-            </div>
         </div>
     );
 };
