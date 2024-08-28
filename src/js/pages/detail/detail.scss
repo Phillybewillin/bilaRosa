@@ -46,10 +46,16 @@
   
 }
 
+.detail-container {
+  margin-top: 12rem;
 
+    @include tablet {
+        margin-top: 350px;
+    }
+}
 .movie-content {
     //backdrop-filter: blur(5px);
-    background-color: #00000063;
+    background-color: #0000005a;
     border-radius: 10px;
     @include flex(flex-start, flex-start);
     max-width: 1280px;
@@ -62,24 +68,36 @@
     &__poster {
         flex: 1;
         position: absolute;
-        top: 30px;
-        right: 20px;
+        top: 12rem;
+        right: 25px;
+        background-color: rgb(0, 0, 0);
+        padding: 5px;
+      
+        filter: drop-shadow(0 0 25px rgba(5, 5, 5, 0.918));
+      
        // z-index: 99;
+
+        @include tablet {
+            top: 30rem;
+        }
 
         @include mobile {
             display: none;
         }
 
         &__img {
-            width: 200px;
+            width: 220px;
           
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
             border-radius: $border-radius;
             padding-top: 155%;
-            filter: drop-shadow(0 0 5px rgba(39, 39, 39, 0.164));
-            
+
+            @include tablet {
+              width: 130px;
+            }
+              
         }
     }
 
@@ -88,13 +106,15 @@
         background-color: #000000a9;
         border-radius: $border-radius;
         padding: 2rem;
-        width: 75%;
+        width: 77%;
         font-weight: 200;
         //padding-left: 2rem;
         position: relative;
+        margin-left: 10px;
 
 
         @include mobile {
+            margin-left: 0;
             width: 100%;
             padding-left: .8rem;
             font-size: 15px;
@@ -105,15 +125,15 @@
         }
 
         .title {
-            padding-top: 20px;
-            font-weight: 400;
+            padding-top: 10px;
+            font-weight: 600;
             
-            font-size: 2rem;
+            font-size: 2.2rem;
             line-height: 1;
 
             @include mobile {
                 padding-top: 10px;
-                font-size: 1.5rem;
+                font-size: 2rem;
             }
         }
 
@@ -161,7 +181,7 @@
     }
 
     @include tablet {
-        margin-top: -400px;
+        margin-top: -500px;
     }
 
     @include mobile {
@@ -204,14 +224,16 @@
         }
 
         &__name {
+            position: relative;
             font-size: .6rem;
             text-align: center;
             color: rgb(211, 211, 211);
-            background-color: rgb(26, 26, 26);
+            background-color: rgba(26, 26, 26, 0.833);
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
             padding: 5px 10px;
             font-weight: 400;
+
         }
         &__char{
           position: absolute;
@@ -265,13 +287,11 @@
     gap: 0.1rem;
     padding: 7px 7px;
     width: auto;
-    background-color: rgba(56, 52, 52, 0.288);
-    
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom: 1.5px solid rgb(255, 255, 255);
-    border-end-end-radius: 2px;
-    border-end-start-radius: 2px;
+    background-color: rgba(21, 21, 21, 0.288);
+    border-top-left-radius: 1px;
+    border-top-right-radius: 1px;
+    //border-top: 1px solid $main-bg;
+   
   
 
 }
@@ -283,13 +303,10 @@
     gap: 0.1rem;
     padding: 7px 5px;
     width: auto;
-    background-color: rgba(56, 52, 52, 0.288);
-    
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom: 1.5px solid rgb(255, 255, 255);
-    border-end-end-radius: 2px;
-    border-end-start-radius: 2px;
+    background-color: rgba(21, 21, 21, 0.288);
+    border-top-left-radius: 1px;
+    border-top-right-radius: 1px;
+    //border-top: 1px solid $main-bg;
    
     
 }
@@ -302,13 +319,11 @@
     gap: 0.1rem;
     padding: 7px 7px;
     width: auto;
-    background-color: rgba(56, 52, 52, 0.288);
-    
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom: 1.5px solid rgb(255, 255, 255);
-    border-end-end-radius: 2px;
-    border-end-start-radius: 2px;
+    background-color: rgba(21, 21, 21, 0.288);
+    border-top-left-radius: 1px;
+    border-top-right-radius: 1px;
+    //border-top: 1px solid $main-bg;
+   
   
 }
 .rating{
@@ -320,33 +335,50 @@
     gap: 0.1rem;
     padding: 7px 7px;
     width: auto;
-    background-color: rgba(56, 52, 52, 0.288);
+    background-color: rgba(21, 21, 21, 0.288);
+    border-top-left-radius: 1px;
+    border-top-right-radius: 1px;
+    //border-top: 1px solid $main-bg;
     
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom: 1.5px solid rgb(255, 255, 255);
-    border-end-end-radius: 2px;
-    border-end-start-radius: 2px;
      
 
 }
 .overview{
-    background-color: #0000007b;
-    font-size: .8rem;
-    font-weight: 400;
+    background-color: #1818186d;
+    font-size: .7rem;
+    font-weight: 100;
     padding: 10px;
     //line-height: 1;
-    margin-top: 1rem;
+    margin-top:0;
     text-align: center;
-    border-top-left-radius: 5px;
+    border-top-left-radius: 0px;
     border-top-right-radius: 5px;
-    //border-bottom: 1.5px solid white;
-   
+    border-left: 1px solid transparent;
+    border-image: linear-gradient(to bottom, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
+    
+}
+.titleoverview{
+  display: flex;
+  justify-content: center;
+  background-color: #1818186d;
+  font-size: .8rem;
+  font-weight: 400;
+  padding: 5px 10px;
+  width: 50%;
+  //line-height: 1;
+  margin-top: 1rem;
+  text-align: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(to right, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
+  
 }
 
 
 .section-video{
     padding: 0 20px;
+    z-index: 1;
     
     &__title{
         border: 2px solid white;
@@ -370,7 +402,7 @@
   top: 29%;
   left: 80%;
   transform: translate(-50%, -50%);
-  border-bottom: 5px solid transparent;
+  // border-bottom: 5px solid transparent;
   transition: all .5s ease-in-out;
   @include mobile {
     display: none;
@@ -389,7 +421,5 @@
   backdrop-filter: blur(5px);
   border-bottom: 5px solid transparent;
   border-image: linear-gradient(to right, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
-  
-
-  }
+}
 
