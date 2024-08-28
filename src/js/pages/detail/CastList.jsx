@@ -16,7 +16,7 @@ const CastList = (props) => {
             try {
                 const res = await tmdbApi.credits(category , props.id);
                 setCast(res.cast.slice(0 , 15));
-                console.log(res.cast.slice(0 , 15));
+                //console.log(res.cast.slice(0 , 15));
             } catch (error) {
                 console.error(error);
             }
