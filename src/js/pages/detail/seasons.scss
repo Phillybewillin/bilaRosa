@@ -3,7 +3,7 @@
 
 .seasons {
     gap: 10px;
-    background-color: rgba(0, 0, 0, 0.208);
+    //background-color: rgba(0, 0, 0, 0.208);
     padding: 7px;
     border-radius: 10px;
     font-weight: 400;
@@ -18,43 +18,54 @@
     
 }
 .seasons__title{
+    background-color: rgba(28, 28, 28, 0.461);
+    padding: 5px;
+    border-radius: 10px;
     margin-bottom: .5rem;
     display: flex;
-    font-size: smaller;
+    font-size: .8rem;
     justify-content: center;
     text-align: center;
     font-weight: 300;
+    width: 100%;
 }
 .seasons__content {
     display: flex;
     flex-wrap: nowrap;
     overflow: auto;
     gap: 5px;
+    scrollbar-width: 1px;
+    scrollbar-color: #1a1a1a78 #00000000;
     //justify-content: center;
     
 }
 .seas {
     font-weight: 400;
     text-align: center; 
+    background-color:rgb(21, 21, 21);
     padding: .5rem;
-    border-radius: 10px;
+    border-radius: 5px;
     @include flex(center, center);
     flex-direction: row;
     font-size: 13px;
     position: relative;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    border: 1.4px solid $main-bg;
+    border: 2px solid transparent;
     &:hover {
         //transform: scale(1);
         transition: all 0.3s ease-in-out;
         background-color: rgb(255, 255, 255);
         color: black;
-        border: 1.5px solid transparent;
+        border: 2px solid transparent;
     }
 
     @include mobile {
+       width: 100%;
+       flex-direction: column;
         font-size: 10px;
+        //background-color: white;
+       // color: black;
     }
 
 }
@@ -71,12 +82,8 @@
 }
 
 .seasons__name {
-    position: relative;
-    width: 100%;
-  
-    background-color: rgba(21, 21, 21, 0.135);
-    padding: 5px;
-    font-weight: 300;
+   text-align: end;
+     font-weight: 300;
     font-size: .7rem;
-    border-radius: 10px;
+  
 }
