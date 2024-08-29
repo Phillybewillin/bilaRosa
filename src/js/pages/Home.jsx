@@ -9,7 +9,7 @@ import apiConfig from '../api/apiConfig';
 import './home.scss';
 import { ToastContainer } from 'react-toastify';
 import MovieCard from '../components/movie-card/MovieCard';
-import {EffectCoverflow , Pagination } from 'swiper/modules';
+import {EffectCoverflow} from 'swiper/modules';
 import "swiper/css/effect-coverflow";
 import "swiper/css";
 import 'swiper/css/free-mode';
@@ -43,11 +43,9 @@ const Home = () => {
     React.useEffect(() => {
         getMovieresults('day');
     }, []);
-
    
 
     const navigate = useNavigate();
-
     const handleClick = (event, category, type) => {
         navigate(`/${category}?=${type}`, { replace: true });
     }
@@ -96,7 +94,7 @@ const handlecardClick = (id, category, title, poster_path) => {
         <div className="continue-watching-container" >
         
           
-        <i class='bx bxs-brush-alt' onClick={clearContonurWatching} style={{color: "red",paddingLeft : '10px',cursor : 'pointer'}}></i>
+        <i className='bx bxs-brush-alt' onClick={clearContonurWatching} style={{color: "red",paddingLeft : '10px',cursor : 'pointer'}}></i>
         <Swiper
            
 
@@ -168,7 +166,7 @@ const handlecardClick = (id, category, title, poster_path) => {
              <div loading="lazy" className="container">
             <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'>Trending Movies</h3>
+                        <h3 className='villa'>• TRENDING MOVIES <h6 className="catx">#TRENDING</h6></h3>
                         <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.popular)}>view all+</h5>
                     </div>
                     <div className="trendTV">
@@ -216,7 +214,7 @@ const handlecardClick = (id, category, title, poster_path) => {
             
                 <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'>Trending Series</h3>
+                        <h3 className='villa'>• TRENDING TV SHOWS<h6 className="catx">#TRENDING SERIES</h6></h3>
                         <h5 className="bluez" onClick={(event) => handleClick(event, category.tv, tvType.popular)}>view all+</h5>
                     </div>
                     <div className="trendTV">
@@ -263,15 +261,15 @@ const handlecardClick = (id, category, title, poster_path) => {
                 </div>
                 <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'> Popular Movies</h3>
+                        <h3 className='villa'>• POPULAR MOVIES <h6 className="catx">#POPULAR</h6></h3>
                         <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.upcoming)}>view all+</h5>
                     </div>
-                    <MovieList category={category.movie} type={movieType.upcoming} />
+                    <MovieList category={category.movie} type={movieType.popular} />
             </div>
                
                 <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'>Top Rated Movies</h3>
+                        <h3 className='villa'>• TOP RATED MOVIES <h6 className="catx">#MUST WATCH AT LEAST ONCE</h6></h3>
                         <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.top_rated)}>view all+</h5>
                     </div>
                     <MovieList category={category.movie} type={movieType.top_rated} />
@@ -279,7 +277,7 @@ const handlecardClick = (id, category, title, poster_path) => {
               
                 <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'>Top Rated Series</h3>
+                        <h3 className='villa'>• TOP RATED TV SHOWS <h6 className="catx">#BEST SERIES OF ALL TIME</h6></h3>
                         <h5 className="bluez" onClick={(event) => handleClick(event, category.tv, tvType.top_rated)}>view all+</h5>
                     </div>
                     <MovieList category={category.tv} type={tvType.top_rated} />
