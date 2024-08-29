@@ -4,7 +4,7 @@
 
 .movie-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
     gap: 8px;
     
     
@@ -36,7 +36,7 @@
     }
 }
 .movie-search {
-    display: flex;
+    display: none;
     align-items: center;
     //justify-content: center;
     position: relative;
@@ -86,13 +86,15 @@
     padding: 5px;
 }
 .mb2x{
-   font-size: 13px;
+   font-size: 11px;
     align-items: center;
     background-color: rgb(26, 26, 26);
-    border-radius: 5px;
-    padding: 5px;
-    border-left: 4px solid $main-bg;
-    border-right: 4px solid $main-bg;
+    font-weight: 300;
+    padding: 8px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(to right, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
 
 }
 .select-container{
@@ -117,5 +119,6 @@
 
 }
 .selected{
-    background-color: grey;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
 }
