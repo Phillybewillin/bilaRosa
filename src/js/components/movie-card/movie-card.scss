@@ -7,10 +7,7 @@
     background-repeat: no-repeat;
     padding-top: 120%;
     
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom: 2px solid transparent;
-    border-image: linear-gradient(to right, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
+  border-radius: 20px;
     background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.452), rgb(0, 0, 0));
           
     transition: all .5s ease-in-out;
@@ -54,6 +51,7 @@
       bottom: 0;
       right: 0;
       opacity: 1;
+      border-radius: 19px;
       transition: opacity 1s ease;
       background-image: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.922));
            
@@ -179,7 +177,7 @@
 .savemovie{
   align-items: center;
   text-align: center;
- // background-color: rgb(255, 255, 255);
+ //background-color: rgba(255, 255, 255, 0.349);
   padding: 0 3px;
   border-radius: 5px;
   padding-top: 4px;
