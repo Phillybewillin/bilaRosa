@@ -3,7 +3,7 @@ import { useNavigate, useParams,  } from "react-router-dom";
 import '@vidstack/react/player/styles/default/theme.css';
 import '@vidstack/react/player/styles/default/layouts/video.css';
 import { defaultLayoutIcons, DefaultVideoLayout } from '@vidstack/react/player/layouts/default';
-import { MediaPlayer, MediaProvider, Track } from '@vidstack/react';
+import { MediaPlayer, MediaProvider, Track , LocalMediaStorage } from '@vidstack/react';
 import '@vidstack/react/player/styles/base.css';
 import '@vidstack/react/player/styles/plyr/theme.css';
 import axios from "axios";
@@ -136,6 +136,7 @@ export default function Player() {
     url.pathname = url.pathname.replace(/\/\d+$/, `/${episodeNumber}`);
     window.history.pushState({}, '', url.toString());
     setLoading(true);
+    setPlayerSource([]);
     setCurrentEpisode(episodeNumber);
     //fetchData(id, season_number, episodeNumber);
   };
@@ -158,6 +159,27 @@ export default function Player() {
 const handleCanPlay = () => {
   setAutoPlay(true);
 };
+
+
+class CustomMediaStorage extends LocalMediaStorage {
+  async getTime() {
+    const storageKey = `my-player-${id} -${season_number} -${currentEpisode}`; // Replace with your desired key
+    const storedTime = window.localStorage.getItem(storageKey);
+    if (storedTime) {
+      return parseFloat(storedTime);
+    } else {
+      return null;
+    }
+  }
+
+  async setTime(currentTime ) {
+    const storageKey = `my-player-${id} -${season_number} -${currentEpisode}`; // Replace with your desired key
+    window.localStorage.setItem(storageKey, currentTime);
+  }
+}
+
+// Provide the storage to the player via `storage` prop.
+//player.storage = new CustomMediaStorage();
   
   
   return (
@@ -193,7 +215,7 @@ const handleCanPlay = () => {
               playsInline
               preload="auto"
               onLoadedMetadata={handleCanPlay}
-              
+              storage={ new CustomMediaStorage()}
               autoPlay={autoPlay}
              
             >
