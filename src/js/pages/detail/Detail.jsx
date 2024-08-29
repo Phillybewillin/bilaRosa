@@ -39,16 +39,7 @@ const Detail = () => {
         getDetail();
     }, [category, id]);
 
-    const getColor = (vote_average) => {
-        if (vote_average >= 7.4) {
-            return 'rgb(9, 255, 0)';
-        } else if (vote_average >= 5.1) {
-            return 'rgb(255, 251, 0';
-        } else {
-            return 'red';
-        }
-
-    }
+  
 
     const getGenreColor = (genre) => {
         switch (genre) {
@@ -212,6 +203,20 @@ const Detail = () => {
               console.log(itemId, itemName);
           }
       };
+      const voteAverage = item?.vote_average;
+      const votePercentage = voteAverage * 10; // convert to percentage
+    const getColor = (votePercentage) => {
+      if (votePercentage >= 86) {
+          return 'magenta';
+      } else if (votePercentage >= 70) {
+          return 'rgb(9, 255, 0)';
+      } 
+      else if (votePercentage >= 55) {
+          return 'yellow';
+      } else {
+        return 'red';
+      }
+    };
 
     return (
         <>
@@ -243,13 +248,8 @@ const Detail = () => {
                                </p>
                                <div className="secz">
                                 <div className="runtime"><i className="bx bx-time"></i>{item.runtime || item.episode_run_time} min</div>
-                                <div className="rating" style={{color: getColor(item.vote_average)}}>
-                      
-                              <h4> Rating : {item.vote_average} </h4>
-                             
-                               <i className={`bx bx-bomb ${getColor(item.vote_average)}`} ></i>
-                                 
-                              </div>
+                                <div className="rating" style={{color: getColor(votePercentage.toFixed(0))}}>{votePercentage.toFixed(0)}%</div>
+      
                               <div className="release-date"><i className="bx bx-calendar"></i> {item.release_date || item.first_air_date}</div>
                             <div className="language"><i className="bx bx-world"></i> {item.original_language.toUpperCase()}</div>
                                </div>
