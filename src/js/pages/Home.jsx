@@ -166,7 +166,7 @@ const handlecardClick = (id, category, title, poster_path) => {
              <div loading="lazy" className="container">
             <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'>• TRENDING MOVIES <h6 className="catx">#TRENDING</h6></h3>
+                        <h3 className='villa'>• TRENDING MOVIES <h6 className="catx">#TODAY'S TRENDING MOVIES</h6></h3>
                         <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.popular)}>view all+</h5>
                     </div>
                     <div className="trendTV">
@@ -214,7 +214,7 @@ const handlecardClick = (id, category, title, poster_path) => {
             
                 <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'>• TRENDING TV SHOWS<h6 className="catx">#TRENDING SERIES</h6></h3>
+                        <h3 className='villa'>• TRENDING TV SHOWS<h6 className="catx">#TRENDING TODAY </h6></h3>
                         <h5 className="bluez" onClick={(event) => handleClick(event, category.tv, tvType.popular)}>view all+</h5>
                     </div>
                     <div className="trendTV">
@@ -261,8 +261,8 @@ const handlecardClick = (id, category, title, poster_path) => {
                 </div>
                 <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'>• POPULAR MOVIES <h6 className="catx">#POPULAR</h6></h3>
-                        <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.upcoming)}>view all+</h5>
+                        <h3 className='villa'>• POPULAR MOVIES <h6 className="catx">#POPULAR MOVIES THIS YEAR </h6></h3>
+                        <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.popular)}>view all+</h5>
                     </div>
                     <MovieList category={category.movie} type={movieType.popular} />
             </div>
@@ -277,7 +277,7 @@ const handlecardClick = (id, category, title, poster_path) => {
               
                 <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'>• TOP RATED TV SHOWS <h6 className="catx">#BEST SERIES OF ALL TIME</h6></h3>
+                        <h3 className='villa'>• TOP RATED TV SHOWS <h6 className="catx">#BEST SHOWS OF ALL TIME</h6></h3>
                         <h5 className="bluez" onClick={(event) => handleClick(event, category.tv, tvType.top_rated)}>view all+</h5>
                     </div>
                     <MovieList category={category.tv} type={tvType.top_rated} />
@@ -287,7 +287,7 @@ const handlecardClick = (id, category, title, poster_path) => {
             </div>
             <ToastContainer theme="dark" position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#1eff00' , color : 'white', borderRadius : '10px'}}/>
            
-            <div className="infoo" style={{width: '100%', backgroundColor: 'pink' , padding: '10px', textAlign: 'center',color : 'black',display: 'flex', justifyContent: 'center', alignItems: 'center'}}><h4><a href="https://www.buymeacoffee.com/_.0__3__0._" target="_blank" rel="noreferrer"><i class='bx bxs-donate-heart'></i></a> </h4></div>
+            <div className="infoo" style={{width: '100%', backgroundColor: 'pink' , padding: '10px', textAlign: 'center',color : 'black',display: 'flex', justifyContent: 'center', alignItems: 'center'}}><h4><a href="https://www.buymeacoffee.com/zilla-xr.xyz" target="_blank" rel="noreferrer"><i class='bx bxs-donate-heart'></i></a> </h4></div>
         </>
     );
 }
