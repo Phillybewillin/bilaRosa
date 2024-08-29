@@ -24,7 +24,9 @@ const MovieCard = (props) => {
     const year = (new Date(releaseYear)).getFullYear();
     //console.log(year);
     
-    const saveShow = async () => {
+    const saveShow = async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
         if(user?.email){
             if(user){
             setSaved(true);
@@ -48,6 +50,8 @@ const MovieCard = (props) => {
         }else{
             toast.error("Please logIn to save a Movie");
         }
+
+      
     }
     const navigate = useNavigate();
 
@@ -120,7 +124,7 @@ const MovieCard = (props) => {
         <Link to={link}>
         {isLoading ? (
           <SkeletonTheme color="#000000" highlightColor="#444444">
-            <Skeleton baseColor="#161616d6" variant="rectangular"  className="movie-card" width={'100%'} height={'100%'} />
+            <Skeleton baseColor="#161616d6" variant="rectangular"  className="movie-card"/>
           </SkeletonTheme>
         ) : (
           <div className="movie-card" loading="lazy" onClick={() => handlecardClick(item.id, props.category ,item.title || item.name, item.poster_path, )} style={{backgroundImage : `url(${bg})`, backgroundSize : 'cover' , backgroundPosition : 'center' , backgroundRepeat : 'no-repeat'}}>
@@ -136,11 +140,10 @@ const MovieCard = (props) => {
               <div className="titlename">
                 {item.title || item.name || <Skeleton count={1}/>}
               </div> 
-              <div className="savemovie">
-                 <p onClick={saveShow} style={{cursor : 'pointer' , color : saved ? 'red' : 'rgba(255, 255, 255, 0.549)'}}>
-          {saved ? <i class='bx bxs-bookmark-plus'  style={{fontSize :'19px'}}></i> :<i class='bx bx-bookmark-plus' style={{fontSize :'18px'}}></i>}
+              <button className="savemovie" onClick={saveShow}>    <p style={{ cursor : 'pointer' , color : saved ? 'red' : 'rgba(255, 255, 255, 0.549)'}}>
+          {saved ? <i className='bx bxs-bookmark-plus'  style={{fontSize :'19px'}}></i> :<i class='bx bx-bookmark-plus' style={{fontSize :'18px'}}></i>}
            </p>
-              </div>
+              </button>
            
             </div>
             <div className="cat"> 
