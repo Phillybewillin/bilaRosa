@@ -29,7 +29,7 @@ const DMCATakedownRequest = () => {
         </li>
       </ul>
       <p>
-        Your DMCA take down request should be submitted to <a href="mailto:contact@zilla-xr.xyz">contact@zilla-xr.xyz</a>. We will then review your DMCA request and take proper actions, including removal of the content from the website.
+        Your DMCA take down request should be submitted to <a href="/contact">contact@zilla-xr.xyz</a>. We will then review your DMCA request and take proper actions, including removal of the content from the website.
       </p>
     </div>
   );
