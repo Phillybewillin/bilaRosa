@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom';
 export const Footer = () => {
 
     return (
-        <div className="footer" loading="lazy">
+        <div className="footer">
                 <div className="footer__content__logo">
                    <div className="logo">
-                       <Link to="/">Made by Aliens</Link>
-                        <i className="bx bxs-heart" style={{color: 'black', fontSize: '15px' ,paddingLeft: "10px"}}></i>
+                       <Link to="/">Made by some guy</Link>
+                        <i className="bx bxs-heart" style={{color: 'white', fontSize: '16px' ,paddingLeft: "7px"}}></i>
                     </div>
                     <div className="acca">
-                    <a href="https://www.buymeacoffee.com/_.0__3__0._" target="_blank" rel="noreferrer"><i className="bx bx bxs-coffee" style={{color: 'pink', fontSize: '25px' ,backgroundColor:"black", padding:"5px" ,borderRadius:"5px"}}></i></a>
+                    <a href="https://www.buymeacoffee.com/zillaxr.xyz" target="_blank" rel="noreferrer"><i className="bx bx bxs-coffee" style={{color: 'pink', fontSize: '25px' ,backgroundColor:"black", padding:"5px" ,borderRadius:"5px"}}></i></a>
                   
                     <a href="https://t.me/+MQUUqEx2WXA0ZmZk" target="_blank" rel="noreferrer"><i className="bx bxl-telegram" style={{color: 'white', fontSize: '25px',padding : '5px',backgroundColor : 'aqua',borderRadius : '5px' ,marginLeft:"5px"}}></i></a>
                     <a href="https://reddit.com/r/zillaXRxyz" target="_blank " rel="noreferrer"><i className="bx bxl-reddit"style={{color: 'white',fontSize: '25px',padding : '5px',backgroundColor : 'red',borderRadius : '5px',marginLeft:"5px"}}></i></a>
