@@ -2,30 +2,66 @@
 
 .movie-card {
     position: relative;
-    background-position: top;
+    background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    padding-top: 155%;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    padding-top: 120%;
+    
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
     border-bottom: 2px solid transparent;
     border-image: linear-gradient(to right, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
-
+    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.452), rgb(0, 0, 0));
+          
     transition: all .5s ease-in-out;
     
     .inCinema{
         display: flex;
+        align-items: center;
         position: absolute;
-        top: 2px;
+        top: 6px;
         
         right: 2px;
         background-color: rgba(0, 0, 0, 0.491);
-        padding: 8px;
+        padding:  8px;
         border-radius: $border-radius;
-        font-size: 12px;
+        font-size: 10px;
         font-weight: 500;
         //color: white;
     }
+    .catz{
+      display: flex;
+      position: absolute;
+      top: 20px;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.203);
+      backdrop-filter: blur(20px);
+      padding: 4px 8px;
+      //border: 1.2px solid rgb(25, 25, 25);
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      font-size: 10px;
+      font-weight: 500;
+      border-left: 1px solid transparent;
+      border-image: linear-gradient(to top, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
+     
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      opacity: 1;
+      transition: opacity 1s ease;
+      background-image: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.922));
+           
+     // border: 2px solid $main-bg;
+     // border-radius: $border-radius;
+  
+  }
+    
     @media (hover:hover) {
 
         &::before {
@@ -35,7 +71,7 @@
             left: 0;
             bottom: 0;
             right: 0;
-            opacity: 0;
+            opacity: 1;
             transition: opacity 1s ease;
            // border: 2px solid $main-bg;
            // border-radius: $border-radius;
@@ -56,14 +92,14 @@
 
         &:hover::before{
             background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.452), rgb(0, 0, 0));
-            padding-top: 200%;
+            //padding-top: 200%;
             opacity: 1;
             //backdrop-filter: blur(10px);
             transition: all .8s ease-in-out;
         }
 
         &:hover .btnz {
-            background-color: #2928280d;
+           // background-color: #2928280d;
             color: $main-bg;
             //padding: 10px;
             //width: 25%;
@@ -78,21 +114,18 @@
 
 .infomovie{
     position: relative;
-    background-color: rgba(19, 19, 19, 0.957);
+    background-color: rgba(19, 19, 19, 0.039);
     text-align: center;
     display: flex;
     flex-direction: column;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    //border-top:  2px solid black;
+     //border-top:  2px solid black;
     //border: 1.4px solid $main-bg;
     justify-content: space-between;
     //gap: 0.1rem;
     padding: .5rem;
     font-size: .65rem;
     font-weight: 400;
-    //border-radius: $border-radius;
-
+    
 
     @include mobile {
         font-size: 8px;
@@ -107,8 +140,8 @@
         //background-color: #1a1a1a;
         border-radius: 5px;
         padding: 1px;
-        font-size: .64rem;
-        font-weight: 400;
+        font-size: .70rem;
+        font-weight: 300;
 
         @include mobile {
             font-size: 8px;
@@ -118,41 +151,35 @@
         display: flex;
         align-items: center;
         //justify-content: center;
-        background-color: #191919;
+        //background-color: #19191997;
         border: none;
        justify-content: space-between;}
 }
 .year{
-  background-color: #232323;
+  background-color: #0f0f0f76;
   font-weight: 400;
   padding: 2px 7px;
   border-radius: 5px;
-  color: $main-bg;
+  color: lighten($color: #ffffff9c, $amount: 20);
 }
 
 .vote{
-  background-color: grey;
+  background-color: rgba(0, 0, 0, 0.42);
   font-weight: 400;
   padding: 2px 7px;
   border-radius: 10px;
-  color: rgb(0, 0, 0);
+  color: $main-bg;
 }
-.catz{
-  background-color: #232323;
-  font-weight: 400;
-  padding: 2px 7px;
-  border-radius: 5px;
-  color: white;
-}
+
 .titlename{
- background-color: #171717;
- padding: 7px;
+ background-color: #0000007b;
+ padding: 5px;
  border-radius: 5px;
 }
 .savemovie{
   align-items: center;
   text-align: center;
-  background-color: grey;
+ // background-color: rgb(255, 255, 255);
   padding: 0 3px;
   border-radius: 5px;
   padding-top: 4px;
