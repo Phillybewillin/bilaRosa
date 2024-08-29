@@ -17,8 +17,7 @@ const info = () => {
         <ul>
             <li>Build and manage your watchlist for easy access to your favorite content.</li>
             <li>Keep track of your viewing history.</li>
-            <li>Receive personalized recommendations based on your interests.</li>
-            <li>(Optional) Subscribe to premium plans for exclusive content and features (if applicable).</li>
+            
         </ul>
         <h3>How can I manage my watchlist and favs?</h3>
         <p>Once you have an account, you can easily add content to your watchlist and favorites list directly from the Zilla-XR platform. You can access and manage your lists anytime through your profile settings.</p>
