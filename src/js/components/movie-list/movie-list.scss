@@ -14,21 +14,22 @@
     scroll-behavior: smooth;
     border: 2px solid rgb(26, 26, 26);
     border-radius: 8px;
+    
     .wrappwe{
         min-height: 150px;
     }
 
     .swiper-slide {
-        width: 18%;
+        width: 22%;
 
     
 
         @include tablet {
-            width: 25%;
+            width: 35%;
         }
 
         @include mobile {
-            width: 37%;
+            width: 50%;
         }
     }
 
