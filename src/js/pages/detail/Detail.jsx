@@ -28,14 +28,14 @@ const Detail = () => {
     const { category, id } = useParams();
 
     const [item, setItem] = useState(null);
-
+     
+    const getDetail = async () => {
+      const response = await tmdbApi.detail(category, id, {params: {}});
+      setItem(response);
+      window.scrollTo(0, 0);
+     // console.log(response);
+  }
     useEffect(() => {
-        const getDetail = async () => {
-            const response = await tmdbApi.detail(category, id, {params: {}});
-            setItem(response);
-            window.scrollTo(0, 0);
-           // console.log(response);
-        }
         getDetail();
     }, [category, id]);
 
@@ -227,7 +227,8 @@ const Detail = () => {
                     <div className="banner" loading="lazy" style={{backgroundImage: `url(${apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',position: 'fixed', top: '0' , left: '0' , width: '100%' , height: '100vh'}}></div>
                     </div> 
                        <div className="detail-container">
-                           <div className="movie-content__poster" style={{ backgroundImage: `url(${apiConfig.w200Image(item.poster_path ? item.poster_path : item.backdrop_path)})`, backgroundSize: 'cover', backgroundPosition: 'center',backgroundRepeat: 'no-repeat',borderRadius: '10px'}} >
+                        <div className="movie-content">
+                        <div className="movie-content__poster" style={{ backgroundImage: `url(${apiConfig.w200Image(item.poster_path ? item.poster_path : item.backdrop_path)})`, backgroundSize: 'cover', backgroundPosition: 'center',backgroundRepeat: 'no-repeat',borderRadius: '10px'}} >
                                <div className="movie-content__poster__img" loading="lazy" style={{ backgroundImage: `url(${apiConfig.w1280Image(item.poster_path ? item.poster_path : item.backdrop_path)})`}}>
                                </div>
                            </div>
@@ -275,6 +276,8 @@ const Detail = () => {
 
                                  
                            </div>
+                        </div>
+                           
                        </div> 
                        <div className="overview">
                                        <div className="overview">
