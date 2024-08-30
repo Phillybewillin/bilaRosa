@@ -144,12 +144,13 @@
     font-size: smaller;
     font-weight: 300;
     padding: .8rem;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.45);
     border-radius: 5px;
     @include tablet {
         margin: .5rem;
         font-size:x-small;
     }
+
 }
 .spotty{
   display: flex;
@@ -161,19 +162,22 @@
 }
 .genre {
     display: inline-block;
-    padding: 5px;
+    padding: 5px 8px;
     margin: 2.5px;
-    border-radius: 5px;
+    border-radius: 15px;
+    font-weight: 300;
   }
   
   .genre.a {
-    background-color: #00000073;
+    background-color: #00000061;
   }
   
   .genre.comedy {
     background-color: #0000007e;
   }
   
-  .genre.r {
-    background-color: #fb00d98a;
+  .genre.b {
+    background-color: #0c0c0c8a;
+    color: $main-bg;
   }
+
