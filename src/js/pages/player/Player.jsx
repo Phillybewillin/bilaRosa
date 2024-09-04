@@ -19,7 +19,8 @@ export default function Player() {
   const [episodes, setEpisodeData] = useState([]);
   const [currentEpisode, setCurrentEpisode] = useState(episode_number);
   const [episodeChanged, setEpisodeChanged] = useState(false);
-
+  const [seasons, setSeasons] = useState([]);
+  const [currentSeason, setCurrentSeason] = useState(season_number);
   const [quality, setQuality] = useState("auto");
   //const [sources, setSources] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -41,20 +42,30 @@ export default function Player() {
         document.title = `Watching ${decodedTitle}`;
 
       if (season_number && episode_number) {
-        document.title = `Watching ${decodedTitle} - S${season_number} -E${currentEpisode}`;
+        document.title = `Watching ${decodedTitle} - S${currentSeason} -E${currentEpisode}`;
       }
   
     }
    
-    if (id) {
+    if (id && currentSeason) {
       //fetchData(id, season_number, currentEpisode);
-      fetchEpisodes(id, season_number);
+      fetchEpisodes(id, currentSeason);
+    
     }
-  }, [title, id, season_number ,currentEpisode]);
+  }, [title, id, currentSeason ,currentEpisode]);
   
   useEffect(() => {
+    const getseasons = async () => {
+        const { data } = await axios.get(`${apiConfig.baseUrl}tv/${id}?api_key=${apiConfig.apiKey}`);
+        const validSeasons = data.seasons.filter(({ air_date }) => air_date && new Date(air_date) <= new Date());
+        setSeasons(validSeasons);
+    };
+    getseasons();
+}, [id]);
+
+  useEffect(() => {
     if (episodeChanged) {
-      fetchData(id, season_number, currentEpisode);
+      fetchData(id, currentSeason, currentEpisode);
       setEpisodeChanged(false);
     }
   }, [episodeChanged]);
@@ -112,13 +123,13 @@ export default function Player() {
       kind: "subtitles",
     }));
   };
-  const fetchEpisodes = async (id, selectedSeason) => {
+  const fetchEpisodes = async (id , selectedSeason) => {
     if (id && selectedSeason) {
       try {
         const response = await axios.get(
           `${apiConfig.baseUrl}tv/${id}/season/${selectedSeason}?api_key=${apiConfig.apiKey}&append_to_response=episodes`
         );
-
+        console.log(response.data.episodes);
         if (response.status === 404) {
           throw new Error("Episodes not found. Please check the season number.");
         }
@@ -140,6 +151,22 @@ export default function Player() {
     setCurrentEpisode(episodeNumber);
     //fetchData(id, season_number, episodeNumber);
   };
+ 
+const handleSeasonClick = (seasonNumber) => {
+  const url = new URL(window.location.href);
+  const pathnameParts = url.pathname.split('/');
+  pathnameParts[pathnameParts.length - 2] = seasonNumber;
+  pathnameParts[pathnameParts.length - 1] = '1';
+  url.pathname = pathnameParts.join('/');
+  window.history.pushState({}, '', url.toString());
+  setPlayerSource([]);
+  setCurrentSeason(seasonNumber);
+  setCurrentEpisode(1);
+  //setLoading(true);
+  //fetchEpisodes(id, currentSeason);
+  
+};
+
 
 
  const handleBack = ( ) => {
@@ -163,7 +190,7 @@ const handleCanPlay = () => {
 
 class CustomMediaStorage extends LocalMediaStorage {
   async getTime() {
-    const storageKey = `my-player-${id} -${season_number} -${currentEpisode}`; // Replace with your desired key
+    const storageKey = `my-player-${id} -${currentSeason} -${currentEpisode}`; // Replace with your desired key
     const storedTime = window.localStorage.getItem(storageKey);
     if (storedTime) {
       return parseFloat(storedTime);
@@ -173,7 +200,7 @@ class CustomMediaStorage extends LocalMediaStorage {
   }
 
   async setTime(currentTime ) {
-    const storageKey = `my-player-${id} -${season_number} -${currentEpisode}`; // Replace with your desired key
+    const storageKey = `my-player-${id} -${currentSeason} -${currentEpisode}`; // Replace with your desired key
     window.localStorage.setItem(storageKey, currentTime);
   }
 }
@@ -229,19 +256,33 @@ class CustomMediaStorage extends LocalMediaStorage {
              
             </MediaPlayer>
           </div>
+          <div className="seasons">
+        
+        <div className="seasons__content">
+            {seasons && seasons.filter(item => item.season_number !== 0).map((item, i) => (
+                <div className="seasons__list" key={i} onClick={() => handleSeasonClick(item.season_number)}>
+                    <div className={`seas ${item.season_number == currentSeason ? "actively" : ""}`}
+       >
+                        <h4 className="seasons__name">Season {item.season_number}</h4>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
 
           {episodes.length > 0 && (
       <div className="episode-selector">
-        <h4 className="episodes_title"><i className='bx bx-grid-horizontal'></i>Episodes</h4>
         <ul className="episode_list">
           {episodes
             .filter(episode => new Date(episode.air_date) <= new Date()) // Filter out unreleased episodes
             .map((episode, index) => (
               <li
-                className={`episodes_itemz ${currentEpisode == episode.episode_number ? "actively" : ""}`}
-                key={index}
-                onClick={() => handleEpisodeClick(episode.episode_number)}
-              >
+              key={index}
+              className={`episodes_itemz ${
+                currentEpisode == episode.episode_number ? "actively" : ""
+              }`}
+              onClick={() => handleEpisodeClick(episode.episode_number)}
+            >
                 {episode.episode_number}. {episode.name}
               </li>
             ))}
