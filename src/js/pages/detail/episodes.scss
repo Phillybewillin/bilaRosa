@@ -54,6 +54,7 @@ height: 500px;
     height: 100%;
     border-radius: 5px;
     object-fit: cover;
+    cursor: pointer;
     @include mobile {
         width: 100%;
     }
@@ -128,7 +129,7 @@ height: 500px;
 }
 
 ::-webkit-scrollbar-thumb {
-  //background: $main-bg;
+  background: $main-bg;
   border-radius: 30px;
   width: 4px;
 
