@@ -178,7 +178,11 @@
 
 }
 .castdiv{
-  margin:0  5px;
+  display: flex;
+  flex-direction: column;
+  //justify-content: center;
+  //align-items: center;
+  margin: 0 5px;
   .castdix{
     position: relative;
     width: 250px;
@@ -233,7 +237,7 @@
               position: relative;
               font-size: .65rem;
               text-align: center;
-              color: rgba(255, 255, 255, 0.653);
+              color: rgba(255, 255, 255, 0.829);
               //backdrop-filter: blur(10px);
               background-color: rgba(0, 0, 0, 0.772);
               border-radius: 20px;
@@ -283,8 +287,9 @@
     width: 99vw;
   }
   @include mobile{
+    margin: 0 0px;
     padding: 2px;
-    width: 100vw;
+    width: 97vw;
   }
   }
 }
@@ -451,12 +456,14 @@
 }
 .titledetails{
   position: relative;
-  font-size: smaller;
+  font-size: small;
   font-weight: 200;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.929);
   border-radius: 5px;
   color: rgb(7, 7, 7);
+
+  
 }
 .titledetailz{
   font-size: smaller;
@@ -467,7 +474,7 @@
   font-size: smaller;
   font-weight: 200;
   padding: 5px 10px;
-  background-color: rgba(255, 255, 255, 0.632);
+  background-color: rgb(255, 255, 255);
   border-radius: 5px;
   color: rgb(7, 7, 7);
 }
