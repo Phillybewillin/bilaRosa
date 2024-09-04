@@ -87,6 +87,7 @@
     font-weight: 300;
 
     @include mobile {
+       padding-top: calc(60vh - 11rem);
       align-items: center;
     }
     
