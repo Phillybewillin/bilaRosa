@@ -2,12 +2,7 @@
 
 
 .spotlight {
- 
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    //border-radius: 10px;
-    position: relative;
+  position: relative;
     height: 100vh;
 
     @include mobile {
@@ -18,13 +13,22 @@
     }
 
 }
+.fuck{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 50%;
+  background-image: linear-gradient(to bottom, transparent, $body-bg);
+  
+}
 .spotlight-number{
   position: absolute;
     margin-top: 4.5rem;
     font-size: 1.5rem;
-    margin-left: 10px;
+    right: 10px;
     padding: 1.2rem;
-    border-left: 3.5px solid transparent;
+    border-right: 3.5px solid transparent;
     border-image: linear-gradient(to top, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
   
     color: lighten($color: #eeeeee, $amount: 4);
@@ -40,10 +44,8 @@
     }
 }
 .spotlight-name{
-    font-size: 1.5rem;
-    border-bottom: 5px solid transparent;
-    border-image: linear-gradient(to right, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
-  
+    font-size: 2.3rem;
+    padding-left: 1rem;
     //background-color: rgba(0, 0, 0, 0.139);
     border-radius: 10px;
     font-weight: 400;
@@ -60,28 +62,33 @@
     object-fit: cover;
     border-radius: 10px;
     @include mobile {
-        height: 600px;
+        height: 60vh;
     }
     @include tablet {
         height: 600px;
     }
 }
 .spotlight-content{
+  display: flex;
+    //align-items: center;
+    justify-content: center;
+    flex-direction: column;
+   
     position: absolute;
     top: 0;
     left: 0;
     padding-top: 18rem;
-    margin-bottom: 1rem;
+    //margin-bottom: 1rem;
     gap: .2rem;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    flex-direction: column;
-    background-image: linear-gradient(180deg, transparent, $body-bg);
+     background-image: linear-gradient(220deg, transparent, $body-bg);
     font-size: smaller;
     font-weight: 300;
+
+    @include mobile {
+      align-items: center;
+    }
     
 }
 .modal{
@@ -120,7 +127,7 @@
 
 .spon {
   background-color: rgba(0, 0, 0, 0.409);
-  padding: .4rem;
+  padding: .1rem .5rem;
   border-radius: 5px;
   font-weight: 600;
   text-decoration: line-through;
@@ -133,7 +140,7 @@
     font-size: smaller;
     font-weight: 400;
     padding: .5rem;
-    background-color: rgba(0, 0, 0, 0.112);
+    //background-color: rgba(0, 0, 0, 0.112);
     border-radius: 15px;
     @include tablet {
         margin: .5rem;
@@ -144,18 +151,19 @@
     font-size: smaller;
     font-weight: 300;
     padding: .8rem;
-    background-color: rgba(0, 0, 0, 0.45);
+    width: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     @include tablet {
         margin: .5rem;
         font-size:x-small;
     }
-
 }
 .spotty{
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding-left: 1rem;
+  //justify-content: center;
   font-size: small;
   font-weight: 300; 
   gap: 5px;
@@ -164,7 +172,7 @@
     display: inline-block;
     padding: 5px 8px;
     margin: 2.5px;
-    border-radius: 15px;
+    border-radius: 5px;
     font-weight: 300;
   }
   
@@ -173,11 +181,10 @@
   }
   
   .genre.comedy {
-    background-color: #0000007e;
+    background-color: rgba(0, 0, 0, 0);
   }
   
   .genre.b {
     background-color: #0c0c0c8a;
     color: $main-bg;
   }
-
