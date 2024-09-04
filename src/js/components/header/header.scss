@@ -213,20 +213,20 @@ i {
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    margin-top: 1rem;
+    //margin-top: 1rem;
     //margin-left: 7rem;
     
     @include mobile {
-        margin-left: 0;
+        display: none;
     }
 
     
 }
 
 .iconbox{
-    background-color: rgba(28, 28, 28, 0.536);
-    //backdrop-filter: blur(10px);
-    padding: 5px 12px;
+   color: black;
+    background-color: rgba(255, 255, 255, 0.171);
+    padding: 8px 10px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -251,15 +251,20 @@ i {
       width: 100%;
       
   }
-   
+  @include mobile {
+    color: rgb(255, 255, 255);
+     opacity: 1;
+     font-size: 1rem;
+ }
 }
 .iconv{
-    opacity: 1;
-    //font-size: 1.2rem;
+   opacity: 0;
+    font-size: .1rem;
     font-weight: 250;
     transition: all 0.3s ease-in-out;
   
     @include mobile {
+      
         opacity: 1;
         font-size: 1rem;
     }
