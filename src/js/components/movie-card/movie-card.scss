@@ -50,9 +50,10 @@
       bottom: 0;
       right: 0;
       opacity: 1;
+      
       border-radius: 15px;
       transition: opacity 1s ease;
-      background-image: linear-gradient(180deg,  rgba(0, 0, 0, 0), $body-bg);
+      background-image: linear-gradient(10deg, $body-bg ,rgba(0, 0, 0, 0) );
         
      // border: 2px solid $main-bg;
      // border-radius: $border-radius;
