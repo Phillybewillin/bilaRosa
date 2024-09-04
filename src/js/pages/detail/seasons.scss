@@ -13,7 +13,7 @@
 
     @include mobile {
        overflow: auto;
-        padding: 1px;
+        padding: 5px;
     }
     
 }
@@ -29,14 +29,14 @@
     
 }
 .seas {
-    font-weight: 400;
+    font-weight: 300;
     text-align: center; 
     background-color:rgb(21, 21, 21);
     padding: .5rem;
     border-radius: 5px;
     @include flex(center, center);
     flex-direction: row;
-    font-size: 13px;
+    font-size: 17px;
     position: relative;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
@@ -50,9 +50,9 @@
     }
 
     @include mobile {
-       width: 100%;
+       //width: 100%;
        flex-direction: column;
-        font-size: 10px;
+        font-size: 15px;
         //background-color: white;
        // color: black;
     }
@@ -71,8 +71,12 @@
 }
 
 .seasons__name {
-   text-align: end;
-     font-weight: 300;
-    font-size: .7rem;
+   text-align: center;
+     font-weight: 200;
+    font-size: .75rem;
+
+    @include mobile {
+        font-size: .9rem;
+    }
   
 }
