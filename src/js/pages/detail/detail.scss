@@ -55,7 +55,7 @@
 }
 .movie-content {
     //backdrop-filter: blur(5px);
-    background-color: #0000005a;
+    background-color: #000000b4;
     border-radius: 10px;
     @include flex(flex-start, flex-start);
     width: 1000px;
@@ -431,6 +431,13 @@
 
     
 }
+.buttonz{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+
+}
 .playbtn {
  
   display: flex;
@@ -446,7 +453,8 @@
   // border-bottom: 5px solid transparent;
   transition: all .5s ease-in-out;
   @include mobile {
-    display: none;
+    top: 25px;
+    //display: none;
   }
 }
 .playbtn:hover{
@@ -462,8 +470,6 @@
   background-color: rgba(255, 255, 255, 0.929);
   border-radius: 5px;
   color: rgb(7, 7, 7);
-
-  
 }
 .titledetailz{
   font-size: smaller;
