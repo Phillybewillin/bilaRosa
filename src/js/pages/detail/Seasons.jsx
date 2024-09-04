@@ -60,11 +60,12 @@ const Seasons = ({ id , title}) => {
     return (
         <div className="seasons-episodes">
             <div className="seasons">
-                <h4 className="seasons__title">Seasons</h4>
+        
                 <div className="seasons__content">
                     {seasons && seasons.filter(item => item.season_number !== 0).map((item, i) => (
                         <div className="seasons__list" key={i} onClick={() => handleSeasonClick(item.season_number)}>
-                            <div className="seas">
+                            <div className={`seas ${item.season_number == selectedSeason ? "actively" : ""}`}
+               >
                                 <h4 className="seasons__name">Season {item.season_number}</h4>
                             </div>
                         </div>
@@ -74,32 +75,31 @@ const Seasons = ({ id , title}) => {
 
             {selectedSeason !== null && (
                 <div className="episodes">
-                    <div className="treza">
-                        <h4 className="episodes__title">Season {selectedSeason}</h4>
+                    
+                       
                         <div className="episodes__list">
                             {episodes && episodes.map((episode) => (
                               <>
-                              <div className="episodes__item" key={episode.id} onClick={() => handleEpisodeClick( id , title ,selectedSeason, episode.episode_number)}>
-                                    <img src={`https://image.tmdb.org/t/p/w1280${episode.still_path}`} alt="" />
-                                    <h2 className="episodes__name">{episode.name}</h2>
-                                    <p className="episodes__time">{episode.runtime} min</p>
-                                     <p className="episodes__date">{episode.air_date}</p>
-                               
-                                    
+                              <div className="episodes__cont">
+                               <div className="episodes__item" key={episode.id} onClick={() => handleEpisodeClick( id , title ,selectedSeason, episode.episode_number)}>
+                               <img className="episodes__image" src={`https://image.tmdb.org/t/p/w1280${episode.still_path}`} alt="" />
+                
                                     
                                 </div>
                                 <div className="episodes__desc">
-                                <p className="episodes__number">episode:{episode.episode_number}</p>
-                                   
-                                <p className="episodes__time">{episode.air_date}</p>
-                                    
+                                
+                                <h2 className="episodes__name">{episode.episode_number}.{episode.name}</h2>
+            
                                   {episode.overview}
                                   </div>
+                              </div>
+                            
+                               
                             
                               </>
                                 ))}
                         </div>
-                    </div>
+
                 </div>
             )}
 
