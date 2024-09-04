@@ -6,7 +6,7 @@
     height: 100vh;
 
     @include mobile {
-        height: 600px;
+        height: 60vh;
     }
     @include tablet {
         height: 600px;
@@ -77,7 +77,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    padding-top: 18rem;
+    padding-top:calc(100vh - 19rem);
     //margin-bottom: 1rem;
     gap: .2rem;
     width: 100%;
