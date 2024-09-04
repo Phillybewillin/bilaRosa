@@ -42,8 +42,8 @@ This site does not store any files on our server, we only linked to the media wh
                 </div>
                 <div className="footer__content__logo">
                    <div className="logo">
-                       <Link to="/">Made by some guy</Link>
-                       <i className='bx bxs-basketball bx-spin' style={{color: 'white', fontSize: '15px' ,paddingLeft: "7px"}}></i>
+                       <Link to="/">Made by me</Link>
+                       <i className='bx bxs-basketball' style={{color: 'white', fontSize: '15px' ,paddingLeft: "7px"}}></i>
                     </div>
                     <div className="xilla"><h1>ZILLA-XR</h1></div>
                     <div className="acca">
