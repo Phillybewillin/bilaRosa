@@ -64,6 +64,7 @@ const Spotlight = () => {
               <div className="spotlight-item">
                 <h1 className="spotlight-number">#1</h1>
                 <img src={'https://image.tmdb.org/t/p/original/6PnnfODvQfEIAdJ5PbqYMXKdfwX.jpg'} alt='D2' className="spotlight-image" />
+                <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .1</h4>
                 
@@ -91,6 +92,7 @@ const Spotlight = () => {
               <div className="spotlight-item">
               <h1 className="spotlight-number">#2</h1>
                 <img src={'https://image.tmdb.org/t/p/original/5Nv47cnzGDtHxmDuq8p7IVXtUPX.jpg'} alt='D2' className="spotlight-image" />
+                <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .2</h4>
                   
@@ -119,6 +121,7 @@ const Spotlight = () => {
               <div className="spotlight-item">
                 <h1 className="spotlight-number">#3</h1>
                 <img src={'https://image.tmdb.org/t/p/original/p5kpFS0P3lIwzwzHBOULQovNWyj.jpg'} alt='D2' className="spotlight-image" />
+                <div className="fuck"></div>
                 <div className="spotlight-content">
                 <h4 className="spon">#Spotlight .3</h4>
                 
@@ -145,6 +148,7 @@ const Spotlight = () => {
               <div className="spotlight-item">
                 <h1 className="spotlight-number">#4</h1>
                 <img src={'https://image.tmdb.org/t/p/original/p5ozvmdgsmbWe0H8Xk7Rc8SCwAB.jpg'} alt='D2' className="spotlight-image" />
+                <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon"> #Spotlight .4</h4>
             
@@ -171,7 +175,9 @@ const Spotlight = () => {
           
               <div className="spotlight-item">
               <h1 className="spotlight-number">#5</h1>
+
                 <img src={'https://image.tmdb.org/t/p/original/Avtx5jsdPuDa091jvx2Lye3ygke.jpg'} alt='D2' className="spotlight-image" />
+                <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">Spotlight .5</h4>
                 
@@ -200,7 +206,10 @@ const Spotlight = () => {
               <div className="spotlight-item">
               <h1 className="spotlight-number">#6</h1>
                 <img src={'https://image.tmdb.org/t/p/original/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg'} alt='D2' className="spotlight-image" />
-                <div className="spotlight-content">
+                <div className="fuck"></div>
+                <div className="spotlight-container">
+                 <div className="spotlight-content">
+                 
                   <h4 className="spon">#Spotlight .6</h4>
                   
                   <h2 className="spotlight-name">Deadpool & Wolverine </h2>
@@ -212,7 +221,7 @@ const Spotlight = () => {
 
                   </p>
                   <div className="spotty">
-                  <h6 className="genre b">HDRip</h6><h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
                   </div>
                   
                   <p className="spotlight-overview">A listless Wade Wilson toils away in civilian life with his days as the morally flexible mercenary, Deadpool, behind him. But when his homeworld faces an existential threat...</p>
@@ -220,7 +229,9 @@ const Spotlight = () => {
                   <Button className="btnprime" onClick={() => navigate('/movie/533535')}>Details</Button>
                   <Button className="spotlight-watch-btn" onClick={() => handlePlayer(533535, "Deadpool & Wolverine")}>Watch Now</Button>
                   </div>
-                 </div>
+                 </div> 
+                </div>
+                
               </div>
             </SwiperSlide>
 
@@ -228,6 +239,7 @@ const Spotlight = () => {
               <div className="spotlight-item">
                 <h1 className="spotlight-number">#7</h1>
                 <img src={'https://image.tmdb.org/t/p/original/8UT3WWsmhH5o2hRWTLs5jYTJm4v.jpg'} alt='D2' className="spotlight-image" />
+                <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .7</h4>
                
@@ -254,8 +266,9 @@ const Spotlight = () => {
               <div className="spotlight-item">
               <h1 className="spotlight-number">#8</h1>
                 <img src={'https://image.tmdb.org/t/p/original/A7MEYn25BeGGrleczbCLNaNb9D1.jpg'} alt='D2' className="spotlight-image" />
+                <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight 84</h4>
+                  <h4 className="spon">#Spotlight 8</h4>
                 
                   <h2 className="spotlight-name">Twisters</h2>
                   
@@ -279,6 +292,7 @@ const Spotlight = () => {
               <div className="spotlight-item">
               <h1 className="spotlight-number">#9</h1>
                 <img src={'https://image.tmdb.org/t/p/original/lOv9qYklDC8mpMvg1WI0sQsmfTk.jpg'} alt='D2' className="spotlight-image" />
+                <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .9</h4>
               
@@ -307,6 +321,7 @@ const Spotlight = () => {
               <div className="spotlight-item">
                 <h1 className="spotlight-number">#10</h1>
                 <img src={'https://image.tmdb.org/t/p/original/j02v9Ylr1lctZ2NmCUvSfSMlBGu.jpg'} alt='D2' className="spotlight-image" />
+                <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .10</h4>
                  
@@ -340,6 +355,7 @@ const Spotlight = () => {
               <div className="spotlight-item">
                 <h1 className="spotlight-number">#11</h1>
                 <img src={'https://image.tmdb.org/t/p/original/viKEEaaCaZ0hZ2nGuvIEozlLooL.jpg'} alt='D2' className="spotlight-image" />
+                <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon"> #Spotlight .11</h4>
   
