@@ -237,7 +237,7 @@ const Detail = () => {
                               {category === 'movie' && 
                               <>
                               
-                        <div className="playbtn">
+                        <div className="buttonz">
 
                         <Button className="btn" onClick={() => handlePlayer(item.id, item.name || item.title)}>Watch Now</Button>
                       </div>
