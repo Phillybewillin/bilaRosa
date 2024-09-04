@@ -286,7 +286,8 @@ const handlecardClick = (id, category, title, poster_path) => {
             
             </div>
             <ToastContainer theme="dark" position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#1eff00' , color : 'white', borderRadius : '10px'}}/>
-           
+                       <h3 className='villa'>•Share Zilla-XR•<h6 className="catx">to your Friends</h6></h3>
+            
             <div className="infoo" style={{width: '100%', backgroundColor: 'pink' , padding: '10px', textAlign: 'center',color : 'black',display: 'flex', justifyContent: 'center', alignItems: 'center'}}><h4><a href="https://www.buymeacoffee.com/zilla-xr.xyz" target="_blank" rel="noreferrer"><i class='bx bxs-donate-heart'></i></a> </h4></div>
         </>
     );
