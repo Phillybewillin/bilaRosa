@@ -265,19 +265,14 @@ const Detail = () => {
                       </div>
                        <div className="wrappwez">
                               
-                               {
-                   items.results.map((itemz ,ia) =>(
-                    
-                            <div className="wrappwezs" key={ ia} onClick={scrollToTop}>
-                            
-                            <MovieCard item={itemz} category={category} key={itemz.id}/>
-                            {itemz.overview && <p className="overviewz">{itemz.overview}</p>}
-                        </div>
-                        
-                        
-                        
-                    ))
-                }
+                       {
+  items.results.filter(itemz => itemz.poster_path).map((itemz, ia) => (
+    <div className="wrappwezs" key={ia} onClick={scrollToTop}>
+      <MovieCard item={itemz} category={category} key={itemz.id} />
+      {itemz.overview && <p className="overviewz">{itemz.overview}</p>}
+    </div>
+  ))
+}
                            </div>
                        
                        <ToastContainer theme='dark' position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#ff0000' , color : 'white', borderRadius : '5px'}}/>
