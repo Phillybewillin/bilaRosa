@@ -159,7 +159,7 @@ const Header = React.memo(() => {
             ) : (
                <div className="bur" >
                
-                <OutlineButton onClick={handleShowModal} className="small"><i className="bx bx-user"></i></OutlineButton>
+                <Button onClick={handleShowModal} className="pink"><i className="bx bx-user"></i></Button>
                
           </div>
            )}      
