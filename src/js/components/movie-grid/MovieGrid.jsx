@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import './movie-grid.scss';
 import './genre.scss';
@@ -14,6 +14,8 @@ const MovieCard = React.lazy(() => import("../movie-card/MovieCard"));
 const MovieGrid = props => {
 
     const [items, setItems] = useState([]);
+
+    document.title = `${props.category === category.movie ? 'Movies • ZillaXR' : 'TV Series • ZillaXR'} `;
 
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
@@ -36,7 +38,7 @@ const MovieGrid = props => {
                 const params = {
                     query: keyword
                 }
-                response = await tmdbApi.search(props.category, {params});
+                response = await tmdbApi.search({params});
             }
             const uniqueItems = Array.from(new Set(items.map(item => item.id))).map(id => items.find(item => item.id === id));
            
@@ -153,15 +155,15 @@ const MovieGrid = props => {
         {"id": 37, "name": "Western"}
       ]
       const movieType = {
-        upcoming: 'upcoming',
-        popular: 'popular',
-        top_rated: 'top_rated'
+        upcoming: 'TRENDING',
+        popular: 'POPULAR',
+        top_rated: 'TOP RATED'
     }
     const tvType = {
-      popular: 'popular',
-      top_rated: 'top_rated',
-      on_the_air: 'on_the_air',
-      airing_today: 'airing_today'
+      popular: 'POPULAR',
+      top_rated: 'TOP RATED',
+      on_the_air: ' TRENDING',
+      airing_today: 'AIRING TODAY'
   }
       const [tags, setTags] = useState([]);
       const [selectedGenre, setSelectedGenre] = useState([]);
@@ -188,7 +190,7 @@ const MovieGrid = props => {
         //setTre(tvType);
       
       fetchzData();
-    }, [selectedType]);
+    }, [ props.category, selectedType]);
       
       const handleGenreClick = async (genreId) => {
         setSelectedGenre((prevSelectedGenre) => {
@@ -231,7 +233,7 @@ const MovieGrid = props => {
       const loadMore = async () => {
         if (page >= totalPage) return;
       
-        const limit = 750;
+         const limit = 750;
         let API_URL = '';
       
         if (selectedGenre && selectedGenre.length > 0) {
@@ -305,13 +307,7 @@ useEffect(() => {
         });
       };
     }, []);
-    const handleMovieTypeChange = (event) => {
-      setSelectedType(event.target.value);
-    };
-  
-    const handleTvTypeChange = (event) => {
-      setSelectedType(event.target.value);
-    };
+ 
     
     const scrollToTop = () => {
       window.scrollTo({
@@ -330,14 +326,46 @@ useEffect(() => {
                
                 <div className="section_header">
                   <div className="section_search">
-                <MovieSearch category={props.category} keyword={keyword}/>
+                  {props.category === category.movie && (
+        <div className='label'>
+          <label><h3 className="mb2x">BROWSE MOVIES:</h3></label>
+          <div className='select-container'>
+          {Object.entries(movieType).map(([value, label]) => (
+              <div
+                key={value}
+                className={`select-option ${selectedType === value ? 'selected' : ''}`}
+                onClick={() => setSelectedType(value)}
+              >
+                {label}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {props.category === category.tv && (
+        <div className='label'>
+          <label><h3 className="mb2x">BROWSE TV SHOWS:</h3></label>
+          <div className='select-container'>
+            {Object.entries(tvType).map(([value, label]) => (
+              <div
+                key={value}
+                className={`select-option ${selectedType === value ? 'selected' : ''}`}
+                onClick={() => setSelectedType(value)}
+              >
+                {label}
+              </div>
+            ))}
+          </div>
+        </div>
+      )} 
+        <Button className="btn" onClick={handleFilter}>Filters</Button>
+               
                 </div>
-                <Button onClick={handleFilter}>Filters</Button>
-                </div>
+               </div>
                 
                 <div className="tags">
   {tags.map((genre) => (
-    <div  className={`tagOutline ${selectedGenre.includes(genre.id) ? 'selected' : ''}`}
+    <div  className={`tagOutline ${selectedGenre.includes(genre.id) ? 'selected' : ''}`} key={genre.id}
     >
     <div
       key={genre.id}
@@ -353,38 +381,7 @@ useEffect(() => {
    
   ))}
 </div>
-      {props.category === category.movie && (
-        <div className='label'>
-          <label><h3 className="mb2x">Browse Movies:</h3></label>
-          <div className='select-container'>
-            {Object.values(movieType).map((type) => (
-              <div
-                key={type}
-                className={`select-option ${selectedType === type ? 'selected' : ''}`}
-                onClick={() => setSelectedType(type)}
-              >
-                {type.replace(/_/g, ' ')}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-      {props.category === category.tv && (
-        <div className='label'>
-          <label><h3 className="mb2x">Browse TV shows:</h3></label>
-          <div className='select-container'>
-            {Object.entries(tvType).map(([value, label]) => (
-              <div
-                key={value}
-                className={`select-option ${selectedType === value ? 'selected' : ''}`}
-                onClick={() => setSelectedType(value)}
-              >
-                {label}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+     
       
                   <div className="movie-grid" loading="lazy">
                   <React.Suspense fallback={<div id="spinner"></div>}>
@@ -410,65 +407,5 @@ useEffect(() => {
     );
 }
 
-const MovieSearch = (props) => {
-  const navigate = useNavigate();
-  const [keyword, setKeyword] = useState(props.keyword ? props.keyword : '');
-
-  // Function to handle search
-  const handleSearch = () => {
-    if (keyword) {
-      // Perform search or navigation logic here
-      navigate(`/${category[props.category]}/search/${keyword}`);
-    }
-  };
-
-  // Function to handle Enter key press
-  const handleEnterKey = useCallback(
-    (event) => {
-      if (event.keyCode === 13) {
-        event.preventDefault();
-        handleSearch();
-      }
-    },
-    [keyword, handleSearch, navigate]
-  );
-
-  // Add event listener for Enter key
-  useEffect(() => {
-    document.addEventListener('keyup', handleEnterKey);
-    return () => {
-      document.removeEventListener('keyup', handleEnterKey);
-    };
-  }, [handleEnterKey]);
-
-  // Function to reset search and clear input
-  const resetSearch = () => {
-    setKeyword('');
-  };
-
-  // Function to update keyword state based on input
-  const handleChange = (event) => {
-    setKeyword(event.target.value);
-  };
-
-  // JSX for the component
-  return (
-    <div className="movie-search">
-      <input
-        type="text"
-        placeholder="Search...."
-        value={keyword}
-        onChange={handleChange}
-        className="searchbar"
-      />
-      <button className="search-icon" >
-        <i onClick={handleSearch} className="bx bx-search"></i>
-      </button>
-
-       {/* Additional JSX for search results or other UI elements */}
-    </div>
-    
-  );
-}
 
 export default MovieGrid;
