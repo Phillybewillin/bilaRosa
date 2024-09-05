@@ -1,0 +1,37 @@
+@use '../scss/' as *;
+
+.searchcontainer{
+  margin-top: 6rem;
+  padding: 10px;
+}
+
+.searchtitle{
+  font-size: 1.2rem;
+  padding: 5px 10px;
+  margin: 10px;
+  border-left: 5px solid transparent;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-image: linear-gradient(to bottom, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
+ 
+}
+
+.movie-gridk{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(230px, 100%), 1fr));
+  align-items: center;
+  gap: 8px;
+  
+  
+
+  @include tablet {
+      grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr));
+      left: 0;
+  }
+
+  @include mobile {
+      grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
+  
+  }
+  
+}
