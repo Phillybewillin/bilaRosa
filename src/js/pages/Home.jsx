@@ -19,7 +19,7 @@ import 'swiper/css/navigation';
 
 
 const Home = () => {
-  
+    document.title = 'ZillaXR • Home';
     
     const [tv, setTv] = React.useState([]);
     const getTVresults = async (timewindow) => {
