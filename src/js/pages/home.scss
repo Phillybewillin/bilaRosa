@@ -56,7 +56,7 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     
-    border-bottom: 2px solid transparent;
+    border-bottom: 1px solid transparent;
     border-image: linear-gradient(to right, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
     border-radius: 10px;
 
@@ -73,9 +73,10 @@
     border-radius: 10px;
 }
 .continue-watching:hover{
-  border: 1.5px solid $main-bg;
+   opacity: .6;
+  //border: 1.5px solid $main-bg;
   transform: scale(.9);
-  transition: all 0.5s ease-in-out;
+  transition: all 0.2s ease-in-out;
   border-radius: 10px;
 }
 .cat{
