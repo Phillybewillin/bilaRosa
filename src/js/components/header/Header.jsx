@@ -22,11 +22,11 @@ const headerNav = [
     },
     {
         display: <span className="iconbox"><i className="bx bx-movie"></i> <h5 className='iconv'>Movies</h5></span>,
-        path: '/movie'
+        path: '/z/movie'
     },
     {
         display: <span className="iconbox"><i className="bx bx-tv"></i> <h5 className='iconv'>Series</h5></span>,
-        path: '/tv'
+        path: '/z/tv'
     },
     {
         display: <span className="iconbox"><i className='bx bxs-mask'></i><h5 className='iconv'>Filters</h5></span>,
@@ -124,7 +124,7 @@ const Header = React.memo(() => {
           onChange={handleInputChange}
         />
         <div className="mds">
-          <Mlist movies={movies || []} />
+          <Mlist movies={movies || []} value={searchValue} />
         </div>
       </div>
     </div>
