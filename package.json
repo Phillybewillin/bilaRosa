@@ -28,11 +28,12 @@
   },
   "dependencies": {
     "@types/node": "^20.14.11",
-    "@vidstack/react": "^1.12.5",
+    "@vidstack/react": "^1.12.9",
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "firebase": "^10.12.4",
     "hls.js": "^1.5.14",
+    "media-icons": "^1.1.5",
     "million": "^2.6.4",
     "prop-types": "^15.8.1",
     "query-string": "^9.0.0",
@@ -44,7 +45,7 @@
     "react-router": "^6.25.1",
     "react-router-dom": "^6.25.1",
     "react-toastify": "^10.0.5",
-    "swiper": "^11.1.5"
+    "swiper": "^11.1.12"
   },
   "devDependencies": {
     "@million/lint": "1.0.0-rc.84",
