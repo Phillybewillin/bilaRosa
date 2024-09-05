@@ -5,8 +5,8 @@ i {
     font-size: 1.3rem;
 }
 .logo {
-   background-color: rgba(8, 8, 8, 0.747);
-   border-radius: 10px;
+  background-color: rgba(24, 24, 24, 0.648);
+    border-radius: 10px;
    margin-left: 20px;
     font-size: 1.3rem;
     font-weight: 500;
@@ -24,6 +24,11 @@ i {
             margin-right: 0;
         }
     }
+}
+.logotext{
+    padding-right: 10px;
+    font-weight: 500;
+    font-size: 1rem;
 }
 .zilla{
   text-align:start;
@@ -224,9 +229,9 @@ i {
 }
 
 .iconbox{
-   color: black;
-    background-color: rgba(255, 255, 255, 0.171);
-    padding: 8px 10px;
+   color: rgb(255, 255, 255);
+   background-color: rgba(24, 24, 24, 0.648);
+   padding: 8px 10px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -235,7 +240,7 @@ i {
     font-size:.6rem;
     gap: .1rem;
     transition: all 0.7s ease-in-out;
-    
+    position: relative;
     &::after{
       content: "";
       position: absolute;
@@ -256,6 +261,24 @@ i {
      opacity: 1;
      font-size: 1rem;
  }
+}
+.active{
+  position: relative;
+  &::after{
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    transition: width 0.5s ease;
+    height: 2.5px;
+    background-color: $main-bg;
+}
+&.active::after ,&:hover::after{
+    width: 100%;
+    
+}
 }
 .iconv{
    opacity: 0;
@@ -288,8 +311,9 @@ i {
         
     }
     @include mobile {
-      margin-top: calc(100vh - 10rem);
-       
+      margin-right: auto;
+      margin-top: calc(100vh - 15rem);
+       //width: 100vw;
         
     }
 }
@@ -303,13 +327,14 @@ i {
     align-items: center;
     width: 500px;
     input {
-        background-color: rgba(0, 0, 0, 0.795);
+        background-color: rgba(0, 0, 0, 0.605);
         //border: 2px solid $main-bg;
         color: white;
         padding: .5rem 1.5rem;
         margin-top: 1rem;
         border-radius: 30px;
         width: 500px;
+        backdrop-filter: blur(10px);
 
        
     }
