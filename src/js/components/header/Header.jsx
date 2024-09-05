@@ -112,6 +112,7 @@ const Header = React.memo(() => {
         <div ref={headerRef} className="header">
         <div className="logo" onClick={() => navigate('/')}>
                <img src={logo} alt="ZillaXR"/>
+               <h4 className="logotext">ZillaXR</h4>
        </div>
        
         <div className="mlrowa">
