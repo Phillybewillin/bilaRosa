@@ -214,7 +214,7 @@ const handlecardClick = (id, category, title, poster_path) => {
             
                 <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'>• TRENDING TV SHOWS<h6 className="catx">#TRENDING TODAY </h6></h3>
+                        <h3 className='villa'>• TRENDING TV SHOWS<h6 className="catx">#TODAY'S TRENDING SHOWS</h6></h3>
                         <h5 className="bluez" onClick={(event) => handleClick(event, category.tv, tvType.popular)}>view all+</h5>
                     </div>
                     <div className="trendTV">
