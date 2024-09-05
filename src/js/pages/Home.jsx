@@ -19,7 +19,8 @@ import 'swiper/css/navigation';
 
 
 const Home = () => {
-    document.title = 'ZillaXR • Home';
+  
+   document.title = 'ZillaXR • Home';
     
     const [tv, setTv] = React.useState([]);
     const getTVresults = async (timewindow) => {
@@ -161,12 +162,14 @@ const handlecardClick = (id, category, title, poster_path) => {
         </SwiperSlide>
       ))}
     </Swiper>
-       
+           
+           
         </div>
+        
              <div loading="lazy" className="container">
-            <div className="section mb-3">
+             <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'>• TRENDING MOVIES <h6 className="catx">#TODAY'S TRENDING MOVIES</h6></h3>
+                        <h3 className='villa'>• TRENDING MOVIES <h6 className="catx"> • Today's Trending movies</h6></h3>
                         <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.popular)}>view all+</h5>
                     </div>
                     <div className="trendTV">
@@ -214,7 +217,7 @@ const handlecardClick = (id, category, title, poster_path) => {
             
                 <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'>• TRENDING TV SHOWS<h6 className="catx">#TODAY'S TRENDING SHOWS</h6></h3>
+                        <h3 className='villa'>• TRENDING TV SHOWS<h6 className="catx"> • Today's Trending TV shows</h6></h3>
                         <h5 className="bluez" onClick={(event) => handleClick(event, category.tv, tvType.popular)}>view all+</h5>
                     </div>
                     <div className="trendTV">
@@ -261,15 +264,15 @@ const handlecardClick = (id, category, title, poster_path) => {
                 </div>
                 <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'>• POPULAR MOVIES <h6 className="catx">#POPULAR MOVIES THIS YEAR </h6></h3>
-                        <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.popular)}>view all+</h5>
+                        <h3 className='villa'>POPULAR MOVIES <h6 className="catx">• Popular movies this year</h6></h3>
+                        <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.upcoming)}>view all+</h5>
                     </div>
                     <MovieList category={category.movie} type={movieType.popular} />
             </div>
                
                 <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'>• TOP RATED MOVIES <h6 className="catx">#MUST WATCH AT LEAST ONCE</h6></h3>
+                        <h3 className='villa'>• TOP RATED MOVIES <h6 className="catx">• Fan Favourites Movies</h6></h3>
                         <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.top_rated)}>view all+</h5>
                     </div>
                     <MovieList category={category.movie} type={movieType.top_rated} />
@@ -277,7 +280,7 @@ const handlecardClick = (id, category, title, poster_path) => {
               
                 <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'>• TOP RATED TV SHOWS <h6 className="catx">#BEST SHOWS OF ALL TIME</h6></h3>
+                        <h3 className='villa'>• TOP RATED TV SHOWS <h6 className="catx">• Fan Favourites Shows</h6></h3>
                         <h5 className="bluez" onClick={(event) => handleClick(event, category.tv, tvType.top_rated)}>view all+</h5>
                     </div>
                     <MovieList category={category.tv} type={tvType.top_rated} />
@@ -286,9 +289,9 @@ const handlecardClick = (id, category, title, poster_path) => {
             
             </div>
             <ToastContainer theme="dark" position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#1eff00' , color : 'white', borderRadius : '10px'}}/>
-                       <h3 className='villa'>•Share Zilla-XR•<h6 className="catx">to your Friends</h6></h3>
-            
-            <div className="infoo" style={{width: '100%', backgroundColor: 'pink' , padding: '10px', textAlign: 'center',color : 'black',display: 'flex', justifyContent: 'center', alignItems: 'center'}}><h4><a href="https://www.buymeacoffee.com/zilla-xr.xyz" target="_blank" rel="noreferrer"><i class='bx bxs-donate-heart'></i></a> </h4></div>
+            <h3 className='villa'><h6 className="catx">•Share Zilla-XR•</h6></h3>
+             
+            <div className="infoo" style={{width: '100%', backgroundColor: 'white' , padding: '10px', textAlign: 'center',color : 'black',display: 'flex', justifyContent: 'center', alignItems: 'center'}}><h4><a href="https://www.buymeacoffee.com/zillaxr.xyz" target="_blank" rel="noreferrer"><i class='bx bxs-basketball'></i></a> </h4></div>
         </>
     );
 }
