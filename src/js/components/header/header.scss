@@ -5,13 +5,18 @@ i {
     font-size: 1.3rem;
 }
 .logo {
+
   background-color: rgba(24, 24, 24, 0.648);
     border-radius: 10px;
    margin-left: 20px;
     font-size: 1.3rem;
     font-weight: 500;
     color: $main-bg;
-    
+    border-right: 1px solid transparent;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-image: linear-gradient(to bottom, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
+  
 
     @include flex(center, flex-start);
 
@@ -20,15 +25,29 @@ i {
         width: 40px;
 
         @include mobile {
-            width: 20px;
+          //position: absolute;
+            width: 30px;
             margin-right: 0;
         }
+    }
+   
+    @include mobile {
+      position: absolute;
+      right: 0px;
+      z-index: 99;
+        
     }
 }
 .logotext{
     padding-right: 10px;
     font-weight: 500;
     font-size: 1rem;
+    @include tablet {
+      display: none;
+   }
+   @include mobile {
+     display: block;
+ }
 }
 .zilla{
   text-align:start;
@@ -296,61 +315,76 @@ i {
     min-height: 0px;
     display: flex;
     flex-direction: column;
+    
+    background-color: rgba(26, 26, 26, 0.555);
+    scrollbar-color: rgba(171, 171, 171, 0) transparent;
     gap: 1rem;
     position: absolute;
     width: 100%;
-    max-height: 70vh;
+    max-height: 80vh;
     border-radius: 10px;
-    margin-top: calc(100vh - 7rem);
+    margin-top: calc(100vh - 4rem);
     overflow: auto;
+    margin-right: 2px;
    
     @include tablet {
-        margin-top: calc(100vh - 10rem);
+        margin-top: calc(100vh - 50rem);
         width: 75vw;
        
         
     }
     @include mobile {
-      margin-right: auto;
-      margin-top: calc(100vh - 15rem);
-       //width: 100vw;
+      margin-top: calc(100vh - 3rem);
+      max-height: 90vh;
+       width: 100vw;
         
     }
 }
 
 .searchmovie{
-   margin-left: -150px;
-    display: flex;
-    //justify-content: flex-start;
-    padding: 0 0.3rem;
-    position: relative;
-    align-items: center;
-    width: 500px;
-    input {
-        background-color: rgba(0, 0, 0, 0.605);
-        //border: 2px solid $main-bg;
-        color: white;
-        padding: .5rem 1.5rem;
-        margin-top: 1rem;
-        border-radius: 30px;
-        width: 500px;
-        backdrop-filter: blur(10px);
-
-       
-    }
-    ::placeholder{
-        font-size: small;
-        color: $main-bg;
-    }
-    @include tablet {
-      margin-left: 0;
-       width: 300px; 
+  //position: relative;
+  margin-left: -100px;
+   display: flex;
+   //justify-content: flex-start;
+   padding: 0 0.3rem;
+   position: relative;
+   align-items: center;
+   width: 600px;
+   input {
+       background-color: rgba(20, 20, 20, 0.605);
       
-    }
-    @include mobile {
-        margin-left: 0;
-        width: 280px;
-        
-    }
- 
+       margin-top: 1rem;
+       border-radius: 30px;
+      
+       backdrop-filter: blur(10px);
+      
+      color: white;
+      padding: .8rem 1.5rem;
+      margin-bottom: 1rem;
+      border-left: 1px solid transparent;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-image: linear-gradient(to bottom, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
+      width: 600px;
+
+    
+      
+   }
+   ::placeholder{
+       font-size: small;
+       color: rgba(255, 255, 255, 0.696);
+   }
+   @include tablet {
+     margin-left: 0;
+      width: 310px; 
+     
+   }
+   @include mobile {
+       margin-left: -2px;
+       width: 100vw;
+       
+   }
+
 }
+
+
