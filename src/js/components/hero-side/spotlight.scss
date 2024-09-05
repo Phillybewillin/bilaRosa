@@ -87,8 +87,9 @@
     font-weight: 300;
 
     @include mobile {
-       padding-top: calc(60vh - 15rem);
-      align-items: center;
+      padding-top: calc(60vh - 9rem);
+    
+      //align-items: center;
     }
     
 }
@@ -153,12 +154,17 @@
     font-weight: 300;
     padding: .8rem;
     width: 50%;
+    margin-left: 1rem;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     @include tablet {
+        width: 80%;
         margin: .5rem;
         font-size:x-small;
     }
+   
+    
+
 }
 .spotty{
   display: flex;
