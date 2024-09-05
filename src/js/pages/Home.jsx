@@ -20,9 +20,11 @@ import 'swiper/css/navigation';
 
 const Home = () => {
   
-   document.title = 'ZillaXR • Home';
+   document.title = 'Welcome to ZillaXR • Home';
     
     const [tv, setTv] = React.useState([]);
+    const [moviesData, setMoviesData] = React.useState([]);
+
     const getTVresults = async (timewindow) => {
         const url = `https://api.themoviedb.org/3/trending/tv/${timewindow}?api_key=${apiConfig.apiKey}`;
         const response = await fetch(url);
@@ -30,11 +32,8 @@ const Home = () => {
         setTv(data.results);
     }
 
-    React.useEffect(() => {
-        getTVresults('day');
-    }, []);
-    const [moviesData, setMoviesData] = React.useState([]);
-    const getMovieresults = async (timewindow) => {
+
+     const getMovieresults = async (timewindow) => {
         const url = `https://api.themoviedb.org/3/trending/movie/${timewindow}?api_key=${apiConfig.apiKey}`;
         const response = await fetch(url);
         const data = await response.json();
@@ -42,6 +41,7 @@ const Home = () => {
     }
 
     React.useEffect(() => {
+      getTVresults('day');
         getMovieresults('day');
     }, []);
    
