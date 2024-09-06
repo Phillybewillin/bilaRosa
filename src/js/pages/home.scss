@@ -2,11 +2,14 @@
 @use '../scss/breakpoint' as *;
 
 
-
+::-webkit-scrollbar {
+  height: 0;
+}
 .section-tit{
     display: flex;
+    //flex-direction: column;
     justify-content: space-between;
-    text-align: start;
+    //text-align: start;
 }
 
 .continue-watching-title{
@@ -18,61 +21,64 @@
     background-color: $body-bg;
 }
 
+
 .villa{
-    text-decoration: none;
-    margin: 5px 0;
-    background-color:$body-bg;
-    border-radius: 5px;
-    padding: 5px 10px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: white;
-    margin: .6rem  0rem;
-    border-left: 3px solid transparent;
-    border-image: linear-gradient(to top, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
-    //width: 25%; 
-    
-    display: flex;
-    //justify-content: flex-start;
-    flex-direction: column;
-    //align-items: center;
 
-    @include mobile {
-        width: 100%;
-        padding: 5px;
-        margin-bottom: .5rem;
-        font-size: small;
-    }
-}
-.continue-watching-container{
-  background-color: $body-bg;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 4px;
-    margin-bottom: 1%;
-    overflow: auto;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    
-    border-bottom: 1px solid transparent;
-    border-image: linear-gradient(to right, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
-    border-radius: 10px;
+  background-color:$body-bg;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  margin: .6rem  0rem;
+  border-left: 3px solid transparent;
+  border-image: linear-gradient(to top, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
+  width: 10%; 
+  
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  //align-items: center;
 
+  @include mobile {
+      width: 90%;
+      padding: 5px;
+      margin-bottom: .5rem;
+      font-size: small;
+  }
 }
-.continue-watching{
-    z-index: 50;
+.continue_watchingcontainer{
+   //background-color: rgb(50, 172, 172);
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  padding: 5px;
+  scrollbar-color: #1a1a1a00 #00000000;
+  scroll-behavior: auto;
+}
+.contin{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: center;
+  
+}
+.continuewatching{
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
+     justify-content: center;
     align-items: center;
     transition: all 0.5s ease-in-out;
     overflow: auto;
     border: 1.5px solid transparent;
     border-radius: 10px;
+    
+    img{
+      width: 70px;
+      height: 110px;
+      object-fit: cover;
+    }
 }
-.continue-watching:hover{
+.continuewatching:hover{
    opacity: .6;
   //border: 1.5px solid $main-bg;
   transform: scale(.9);
@@ -89,12 +95,17 @@
     margin: 5px;
 }
 .catx{
-  text-align: center;
-  padding: 5px 8px;
-  background-color: rgb(22, 22, 22);
-  border-radius: 20px;
-    font-weight: 200;
-    color: rgba(233, 233, 233, 0.644);
+ 
+  padding: 5px;
+  background-color: rgb(23, 23, 23);
+  border-radius: 10px;
+  font-weight: 200;
+  color: rgba(233, 233, 233, 0.644);
+  text-align: end;
+
+  @include mobile {
+    font-size: xx-small;
+  }
 }
 .trendTV{
     //border: 2px solid rgb(26, 26, 26);
@@ -111,7 +122,7 @@
     }
 
     @include mobile {
-        width: 50%;
+        width: 45%;
     }
 }
 }
@@ -119,9 +130,6 @@
     background-color: rgba(20, 20, 20, 0.468);
     position: absolute;
     right: 10px;
-  
- 
-
     color: white;
     text-align: center;
     display: flex;
@@ -139,7 +147,7 @@
     @include mobile {
       background-color: $body-bg;
    
-        margin: 2rem;
+        margin: 1rem;
         font-size: xx-small;
     }
 
