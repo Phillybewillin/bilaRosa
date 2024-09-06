@@ -9,18 +9,14 @@ import apiConfig from '../api/apiConfig';
 import './home.scss';
 import { ToastContainer } from 'react-toastify';
 import MovieCard from '../components/movie-card/MovieCard';
-import {EffectCoverflow} from 'swiper/modules';
-import "swiper/css/effect-coverflow";
 import "swiper/css";
-import 'swiper/css/free-mode';
-import 'swiper/css/scrollbar';
-import { FreeMode,Scrollbar,Mousewheel,Navigation } from "swiper/modules";
+import { FreeMode,Navigation } from "swiper/modules";
 import 'swiper/css/navigation';
 
 
 const Home = () => {
   
-   document.title = 'Welcome to ZillaXR • Home';
+   document.title = 'Welcome to ZillaXR • Home of Movies ';
     
     const [tv, setTv] = React.useState([]);
     const [moviesData, setMoviesData] = React.useState([]);
@@ -42,13 +38,16 @@ const Home = () => {
 
     React.useEffect(() => {
       getTVresults('day');
-        getMovieresults('day');
+    
     }, []);
+    React.useEffect(() => {
+          getMovieresults('day');
+      }, []);
    
 
     const navigate = useNavigate();
     const handleClick = (event, category, type) => {
-        navigate(`/${category}?=${type}`, { replace: true });
+        navigate(`/z/${category}?=${type}`, { replace: true });
     }
     const [continuWatching, setContinueWatching] = React.useState([]);
     const continueWatching = JSON.parse(localStorage.getItem('ContinueWatching')) || [];
@@ -92,59 +91,22 @@ const handlecardClick = (id, category, title, poster_path) => {
             
              <Spotlight/>
             <h4 className="continue-watching-title">Continue Watching</h4>
-        <div className="continue-watching-container" >
+        <div className="continue_watchingcontainer" >
         
           
         <i className='bx bxs-brush-alt' onClick={clearContonurWatching} style={{color: "red",paddingLeft : '10px',cursor : 'pointer'}}></i>
-        <Swiper
-           
-
-           spaceBetween={1}
-           modules={[EffectCoverflow,Navigation]}
-           navigation = {true}
-           cssMode = {true}
-           grabCursor = {true}
-            //effect={'coverflow'}
-       centeredSlides={false}
-      slidesPerView={'auto'}
+        <div className="contin">
+             {continuWatching && Array.isArray(continueWatching) && continueWatching.map((item  ) => (
        
-       
-       className="mySwiper"
-       style={{
-         width: '100%',
-         padding: '20px',
-         
-         "--swiper-navigation-position": "absolute",
-         "--swiper-navigation-margin-top": "10px",
-         "--swiper-navigation-margin-bottom": "20px",
-         "--swiper-navigation-left": "auto",
-         "--swiper-navigation-right": "10px",
-         "--swiper-navigation-size": "35px",
-         "--swiper-navigation-color": "#1eff00",
-       }}
-      
-        //scrollbar={true}
-                
-    >
-      {Array.isArray(continueWatching) && continueWatching.map((item  ) => (
-        <SwiperSlide key={item.id}
-          style={{ backgroundPosition: 'center', backgroundSize: 'cover', width: '100px', height: '100%' }}
-        >
-          <div className="continue-watching" key={item.id}>
+          <div className="continuewatching " key={item.id}>
             
             <img
-            loading='lazy'
+              loading='lazy'
+              //className="continue-watching"
               src={`${apiConfig.w200Image(item.poster_path)}`}
               onClick={() => handlecardClick( item.id, item.category, item.title || item.name, item.poster_path)}
               alt={item.title}
-              style={{
-                display: 'block',
-                width: '100%',
-                objectFit: 'cover',
-                borderRadius: '10px',
-                //padding: '3px',
-                cursor: 'pointer'
-              }}
+              
             />
             <i
               onClick={() => handleDelete(item.id, item.title, item.poster_path, item.type)}
@@ -159,33 +121,37 @@ const handlecardClick = (id, category, title, poster_path) => {
               }}
             ></i>
           </div>
-        </SwiperSlide>
+    
       ))}
-    </Swiper>
-           
-           
+        </div>
+     
+      
         </div>
         
-             <div loading="lazy" className="container">
+             <div className="container">
              <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'>• TRENDING MOVIES <h6 className="catx"> • Today's Trending movies</h6></h3>
-                        <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.popular)}>view all+</h5>
+                        <p className='villa'> • TRENDING MOVIES <h6 className="catx">#Today's Trending Movies</h6></p>
+                        <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.popular)}>view all--+</h5>
                     </div>
                     <div className="trendTV">
                     <Swiper
                {...mySwiperConfig}
-               grabCursor={true}
+               //grabCursor={true}
                 spaceBetween={8}
                 slidesPerView={"auto"}
+                lazy={true}
+                preloadImages={false}
                 //mousewheel={ forceTouchEvents ? true : false}
                 height={"100%"}
                 direction={'horizontal'}
                navigation={true}
-        freeMode={true}
-        scrollbar={true}
-        cssMode={true}
-        modules={[FreeMode, Scrollbar, Mousewheel, Navigation]}
+               //freeMode={true}
+               cssMode={true}
+               speed={100}
+               
+
+                modules={[FreeMode ,Navigation]}
         style={{
             //width: '100%',
             minHeight: '300px',
@@ -217,23 +183,27 @@ const handlecardClick = (id, category, title, poster_path) => {
             
                 <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'>• TRENDING TV SHOWS<h6 className="catx"> • Today's Trending TV shows</h6></h3>
-                        <h5 className="bluez" onClick={(event) => handleClick(event, category.tv, tvType.popular)}>view all+</h5>
+                        <h3 className='villa'>• TRENDING TV SHOWS<h6 className="catx"> #Today's Trending TV shows</h6></h3>
+                        <h5 className="bluez" onClick={(event) => handleClick(event, category.tv, tvType.popular)}>view all--+</h5>
                     </div>
                     <div className="trendTV">
                     <Swiper
-               {...mySwiperConfig}
-               grabCursor={true}
-                spaceBetween={8}
-                slidesPerView={"auto"}
-                //mousewheel={ forceTouchEvents ? true : false}
-                height={"100%"}
-                direction={'horizontal'}
-               navigation={true}
-        freeMode={true}
-        scrollbar={true}
-        cssMode={true}
-        modules={[FreeMode, Scrollbar, Mousewheel, Navigation]}
+             {...mySwiperConfig}
+             //grabCursor={true}
+              spaceBetween={8}
+              slidesPerView={"auto"}
+              lazy={true}
+              preloadImages={false}
+              //mousewheel={ forceTouchEvents ? true : false}
+              height={"100%"}
+              direction={'horizontal'}
+             navigation={true}
+             //freeMode={true}
+             cssMode={true}
+             speed={100}
+             
+
+             modules={[FreeMode ,Navigation]}
         style={{
             //width: '100%',
             minHeight: '300px',
@@ -264,8 +234,8 @@ const handlecardClick = (id, category, title, poster_path) => {
                 </div>
                 <div className="section mb-3">
                     <div className="section-tit">
-                        <h3 className='villa'>POPULAR MOVIES <h6 className="catx">• Popular movies this year</h6></h3>
-                        <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.upcoming)}>view all+</h5>
+                        <h3 className='villa'>POPULAR MOVIES <h6 className="catx"># Most Popular movies this year</h6></h3>
+                        <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.upcoming)}>view all--+</h5>
                     </div>
                     <MovieList category={category.movie} type={movieType.popular} />
             </div>
@@ -273,7 +243,7 @@ const handlecardClick = (id, category, title, poster_path) => {
                 <div className="section mb-3">
                     <div className="section-tit">
                         <h3 className='villa'>• TOP RATED MOVIES <h6 className="catx">• Fan Favourites Movies</h6></h3>
-                        <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.top_rated)}>view all+</h5>
+                        <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.top_rated)}>view all--+</h5>
                     </div>
                     <MovieList category={category.movie} type={movieType.top_rated} />
                 </div>
