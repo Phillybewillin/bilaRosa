@@ -1,4 +1,4 @@
-import React, { useState, useEffect , useCallback } from "react";
+import React, { useState, useEffect} from "react";
 import { useNavigate, useParams,  } from "react-router-dom";
 import '@vidstack/react/player/styles/default/theme.css';
 import '@vidstack/react/player/styles/default/layouts/video.css';
@@ -10,8 +10,10 @@ import axios from "axios";
 import "./player.scss";
 import apiConfig from "../../api/apiConfig";
 import ErrorBoundary from "../../pages/Errorboundary"; // Import the ErrorBoundary component
-import Button from "../../components/button/Button";
-import Spinner from "./Spinner";
+import { ColorRing } from "react-loader-spinner";
+//import Button from "../../components/button/Button";
+//import Spinner from "./Spinner";
+import logo from '../../assets/icons8-alien-monster-emoji-48.png';
 export default function Player() {
   const { title, id, season_number, episode_number } = useParams();
   const [playerSource, setPlayerSource] = useState([]);
@@ -22,9 +24,11 @@ export default function Player() {
   const [seasons, setSeasons] = useState([]);
   const [currentSeason, setCurrentSeason] = useState(season_number);
   const [quality, setQuality] = useState("auto");
+ 
+
   //const [sources, setSources] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
+  //const [errorMessage, setErrorMessage] = useState("");
 
   const testurl = import.meta.env.VITE_CORS_URL;
   const navigate = useNavigate();
@@ -42,7 +46,7 @@ export default function Player() {
         document.title = `Watching ${decodedTitle}`;
 
       if (season_number && episode_number) {
-        document.title = `Watching ${decodedTitle} - S${currentSeason} -E${currentEpisode}`;
+        document.title = `Watching ${decodedTitle} • S${currentSeason} • E${currentEpisode}`;
       }
   
     }
@@ -74,9 +78,9 @@ export default function Player() {
   useEffect(() => {
     setEpisodeChanged(true);
   }, [currentEpisode]);
-  const fetchData = useCallback(async (showTMDBid, seasonNumber, episodeNumber) => {
+  const fetchData = async (showTMDBid, seasonNumber, episodeNumber) => {
     try {
-      setLoading(false); // Start loading
+       // Start loading
       let baseurl = `${testurl}/vidsrc?id=${showTMDBid}`;
       let additionalParams = "";
 
@@ -89,29 +93,30 @@ export default function Player() {
       const dataz = response.data;
 
       if (response.status === 404) {
-        throw new Error("Resource not found. try again later.");
+        //throw new Error("Resource not found. try again later.");
+        setIsLoading(false);
       }
 
       const sourcesData = dataz?.data?.sources || [];
-      //const subtitles =  || [];
-
-      //setPlayerSource(formattedSources(dataz?.data?.sources));
-      //setQuality(dataz?.data?.sources?.map(source => source.quality));
-      const initialSource = sourcesData.find(source => source.quality === quality);
+      console.log(sourcesData);
+        const initialSource = sourcesData.find(source => source.quality === quality);
       setPlayerSource(initialSource ? initialSource.url : "");
-
+   
       setTextTracks(mapSubtitlesToTracks(dataz?.data?.subtitles));
-
+       
+      setLoading(false);
       //console.log(dataz?.data?.subtitles);
     } catch (error) {
       console.error("Failed to fetch data:", error);
-      setErrorMessage(error.message || "An unexpected error occurred.");
+      //setErrorMessage(error.message || "An unexpected error occurred.");
     } finally {
       setLoading(false); // End loading
     }
-  }, [testurl, quality]);
-
-  
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+   console.log(playerSource);
   const mapSubtitlesToTracks = (subtitles) => {
     //console.log(subtitles)
     if (!subtitles) {
@@ -137,7 +142,7 @@ export default function Player() {
         setEpisodeData(response.data.episodes);
       } catch (error) {
         console.error("Failed to fetch episodes:", error);
-        setErrorMessage(error.message || "An unexpected error occurred.");
+        //setErrorMessage(error.message || "An unexpected error occurred.");
       }
     }
   };
@@ -162,12 +167,10 @@ const handleSeasonClick = (seasonNumber) => {
   setPlayerSource([]);
   setCurrentSeason(seasonNumber);
   setCurrentEpisode(1);
-  //setLoading(true);
+  setLoading(true);
   //fetchEpisodes(id, currentSeason);
   
 };
-
-
 
  const handleBack = ( ) => {
     if(id && season_number && episode_number){
@@ -212,22 +215,28 @@ class CustomMediaStorage extends LocalMediaStorage {
   return (
     <ErrorBoundary>
       {loading ? (
-        <Spinner />
-      ) : errorMessage ? (
-        <div className="error-message">
-          <p className="error-text">No playerble resource found</p>
-         
-          <p className="error-text">{errorMessage}</p>
-           <Button className="btn " onClick={handleHome}>Try another show</Button>
-           <Button className="btn " onClick={handleBack}>Back to Details</Button>
-        </div>
+        <ColorRing
+        visible={true}
+        height="50"
+        width="50"
+        ariaLabel="color-ring-loading"
+        wrapperStyle={{}}
+        wrapperClass="color-ring-wrapper"
+        colors={['#e15b64', '#ff0040', '#f8b26a', '#abbd81', '#16e5e9']}
+        />
       ) : (
         <> 
           <div className="player-container">
-            <div className="menu">
+            <div className="topbar">
+            <div className="logozz" onClick={() => navigate('/')}>
+               <img src={logo} alt="ZillaXR"/>
+               <h4 className="logotext">ZillaXR</h4> </div>
+              <div className="menu">
               <div className="navih" onClick={handleHome}><i className="bx bx-home" ></i></div>
               <div className="navi" onClick={handleBack}><i className='bx bx-undo'></i>Back to Details</div>
             </div>
+            </div>
+            
 
              <MediaPlayer
               //storage={`custom-storage-key-${id}-${season_number}-${episode_number}`} 
