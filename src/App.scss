@@ -5,7 +5,6 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -37,11 +36,6 @@ a {
   color: unset;
 }
 
-@media(hover :hover){
-  a:hover{
-    color: $main-bg;
-  }
-}
 
 button,
 input {
@@ -54,13 +48,6 @@ ul {
   list-style-type: none;
 }
 
-img {
-  max-width: 100%;
-}
-
-iframe {
-  border: 0;
-}
 
 .container {
 
@@ -76,7 +63,7 @@ iframe {
 
 .mb-2 {
   min-height: auto;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .section {
@@ -86,49 +73,28 @@ iframe {
 .section__header {
   @include flex(center, center);
 }
-#spinner{
-  @include flex(center, center);
-  //backdrop-filter: blur(5px);
-  background-color: rgba(0, 0, 0, 0.169);
-  height: 30px;
-  width: 30px;
-  border: 3px solid;
-  border-radius: 50%;
-  border-color: $main-bg $main-bg $main-bg transparent;
-  animation: spinner-rotate 1.5s linear infinite;
-  position: absolute;
-  top: 50%;
-  left: 49%;
-  transform: translate(-50%, -50%);
-}
-@keyframes spinner-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(180deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-::-webkit-scrollbar {
-  width: 3px;
-}
 
-/* Track */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 3px;
+
+}
 
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: $main-bg;
-  border-radius: 30px;
-  width: 4px;
+  background: #dcdcdc;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
 
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #1b1b1b;
+  background: #3b3b3b;
 }  
+/* Enable hardware acceleration */
+.scrollable-element {
+  transform: translateZ(0);
+}
 
