@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './movie-card.scss';
 import {Link} from 'react-router-dom';
 import {category} from "../../api/tmdbApi";
+import PropTypes from 'prop-types';
 import apiConfig from "../../api/apiConfig";
 import {UserAuth} from "../../context/AuthContext";
 import {db} from "../../Firebase";
@@ -36,7 +37,7 @@ const MovieCard = (props) => {
                 [collection] : arrayUnion({
                     id : item.id,
                     title : item.title || item.name,
-                    img : item.poster_path || item.backdrop_path
+                    img : item.poster_path
 
                 })
             })
@@ -69,7 +70,7 @@ const MovieCard = (props) => {
         navigate(`/${category}/${id}`);
     }
     
-    const link = '/' + category[props.category] + '/' + item.id;
+    //const link = '/' + category[props.category] + '/' + item.id;
 
     //onst bg = apiConfig.w500Image(item.poster_path || item.backdrop_path);
     const inCinema = (releaseDate) => {
@@ -93,10 +94,10 @@ const MovieCard = (props) => {
       const img = new Image();
       img.onload = () => {
         setIsLoading(false);
-        setBg(apiConfig.w500Image(item.poster_path || item.backdrop_path)); // Set the bg state variable using the apiConfig.w500Image function
+        setBg(apiConfig.w500Image(item.poster_path )); // Set the bg state variable using the apiConfig.w500Image function
       };
-      img.src = apiConfig.w500Image(item.poster_path || item.backdrop_path);
-    }, [item]);
+      img.src = apiConfig.w500Image(item.poster_path);
+    }, [item.poster_path]);
 
     const voteAverage = item.vote_average; // example vote average
     const votePercentage = voteAverage * 10; // convert to percentage
@@ -121,10 +122,10 @@ const MovieCard = (props) => {
     return (
         <>
         <div>
-        <Link to={link}>
+        <Link to={`/${props.category}/${item.id}`}>
         {isLoading ? (
           <SkeletonTheme color="#000000" highlightColor="#444444">
-            <Skeleton baseColor="#161616d6" variant="rectangular"  className="movie-card"/>
+            <Skeleton baseColor="#161616d6"  className="movie-card"/>
           </SkeletonTheme>
         ) : (
           <div className="movie-card" loading="lazy" onClick={() => handlecardClick(item.id, props.category ,item.title || item.name, item.poster_path, )} style={{backgroundImage : `url(${bg})`, backgroundSize : 'cover' , backgroundPosition : 'center' , backgroundRepeat : 'no-repeat'}}>
@@ -141,7 +142,7 @@ const MovieCard = (props) => {
                 {item.title || item.name || <Skeleton count={1}/>}
               </div> 
               <button className="savemovie" onClick={saveShow}>    <p style={{ cursor : 'pointer' , color : saved ? 'red' : 'rgba(255, 255, 255, 0.549)'}}>
-          {saved ? <i className='bx bxs-bookmark-plus'  style={{fontSize :'19px'}}></i> :<i class='bx bx-bookmark-plus' style={{fontSize :'18px'}}></i>}
+          {saved ? <i className='bx bxs-bookmark-plus'  style={{fontSize :'19px'}}></i> :<i className='bx bx-bookmark-plus' style={{fontSize :'18px'}}></i>}
            </p>
               </button>
            
@@ -161,5 +162,9 @@ const MovieCard = (props) => {
         </>
     );
 }
+MovieCard.propTypes = {
+  category: PropTypes.string.isRequired,
+  item: PropTypes.shape({ title : PropTypes.string.isRequired, name : PropTypes.string.isRequired , poster_path : PropTypes.string.isRequired , id : PropTypes.number.isRequired , vote_average : PropTypes.number.isRequired}).isRequired
+};
 
 export default MovieCard;
