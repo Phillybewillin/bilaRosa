@@ -1,38 +1,22 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
-import path from 'path';
-import MillionLint from '@million/lint';
-import { VitePWA } from "vite-plugin-pwa";
 
-export default defineConfig((config) => {
-  const env = loadEnv(config.mode, process.cwd());
+import { VitePWA } from "vite-plugin-pwa";
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, new URL('.', import.meta.url).pathname);
 
   return {
     base: env.VITE_BASE_URL || '/', 
     plugins: [
-      MillionLint.vite({
-        rsc: true,
-        filter: {
-       include: "**/components/*.{js,jsx}",
-        },
-        optimizeDOM : true , 
-      }),
       react(),
       VitePWA({
         disable: env.VITE_PWA_ENABLED !== "true",
         registerType: "autoUpdate",
-        workbox: {
-          maximumFileSizeToCacheInBytes: 4000000, // 4mb
-          globIgnores: ["**ping.txt**"],
-        },
         includeAssets: [
         
           "favicon.ico",
           "apple-touch-icon.png",
           "safari-pinned-tab.svg",
-        
-          "robots.txt",
-        
           "favicon-32x32.png",
           "favicon-16x16.png",
           "sitemap.xml",
@@ -47,8 +31,7 @@ export default defineConfig((config) => {
           background_color: "#000000",
           theme_color: "#000000",
           display: "standalone",
-          start_url: "https://www.zilla-xr.xyz",
-          orientation: "any",
+          start_url: "/",
           icons: [
             {
               src: "android-chrome-192x192.png",
@@ -92,22 +75,16 @@ export default defineConfig((config) => {
         },
       },
     },
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, './src/ts/src'),
-      },
-    },
     build: {
-      assetsDir: 'assets',
       minify: 'esbuild',
-      outDir: 'dist',
       rollupOptions: {
         output: {
-          manualChunks: {
-            vendor: ['react', 'react-dom'],
-            
-          },
-        },
+  manualChunks: {
+    vendor: ['react', 'react-dom'],
+    swiper: ['swiper'],
+    vidstack: ['@vidstack/react'],
+  },
+},
       },
     },
   };
