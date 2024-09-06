@@ -43,6 +43,53 @@
   border-radius: 5px;
   //margin: 10px;
 }
+.logozz{
+
+  background-color: rgba(24, 24, 24, 0.648);
+    border-radius: 10px;
+   //margin-left: 20px;
+   position: absolute;
+   right: 20px;
+   top: 10px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: white;
+    border-radius: 20px ;
+
+    @include flex(center, flex-start);
+
+    img {
+        //margin-right: 20px;
+        width: 40px;
+
+        @include mobile {
+          //position: absolute;
+            width: 30px;
+            margin-right: 0;
+        }
+    }
+   
+    @include mobile {
+      display : none;
+        
+    }
+}
+.topbar {
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  //backdrop-filter: blur(5px);
+  font-size: 11px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: .4rem;
+  //background-color: #1414145f;
+  z-index: 20;
+  border-radius: 5px;
+  //margin: 10px;
+}
 .navi{
   display: flex;
   align-items: center;
@@ -80,48 +127,7 @@
   height: 100vh;
   
 }
-.error-message{
-  position: absolute;
-  top: 50%;
-  right: 50%;
-  transform: translate(50%,-50%);
-  z-index: 10;
-  font-size: 14px;
-  color: $main-bg;
-  background-color: rgb(26, 26, 26);
-  padding: 10px;
-  text-align: center;
-  border-radius: 10px;
-  
-}
-.error-text{
-  background-color: #2c2c2c;
-  padding: 10px;
-  border-radius: 10px;
-  margin: 10px;
-  
-}
-.quality-selector{
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  z-index: 10;
-  background-color: rgba(255, 255, 255, 0.192);
-  border-radius: 5px;
-  padding: 6px;
-  cursor: not-allowed;
-  margin: 0 10px;
-  color: #ff0040;
-  display: flex;
 
-  @include tablet {
-    display: none;
-  }
-
-  @include mobile {
-    display: none;
-  }
-}
 .episodes_title{
   display: flex;
   align-items: center;
@@ -174,14 +180,15 @@
   }
 }
 .actively{
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.416);
   color: black;
 }
 
 .episodes_itemz:hover{
-  background-color: $main-bg;
+  background-color: white;
   color: black;
 }
+
 .vds-video-layout {
   --video-brand: #f5f5f5;
   --video-controls-color: #ededed;
@@ -191,7 +198,7 @@
 
   --video-bg: rgb(87, 87, 87);
   --video-border-radius: 6px;
-  --video-border: 1px solid rgb(255 255 255 / 0.1);
+  --video-border: 1px solid rgba(28, 28, 28, 0.1);
 
   --video-fullscreen-chapter-title-font-size: 16px;
   --video-gesture-seek-width: 20%;
@@ -205,7 +212,7 @@
   --video-sm-load-button-size: 48px;
 
   /* Buttons. */
-  --video-sm-button-size: 32px;
+  --video-sm-button-size: 22px;
   --video-sm-play-button-size: 40px;
   --video-sm-play-button-transform: translateY(25%);
   --video-sm-play-button-bg: rgba(0 0 0 / 0.6);
@@ -262,7 +269,7 @@
   --media-button-hover-transition: transform 0.2s ease-in;
   --media-button-icon-size: 80%;
   --media-button-padding: 0px;
-  --media-button-size: 40px;
+  --media-button-size: 37px;
   --media-button-touch-hover-bg: rgb(255 255 255 / 0.2);
   --media-button-touch-hover-border-radius: 100%;
   --media-sm-fullscreen-button-size: 42px;
@@ -307,11 +314,11 @@
   --media-cue-line-height: calc(var(--cue-font-size) * 1.2);
   --media-cue-padding-x: calc(var(--cue-font-size) * 0.4);
   --media-cue-padding-x: calc(var(--cue-font-size) * 0.6);
-
+ 
   /* Chapter Title. */
-  --media-chapter-title-color: rgba(255 255 255 / 0.64);
+  --media-chapter-title-color: rgba(252, 229, 242, 0.687);
   --media-chapter-title-font-size: 14px;
-  --media-chapter-title-font-weight: 500;
+  --media-chapter-title-font-weight: 300;
   --media-chapter-title-separator-color: var(--color);
   --media-chapter-title-separator-gap: 6px;
   --media-chapter-title-separator: '\2022';
@@ -322,7 +329,7 @@
   --media-controls-out-transition: opacity 0.2s ease-out;
 
   /* Thumbnails. */
-  --media-thumbnail-bg: black;
+  --media-thumbnail-bg: rgb(0, 0, 0);
   --media-thumbnail-border: 1px solid white;
   --media-thumbnail-aspect-ratio: 16 / 9;
   --media-thumbnail-min-width: 120px;
@@ -335,7 +342,7 @@
   --media-time-border-radius: 10px;
   --media-time-border: unset;
   --media-time-color: #ffffff;
-  --media-time-divider-color: #2bff00;
+  --media-time-divider-color: #ffffff;
   --media-time-divider-gap: 2.5px;
   --media-time-font-size: 14px;
   --media-time-font-weight: 400;
