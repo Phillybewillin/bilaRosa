@@ -15,35 +15,39 @@ import Input from '../input/Input';
 import logo from '../../assets/icons8-alien-monster-emoji-48.png';
 import Signup from '../../pages/authpages/Signup';
 import Login from '../../pages/authpages/Login';
-const headerNav = [
-    {
-        display:<span className="iconbox"><i className='bx bxs-home'></i> <h5 className='iconv'>Home</h5></span>,
-        path: '/'
-    },
-    {
-        display: <span className="iconbox"><i className="bx bx-movie"></i> <h5 className='iconv'>Movies</h5></span>,
-        path: '/z/movie'
-    },
-    {
-        display: <span className="iconbox"><i className="bx bx-tv"></i> <h5 className='iconv'>Series</h5></span>,
-        path: '/z/tv'
-    },
-    {
-        display: <span className="iconbox"><i className='bx bxs-mask'></i><h5 className='iconv'>Filters</h5></span>,
-        path: '/filter'
-    },
 
-    {
-        display: <span className="iconbox"><i className='bx bxs-info-square'></i><h5 className='iconv'>about</h5></span>,
-        path: '/info'
-    }
-]
 
 // eslint-disable-next-line react/display-name
 const Header = React.memo(() => {
+
     //const { user , logOut } = React.useContext(UserAuth) || {};
     const [showModal, setShowModal] = React.useState(false);
     const [showSignup, setShowSignup] = React.useState(true);
+    const [hidesearch , sethide] =  React.useState(false);
+    const headerNav = [
+      {
+          display:<span className="iconbox"><i className='bx bxs-home'></i> <h5 className='iconv'>Home</h5></span>,
+          path: '/'
+      },
+      {
+          display: <span className="iconbox"><i className="bx bx-movie"></i> <h5 className='iconv'>Movies</h5></span>,
+          path: '/z/movie'
+      },
+      {
+          display: <span className="iconbox"><i className="bx bx-tv"></i> <h5 className='iconv'>Series</h5></span>,
+          path: '/z/tv'
+      },
+      {
+          display: <span className="iconbox"><i className='bx bxs-mask'></i><h5 className='iconv'>Filters</h5></span>,
+          path: '/filter'
+      },
+  
+      {
+          display: <span className="iconbox"><i className='bx bxs-hide'></i><h5 className='iconv'>Hide</h5></span>,
+          onClick: () => sethide(!hidesearch), // add this line
+   
+      }
+  ]
 
 
    const handleShowModal = () => {
@@ -67,19 +71,7 @@ const Header = React.memo(() => {
 
     //const active = headerNav.findIndex(e => e.path === pathname);
 
-    useEffect(() => {
-        const shrinkHeader = () => {
-            if (headerRef.current && (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100)) {
-                headerRef.current.classList.add('shrink');
-            } else if (headerRef.current) {
-                headerRef.current.classList.remove('shrink');
-            }
-        }
-        window.addEventListener('scroll', shrinkHeader);
-        return () => {
-            window.removeEventListener('scroll', shrinkHeader);
-        };
-    }, []);
+    
      
     const [movies , setMovies] = React.useState([]);
     const [searchValue, setSearchValue] = React.useState('');
@@ -99,14 +91,16 @@ const Header = React.memo(() => {
             }
         }
     };
-    React.useEffect(() => {
+    useEffect(() => {
+        //handleInputChange({ target: { value: searchValue } });
         getMoviesResult(searchValue);
         setShowModal(false)
     }, [searchValue ,user]);
+    
     const handleInputChange = (e) => {
-        setSearchValue(e.target.value);
-        setMovies([]); // Reset movies when user types in the search input
-      };
+      setSearchValue(e.target.value);
+      setMovies([]); // Reset movies when user types in the search input
+    };
     return (
         <>
         <div ref={headerRef} className="header">
@@ -114,34 +108,36 @@ const Header = React.memo(() => {
                <img src={logo} alt="ZillaXR"/>
                <h4 className="logotext">ZillaXR</h4>
        </div>
-       
-        <div className="mlrowa">
-         <div className="searchmovie">
-        <Input
-          type="text"
-          placeholder="What do you wanna watch...."
-          value={searchValue}
-          onChange={handleInputChange}
-        />
-        <div className="mds">
-          <Mlist movies={movies || []} value={searchValue} />
-        </div>
+       {!hidesearch && (
+  <div className="mlrowa">
+    <div className="searchmovie">
+      <Input
+        type="text"
+        placeholder="What do you wanna watch...."
+        value={searchValue}
+        onChange={handleInputChange}
+      />
+      <div className="mds">
+        <Mlist movies={movies || []} value={searchValue} />
       </div>
     </div>
+  </div>
+)}
+       
 
    
        <div className="header__wrap container">
            <nav className="header__nav">
-            {headerNav.map((navItem) => (
-              <NavLink
-                key={navItem.path}
-                to={navItem.path}
-                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-        
-              >
-                {navItem.display}
-              </NavLink>
-            ))}
+           {headerNav.map((navItem) => (
+  <NavLink
+    key={navItem.path}
+    to={navItem.path}
+    className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+    onClick={navItem.onClick ? navItem.onClick : null}
+  >
+    {navItem.display}
+  </NavLink>
+))}
           </nav>
         
          
