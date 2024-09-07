@@ -2,9 +2,7 @@
 @use '../scss/breakpoint' as *;
 
 
-::-webkit-scrollbar {
-  height: 0;
-}
+
 .section-tit{
     display: flex;
     //flex-direction: column;
