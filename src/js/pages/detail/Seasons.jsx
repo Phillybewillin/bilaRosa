@@ -78,7 +78,9 @@ const Seasons = ({ id , title}) => {
                     
                        
                         <div className="episodes__list">
-                            {episodes && episodes.map((episode) => (
+                            {episodes && episodes
+            .filter(episode => new Date(episode.air_date) <= new Date()) // Filter out unreleased episodes
+            .map((episode) => (
                               <>
                               <div className="episodes__cont">
                                <div className="episodes__item" key={episode.id} onClick={() => handleEpisodeClick( id , title ,selectedSeason, episode.episode_number)}>
