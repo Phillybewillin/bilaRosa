@@ -207,6 +207,7 @@ const Filters = () => {
                             <label
                             className={`radio-label ${selectedCountry === country.code ? 'checked' : ''}`}
                             onClick={() => setSelectedCountry(country.code)}
+                            key={country.code}
                               >
                             <div className="genrezz" key={country.code}>
                             <input
@@ -231,6 +232,7 @@ const Filters = () => {
                             {years.map((year) => (
                                 <label className={`radio-label ${selectedYear ? 'checked' : ''}`}
                                 onClick={() => setSelectedYear(year)}
+                                key={year}
                             >
                                 <div key={year} className="genrezz">
                                 <input
@@ -259,19 +261,19 @@ const Filters = () => {
             {items && items.length === 0 ? (
                     <p>Nothing to see here</p>
                 ) : (
-                    items && items.map((item) => (
+                    items && items.filter(item => item.poster_path).map((item) => (
                         <MovieCard
-                            key={item.id}
-                            poster_path={item.poster_path}
-                            item={item}
-                            category={category}
+                          key={item.id}
+                          poster_path={item.poster_path}
+                          item={item}
+                          category={category}
                         />
-                    ))
+                      ))
                 )}
             </div>
            <div className="lod">
                 {items && items.length > 0 && (
-                    <Button className="small" onClick={handleLoadMore}>Next Page</Button>
+                    <Button className="btn" onClick={handleLoadMore}>Next Page</Button>
                 )}
            </div>
         </div>
