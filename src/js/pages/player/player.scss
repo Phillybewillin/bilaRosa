@@ -42,6 +42,11 @@
   z-index: 20;
   border-radius: 5px;
   //margin: 10px;
+
+  @include mobile {
+    background-color: #1616167f;
+    backdrop-filter: blur(10px);
+  }
 }
 .logozz{
 
