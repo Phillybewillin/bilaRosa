@@ -32,13 +32,13 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  //backdrop-filter: blur(5px);
+  //backdrop-filter: blur(10px);
   font-size: 12px;
   position: absolute;
   top: 0;
   left: 0;
   padding: .4rem;
-  background-color: #1414145f;
+  //background-color: #1414145f;
   z-index: 20;
   border-radius: 5px;
   //margin: 10px;
@@ -46,10 +46,10 @@
 .logozz{
 
   background-color: rgba(24, 24, 24, 0.648);
-    border-radius: 10px;
+    //border-radius: 10px;
    //margin-left: 20px;
    position: absolute;
-   right: 20px;
+   right: 10px;
    top: 10px;
     font-size: 1.3rem;
     font-weight: 500;
@@ -93,12 +93,15 @@
 .navi{
   display: flex;
   align-items: center;
-  background-color: rgba(4, 4, 4, 0.466);
-  border-radius: 5px;
+  background-color: rgba(24, 24, 24, 0.648);
+  
   padding: 7px;
   cursor: pointer;
   margin: 0 3px;
+  font-size: .9rem;
+  font-weight: 500;
   color: white;
+  border-radius: 20px ;
 }
 .episodes_itemz.episode-watched {
   background-color: lightgreen;
@@ -107,11 +110,14 @@
   background-color: #b50052a7;
 }
 .navih{
-  background-color: rgba(4, 4, 4, 0.466);
-  border-radius: 5px;
+  background-color: rgba(24, 24, 24, 0.648);
   padding: 5px;
   cursor: pointer;
   margin: 0px 3px;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: white;
+  border-radius: 20px ;
  
 }
 .navi:hover{
