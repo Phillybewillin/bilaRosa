@@ -28,13 +28,6 @@
     scrollbar-color: #1a1a1a78 #00000000;
     //justify-content: center;
 
-    ::-webkit-scrollbar-thumb {
-      //background: $main-bg;
-      border-radius: 30px;
-      width: 4px;
-    
-    }
-
     @include mobile {
 
         flex-direction: column;
@@ -128,10 +121,4 @@ height: 500px;
   }
 }
 
-::-webkit-scrollbar-thumb {
-  background: $main-bg;
-  border-radius: 30px;
-  width: 4px;
-
-}
 
