@@ -1,22 +1,31 @@
 @use '../scss/' as *;
 @use '../scss/breakpoint' as *;
 
-
-
 .section-tit{
     display: flex;
     //flex-direction: column;
     justify-content: space-between;
     //text-align: start;
 }
+.movie-list{
+  overflow: hidden;
+    scrollbar-color: rgba(47, 47, 47, 0.021) rgba(26, 27, 26, 0.062);
+    scrollbar-width: thin;
+}
+
 
 .continue-watching-title{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     padding: .5rem;
-
-    text-decoration: overline;
-    background-color: $body-bg;
+    background-color: rgb(23, 23, 23);
+    font-size: small;
+  border-radius: 10px;
+  font-weight: 200;
+  color: rgba(233, 233, 233, 0.644);
+ position: relative;
+ width: 140px;
+ left: .5rem;
 }
 
 
@@ -62,6 +71,7 @@
   
 }
 .continuewatching{
+   position: relative;
     display: flex;
      justify-content: center;
     align-items: center;
@@ -104,25 +114,6 @@
   @include mobile {
     font-size: xx-small;
   }
-}
-.trendTV{
-    //border: 2px solid rgb(26, 26, 26);
-    border-radius: 8px;
-   padding: 0.1rem;
-   // margin: 10px;
-   .swiper-slide {
-    width: 22%;
-
-
-
-    @include tablet {
-        width: 35%;
-    }
-
-    @include mobile {
-        width: 45%;
-    }
-}
 }
 .bluez{
     background-color: rgba(20, 20, 20, 0.468);
