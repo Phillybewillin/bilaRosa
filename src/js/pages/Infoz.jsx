@@ -2,7 +2,7 @@ import React from "react";
 import alien from "../assets/icons8-alien-monster-emoji-48.png";
 import { useNavigate } from "react-router-dom"
 const info = () => {
-    return <div className="infooo" style={{display : 'flex', flexDirection : 'column', justifyContent : 'flex-start', alignItems : 'flex-start', gap : '1rem',padding : '1rem',margin : '2rem',backgroundColor : 'white',borderRadius : '10px',color : 'black',width: '90vw',fontSize:"12px"}}>
+    return <div className="infooo" style={{display : 'flex', flexDirection : 'column', justifyContent : 'flex-start', alignItems : 'flex-start', gap : '1rem',padding : '1rem',margin : '2rem',borderRadius : '10px',color : 'black',width: '94vw',fontSize:"12px"}}>
        
         <h2>WELCOME TO Zilla-XR</h2>
         <h3>What is Zilla-XR?</h3>
