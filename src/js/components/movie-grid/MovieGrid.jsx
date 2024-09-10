@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import './movie-grid.scss';
 import './genre.scss';
@@ -16,6 +16,18 @@ const MovieGrid = props => {
     const [items, setItems] = useState([]);
 
     document.title = `${props.category === category.movie ? 'Movies • ZillaXR' : 'TV Series • ZillaXR'} `;
+    const { type } = useParams();
+    const [tags, setTags] = useState([]);
+    const [selectedGenre, setSelectedGenre] = useState([]);
+  
+    const [selectedType, setSelectedType] = useState([]);
+   
+    // Use the type parameter to update the grid
+    useEffect(() => {
+      if (type) {
+        setSelectedType(type);
+      }
+    }, [type]);
 
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
@@ -165,16 +177,12 @@ const MovieGrid = props => {
       on_the_air: ' TRENDING',
       airing_today: 'AIRING TODAY'
   }
-      const [tags, setTags] = useState([]);
-      const [selectedGenre, setSelectedGenre] = useState([]);
-    
-      const [selectedType, setSelectedType] = useState([]);
-      
+       
      
     useEffect(() => {
       const BASE_URL = 'https://api.themoviedb.org/3';
       const API_URL2 = `${BASE_URL}/${props.category}/${selectedType}?api_key=${apiConfig.apiKey}`;
-    
+      //console.log(API_URL2);
       const fetchzData = async () => {
         try {
           const response = await axios.get(API_URL2);
@@ -183,7 +191,7 @@ const MovieGrid = props => {
           setTotalPage(response.data.total_pages);
           //console.log(response.data.results);
         } catch (error) {
-          //console.error(error);
+        //console.error('Error fetching data:', error);
         }
       };
     
@@ -230,10 +238,8 @@ const MovieGrid = props => {
         fetchData();
       }, [selectedGenre ,props.category]);
       
-      const loadMore = async () => {
+      const loadMore = useCallback(async () => {
         if (page >= totalPage) return;
-      
-         const limit = 750;
         let API_URL = '';
       
         if (selectedGenre && selectedGenre.length > 0) {
@@ -251,7 +257,7 @@ const MovieGrid = props => {
         } catch (error) {
           console.error(error);
         }
-      };
+      }, [page, totalPage, selectedGenre, selectedType, props.category]);
       
    
    // Define a debounce function
@@ -278,7 +284,7 @@ useEffect(() => {
         loadMore();
       }
     }
-  }, 200); // Adjust delay as needed
+  }, 500); // Adjust delay as needed
 
   window.addEventListener('scroll', loadMoreOnScroll);
 
@@ -288,27 +294,6 @@ useEffect(() => {
 }, [items.length, loadMore]);
 
 
-    useEffect(() => {
-      const genreElements = document.getElementsByClassName('tag');
-    
-      Array.from(genreElements).forEach((genreElement) => {
-        genreElement.addEventListener('click', () => {
-          // Scroll back to the top of the page
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-          });
-        });
-      });
-    
-      return () => {
-        Array.from(genreElements).forEach((genreElement) => {
-          genreElement.removeEventListener('click', () => {});
-        });
-      };
-    }, []);
- 
-    
     const scrollToTop = () => {
       window.scrollTo({
         top: 0,
@@ -334,8 +319,11 @@ useEffect(() => {
               <div
                 key={value}
                 className={`select-option ${selectedType === value ? 'selected' : ''}`}
-                onClick={() => setSelectedType(value)}
-              >
+                onClick={() => {
+                  const type = value;
+                  navigate(`/z/movie?type=${type}`, { replace: true });
+                  setSelectedType(type);
+                }} >
                 {label}
               </div>
             ))}
