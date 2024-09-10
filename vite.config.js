@@ -34,7 +34,7 @@ export default defineConfig(({ mode }) => {
          
         ],
         manifest: {
-          id: "https://www.zilla-xr.xyz/",
+          id: "https://zilla-xr.xyz/",
           name: "Zilla-XR",
           short_name: "ZillaXR",
           description: "Stream a wide range of Movies and Series up to 4k for Free, Watch Movies online without interuptions and without ads .",
