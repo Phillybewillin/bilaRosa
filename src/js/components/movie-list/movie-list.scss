@@ -2,27 +2,56 @@
 @use '../../scss/breakpoint' as *;
 
 
+.list {
+    position: relative;
+    overflow: hidden;
+    scrollbar-color: rgba(47, 47, 47, 0.021) rgba(26, 27, 26, 0.062);
+    scrollbar-width: thin;
+}
+.right {
+    margin-top: 2.5rem;
+    position: absolute;
+    z-index: 10;
+    right: 10px;
+   //background-color: rgba(18, 18, 18, 0.724);
+   //color:$main-bg;
+   padding: 5px;
+   background-color: rgba(0, 0, 0, 0.737);
+   border-radius: 5px;
+   font-weight: 200;
+   backdrop-filter: blur(10px);
+   color: rgba(233, 233, 233, 0.644);
+ @include mobile {
+     display: none;
+   }
+}
+.left{
+    margin-top: 2.5rem;
+   
+    position: absolute;
+    z-index: 10;
+    right: 50px;
+    //color:$main-bg;
+   padding: 5px;
+   background-color: rgba(0, 0, 0, 0.79);
+   border-radius: 5px;
+   font-weight: 200;
+   backdrop-filter: blur(10px);
+   color: rgba(233, 233, 233, 0.644);
+  ;
+   @include mobile {
+      display: none;
+   }
 
+}
 
-.movie-list {
-
-    .wrappwe{
-        min-height: 150px;
-    }
-
-    .swiper-slide {
-        width: 22%;
-
+.right:hover{
+    background-color: rgba(27, 27, 27, 0.607);
+    color: rgba(245, 245, 220, 0.256);
     
-
-        @include tablet {
-            width: 35%;
-        }
-
-        @include mobile {
-            width: 45%;
-        }
-    }
-
-} 
+}
+.left:hover{
+    background-color: rgba(26, 26, 26, 0.852);
+    color: rgba(245, 245, 220, 0.256);
+}
 
