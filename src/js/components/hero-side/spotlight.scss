@@ -2,30 +2,102 @@
 
 
 .spotlight {
-  position: relative;
-    height: 100vh;
-
-    @include mobile {
-        height: 50vh;
-    }
-    @include tablet {
-        height: 600px;
-    }
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    padding: .1rem;
+    border-radius: 10px;
+    transition: all 1s ease-in;
+     
+   .swiper-slide {
+    width: 100%;
+    height: 520px;
+    padding: .7rem .1rem;
+    object-fit: cover;
+   transition: all .9s ease-in-out;
+   //transition: font-size 1s ease-in-out;
+    
+    font-size: small;
+    left: 4rem;    
+ }
+ 
+ .swiper-slide.swiper-slide-active {
+  //padding-left: .5rem;
+  font-size: 1.5rem;
+  transition: width .9s ease-in-out;
+   width: 750px !important;
+   object-fit: cover;
+  
+ }
+ .swiper-slide.swiper-slide-prev{
+  transition: width .9s ease;
+ }
+ .swiper-slide.swiper-slide-next {
+  transition: width 1s ease-out;
+ transition-delay: 1s; /* delay the transition by 0.5 seconds */
+}
 
 }
+/* Move the pagination bullets up by 10px */
+.swiper-pagination.swiper-pagination-bullets.swiper-pagination-horizontal{
+margin-bottom: 1rem;
+
+/* Change the size and color of all bullets */
+.swiper-pagination-bullet {
+  width: 15px;
+  height: 5px;
+  background-color: #acacacd3;
+  border-radius: 10px;
+}
+
+
+/* Change the shape of all bullets to a square */
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: #b3abab;
+  border-radius: 0;
+}
+
+/* Change the size and color of all bullets to a larger size */
+.swiper-pagination-bullet {
+  width: 15px;
+  height: 5px;
+  background-color: #acacacd3;
+  border-radius: 10px;
+}
+}
+
+.alignerbutts{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 20px;
+  gap: 1rem;
+  z-index: 10;
+ 
+  @include mobile {
+      display: none;
+  }
+}
+
 .fuck{
   position: absolute;
-  bottom: 0;
+  bottom: 15px;
+  //padding: 10px;
+  border-radius: 10px;
   right: 0;
   width: 100%;
-  height: 50%;
+  //height: 80%;
   background-image: linear-gradient(to bottom, transparent, $body-bg);
   
 }
 .spotlight-number{
   position: absolute;
-    margin-top: 4.5rem;
-    font-size: 1.5rem;
+    margin-top: 2.5rem;
+    font-size: 1rem;
     right: 10px;
     padding: 1.2rem;
     border-right: 3.5px solid transparent;
@@ -44,7 +116,7 @@
     }
 }
 .spotlight-name{
-    font-size: 2.3rem;
+    font-size: larger;
     padding-left: 1rem;
     //background-color: rgba(0, 0, 0, 0.139);
     border-radius: 10px;
@@ -57,12 +129,12 @@
     }
 }
 .spotlight-image{
-    width: 100vw;
-    height: 100vh;
+    width : 100%;
+    height: 490px;
     object-fit: cover;
     border-radius: 10px;
     @include mobile {
-        height: 50vh;
+        height: 400px;
     }
     @include tablet {
         height: 600px;
@@ -73,25 +145,32 @@
     //align-items: center;
     justify-content: center;
     flex-direction: column;
-   
     position: absolute;
-    top: 0;
-    left: 0;
-    padding-top:calc(100vh - 19rem);
-    //margin-bottom: 1rem;
-    gap: .1rem;
+    bottom: 20px;
+    left: 0px;
+    padding-top:calc(100vh - 25rem);
+    margin-bottom: .5rem;
+    //gap: .1rem;
     width: 100%;
-    height: 100%;
-    background-image: linear-gradient(220deg, transparent, $body-bg);
+    //height: 500;
+    //background-image: linear-gradient(220deg, transparent, rgba(0, 0, 0, 0.468));
     font-size: smaller;
     font-weight: 300;
-
-    @include mobile {
+    // ... existing styles ...
+  
+    @include tablet {
       padding-top: calc(50vh - 14rem);
-    
-      //align-items: center;
+      width: 50%;
+      opacity: 0; // hide spotlight content by default
+      transition: opacity 0.5s ease-in-out;
     }
     
+}
+
+
+.swiper-slide-active .spotlight-content {
+ 
+  opacity: 1; // show spotlight content on active slide
 }
 .modal{
   position: fixed;
@@ -132,11 +211,12 @@
  // background-color: rgba(0, 0, 0, 0.409);
   padding: .1rem .5rem;
   border-radius: 5px;
+  font-size: x-small;
   font-weight: 600;
   color: $main-bg;
 }
 .spotlight-genres{
-    font-size: smaller;
+    font-size: x-small;
     font-weight: 400;
     padding: .5rem;
     //background-color: rgba(0, 0, 0, 0.112);
@@ -147,13 +227,19 @@
     }
 }
 .spotlight-overview{
-    font-size: smaller;
-    font-weight: 300;
-    padding: .8rem;
-    width: 50%;
-    margin-left: 1rem;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
+  font-size: .65rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.687);
+  padding: 10px;
+  margin-left: 10px;
+  //overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  line-clamp: 1;
+  box-orient: vertical;
+  
     @include tablet {
         width: 100%;
         margin: .3rem;
@@ -166,22 +252,24 @@
 .spotty{
   display: flex;
   align-items: center;
-  padding-left: 1rem;
+  padding-left: .5rem;
   //justify-content: center;
-  font-size: small;
+  font-size: x-small;
   font-weight: 300; 
   gap: 5px;
 }
 .genre {
+   margin-left: 10px;
     display: inline-block;
     padding: 5px 8px;
     margin: 2.5px;
     border-radius: 5px;
+    font-size: x-small;
     font-weight: 300;
   }
   
   .genre.a {
-    background-color: #00000061;
+    background-color: #000000ad;
   }
   
   .genre.comedy {
@@ -189,6 +277,6 @@
   }
   
   .genre.b {
-    background-color: #0c0c0c8a;
+    background-color: #000000ad;
     color: $main-bg;
   }
