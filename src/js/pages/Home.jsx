@@ -11,7 +11,7 @@ import MovieCard from '../components/movie-card/MovieCard';
 
 
 const Home = () => {
-  document.title = 'ZillaXR • Home';
+  document.title = 'Home - ZillaXR';
 
   const [tv, setTv] = useState([]);
   const [moviesData, setMoviesData] = useState([]);
@@ -124,7 +124,7 @@ const Home = () => {
   return (
     <>
       <Spotlight />
-      <h4 className="continue-watching-title">Continue Watching</h4>
+      <h4 className="continue-watching-title">Recently Viewed</h4>
       <div className="continue_watchingcontainer">
         <i
           className='bx bxs-brush-alt'
