@@ -219,8 +219,8 @@
   
           &__img {
              position: relative;
-              padding-top: 100px;
-              width: 100px;
+              padding-top: 70px;
+              width: 70px;
               background-size: cover;
               background-position: center;
               border-radius: 50%;
@@ -239,7 +239,7 @@
               text-align: center;
               color: rgba(255, 255, 255, 0.829);
               //backdrop-filter: blur(10px);
-              background-color: rgba(0, 0, 0, 0.772);
+              //background-color: rgba(0, 0, 0, 0.772);
               border-radius: 20px;
               //height: 35px;
               padding:  5px 10px;
@@ -265,8 +265,8 @@
           
         &__item {
           &__img {
-            padding-top: 100px;
-              width: 100px;
+            padding-top: 70px;
+              width: 70px;
             background-size: cover;
             background-position: center;
             //border-radius: ;
@@ -470,28 +470,28 @@
   font-size: .7rem;
   font-weight: 200;
   padding: 10px;
-  background-color: rgba(255, 255, 255, 0.929);
+  background-color: rgba(255, 255, 255, 0.822);
   border-radius: 5px;
   color: rgb(7, 7, 7);
 }
 .titledetailz{
   font-size: smaller;
   text-align: center;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
   justify-content: center;
   position: relative;
   font-size: smaller;
   font-weight: 200;
   padding: 5px 10px;
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 0.849);
   border-radius: 5px;
   color: rgb(7, 7, 7);
 }
 .wrappwez{
   position: relative;
-  background-color: #00000097;
+  background-color: #080808c3;
   padding: 10px;
-  margin:  0 10px;
+  margin:  5px;
   border-radius: 5px;
   display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(240px, 50%), .5fr));
@@ -500,7 +500,7 @@
     
     @include tablet {
       grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr));
-      left: 0;
+    
   }
 
   @include mobile {
