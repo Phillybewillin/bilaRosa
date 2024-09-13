@@ -57,13 +57,13 @@ ul {
 
 .mb-3 {
   min-height: auto;
-  margin-bottom: 1rem;
+  //margin-bottom: 1rem;
   
 }
 
 .mb-2 {
   min-height: auto;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .section {
@@ -77,6 +77,9 @@ ul {
 ::-webkit-scrollbar {
   width: 7px;
 
+  @include mobile {
+    display: none;
+  }
 
 }
 
@@ -88,9 +91,7 @@ ul {
   border-radius: 4px;
   transition: background-color 0.2s ease-in-out;
 
-  @include mobile {
-    display: none;
-  }
+ 
 
 }
 
