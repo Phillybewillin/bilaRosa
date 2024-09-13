@@ -33,12 +33,13 @@ const Home = () => {
   };
 
   useEffect(() => {
+    // Fetch TV results
     getTVresults('day');
-  }, []);
-
-  useEffect(() => {
+    
+    // Fetch movie results
     getMovieresults('day');
   }, []);
+  
 
   const handleClick = (event, category, type) => {
     navigate(`/z/${category}?type=${type}`, { replace: true });
@@ -139,16 +140,19 @@ const Home = () => {
                 onClick={() => handleCardClick(item.id, item.category, item.title || item.name, item.poster_path)}
                 alt={item.title}
               />
+              <p className="movietitle"  onClick={() => handleCardClick(item.id, item.category, item.title || item.name, item.poster_path)}
+               >{item.title || item.name}</p>
               <i
                 onClick={() => handleDelete(item.id)}
                 className="bx bx-trash"
                 style={{
-                  color: 'white',
+                  color: 'red',
                   fontSize: '20px',
                   cursor: 'pointer',
                   position: 'absolute',
                   top: '5px',
                   right: '3px'
+    
                 }}
               ></i>
             </div>
@@ -160,10 +164,10 @@ const Home = () => {
         {/* Trending Movies Section */}
         <div className="section mb-3">
           <div className="section-tit">
-            <p className='villa'> • TRENDING MOVIES <h6 className="catx">#Today's Trending Movies</h6></p>
+            <p className='villa'>• TRENDING MOVIES <h6 className="catx">#Today's Trending Movies</h6></p>
             <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.popular)}>view all--+</h5>
           </div>
-          <div className="trendTV">
+          <div className="trendMovie">
           <div className="alignerbutts">
        <button  className="left" onClick={handleScrollLeft}><i className='bx bxs-left-arrow'></i></button>
       <button className="right" onClick={handleScrollRight}><i className='bx bxs-right-arrow'></i></button>
@@ -172,9 +176,9 @@ const Home = () => {
             <FixedSizeList
               ref={Movieref}
               className="movie-list"
-              height={450} // Adjust height as needed
+              height={430} // Adjust height as needed
               width={window.innerWidth - 20} // Adjust width dynamically
-              itemSize={270} // Width of each item
+              itemSize={250} // Width of each item
               layout="horizontal"
               itemCount={moviesData.length}
             >
@@ -198,9 +202,9 @@ const Home = () => {
             <FixedSizeList
               ref={listRef}
               className="movie-list"
-              height={470} // Adjust height as needed
+              height={420} // Adjust height as needed
               width={window.innerWidth - 20} // Adjust width dynamically
-              itemSize={270} // Width of each item
+              itemSize={250} // Width of each item
               layout="horizontal"
               itemCount={tv.length}
             >
@@ -212,7 +216,7 @@ const Home = () => {
         {/* Additional Movie Sections */}
         <div className="section mb-3">
           <div className="section-tit">
-            <h3 className='villa'>POPULAR MOVIES <h6 className="catx"># Most Popular movies this year</h6></h3>
+            <h3 className='villa'>• POPULAR MOVIES <h6 className="catx"># Most Popular movies this year</h6></h3>
             <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.upcoming)}>view all--+</h5>
           </div>
           <MovieList category={category.movie} type={movieType.popular} />
@@ -230,7 +234,7 @@ const Home = () => {
         <div className="section mb-3">
           <div className="section-tit">
             <h3 className='villa'>• TOP RATED TV SHOWS <h6 className="catx">• Fan Favourites Shows</h6></h3>
-            <h5 className="bluez" onClick={(event) => handleClick(event, category.tv, tvType.top_rated)}>view all+</h5>
+            <h5 className="bluez" onClick={(event) => handleClick(event, category.tv, tvType.top_rated)}>view all--+</h5>
           </div>
           <MovieList category={category.tv} type={tvType.top_rated} />
         </div>
@@ -238,10 +242,7 @@ const Home = () => {
 
       {/* Toast Notification */}
       <ToastContainer theme="dark" position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#1eff00', color: 'white', borderRadius: '10px' }} />
-      
-      <h3 className='villa'><h6 className="catx">•Share Zilla-XR•</h6></h3>
-      <div className="infoo" style={{width: '100%', backgroundColor: 'white' , padding: '10px', textAlign: 'center',color : 'black',display: 'flex', justifyContent: 'center', alignItems: 'center'}}><h4><a href="https://www.buymeacoffee.com/zillaxr.xyz" target="_blank" rel="noreferrer"><i class='bx bxs-basketball'></i></a> </h4></div>
-        </>
+     </>
     );
 }
 
