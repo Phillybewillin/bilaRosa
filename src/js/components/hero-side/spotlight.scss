@@ -19,8 +19,8 @@
     height: 520px;
     padding-top: 3rem;
     object-fit: cover;
-   transition: all .9s ease-in-out;
-   //transition: font-size 1s ease-in-out;
+   //transition: all 1s ease-in-out;
+   //transition: font-size 1s ease-out;
     
     font-size: small;
     left: 4rem;    
@@ -35,7 +35,7 @@
  .swiper-slide.swiper-slide-active {
   //padding-left: .5rem;
   font-size: 1.5rem;
-  transition: width .9s ease-in-out;
+  transition: width 1s ease-out;
    width: 750px !important;
    object-fit: cover;
 
@@ -48,8 +48,9 @@
   transition: width .9s ease;
  }
  .swiper-slide.swiper-slide-next {
-  transition: width 1s ease-out;
- transition-delay: 1s; /* delay the transition by 0.5 seconds */
+  will-change: auto;
+ // transition: width 1s ease-out;
+ //transition-delay: 1s; /* delay the transition by 0.5 seconds */
 }
 
 }
