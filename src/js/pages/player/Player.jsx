@@ -11,8 +11,6 @@ import "./player.scss";
 import apiConfig from "../../api/apiConfig";
 import ErrorBoundary from "../../pages/Errorboundary"; // Import the ErrorBoundary component
 import { ColorRing } from "react-loader-spinner";
-//import Button from "../../components/button/Button";
-//import Spinner from "./Spinner";
 import logo from '../../assets/icons8-alien-monster-emoji-48.png';
 export default function Player() {
   const { title, id, season_number, episode_number } = useParams();
@@ -20,7 +18,7 @@ export default function Player() {
   const [textTracks, setTextTracks] = useState([]);
   const [episodes, setEpisodeData] = useState([]);
   const [currentEpisode, setCurrentEpisode] = useState(episode_number);
-  const [episodeChanged, setEpisodeChanged] = useState(false);
+  const [bgChanged, setbgChanged] = useState(null);
   const [seasons, setSeasons] = useState([]);
   const [currentSeason, setCurrentSeason] = useState(season_number);
   const [quality, setQuality] = useState("auto");
@@ -52,7 +50,7 @@ export default function Player() {
     }
    
     if (id && currentSeason) {
-      //fetchData(id, season_number, currentEpisode);
+      fetchData(id, currentSeason, currentEpisode);
       fetchEpisodes(id, currentSeason);
     
     }
@@ -67,17 +65,6 @@ export default function Player() {
     getseasons();
 }, [id]);
 
-  useEffect(() => {
-    if (episodeChanged) {
-      fetchData(id, currentSeason, currentEpisode);
-      setEpisodeChanged(false);
-    }
-  }, [episodeChanged]);
-  
-  // When the currentEpisode value changes, set the episodeChanged flag to true
-  useEffect(() => {
-    setEpisodeChanged(true);
-  }, [currentEpisode]);
   const fetchData = async (showTMDBid, seasonNumber, episodeNumber) => {
     try {
        // Start loading
@@ -94,11 +81,11 @@ export default function Player() {
 
       if (response.status === 404) {
         //throw new Error("Resource not found. try again later.");
-        setIsLoading(false);
+        setLoading(false);
       }
 
       const sourcesData = dataz?.data?.sources || [];
-      console.log(sourcesData);
+      //console.log(sourcesData);
         const initialSource = sourcesData.find(source => source.quality === quality);
       setPlayerSource(initialSource ? initialSource.url : "");
    
@@ -109,14 +96,10 @@ export default function Player() {
     } catch (error) {
       console.error("Failed to fetch data:", error);
       //setErrorMessage(error.message || "An unexpected error occurred.");
-    } finally {
-      setLoading(false); // End loading
     }
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
-   console.log(playerSource);
+
+   //console.log(playerSource);
   const mapSubtitlesToTracks = (subtitles) => {
     //console.log(subtitles)
     if (!subtitles) {
@@ -134,26 +117,28 @@ export default function Player() {
         const response = await axios.get(
           `${apiConfig.baseUrl}tv/${id}/season/${selectedSeason}?api_key=${apiConfig.apiKey}&append_to_response=episodes`
         );
-        console.log(response.data.episodes);
+        //console.log(response.data.episodes);
         if (response.status === 404) {
           throw new Error("Episodes not found. Please check the season number.");
         }
 
         setEpisodeData(response.data.episodes);
       } catch (error) {
-        console.error("Failed to fetch episodes:", error);
+        //console.error("Failed to fetch episodes:", error);
         //setErrorMessage(error.message || "An unexpected error occurred.");
       }
     }
   };
   
-  const handleEpisodeClick = (episodeNumber) => {
+  const handleEpisodeClick = (episodeNumber , episodeUrl) => {
     const url = new URL(window.location.href);
     url.pathname = url.pathname.replace(/\/\d+$/, `/${episodeNumber}`);
     window.history.pushState({}, '', url.toString());
     setLoading(true);
     setPlayerSource([]);
     setCurrentEpisode(episodeNumber);
+    setbgChanged(apiConfig.w200Image(episodeUrl))
+    //console.log(episodeUrl , apiConfig.w200Image(episodeUrl) ,episodeNumber);
     //fetchData(id, season_number, episodeNumber);
   };
  
@@ -247,7 +232,7 @@ class CustomMediaStorage extends LocalMediaStorage {
               load="eager"
               viewType='video'
               logLevel='warn'
-              crossOrigin
+              crossOrigin="anonymous"
               playsInline
               preload="auto"
               onLoadedMetadata={handleCanPlay}
@@ -280,8 +265,8 @@ class CustomMediaStorage extends LocalMediaStorage {
     </div>
 
           {episodes.length > 0 && (
-      <div className="episode-selector">
-        <ul className="episode_list">
+      <div className="episode-selector" style={{backgroundImage: `url(${bgChanged})` , backgroundSize : 'cover'}}>
+        <ul className="episode_list" >
           {episodes
             .filter(episode => new Date(episode.air_date) <= new Date()) // Filter out unreleased episodes
             .map((episode, index) => (
@@ -290,7 +275,7 @@ class CustomMediaStorage extends LocalMediaStorage {
               className={`episodes_itemz ${
                 currentEpisode == episode.episode_number ? "actively" : ""
               }`}
-              onClick={() => handleEpisodeClick(episode.episode_number)}
+              onClick={() => handleEpisodeClick(episode.episode_number , episode.still_path)}
             >
                 {episode.episode_number}. {episode.name}
               </li>
