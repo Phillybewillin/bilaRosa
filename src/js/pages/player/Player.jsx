@@ -213,7 +213,7 @@ class CustomMediaStorage extends LocalMediaStorage {
         <> 
           <div className="player-container">
             <div className="topbar">
-            <div className="logozz" onClick={() => navigate('/')}>
+            <div className="logozz">
                <img src={logo} alt="ZillaXR"/>
                <h4 className="logotext">ZillaXR</h4> </div>
               <div className="menu">
