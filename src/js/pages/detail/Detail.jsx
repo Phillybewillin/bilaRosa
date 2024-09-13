@@ -1,28 +1,18 @@
-import { useState, useEffect } from 'react';
-import{  useParams } from 'react-router-dom';
-
-//import PageHeader from '../../components/page-header/PageHeader';
-
+import React ,{ useState, useEffect } from 'react';
+import{  useParams , useNavigate } from 'react-router-dom';
 import tmdbApi from '../../api/tmdbApi';
 import apiConfig from '../../api/apiConfig';
-import CastList from './CastList';
-import VideoList from './VideoList';
-
-import MovieList from '../../components/movie-list/MovieList';
-import Button, { OutlineButton }  from '../../components/button/Button';
-
+import Button  from '../../components/button/Button';
 import {UserAuth} from "../../context/AuthContext";
 import {db} from "../../Firebase";
 import{arrayUnion , doc , updateDoc} from "firebase/firestore";
-
 import './detail.scss';
-import Seasons from './Seasons';
-
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import MovieCard from '../../components/movie-card/MovieCard';
+const MovieCard = React.lazy(() => import('../../components/movie-card/MovieCard'));
+const Seasons = React.lazy(() => import('./Seasons'));
+const CastList = React.lazy(() => import('./CastList'));
 
 const Detail = () => {
       
@@ -34,17 +24,15 @@ const Detail = () => {
     const getDetail = async () => {
       const response = await tmdbApi.detail(category, id, {params: {}});
       const similar = await tmdbApi.similar(category, id )
-
-      setItems(similar)
-
       setItem(response);
-     //console.log(similar);
+      setItems(similar)
+       //console.log(similar);
   }
   useEffect(() => {
-    document.title =  item ? `${item?.title || item?.name} - Watch on ZillaXR` : 'ZillaXR';
+    document.title =  item ? `${item?.title || item?.name} - Watch it on ZillaXR` : 'ZillaXR';
     getDetail();
     //console.log('items:', items);
-  }, [category, id , item]);
+  }, [category, id]);
 
   
 
@@ -159,13 +147,13 @@ const Detail = () => {
         const navigate = useNavigate();
   
         const handlePlayer = (itemId, itemName) => {
-          console.log('handlePlayer function called', itemId, itemName);
+         // console.log('handlePlayer function called', itemId, itemName);
 
           if (itemName && itemId) {
               const encodedTitle = encodeURIComponent(itemName.replace(/ /g, '-').toLowerCase());
-              console.log(`Navigating to: /watch/${encodedTitle}/${itemId}`);
+              //console.log(`Navigating to: /watch/${encodedTitle}/${itemId}`);
               navigate(`/watch/${encodedTitle}/${itemId}`);
-              console.log(itemId, itemName);
+              //console.log(itemId, itemName);
           }
       };
       const releaseYear = item?.release_date || item?.first_air_date;
