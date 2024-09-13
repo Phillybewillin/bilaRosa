@@ -9,36 +9,41 @@
     scrollbar-width: thin;
 }
 .right {
-    margin-top: 2.5rem;
+   margin-top: -2.5rem;
     position: absolute;
     z-index: 10;
     right: 10px;
    //background-color: rgba(18, 18, 18, 0.724);
-   //color:$main-bg;
-   padding: 5px;
-   background-color: rgba(0, 0, 0, 0.737);
-   border-radius: 5px;
+   color:$main-bg;
+   padding: 3px;
+   border-left: 1px solid rgba(233, 233, 233, 0.644);
+   font-size: smaller;
+   background-color: rgba(27, 27, 27, 0.79);
+   border-top-right-radius: 5px;
+   border-bottom-right-radius: 5px;
    font-weight: 200;
-   backdrop-filter: blur(10px);
-   color: rgba(233, 233, 233, 0.644);
+   //backdrop-filter: blur(10px);
+   //color: rgba(233, 233, 233, 0.644);
  @include mobile {
      display: none;
    }
 }
 .left{
-    margin-top: 2.5rem;
+    margin-top: -2.5rem;
    
     position: absolute;
     z-index: 10;
     right: 50px;
-    //color:$main-bg;
    padding: 5px;
-   background-color: rgba(0, 0, 0, 0.79);
-   border-radius: 5px;
+   color:$main-bg;
+   padding: 3px;
+   border-right: 1px solid rgba(233, 233, 233, 0.644);
+   font-size: smaller;
+   background-color: rgba(27, 27, 27, 0.79);
+   border-top-left-radius: 5px;
+   border-bottom-left-radius: 5px;
    font-weight: 200;
-   backdrop-filter: blur(10px);
-   color: rgba(233, 233, 233, 0.644);
-  ;
+   //backdrop-filter: blur(10px);
    @include mobile {
       display: none;
    }
@@ -47,7 +52,7 @@
 
 .right:hover{
     background-color: rgba(27, 27, 27, 0.607);
-    color: rgba(245, 245, 220, 0.256);
+    color: rgb(255, 255, 255);
     
 }
 .left:hover{
