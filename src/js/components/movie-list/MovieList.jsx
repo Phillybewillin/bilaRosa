@@ -77,7 +77,7 @@ const MovieList = (props) => {
   };
 
   return (
-    <div className="movie-list">
+    <div className="movie-list3">
         <div className="alignerbutts">
        <button  className="left" onClick={handleScrollLeft}><i className='bx bxs-left-arrow'></i></button>
       <button className="right" onClick={handleScrollRight}><i className='bx bxs-right-arrow'></i></button>
@@ -86,9 +86,9 @@ const MovieList = (props) => {
       <FixedSizeList
         ref={listRef}
         className="list"
-        height={450}
+        height={420}
         width={listWidth}
-        itemSize={270}
+        itemSize={250}
         layout="horizontal"
         itemCount={items.length}
       >
