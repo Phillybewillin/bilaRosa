@@ -68,8 +68,6 @@ const Spotlight = () => {
             loop = {true}
             slideToClickedSlide = {true}
             speed={500}
-          
-            slidesPerGroup = {1}
             pagination={{ clickable: true }}
             modules={[Navigation , Autoplay , Pagination]}
             className="swiper"
@@ -81,7 +79,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">#2</h1>
-                <img src={'https://image.tmdb.org/t/p/original/ukewRnKD05Si7DkED2tSKBTXeEd.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(83, 42, 16, 0.557))'}} />
+                <img src={'https://image.tmdb.org/t/p/original/3F3WNXjCVGEhW00TD2Fch39mZi8.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(83, 42, 16, 0.557))'}} />
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .1</h4>
@@ -160,16 +158,42 @@ const Spotlight = () => {
                   </div>
                  </div>
             </SwiperSlide>
+            <SwiperSlide>
+              <div className="spotlight-item">
+              <h1 className="spotlight-number">#4</h1>
+                <img src={'https://image.tmdb.org/t/p/original/2ANHqBhbAhyIBRTLSVfENskpxon.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(143, 143, 143, 0.557))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight 4</h4>
+                
+                  <h2 className="spotlight-name">Strange Darling</h2>
+                  
+                  <p className="spotlight-genres">
+                    <span className="genre a">Thriller</span>
+                    <span className="genre a">Horror</span>
+                    <span className="genre a">Crime</span>
+                  </p>
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  <p className="spotlight-overview">Nothing is what it seems when a twisted one-night stand spirals into a serial killer’s vicious murder spree.</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/movie/1029281')}>Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 1029281, "Strange Darling")}>Watch Now </Button>
+                  </div>
+                  </div>
+              </div>
+            </SwiperSlide>
             
           <SwiperSlide>
           
               <div className="spotlight-item">
-              <h1 className="spotlight-number">#4</h1>
+              <h1 className="spotlight-number">#5</h1>
                  
                 <img src={'https://image.tmdb.org/t/p/original/4ceSkV7cmCon4exXaZwuhW1VdE0.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(100, 167, 173, 0.557))'}} />
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">Spotlight .4</h4>
+                  <h4 className="spon">#Spotlight .5</h4>
                 
                   <h2 className="spotlight-name">Mr Robot</h2>
                   
@@ -194,13 +218,13 @@ const Spotlight = () => {
            
             <SwiperSlide>
               <div className="spotlight-item">
-              <h1 className="spotlight-number">#5</h1>
+              <h1 className="spotlight-number">#6</h1>
                 <img src={'https://image.tmdb.org/t/p/original/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(254, 65, 2, 0.557))'}} />
                 <div className="fuck"></div>
                 <div className="spotlight-container">
                  <div className="spotlight-content">
                  
-                  <h4 className="spon">#Spotlight .5</h4>
+                  <h4 className="spon">#Spotlight .6</h4>
                   
                   <h2 className="spotlight-name">Deadpool & Wolverine </h2>
                   
@@ -227,11 +251,11 @@ const Spotlight = () => {
 
           <SwiperSlide>
               <div className="spotlight-item">
-                <h1 className="spotlight-number">#6</h1>
+                <h1 className="spotlight-number">#7</h1>
                 <img src={'https://image.tmdb.org/t/p/original/36jp18P6Tw6WPtBX92XAl4hvqVW.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(83, 42, 16, 0.557))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .6</h4>
+                  <h4 className="spon">#Spotlight .7</h4>
                
                   <h2 className="spotlight-name">Crow</h2>
                  
@@ -254,11 +278,11 @@ const Spotlight = () => {
             </SwiperSlide> 
            <SwiperSlide>
               <div className="spotlight-item">
-              <h1 className="spotlight-number">#7</h1>
+              <h1 className="spotlight-number">#8</h1>
                 <img src={'https://image.tmdb.org/t/p/original/A7MEYn25BeGGrleczbCLNaNb9D1.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(143, 143, 143, 0.557))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight 7</h4>
+                  <h4 className="spon">#Spotlight 8</h4>
                 
                   <h2 className="spotlight-name">Twisters</h2>
                   
