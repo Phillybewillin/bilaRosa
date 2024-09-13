@@ -27,16 +27,19 @@
     top: 34.4rem;
     left: 1rem;
 
-  @include mobile {display: flex;
+  @include mobile {
+    position: relative;
+    top: 5px;
+    display: flex;
     justify-content: flex-start;
     padding: .5rem;
     background-color: rgb(23, 23, 23);
     font-size: small;
-  border-radius: 10px;
-  font-weight: 200;
-  color: rgba(233, 233, 233, 0.644);
+     border-radius: 10px;
+     font-weight: 200;
+      color: rgba(233, 233, 233, 0.644);
      position: relative;
-      width: 140px;
+      width: 120px;
      left: .5rem;
   }
 }
