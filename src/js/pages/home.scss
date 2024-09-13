@@ -15,7 +15,19 @@
 
 
 .continue-watching-title{
+  position: absolute;
     display: flex;
+    justify-content: flex-start;
+    padding: .5rem;
+    background-color: rgba(30, 30, 30, 0.829);
+    font-size: small;
+    border-radius: 10px;
+    font-weight: 200;
+    color: rgba(233, 233, 233, 0.842);
+    top: 34.4rem;
+    left: 1rem;
+
+  @include mobile {display: flex;
     justify-content: flex-start;
     padding: .5rem;
     background-color: rgb(23, 23, 23);
@@ -23,24 +35,25 @@
   border-radius: 10px;
   font-weight: 200;
   color: rgba(233, 233, 233, 0.644);
- position: relative;
- width: 140px;
- left: .5rem;
+     position: relative;
+      width: 140px;
+     left: .5rem;
+  }
 }
 
 
 .villa{
 
-  background-color:$body-bg;
+  //background-color:rgba(39, 39, 39, 0.148);
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 1rem;
   font-weight: 600;
   color: white;
-  margin: .6rem  0rem;
+  //margin: .6rem  0rem;
   border-left: 3px solid transparent;
   border-image: linear-gradient(to top, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
-  width: 10%; 
+  width: 50%; 
   
   display: flex;
   justify-content: flex-start;
@@ -48,15 +61,17 @@
   //align-items: center;
 
   @include mobile {
-      width: 90%;
+      width: 100%;
       padding: 5px;
       margin-bottom: .5rem;
       font-size: small;
   }
 }
 .continue_watchingcontainer{
-   //background-color: rgb(50, 172, 172);
+  background-color: rgba(27, 27, 27, 0.514);
   display: flex;
+  margin: 1rem;
+  border-radius: 10px;
   flex-direction: row;
   overflow: auto;
   padding: 5px;
@@ -68,39 +83,41 @@
   flex-direction: row-reverse;
   justify-content: flex-start;
   align-items: center;
-  
+  padding: .5rem;
+  gap: .5rem;
 }
 .continuewatching{
+   cursor: pointer;
    position: relative;
     display: flex;
-     justify-content: center;
+    justify-content: center;
     align-items: center;
+    flex-direction: row;
     transition: all 0.5s ease-in-out;
     overflow: auto;
-    border: 1.5px solid transparent;
+    background-color: #2a2a2a63;
+   
     border-radius: 10px;
     
     img{
       width: 70px;
-      height: 110px;
+      height: 100px;
       object-fit: cover;
     }
+}
+.movietitle{
+  font-size: small;
+  font-weight: 200;
+  color: rgba(233, 233, 233, 0.842);
+  text-align: center;
+  width: 150px;
 }
 .continuewatching:hover{
    opacity: .6;
   //border: 1.5px solid $main-bg;
-  transform: scale(.9);
+  transform: scale(1);
   transition: all 0.2s ease-in-out;
-  border-radius: 10px;
-}
-.cat{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 4px  5px;
-    border : 1px solid $main-bg;
-    border-radius: 5px;
-    margin: 5px;
+ 
 }
 .catx{
  
@@ -116,7 +133,7 @@
   }
 }
 .bluez{
-    background-color: rgba(20, 20, 20, 0.468);
+    background-color: rgba(255, 255, 255, 0.468);
     position: absolute;
     right: 10px;
     color: white;
