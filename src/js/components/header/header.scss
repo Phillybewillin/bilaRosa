@@ -7,11 +7,11 @@ i {
 .logo {
 
   background-color: rgba(24, 24, 24, 0.648);
-    border-radius: 10px;
-   margin-left: 20px;
+    border-radius: 20px;
+    margin-left: 10px;
     font-size: 1.3rem;
     font-weight: 500;
-    color: $main-bg;
+    backdrop-filter: blur(10px);
     border-right: 1px solid transparent;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -109,8 +109,8 @@ i {
    
     &.shrink {
         height: $header-shrink-height;
-        background-color: rgba(0, 0, 0, 0.662);
-        backdrop-filter: blur(10px);
+        background-color: rgba(0, 0, 0, 0.767);
+        //backdrop-filter: blur(10px);
         //border-bottom: 2px ridge black;
 
         @include mobile {
@@ -131,51 +131,11 @@ i {
         }
     }
 
-    &__nav {
-        @include flex(center, space-around);
-        
-
-        & > * ~ * {
-            margin-left: 1rem;
-        }
-
-        li {
-            cursor: pointer;
-
-
-            padding: 5px 0;
-            font-weight: 500;
-            position: relative;
-            font-size: 1.2rem;
-
-            &::after {
-                content: "";
-                position: absolute;
-                bottom: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 0;
-                transition: width 0.5s ease;
-                height: 2px;
-                background-color: $main-bg;
-            }
-
-            &.active::after,
-            &:hover::after {
-                width: 100%;
-            }
-        }
-
-
-        @include mobile {
-            justify-content: space-around;
-            
-        }
-    }
+  
 
     &__nav {
         @include flex(center,center);
-
+       
         & > * ~ * {
             margin: 0 1rem;
             
@@ -315,7 +275,8 @@ i {
     min-height: 0px;
     display: flex;
     flex-direction: column;
-     background-color: rgba(20, 20, 20, 0.600);
+    background-color: rgba(20, 20, 20, 0.605);
+      
     backdrop-filter: blur(10px);
     scrollbar-color: rgba(171, 171, 171, 0) transparent;
     gap: 1rem;
