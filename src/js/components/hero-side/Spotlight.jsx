@@ -79,7 +79,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">#2</h1>
-                <img src={'https://image.tmdb.org/t/p/original/3F3WNXjCVGEhW00TD2Fch39mZi8.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(83, 42, 16, 0.557))'}} />
+                <img src={'https://image.tmdb.org/t/p/original/3F3WNXjCVGEhW00TD2Fch39mZi8.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem  rgba(132, 188, 194, 0.541))'}} />
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .1</h4>
@@ -161,7 +161,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">#4</h1>
-                <img src={'https://image.tmdb.org/t/p/original/2ANHqBhbAhyIBRTLSVfENskpxon.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(143, 143, 143, 0.557))'}}/>
+                <img src={'https://image.tmdb.org/t/p/original/2ANHqBhbAhyIBRTLSVfENskpxon.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(255, 0, 47, 0.5))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight 4</h4>
@@ -335,7 +335,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">#9</h1>
-                <img src={'https://image.tmdb.org/t/p/original/gc8PfyTqzqltKPW3X0cIVUGmagz.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(20, 63, 27, 0.557))'}}/>
+                <img src={'https://image.tmdb.org/t/p/original/gc8PfyTqzqltKPW3X0cIVUGmagz.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(192, 187, 35, 0.5))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .9</h4>
