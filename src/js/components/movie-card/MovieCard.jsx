@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './movie-card.scss';
 import {Link} from 'react-router-dom';
-import {category} from "../../api/tmdbApi";
 import PropTypes from 'prop-types';
 import apiConfig from "../../api/apiConfig";
 import {UserAuth} from "../../context/AuthContext";
@@ -69,13 +68,9 @@ const MovieCard = (props) => {
         }
         navigate(`/${category}/${id}`);
     }
-    
-    //const link = '/' + category[props.category] + '/' + item.id;
-
-    //onst bg = apiConfig.w500Image(item.poster_path || item.backdrop_path);
     const inCinema = (releaseDate) => {
         const today = new Date();
-        const threeWeeksAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate() - (5 * 7));
+        const threeWeeksAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate() - (4 * 7));
         if (props.category === 'movie') {
             if (releaseDate < today) {
                 return releaseDate > threeWeeksAgo ? ' • In Cinema' : '';
@@ -124,36 +119,39 @@ const MovieCard = (props) => {
         <div>
         <Link to={`/${props.category}/${item.id}`}>
         {isLoading ? (
-          <SkeletonTheme color="#000000" highlightColor="#444444">
-            <Skeleton baseColor="#161616d6"  className="movie-card"/>
+          <SkeletonTheme color="#141414cc" highlightColor="#141414f3" >
+            <Skeleton baseColor="#141414cc" variant="rect" className="movie-card"/>
           </SkeletonTheme>
         ) : (
-          <div className="movie-card" loading="lazy" onClick={() => handlecardClick(item.id, props.category ,item.title || item.name, item.poster_path, )} style={{backgroundImage : `url(${bg})`, backgroundSize : 'cover' , backgroundPosition : 'center' , backgroundRepeat : 'no-repeat'}}>
+          <div className="bgmov">
+          <div className="movie-card" onClick={() => handlecardClick(item.id, props.category ,item.title || item.name, item.poster_path, )} style={{backgroundImage : `url(${bg})`, backgroundSize : 'cover' , backgroundPosition : 'center' , backgroundRepeat : 'no-repeat'}}>
             <div className="inCinema">
               <i className='bx bx-badge-check' style={{fontSize :'13px'}}></i> {cinemaStatus}
             </div>
             <div className="catz">{props.category }</div> 
-            <div className="btnz" style={{fontSize : '20px'}}>
-              <i className="bx bx-play"></i>
+            <div className="btnz">
+            <i className='bx bx-play-circle'></i>
             </div>
             <div loading="lazy"  className="infomovie">
             <div className="title">
               <div className="titlename">
-                {item.title || item.name || <Skeleton count={1}/>}
+                {item.title || item.name }
               </div> 
-              <button className="savemovie" onClick={saveShow}>    <p style={{ cursor : 'pointer' , color : saved ? 'red' : 'rgba(255, 255, 255, 0.549)'}}>
-          {saved ? <i className='bx bxs-bookmark-plus'  style={{fontSize :'19px'}}></i> :<i className='bx bx-bookmark-plus' style={{fontSize :'18px'}}></i>}
-           </p>
-              </button>
-           
             </div>
             <div className="cat"> 
             <h4 className='year'>
             • {Number.isNaN(year) ? '' : year}
            </h4>
-                <div className="vote" style={{color: getColor(votePercentage.toFixed(0))}}>{votePercentage.toFixed(0)}%</div> </div>
+                <div className="vote" style={{color: getColor(votePercentage.toFixed(0))}}>{votePercentage.toFixed(0)}%</div> 
+                <button className="savemovie" onClick={saveShow}>    <p style={{ cursor : 'pointer' , color : saved ? 'red' : 'rgba(255, 255, 255, 0.549)'}}>
+          {saved ? <i className='bx bxs-bookmark-plus'  style={{fontSize :'19px'}}></i> :<i className='bx bx-bookmark-plus' style={{fontSize :'18px'}}></i>}
+           </p>
+              </button>
+                </div>
           </div>
           </div> 
+          </div>
+          
         )}
       </Link>
           
@@ -164,7 +162,7 @@ const MovieCard = (props) => {
 }
 MovieCard.propTypes = {
   category: PropTypes.string.isRequired,
-  item: PropTypes.shape({ title : PropTypes.string.isRequired, name : PropTypes.string.isRequired , poster_path : PropTypes.string.isRequired , id : PropTypes.number.isRequired , vote_average : PropTypes.number.isRequired}).isRequired
+  item: PropTypes.shape({ title : PropTypes.string , name : PropTypes.string , poster_path : PropTypes.string , id : PropTypes.number.isRequired , vote_average : PropTypes.number }).isRequired
 };
 
 export default MovieCard;
