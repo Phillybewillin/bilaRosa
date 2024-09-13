@@ -34,7 +34,7 @@ const Header = React.memo(() => {
           path: '/z/movie'
       },
       {
-          display: <span className="iconbox"><i className="bx bx-tv"></i> <h5 className='iconv'>Series</h5></span>,
+          display: <span className="iconbox"><i className="bx bx-tv"></i> <h5 className='iconv'>Shows</h5></span>,
           path: '/z/tv'
       },
       {
@@ -101,6 +101,20 @@ const Header = React.memo(() => {
       setSearchValue(e.target.value);
       setMovies([]); // Reset movies when user types in the search input
     };
+
+    useEffect(() => {
+      const shrinkHeader = () => {
+          if (headerRef.current && (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50)) {
+              headerRef.current.classList.add('shrink');
+          } else if (headerRef.current) {
+              headerRef.current.classList.remove('shrink');
+          }
+      }
+      window.addEventListener('scroll', shrinkHeader);
+      return () => {
+          window.removeEventListener('scroll', shrinkHeader);
+      };
+  }, []);
     return (
         <>
         <div ref={headerRef} className="header">
