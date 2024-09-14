@@ -51,11 +51,17 @@ export default function Player() {
     }
    
     if (id && currentSeason) {
-      fetchData(id, currentSeason, currentEpisode);
       fetchEpisodes(id, currentSeason);
-    
     }
   }, [title, id, currentSeason ,currentEpisode]);
+
+   useEffect(() => {
+    if (id && currentSeason && currentEpisode) {
+      fetchData(id, currentSeason, currentEpisode);
+    }else{
+      fetchData(id);
+    }
+  },[currentSeason, currentEpisode]);
   
   useEffect(() => {
     const getseasons = async () => {
