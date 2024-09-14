@@ -12,16 +12,9 @@
   background-color: $body-bg;
   position: relative;
 }
-
-
-
-
 .actively{
-  background-color: rgb(255, 255, 255);
-  color: black;
-}
-.watched {
-  background-color: green;
+    background-color: rgba(255, 255, 255, 0.904);
+    color: black;
 }
 .menu {
   display: flex;
