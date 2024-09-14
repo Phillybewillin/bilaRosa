@@ -99,8 +99,8 @@ const Spotlight = () => {
                   
                   <p className="spotlight-overview"> Beginning in a time of relative peace, we follow an ensemble cast of characters as they confront the re-emergence of evil to Middle-earth. From the darkest depths of the Misty Mountains, to the majestic forests of Lindon...</p>
                   <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('tv/84733')}>Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(84733, "The Lord of the Rings: The Rings of Power " ,1 ,1)}>Watch Now</Button>
+                  <Button className="btnprime" onClick={() => navigate('tv/84773')}>Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(84773, "The Lord of the Rings: The Rings of Power " ,1 ,1)}>Watch Now</Button>
                   </div>
                 </div>
               </div>
