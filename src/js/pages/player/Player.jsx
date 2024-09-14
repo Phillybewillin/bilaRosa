@@ -8,6 +8,7 @@ import '@vidstack/react/player/styles/base.css';
 import '@vidstack/react/player/styles/plyr/theme.css';
 import axios from "axios";
 import "./player.scss";
+import '../detail/seasons.scss';
 import apiConfig from "../../api/apiConfig";
 import ErrorBoundary from "../../pages/Errorboundary"; // Import the ErrorBoundary component
 import { ColorRing } from "react-loader-spinner";
