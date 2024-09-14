@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@vidstack/react": "^1.12.9",
-    "axios": "^1.7.2",
+    "axios": "^1.7.7",
     "colorthief": "^2.4.0",
     "firebase": "^10.12.4",
     "million": "^2.6.4",
