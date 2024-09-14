@@ -32,7 +32,7 @@ const Detail = () => {
     document.title =  item ? `${item?.title || item?.name} - Watch it on ZillaXR` : 'ZillaXR';
     getDetail();
     //console.log('items:', items);
-  }, [category, id]);
+  }, [category, id , item]);
 
   
 
