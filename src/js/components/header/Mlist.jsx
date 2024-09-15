@@ -55,9 +55,9 @@ const Mlist = ({ movies , value }) => {
                  alt=""
               />
                <div className="dets">
-               <p className="movietitle">{movie.title || movie.name}</p>
+               <p className="movietitlez">{movie.title || movie.name}</p>
               <p className="overviewseries">{movie.overview}</p>
-              <div className="date"> <p className="ratingz">• {(new Date(movie.release_date || movie.first_air_date)).getFullYear()}</p><p className="type">{movie.media_type}</p> {movie.vote_average && <p className="ratingz">{movie.vote_average}</p>} 
+              <div className="date"> <p className="ratingz">• {(new Date(movie.release_date || movie.first_air_date)).getFullYear()}</p><p className="type">{movie.media_type === 'tv' ? 'Show' : 'Movie'}</p> {movie.vote_average && <p className="ratingz">{movie.vote_average}</p>} 
               </div>
                 
               </div>
