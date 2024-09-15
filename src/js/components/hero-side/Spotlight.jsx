@@ -1,4 +1,4 @@
-import React  , { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { register } from "swiper/element";
 import { useNavigate } from 'react-router-dom';
 import Button from "../button/Button";
@@ -391,8 +391,8 @@ const Spotlight = () => {
               </div>
             </SwiperSlide>
             <div className="alignerbutts">
-              <div ref={navigationPrevRef} ><i className='bx bxs-left-arrow'></i></div>
-            <div ref={navigationNextRef} ><i className='bx bxs-right-arrow'></i></div>
+              <div className="butts" ref={navigationPrevRef} ><i className='bx bxs-left-arrow'></i></div>
+            <div className="butts" ref={navigationNextRef} ><i className='bx bxs-right-arrow'></i></div>
           
             </div>
             </Swiper>
