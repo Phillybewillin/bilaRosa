@@ -1,5 +1,5 @@
-import React, { useState, useEffect} from "react";
-import { useNavigate, useParams,  } from "react-router-dom";
+import { useRef , useState, useEffect} from "react";
+import { useNavigate, useParams} from "react-router-dom";
 import '@vidstack/react/player/styles/default/theme.css';
 import '@vidstack/react/player/styles/default/layouts/video.css';
 import { defaultLayoutIcons, DefaultVideoLayout } from '@vidstack/react/player/layouts/default';
@@ -55,19 +55,34 @@ export default function Player() {
     }
   }, [title, id, currentSeason ,currentEpisode]);
 
-   useEffect(() => {
+  useEffect(() => {
     if (id && currentSeason && currentEpisode) {
-      fetchData(id, currentSeason, currentEpisode);
-    }else{
-      fetchData(id);
+      const args = [id, currentSeason, currentEpisode];
+      if (!lastFetchArgs.current || !arraysEqual(lastFetchArgs.current, args)) {
+        lastFetchArgs.current = args;
+        fetchData(id, currentSeason, currentEpisode);
+      }
+    } else {
+      const args = [id];
+      if (!lastFetchArgs.current || !arraysEqual(lastFetchArgs.current, args)) {
+        lastFetchArgs.current = args;
+        fetchData(id);
+      }
     }
-  },[currentSeason, currentEpisode]);
+  }, [currentSeason, currentEpisode]);
+  
+  function arraysEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) return false;
+    return arr1.every((value, index) => value === arr2[index]);
+  }
   
   useEffect(() => {
     const getseasons = async () => {
         const { data } = await axios.get(`${apiConfig.baseUrl}tv/${id}?api_key=${apiConfig.apiKey}`);
         const validSeasons = data.seasons.filter(({ air_date }) => air_date && new Date(air_date) <= new Date());
         setSeasons(validSeasons);
+        setbgChanged(apiConfig.w200Image(validSeasons[0].poster_path))
+   
     };
     getseasons();
 }, [id]);
