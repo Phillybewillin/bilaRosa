@@ -23,7 +23,7 @@ export default function Player() {
   const [seasons, setSeasons] = useState([]);
   const [currentSeason, setCurrentSeason] = useState(season_number);
   const [quality, setQuality] = useState("auto");
- 
+  const lastFetchArgs = useRef(null);
 
   //const [sources, setSources] = useState([]);
   const [loading, setLoading] = useState(true);
