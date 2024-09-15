@@ -15,10 +15,10 @@
     right: 10px;
    //background-color: rgba(18, 18, 18, 0.724);
    color:$main-bg;
-   padding: 3px;
+   padding: 7px;
    border-left: 1px solid rgba(233, 233, 233, 0.644);
    font-size: smaller;
-   background-color: rgba(27, 27, 27, 0.79);
+   background-color: $body-bg;
    border-top-right-radius: 5px;
    border-bottom-right-radius: 5px;
    font-weight: 200;
@@ -36,10 +36,10 @@
     right: 50px;
    padding: 5px;
    color:$main-bg;
-   padding: 3px;
-   border-right: 1px solid rgba(233, 233, 233, 0.644);
+   padding: 7px;
+  border-right: 1px solid rgba(233, 233, 233, 0.644);
    font-size: smaller;
-   background-color: rgba(27, 27, 27, 0.79);
+   background-color: $body-bg;
    border-top-left-radius: 5px;
    border-bottom-left-radius: 5px;
    font-weight: 200;
@@ -51,12 +51,12 @@
 }
 
 .right:hover{
-    background-color: rgba(27, 27, 27, 0.607);
+    background-color: rgba(67, 33, 121, 0.772);
     color: rgb(255, 255, 255);
     
 }
 .left:hover{
-    background-color: rgba(26, 26, 26, 0.852);
-    color: rgba(245, 245, 220, 0.256);
+    background-color: rgba(184, 36, 61, 0.733);
+    color: rgb(255, 255, 255);
 }
 
