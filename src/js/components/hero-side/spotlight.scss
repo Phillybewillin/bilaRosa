@@ -302,10 +302,11 @@ margin-bottom: 1rem;
   }
 
 .butts{
+   color: white;
   transition: all .3s ease-in-out;
 }
 .butts:hover{
-  transform: scale(1.1);
+ // transform: scale(1.1);
   transition: all .3s ease-in-out;
   cursor: pointer;
   color: darkslategrey;
