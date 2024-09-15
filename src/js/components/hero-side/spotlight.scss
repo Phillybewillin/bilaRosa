@@ -300,3 +300,13 @@ margin-bottom: 1rem;
     background-color: #000000ad;
     color: $main-bg;
   }
+
+.butts{
+  transition: all .3s ease-in-out;
+}
+.butts:hover{
+  transform: scale(1.1);
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+  color: darkslategrey;
+}
