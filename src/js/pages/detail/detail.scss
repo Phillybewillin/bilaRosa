@@ -181,34 +181,36 @@
   display: flex;
   flex-direction: column;
   //justify-content: center;
-  //align-items: center;
+  align-items: center;
   margin: 0 5px;
   .castdix{
     position: relative;
+    
     width: 250px;
     height: 350px;
    background-image:linear-gradient(to bottom, rgb(0, 0, 0), rgba(0, 0, 0, 0.066));
     border-radius: 10px;
-    padding: 10px;
+    padding: 10px 5px;
      overflow: auto;
      scrollbar-color: #1a1a1a00 #00000000;
     .casts {
       //background-color: #000000e0;
    
       margin-top: .2rem;
-     
+      margin-left: 1rem;
       display: flex;
       flex-direction: column;
       //flex-wrap: wrap;
       width: 100%;
       overflow: auto;
-      justify-content: flex-start;
+      justify-content: center;
+      //align-items: center;
       stroke-width: 1px;
       scrollbar-width: 10px;
       scrollbar-color: #1a1a1a78 #00000000;
    
       //align-items: center;
-      text-align: start;
+      //text-align: start;
       gap: 3px;
   
       &__item {
@@ -219,7 +221,7 @@
   
           &__img {
              position: relative;
-              padding-top: 70px;
+              padding: 40px;
               width: 70px;
               background-size: cover;
               background-position: center;
@@ -227,36 +229,40 @@
              
               margin-bottom: .2rem;
   
+            &:hover{
+              opacity: 0.5;
               
+            } 
               
               
           }
+          
   
           &__name {
             
               position: relative;
               font-size: .65rem;
               text-align: center;
-              color: rgba(255, 255, 255, 0.829);
+              color: rgba(0, 0, 0, 0.829);
               //backdrop-filter: blur(10px);
-              //background-color: rgba(0, 0, 0, 0.772);
-              border-radius: 20px;
+              background-color: rgba(255, 255, 255, 0.808);
+              border-radius: 5px;
               //height: 35px;
               padding:  5px 10px;
               font-weight: 400;
   
           }
           &__char{
-            position: absolute;
+            position: relative;
             bottom: 2px;
-            right: -20px;
+            //right: -20px;
               font-size: .6rem;
-              text-align: bottom;
-              color: rgb(255, 255, 255);
-              backdrop-filter: blur(10px);
-              background-color: rgba(6, 6, 6, 0.413);
-              border-radius: 15px;
-              padding: 5px;
+              text-align: center;
+              color: rgba(255, 255, 255, 0.482);
+              //backdrop-filter: blur(10px);
+              background-color: rgba(56, 56, 56, 0.413);
+              border-radius: 10px;
+              padding: 5px 10px;
               font-weight: 500;
           }
       }
@@ -265,7 +271,7 @@
           
         &__item {
           &__img {
-            padding-top: 70px;
+            padding: 40px;
               width: 70px;
             background-size: cover;
             background-position: center;
@@ -274,7 +280,7 @@
             
         }
   
-             font-size: .7rem;
+             font-size: .9rem;
              font-weight: 400;
   
          }
@@ -304,6 +310,12 @@
         font-weight: 500;
         margin-bottom: 1rem;
     }
+}
+.aligners{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.3rem;
 }
 
 .runtime{
@@ -483,7 +495,8 @@
   font-size: smaller;
   font-weight: 200;
   padding: 5px 10px;
-  background-color: rgba(255, 255, 255, 0.849);
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
   border-radius: 5px;
   color: rgb(7, 7, 7);
 }
