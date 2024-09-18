@@ -100,10 +100,9 @@ export default function Player() {
       let url = baseurl + additionalParams + "&provider=flixhq";
       const response = await axios.get(url);
       const dataz = response.data;
-
+      setLoading(false);
       if (response.status === 404) {
         //throw new Error("Resource not found. try again later.");
-        setLoading(false);
       }
 
       const sourcesData = dataz?.data?.sources || [];
@@ -113,7 +112,7 @@ export default function Player() {
    
       setTextTracks(mapSubtitlesToTracks(dataz?.data?.subtitles));
        
-      setLoading(false);
+      
       //console.log(dataz?.data?.subtitles);
     } catch (error) {
       console.error("Failed to fetch data:", error);
