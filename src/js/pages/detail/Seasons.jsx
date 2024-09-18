@@ -44,15 +44,15 @@ const Seasons = ({ id , title}) => {
     };
 
     const handleEpisodeClick = (id , title ,selectedSeason, episodeNumber) => {
-      console.log(selectedSeason , episodeNumber);
-      console.log(id , title  )
+     // console.log(selectedSeason , episodeNumber);
+     // console.log(id , title  )
         //console.log('handlePlayer function called', id, title , selectedSeason , episodeNumber);
 
         if (title && id && selectedSeason && episodeNumber) {
             const encodedTitle = encodeURIComponent(title.replace(/ /g, '-').toLowerCase());
-            console.log(`Navigating to: /watch/${encodedTitle}/${id}/${selectedSeason}/${episodeNumber}`);
+           // console.log(`Navigating to: /watch/${encodedTitle}/${id}/${selectedSeason}/${episodeNumber}`);
             navigate(`/watch/${encodedTitle}/${id}/${selectedSeason}/${episodeNumber}`);
-            console.log(id, title );
+           // console.log(id, title );
         }
     };
 
