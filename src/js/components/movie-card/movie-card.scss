@@ -153,18 +153,18 @@
        justify-content: space-between;}
 }
 .year{
-  background-color: #0f0f0f36;
+  background-color: #0f0f0f6b;
   font-weight: 400;
   padding: 2px 7px;
   border-radius: 5px;
-  color: lighten($color: #ffffff9c, $amount: 20);
+  color: #ffffff9c;
 }
 
 .vote{
   position: absolute;
-  bottom: -10px;
+  bottom: 3px;
   right: 2rem;
-  background-color: rgba(29, 29, 29, 0.3);
+  background-color: #0f0f0f6b;
   font-weight: 600;
   padding: 8px;
   border-radius: 5px;
@@ -172,20 +172,21 @@
 }
 
 .titlename{
- background-color: #2222223b;
- padding: 5px;
- border-radius: 5px;
+  background-color: #0f0f0f6b;
+  //font-weight: 450;
+  padding: 5px;
+  border-radius: 5px;
 }
 .savemovie{
   position: absolute;
-  bottom: -10px;
+  bottom: 3px;
   right: 3px;
   align-items: center;
   text-align: center;
-  background-color: rgba(29, 29, 29, 0.3);
+  background-color: #0f0f0f6b;
   padding: 0 3px;
   border-radius: 5px;
   padding-top: 5px;
-  padding-bottom: 7px;
+  padding-bottom: 5px;
 
 }
