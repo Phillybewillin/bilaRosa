@@ -279,12 +279,12 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">R</h1>
-                <img src={'https://image.tmdb.org/t/p/original/NqqLef2ITlK8olXT4iFuUXFwSh.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(83, 42, 16, 0.557))'}}/>
+                <img src={'https://image.tmdb.org/t/p/original/Asg2UUwipAdE87MxtJy7SQo08XI.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(83, 42, 16, 0.557))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .8</h4>
                
-                  <h2 className="spotlight-name">Blink Twice</h2>
+                  <h2 className="spotlight-name">The Crow</h2>
                  
                   <p className="spotlight-genres">
                     <span className="genre a">Fantasy</span>
@@ -295,7 +295,7 @@ const Spotlight = () => {
                   <h6 className="genre b">HD</h6><h6 className="genre a">Movies</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
                   </div>
                   
-                  <p className="spotlight-overview">Sparks fly in all directions as marketing maven Kelly Jones, brought in to fix NASA's public image, wreaks havoc on Apollo 11 launch director Cole Davis' already difficult task of putting a man on the moon.</p>
+                  <p className="spotlight-overview">Love with a touch of violence , the Crow is a prince who seeks to destroy his brother. </p>
                   <div className="spotty">
                   <Button className="btnprime" onClick={() => navigate('/movie/957452')}><i className='bx bx-info-circle'></i> Details</Button>
                   <Button className="spotlight-watch-btn" onClick={() => handlePlayer(957452, "Crow")}>  <i className='bx bx-play'></i> Watch Now</Button>
