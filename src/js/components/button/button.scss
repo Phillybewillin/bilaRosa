@@ -3,7 +3,10 @@
 button{
     cursor: pointer;
     font-family:$font-family;
+    display: flex;
+    align-items: center;
 }
+.spotlight-watch-btn,
 .btn{
     //border: 3px solid transparent;
     background-color: $white;
