@@ -1,4 +1,4 @@
-import React ,{ useState, useEffect } from 'react';
+import React ,{ useState, useEffect, Suspense } from 'react';
 import{  useParams , useNavigate } from 'react-router-dom';
 import tmdbApi from '../../api/tmdbApi';
 import apiConfig from '../../api/apiConfig';
@@ -219,9 +219,9 @@ const Detail = () => {
                                </p>
                             
                                
-                              {category === 'tv' && <Seasons category={category}
-                              id={item.id} title={item.name || item.title}/>
-                              }
+                              {category === 'tv' && <Suspense fallback={null}> <Seasons category={category}
+                              id={item.id} title={item.name || item.title}/> </Suspense>}
+                              
                               {category === 'movie' && 
                               <>
                               
@@ -241,7 +241,11 @@ const Detail = () => {
                         <h4 className='titledetailz'>Cast</h4>
 
                                        <div className="castdix">
-                                           <p className='cast'><CastList id={item.id}/></p>
+                                           <p className='cast'>
+                                            <Suspense fallback={null}>
+                                            <CastList id={item.id}/>
+                                            </Suspense>
+                                            </p>
                                             
                                        </div>
                                        
@@ -256,7 +260,9 @@ const Detail = () => {
                        {
   items.results.filter(itemz => itemz.poster_path).map((itemz, ia) => (
     <div className="wrappwezs" key={ia} onClick={scrollToTop}>
+        <Suspense fallback={null}>
       <MovieCard item={itemz} category={category} key={itemz.id} />
+      </Suspense>
       {itemz.overview && <p className="overviewz">{itemz.overview}</p>}
     </div>
   ))
