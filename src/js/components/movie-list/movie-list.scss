@@ -59,4 +59,208 @@
     background-color: rgba(184, 36, 61, 0.733);
     color: rgb(255, 255, 255);
 }
+.mainbox{
+    width: 97%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 1rem;
 
+    @include mobile {
+        flex-direction: column;
+    }
+}
+.boxoffice__title{
+    text-align: end;
+    padding: 7px;
+    border-right: 3.5px solid transparent;
+    border-image: linear-gradient(to top, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
+    color: rgba(255, 255, 255, 0.92);
+    font-weight: 500;
+
+}
+.boxoffice{
+    background-color: rgba(26, 26, 26, 0.614);
+    color: rgba(255, 255, 255, 0.92);
+    border-radius: 15px;
+    width: 100%;
+    margin: .5rem 0 ;
+    font-size: .85rem;
+    //border-left: 1px solid rgba(233, 233, 233, 0.644);
+    padding: 1rem;
+    @include mobile {
+     font-size: 1rem;
+    }
+}
+.boxoffice__movie{
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: .3rem;
+    padding: 7px;
+    background-color: rgb(28, 28, 28);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    font-weight: 300;
+
+
+}
+.boxoffice__movie:hover{
+    color: #e4e9ff49;
+}
+.boxofficer{
+    display: flex;
+    flex-direction: row-reverse;
+    gap: .5rem;
+    padding: 7px;
+    background-color: rgba(15, 15, 15, 0.509);
+    color: rgba(255, 255, 255, 0.831);
+    font-weight: 600;
+    border-radius: 10px;
+    //width: 100%;
+}
+.boxoffice__list{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: .5px solid rgba(255, 255, 255, 0.112);
+}
+.watchprov{
+    padding: 10px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+   
+}
+.netflix{
+    cursor: pointer;
+    //color: red;
+    background-color: #070707;
+    padding:  10px;
+    border-radius: 10px ;
+
+}
+.max{
+    cursor: pointer;
+    //color: rgb(255, 255, 255);
+    background-image:
+        radial-gradient(
+            circle at 50% 50%,
+            #0532FB 0%,
+            #040466 80%,
+            #040466 90%
+        );
+    padding:  10px;
+    border-radius: 10px;
+
+}
+.apple{
+    cursor: pointer;
+    background-image: linear-gradient(to bottom, #000000, #141414);
+    padding: 10px;
+    border-radius: 10px ;
+}
+.hbo{
+    cursor: pointer;
+   
+    background-color: rgb(0, 0, 0);
+    padding: 10px;
+    border-radius: 10px;
+  
+}
+.hulu{
+    cursor: pointer;
+    //color: #08EF87;
+    background-image: linear-gradient(to bottom, #000000, #142E3B);
+    padding: 10px;
+    border-radius: 10px ;
+   
+}
+.prime{
+    cursor: pointer;
+    //color: rgb(255, 255, 255);
+    background-image: linear-gradient(220deg, #38C3EA, #002961);
+    padding: 10px;
+    border-radius: 10px;
+ 
+}
+.disney{
+    cursor: pointer;
+    //color: #e3e9f6;
+    background-image: linear-gradient(to top, #00919E, #002132);
+    padding: 10px 20px;
+    border-radius: 10px;
+    
+}
+.fx{
+    cursor: pointer;
+    //color: rgb(0, 0, 0);
+    background-color: rgba(255, 255, 255, 0.858);
+    padding: 10px 5px;
+    border-radius: 10px;
+   
+}
+.boxoffice__button{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(38, 38, 38);
+    color: rgba(255, 251, 251, 0.831);
+    font-weight: 600;
+    font-size: .8rem;
+    
+}
+.provimg{
+    cursor: pointer;
+    background-position: center;
+    scale: 1.4;
+    object-fit: cover;
+    width: auto;
+    height: 30px;
+    transition: all .2s ease-in-out;
+}
+.provimg:hover{
+    scale: 2;
+    transition: all .2s ease-in-out;
+}
+.activenet{
+    scale: 1.2;
+    transition: all .2s ease-in-out;
+    //border-left: 2px solid #ffffff;
+}
+.settitle{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.boxoffice__titlez{
+    color: rgba(255, 255, 255, 0.831);
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+.boxoffice__rank{
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    border-right: 1.5px solid rgba(255, 0, 0, 0.943);
+    padding-right: .5rem;
+    //font-size: 1.2rem;
+}
+.boxoffice__rank1{
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    border-right: 1.5px solid transparent;
+    border-image: linear-gradient(to top, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
+    padding-right: .5rem;
+    //font-size: 1.2rem;
+}
+.bx.bx-info-circle{
+    color: rgba(255, 255, 255, 0.831);
+    font-weight: 400;
+    font-size: .9rem;
+    padding-right: 4px;
+}
