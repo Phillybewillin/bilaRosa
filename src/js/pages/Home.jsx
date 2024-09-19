@@ -8,10 +8,11 @@ import apiConfig from '../api/apiConfig';
 import './home.scss';
 import { ToastContainer } from 'react-toastify';
 import MovieCard from '../components/movie-card/MovieCard';
+import BoxOffice from '../components/movie-list/BoxOffice';
 
 
 const Home = () => {
-  document.title = 'Home - ZillaXR';
+  document.title = 'ZillaXR • Home';
 
   const [tv, setTv] = useState([]);
   const [moviesData, setMoviesData] = useState([]);
@@ -213,7 +214,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Additional Movie Sections */}
+        <BoxOffice />
         <div className="section mb-3">
           <div className="section-tit">
             <h3 className='villa'>• POPULAR MOVIES <h6 className="catx"># Most Popular movies this year</h6></h3>
