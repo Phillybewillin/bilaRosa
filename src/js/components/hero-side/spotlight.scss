@@ -1,6 +1,16 @@
 @use '../../scss/' as *;
 
 
+.butts{
+  color: white;
+  transition: all .3s ease-in-out;
+}
+.butts:hover{
+  //transform: scale(1.1);
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+  color: rgb(47, 79, 79);
+}
 .spotlight {
     position: relative;
     height: 100%;
@@ -19,14 +29,14 @@
     height: 520px;
     padding-top: 3rem;
     object-fit: cover;
-   //transition: all 1s ease-in-out;
+   transition: all .9s ease-in-out;
    //transition: font-size 1s ease-out;
     
     font-size: small;
     left: 4rem;    
     @include mobile {
         font-size: 1rem;
-        height: 400px;
+        height: 500px;
         left: 0rem;
         
     }
@@ -35,22 +45,21 @@
  .swiper-slide.swiper-slide-active {
   //padding-left: .5rem;
   font-size: 1.5rem;
-  transition: width 1s ease-out;
+  transition: width .9s ease-in-out, font-size 1s ease-out;
+  will-change: auto;
    width: 750px !important;
    object-fit: cover;
-
    @include mobile {
     width: 100% !important;
    }
   
  }
  .swiper-slide.swiper-slide-prev{
-  transition: width .9s ease;
+  transition: width .9s ease , font-size 1s ease-out;
  }
  .swiper-slide.swiper-slide-next {
-  will-change: auto;
- // transition: width 1s ease-out;
- //transition-delay: 1s; /* delay the transition by 0.5 seconds */
+  transition: width .9s ease-out;
+ transition-delay: 1s; /* delay the transition by 0.5 seconds */
 }
 
 }
@@ -116,18 +125,19 @@ margin-bottom: 1rem;
 }
 .spotlight-number{
   position: absolute;
-    margin-top: 2.5rem;
+    margin-top: 1rem;
     font-size: 1rem;
-    right: 10px;
+    right: 0px;
     padding: 1.2rem;
-    border-right: 3.5px solid transparent;
+    border-right: 2px solid transparent;
     border-image: linear-gradient(to top, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
-  
+    backdrop-filter: blur(5px);
     color: lighten($color: #eeeeee, $amount: 4);
     color-scheme: light;
     background-color: rgba(0, 0, 0, 0.365);
     border-radius: 5px;
     font-weight: 400;
+    z-index: 10;
     @include mobile {
         font-size: 1rem;
     }
@@ -166,10 +176,10 @@ margin-bottom: 1rem;
     justify-content: center;
     flex-direction: column;
     position: absolute;
-    bottom: 20px;
+    bottom: 0px;
     left: 0px;
     padding-top:calc(100vh - 25rem);
-    margin-bottom: .5rem;
+    margin-bottom: .3rem;
     //gap: .1rem;
     width: 100%;
     //height: 500;
@@ -227,13 +237,15 @@ margin-bottom: 1rem;
 }
 
 .spon {
-  margin-top: 1rem;
- // background-color: rgba(0, 0, 0, 0.409);
+  width: max-content;
+  margin:  .2rem .5rem ;
+  background-color: rgba(0, 0, 0, 0.559);
+  
   padding: .1rem .5rem;
   border-radius: 5px;
-  font-size: x-small;
+  font-size: .7rem;
   font-weight: 600;
-  color: $main-bg;
+  color: rgba(245, 222, 179, 0.566);
 }
 .spotlight-genres{
     font-size: x-small;
@@ -298,16 +310,5 @@ margin-bottom: 1rem;
   
   .genre.b {
     background-color: #000000ad;
-    color: $main-bg;
+    color: rgba(255, 255, 255, 0.411);
   }
-
-.butts{
-   color: white;
-  transition: all .3s ease-in-out;
-}
-.butts:hover{
- // transform: scale(1.1);
-  transition: all .3s ease-in-out;
-  cursor: pointer;
-  color: darkslategrey;
-}
