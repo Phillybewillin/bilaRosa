@@ -2,7 +2,7 @@ import React ,{ useState, useEffect, Suspense } from 'react';
 import{  useParams , useNavigate } from 'react-router-dom';
 import tmdbApi from '../../api/tmdbApi';
 import apiConfig from '../../api/apiConfig';
-import Button  from '../../components/button/Button';
+import Button ,{OutlineButton}  from '../../components/button/Button';
 import {UserAuth} from "../../context/AuthContext";
 import {db} from "../../Firebase";
 import{arrayUnion , doc , updateDoc} from "firebase/firestore";
@@ -17,10 +17,10 @@ const CastList = React.lazy(() => import('./CastList'));
 const Detail = () => {
       
     const { category, id } = useParams();
-
+    const [choice , setChoice ] = useState(false)
     const [item, setItem] = useState(null);
     const [items, setItems] = useState([]);
-     
+    const [iframeSrc, setIframeSrc] = useState(''); 
     const getDetail = async () => {
       const response = await tmdbApi.detail(category, id, {params: {}});
       const similar = await tmdbApi.similar(category, id )
@@ -175,11 +175,38 @@ const Detail = () => {
     };
 
     const scrollToTop = () => {
-        window.scrollTo(0, 0);
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
     };
+    const handlescrolldown = () => {
+        window.scrollTo({
+            top: 500,
+            behavior: 'smooth'
+          });
+    }
+    const handleWatchNow = () => {
+        const srcUrl = [`https://vidsrc.pro/embed/${category}/${item.id}`];
+        setIframeSrc(srcUrl); 
+    };
+    const handleWatchTrailer = () => {
+        const srcUrl = [`https://multiembed.mov/?video_id=${item.id}&tmdb=1`]
+         setIframeSrc(srcUrl);
+    };
+    const handleWatchTrailer2 = () => {
+        const srcUrl = [`https://vidsrc.xyz/embed/${category}/${item.id}?autoplay=1`]
+        setIframeSrc(srcUrl);
+    };
+    const handleCancel = () => {
+        setIframeSrc(''); // Set the src to an empty string to cancel loading
+    };  //update.2 for servers
+
+    
 
     return (
         <>
+
             {
                 item && (
                     <>
@@ -226,9 +253,9 @@ const Detail = () => {
                               <>
                               
                         <div className="buttonz">
-
-                        <Button className="btn" onClick={() => handlePlayer(item.id, item.name || item.title)}>Watch Now</Button>
-                      </div>
+                        <Button className='btn' onClick={handlescrolldown}>Recommendations</Button>
+                        <Button className='btn' onClick={() => setChoice(true)}><i className='bx bx-play-circle'></i> Watch Now</Button>
+                         </div>
                               </>
                             
                              }  
@@ -251,7 +278,40 @@ const Detail = () => {
                                        
                         </div>
                            
-                       </div> 
+                       </div>
+                      
+                      {
+                        choice && <div className="choices">
+                             {iframeSrc &&  (
+                                     <div className="movie_iframe">
+                                 <iframe 
+                               
+                                id="videoplaya"
+                                src={iframeSrc}
+                                className='videoplaya'
+                                width="100%"
+                                height="100%"
+                                title="Video Player"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen 
+                                />
+                                <i className='bx bx-x' id='cancel-button' style={{position : 'absolute', display: 'flex' ,justifyContent : 'flex-end' ,alignContent : 'baseline' , top : '4px' , right : '5px' , cursor : 'pointer',fontSize : '25px',backgroundColor: 'white',padding : '5px',borderRadius : '10px',color : 'black'}} onClick={handleCancel}></i>
+                                 </div>
+                                ) }
+                           <div className="butzs" >
+                                    <h5 className='titlechoice'>Recommended (No Ads)</h5>
+                                   <Button className="btn" onClick={() => handlePlayer(item.id, item.name || item.title)}> <i className='bx bx-play-circle'></i> Watch Now</Button>
+                                <h5 className='titlechoice'>Embeds (have Ads)</h5>
+                                   <Button className="btnprime" onClick={handleWatchNow}>VidSrc Servers</Button>
+                                   <Button className="btnprime" onClick={handleWatchTrailer}>MultiMov Servers</Button>
+                                   <Button className="btnprime " onClick={handleWatchTrailer2}>VidSrc Servers 2</Button>
+                                   <Button className='btn' onClick={() => {setChoice(false);  handleCancel()}}> <i className='bx bx-undo'></i>Back to Details</Button>
+                                 
+                            </div>
+                        </div>
+                      } 
+                       
                        <div className="overviewz">
                                    <h3 className='titledetails'>Recommendations based on {item.title || item.name}</h3>
                       </div>
@@ -269,7 +329,7 @@ const Detail = () => {
 }
                            </div>
                        
-                       <ToastContainer theme='dark' position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#ff0000' , color : 'white', borderRadius : '5px'}}/>
+                       <ToastContainer theme='dark' position="top-right" autoClose={4000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#ffffff' , color : 'white', borderRadius : '5px'}}/>
            
                     </>
                 )
