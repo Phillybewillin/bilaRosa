@@ -1,16 +1,5 @@
 @use '../../scss/' as *;
 
-
-.butts{
-  color: white;
-  transition: all .3s ease-in-out;
-}
-.butts:hover{
-  //transform: scale(1.1);
-  transition: all .3s ease-in-out;
-  cursor: pointer;
-  color: rgb(47, 79, 79);
-}
 .spotlight {
     position: relative;
     height: 100%;
@@ -45,7 +34,7 @@
  .swiper-slide.swiper-slide-active {
   //padding-left: .5rem;
   font-size: 1.5rem;
-  transition: width .9s ease-in-out, font-size 1s ease-out;
+  transition: width .9s ease-in-out, font-size .9s ease-out;
   will-change: auto;
    width: 750px !important;
    object-fit: cover;
@@ -112,30 +101,19 @@ margin-bottom: 1rem;
   }
 }
 
-.fuck{
-  position: absolute;
-  bottom: 15px;
-  //padding: 10px;
-  border-radius: 10px;
-  right: 0;
-  width: 100%;
-  //height: 80%;
-  background-image: linear-gradient(to bottom, transparent, $body-bg);
-  
-}
 .spotlight-number{
   position: absolute;
     margin-top: 1rem;
     font-size: 1rem;
     right: 0px;
     padding: 1.2rem;
-    border-right: 2px solid transparent;
-    border-image: linear-gradient(to top, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
+    border-right: 1px solid rgb(130, 130, 130);
+
     backdrop-filter: blur(5px);
-    color: lighten($color: #eeeeee, $amount: 4);
-    color-scheme: light;
-    background-color: rgba(0, 0, 0, 0.365);
-    border-radius: 5px;
+    color: rgba(245, 222, 179, 0.566);
+
+    background-color: rgba(0, 0, 0, 0.582);
+   
     font-weight: 400;
     z-index: 10;
     @include mobile {
@@ -160,9 +138,12 @@ margin-bottom: 1rem;
 }
 .spotlight-image{
     width : 100%;
-    height: 490px;
+    height: 480px;
     object-fit: cover;
-    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+    
     @include mobile {
         height: 300px;
     }
@@ -235,7 +216,16 @@ margin-bottom: 1rem;
     }
  }
 }
-
+.butts{
+  color: white;
+  transition: all .3s ease-in-out;
+}
+.butts:hover{
+  //transform: scale(1.1);
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+  color: rgb(137, 30, 25);
+}
 .spon {
   width: max-content;
   margin:  .2rem .5rem ;
