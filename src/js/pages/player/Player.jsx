@@ -13,6 +13,8 @@ import apiConfig from "../../api/apiConfig";
 import ErrorBoundary from "../../pages/Errorboundary"; // Import the ErrorBoundary component
 import { ColorRing } from "react-loader-spinner";
 import logo from '../../assets/icons8-alien-monster-emoji-48.png';
+import { ToastContainer , toast } from "react-toastify";
+
 export default function Player() {
   const { title, id, season_number, episode_number } = useParams();
   const [playerSource, setPlayerSource] = useState([]);
@@ -101,8 +103,10 @@ export default function Player() {
       const response = await axios.get(url);
       const dataz = response.data;
       setLoading(false);
-      if (response.status === 404) {
-        //throw new Error("Resource not found. try again later.");
+      if (response.status === 500) {
+        toast.error("Failed to find any resource. Please try again later.");
+     
+        throw new Error("Resource not found. try again later.");
       }
 
       const sourcesData = dataz?.data?.sources || [];
@@ -115,7 +119,9 @@ export default function Player() {
       
       //console.log(dataz?.data?.subtitles);
     } catch (error) {
-      console.error("Failed to fetch data:", error);
+      toast.error("Failed to find any Playable resource. Please try again later.");
+     
+      //console.error("Failed to fetch data:", error);
       //setErrorMessage(error.message || "An unexpected error occurred.");
     }
   };
@@ -221,6 +227,7 @@ class CustomMediaStorage extends LocalMediaStorage {
   return (
     <ErrorBoundary>
       {loading ? (
+       <>
         <ColorRing
         visible={true}
         height="50"
@@ -228,8 +235,10 @@ class CustomMediaStorage extends LocalMediaStorage {
         ariaLabel="color-ring-loading"
         wrapperStyle={{}}
         wrapperClass="color-ring-wrapper"
-        colors={['#e15b64', '#ff0040', '#f8b26a', '#abbd81', '#16e5e9']}
+        colors={['#000000', '#ff0040', '#f8b26a', '#ffffff', '#16e5e9']}
         />
+        <ToastContainer theme="light" fontSize="11px" position="top-right" autoClose={8000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} progressStyle={{ backgroundColor: '#00000', color: 'white', borderRadius: '5px' }} />
+        </>
       ) : (
         <> 
           <div className="player-container">
