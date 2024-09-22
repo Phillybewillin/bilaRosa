@@ -1,11 +1,13 @@
-import { useRef , useState, useEffect} from "react";
+import {useRef , useState, useEffect} from "react";
 import { useNavigate, useParams} from "react-router-dom";
+
 import '@vidstack/react/player/styles/default/theme.css';
+import '@vidstack/react/player/styles/default/layouts/audio.css';
 import '@vidstack/react/player/styles/default/layouts/video.css';
+
 import { defaultLayoutIcons, DefaultVideoLayout } from '@vidstack/react/player/layouts/default';
 import { MediaPlayer, MediaProvider, Track , LocalMediaStorage } from '@vidstack/react';
-import '@vidstack/react/player/styles/base.css';
-import '@vidstack/react/player/styles/plyr/theme.css';
+
 import axios from "axios";
 import "./player.scss";
 import '../detail/seasons.scss';
