@@ -12,14 +12,6 @@
   background-color: $body-bg;
   position: relative;
 }
-
-
-
-
-.actively{
-  background-color: rgb(255, 255, 255);
-  color: black;
-}
 .watched {
   background-color: green;
 }
@@ -93,7 +85,7 @@
 .navi{
   display: flex;
   align-items: center;
-  background-color: rgba(24, 24, 24, 0.543);
+  background-color: rgba(24, 24, 24, 0.68);
   
   padding: 7px;
   cursor: pointer;
@@ -104,7 +96,7 @@
   border-radius: 10px ;
 }
 .navih{
-  background-color: rgba(24, 24, 24, 0.543);
+  background-color: rgba(24, 24, 24, 0.674);
   padding: 1px 5px;
   cursor: pointer;
   margin: 0px 2px;
@@ -183,8 +175,9 @@
   }
 }
 .actively{
-  background-color: rgba(255, 255, 255, 0.904);
-  color: black;
+  
+  background-color: rgba(116, 115, 115, 0.904);
+  color: rgb(11, 11, 11);
 }
 
 .episodes_itemz:hover{
@@ -204,6 +197,71 @@
   z-index: 100;
   backdrop-filter: blur(10px);
 }
+.lights::before{
+  content: "";
+position: absolute;
+top: 0;
+left: 1;
+bottom: 0;
+right: 0;
+border-radius: 10px;
+background: linear-gradient(
+  45deg,
+  #ff000884,
+  #ffca3a88,
+  #00ff4c82,
+  #13ece889,
+  #4c00b7,
+  #ff6700
+);
+background-size: 450%;
+z-index: -1;
+animation: glow 20s linear infinite;
+width: 100%;
+}
+.lights::after{
+  content: "";
+position: absolute;
+top: 0;
+left: 0;
+bottom: 0;
+right: 0;
+border-radius: 10px;
+background: linear-gradient(
+  45deg,
+  #ff000882,
+  #ffca3a89,
+  #f708bf92,
+  #13ece892,
+  #4c00b780,
+  #ff660075
+);
+background-size: 400%;
+ z-index: -1;
+animation: glow 20s linear infinite;
+width: 100%;
+  
+}
+.lights::after {
+  filter: blur(25px);
+  transform: translate3d(0, 0, 0);
+  border-radius: 10px;
+}
+@keyframes glow {
+  0% {
+    background-position: 0 0;
+  }
+
+  50% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
+
 
 .vds-audio-layout,
 .vds-video-layout {
