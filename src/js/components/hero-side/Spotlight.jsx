@@ -78,7 +78,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/original/zDTBD1PIhBjKNp5IHrJO5s9yumb.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem  rgba(163, 94, 59, 0.4))'}} />
+                <img src={'https://image.tmdb.org/t/p/original/bOuAiq5whaVdvmOJgJt5NNuCLTh.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem  rgba(144, 101, 63, 0.4))'}} />
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .1</h4>
@@ -104,14 +104,42 @@ const Spotlight = () => {
                 </div>
               </div>
             </SwiperSlide>
-            
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/original/2vVpQtva1a8BAdpkvR09fWJbt2D.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1rem rgba(134, 165, 185, 0.3))'}}/>
+                <img src={'https://image.tmdb.org/t/p/original/hR2pFXMxVihldEk5WoSrV7Yq2ra.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(88, 100, 76, 0.5))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                <h4 className="spon">#Spotlight .2</h4>
+                  <h4 className="spon">#Spotlight .2</h4>
+                 
+                  <h2 className="spotlight-name">FROM</h2>
+                
+                  <p className="spotlight-genres">
+                  
+                   
+                    <span className="genre a">Drama</span>
+                   
+                    <span className="genre a">Crime</span>
+                  </p>
+                  <div className="spotty">
+                   <h6 className="genre b">HD</h6><h6 className="genre a">Series</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2022</h6>
+                  </div>
+                  
+                  <p className="spotlight-overview">Unravel the mystery of a nightmarish town in middle America that traps all those who enter. As the unwilling residents fight to keep a sense of normalcy and search for a way out, they mo...</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/tv/124364')}> <i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 124364, "FROM" ,1 ,1 )}>  <i className='bx bx-play'></i> Watch Now</Button>
+                  </div>
+                  </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">TV-MA</h1>
+                <img src={'https://image.tmdb.org/t/p/original/ogUGWvP2mcvEWeb5J8PTnlNukXG.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1rem rgba(19, 45, 68, 0.6))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                <h4 className="spon">#Spotlight .3</h4>
                 
                   <h2 className="spotlight-name">Twilight Of the Gods</h2>
                   
@@ -138,7 +166,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/original/8IMDPLdpEDTqKZZti2MIYTwBP7d.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(155, 112, 92, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .3</h4>
+                  <h4 className="spon">#Spotlight .4</h4>
                  
                   <h2 className="spotlight-name">The Lord of the Rings: The Rings of Power
                   </h2>
@@ -170,7 +198,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/original/hJPkcUc4ON7RchgDIkO0k6K10Zu.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1rem rgba(12, 237, 204, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                <h4 className="spon">#Spotlight .4</h4>
+                <h4 className="spon">#Spotlight .5</h4>
                 
                   <h2 className="spotlight-name">Shōgun</h2>
                   
@@ -303,35 +331,7 @@ const Spotlight = () => {
                  </div>
               </div>
             </SwiperSlide> 
-            <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/original/mNHRGO1gFpR2CYZdANe72kcKq7G.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(255, 255, 255, 0.3))'}}/>
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .9</h4>
-                 
-                  <h2 className="spotlight-name">Tusla King</h2>
-                
-                  <p className="spotlight-genres">
-                  
-                   
-                    <span className="genre a">Drama</span>
-                   
-                    <span className="genre a">Crime</span>
-                  </p>
-                  <div className="spotty">
-                   <h6 className="genre b">HD</h6><h6 className="genre a">Series</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2022</h6>
-                  </div>
-                  
-                  <p className="spotlight-overview">Just after he is released from prison after 25 years, New York mafia capo Dwight “The General” Manfredi is unceremoniously exiled by his boss to set up shop in Tulsa, Okla. Realizing that his mo...</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/tv/153312')}> <i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 153312, "Tusla King" ,1 ,1 )}>  <i className='bx bx-play'></i> Watch Now</Button>
-                  </div>
-                  </div>
-              </div>
-            </SwiperSlide>
+            
             
            <SwiperSlide>
               <div className="spotlight-item">
