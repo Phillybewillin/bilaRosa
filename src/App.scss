@@ -22,13 +22,15 @@ html {
 body {
   font-family: $font-family;
   background: $body-bg;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.728) .65px, transparent 0);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.9) .5px, transparent 0);
   background-size: 23px 23px;
   background-position: -28px -28px;
   color: white;
 
   @include mobile {
     margin-bottom: 1rem;
+     background-color: $body-bg;
+    background-image: none;
   }
 }
 
@@ -36,22 +38,15 @@ a {
   text-decoration: none;
  color: white;
 }
-
-
 button,
 input {
   outline: 0;
   border: 0;
 }
-
-
 ul {
   list-style-type: none;
 }
-
-
 .container {
-
   max-width: 1660px;
   margin: auto;
 }
@@ -64,11 +59,11 @@ ul {
 
 .mb-2 {
   min-height: auto;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .section {
-  padding: 0 .7rem;
+  padding: 0 .5rem;
 }
 
 .section__header {
