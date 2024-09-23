@@ -21,10 +21,11 @@ html {
 
 body {
   font-family: $font-family;
-  font-weight: 400;
-  line-height: 1.5;
-  background-color: $body-bg;
-  color: $txt-bg;
+  background: $body-bg;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.728) .65px, transparent 0);
+  background-size: 23px 23px;
+  background-position: -28px -28px;
+  color: white;
 
   @include mobile {
     margin-bottom: 1rem;
@@ -33,7 +34,7 @@ body {
 
 a {
   text-decoration: none;
-  color: unset;
+ color: white;
 }
 
 
