@@ -2,17 +2,13 @@
 
 .moviez{
     display: flex;
-    //background-color: rgba(31, 31, 31, 0.737);
-    //backdrop-filter: blur(10px);
-  
-  //align-items: center;
     justify-content: flex-start;
     flex-direction: column;
     gap: .5rem; 
 }
 .movieimg:hover{
   cursor: pointer;
-  background-color: #0000007e;
+  background-color: #3939397e;
 }
 .dets{
   padding: .2rem 1rem;
@@ -61,16 +57,16 @@
   display: flex;
   top: 2px;
   right: 2px;
-  font-weight: 450;
+  font-weight: 400;
   align-items: center;
   justify-content: center;
   font-size: smaller;
-  padding: .3rem .5rem;
+  padding: .5rem .5rem;
   border-radius: 5px;
   cursor: pointer;
   gap: 1rem;
   color: #121111;
-  background-color: #ffffffe7;
+  background-color: #3a3a3ae7;
 }
 .search:hover{
   opacity: 0.8;
