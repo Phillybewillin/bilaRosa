@@ -150,49 +150,49 @@ const BoxOffice = () => {
             </div>
             <div className="watchprov">
   <h5
-    className={`netflix ${networkid === 213 ? 'activenet' : ''}`}
+    className={`netflix ${networkid === 213 ? 'active' : ''}`}
     onClick={() => {setNetworkid(213); setNettitle('Netflix')}}
   >
     <img className="provimg" src={netflix} />
   </h5>
   <h5
-    className={`apple ${networkid === 2552 ? 'activenet' : ''}`}
+    className={`apple ${networkid === 2552 ? 'active' : ''}`}
     onClick={() => {setNetworkid(2552); setNettitle('Apple TV+')}}
   >
     <img className="provimg" src={apple} />
   </h5>
   <h5
-    className={`hbo ${networkid === 49 ? 'activenet' : ''}`}
+    className={`hbo ${networkid === 49 ? 'active' : ''}`}
     onClick={() => {setNetworkid(49); setNettitle('HBO Max')}}
   >
     <img className="provimg" src={hbo} />
   </h5>
   <h5
-    className={`hulu ${networkid === 453 ? 'activenet' : ''}`}
+    className={`hulu ${networkid === 453 ? 'active' : ''}`}
     onClick={() => {setNetworkid(453); setNettitle('Hulu')}}
   >
     <img className="provimg" src={hulu} />
   </h5>
   <h5
-    className={`max ${networkid === 6783 ? 'activenet' : ''}`}
+    className={`max ${networkid === 6783 ? 'active' : ''}`}
     onClick={() => {setNetworkid(6783); setNettitle('Max')}}
   >
     <img className="provimg" src={max} />
   </h5>
   <h5
-    className={`fx ${networkid === 88 ? 'activenet' : ''}`}
+    className={`fx ${networkid === 88 ? 'active' : ''}`}
     onClick={() => {setNetworkid(88); setNettitle('FX Network')}}
   >
     <img className="provimg" src={fx} />
   </h5>
   <h5
-    className={`prime ${networkid === 1024 ? 'activenet' : ''}`}
+    className={`prime ${networkid === 1024 ? 'active' : ''}`}
     onClick={() => {setNetworkid(1024); setNettitle('Amazon Prime Video')}}
   >
     <img className="provimg" src={prime} />
   </h5>
   <h5
-    className={`disney ${networkid === 2739 ? 'activenet' : ''}`}
+    className={`disney ${networkid === 2739 ? 'active' : ''}`}
     onClick={() => {setNetworkid(2739); setNettitle('Disney+')}}
   >
     <img className="provimg" src={disney} />
