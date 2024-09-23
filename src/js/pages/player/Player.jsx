@@ -60,20 +60,21 @@ export default function Player() {
   }, [title, id, currentSeason ,currentEpisode]);
 
   useEffect(() => {
+    const previousArgs = lastFetchArgs.current || [];
     if (id && currentSeason && currentEpisode) {
       const args = [id, currentSeason, currentEpisode];
-      if (!lastFetchArgs.current || !arraysEqual(lastFetchArgs.current, args)) {
+      if (!previousArgs || !arraysEqual(previousArgs, args)) {
         lastFetchArgs.current = args;
         fetchData(id, currentSeason, currentEpisode);
       }
     } else {
       const args = [id];
-      if (!lastFetchArgs.current || !arraysEqual(lastFetchArgs.current, args)) {
+      if (!previousArgs || !arraysEqual(previousArgs, args)) {
         lastFetchArgs.current = args;
         fetchData(id);
       }
     }
-  }, [currentSeason, currentEpisode]);
+  }, [id , currentSeason, currentEpisode]);
   
   function arraysEqual(arr1, arr2) {
     if (arr1.length !== arr2.length) return false;
@@ -103,8 +104,9 @@ export default function Player() {
 
       let url = baseurl + additionalParams + "&provider=flixhq";
       const response = await axios.get(url);
-      const dataz = response.data;
       setLoading(false);
+      const dataz = response.data;
+      
       if (response.status === 500) {
         toast.error("Failed to find any resource. Please try again later.");
      
@@ -264,7 +266,7 @@ class CustomMediaStorage extends LocalMediaStorage {
               load="eager"
               viewType='video'
               logLevel='warn'
-              crossOrigin="anonymous"
+              crossOrigin
               playsInline
               preload="auto"
               onLoadedMetadata={handleCanPlay}
@@ -282,6 +284,7 @@ class CustomMediaStorage extends LocalMediaStorage {
              
             </MediaPlayer>
           </div>
+          <div className="lights"></div>
           <div className="seasons">
         
         <div className="seasons__content">
