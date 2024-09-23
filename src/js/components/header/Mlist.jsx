@@ -50,14 +50,14 @@ const Mlist = ({ movies , value }) => {
             <div className="movieimg" key={index} onClick={() => handlecardClick(movie.id,movie.category || movie.media_type, movie.title || movie.name, movie.poster_path,)} >
               <img
                 onClick={() => handleClick(movie.media_type, movie.id , movie.title || movie.name)}
-                style={{ padding: "2px", height: "110px", width: "90px", objectFit: "cover", borderRadius: "10px" }}
+                style={{ padding: "2px", height: "110px", width: "80px", objectFit: "cover", borderRadius: "10px" }}
                 src={movie?.poster_path ? `https://image.tmdb.org/t/p/w200/${movie.poster_path}` : ""}
                  alt=""
               />
                <div className="dets">
                <p className="movietitlez">{movie.title || movie.name}</p>
               <p className="overviewseries">{movie.overview}</p>
-              <div className="date"> <p className="ratingz">• {(new Date(movie.release_date || movie.first_air_date)).getFullYear()}</p><p className="type">{movie.media_type === 'tv' ? 'Show' : 'Movie'}</p> {movie.vote_average && <p className="ratingz">{movie.vote_average}</p>} 
+              <div className="date"> <p className="ratingz">• {(new Date(movie.release_date || movie.first_air_date)).getFullYear()}</p><p className="type">{movie.media_type === 'tv' ? 'Show' : 'Movie'}</p> {movie.vote_average && <p className="ratingz">{movie.vote_average.toFixed(1)}</p>} 
               </div>
                 
               </div>
