@@ -31,7 +31,7 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 5px;
-    padding-top: 4rem;
+    padding-top: 2rem;
     width: 100%;
     //margin-bottom: 1rem;
 
@@ -62,26 +62,28 @@
     @include mobile {
         display: flex;
         justify-content: flex-start;
-        //flex-direction: column;
-        //align-items: center;
+        flex-direction: column;
+        align-items: flex-start;
         gap: 5px;
         padding: 5px;
     }
 }
 .mb2x{
-   font-size: 12px;
+   font-size: 25px;
     align-items: center;
-    background-color: rgba(29, 29, 29, 0.788);
-    color: rgba(255, 255, 255, 0.692);
+    background-color: rgb(23, 23, 23);
+    color: rgba(255, 255, 255, 0.831);
     font-weight: 500;
     padding: 8px 10px;
     border-radius: 5px;
+
+    @include tablet{
+        font-size: 23px;
+    }
 }
 .select-container{
     display: flex;
-   // align-items: center;
-   
-    
+    margin-top: 1rem;
     gap: 10px;
     padding: 5px;
     @include mobile {
@@ -91,13 +93,14 @@
     }
 }
 .select-option{
-    background-color: rgba(28, 28, 28, 0.66);
-    color: rgba(255, 255, 255, 0.836);
-    padding: .4rem 1rem;
+    background-color: rgb(255, 255, 255);
+    color: rgb(15, 15, 15);
+    padding: .5rem 1rem;
     //margin-bottom: 1rem;
     border-radius: 5px;
-    font-size: 10px;
-    font-weight: 400;
+    font-size: 11px;
+    font-weight: 450;
+
     cursor: pointer;
 
 }
@@ -106,6 +109,9 @@
     color: rgb(26, 26, 26);
 }
 .selected{
-    background-color: rgb(255, 255, 255);
-    color: rgb(12, 12, 12);
+    background-color: rgb(32, 32, 32);
+    color: rgb(255, 255, 255);
+}
+.scrolltotop:hover{
+    opacity: 1 !important;
 }
