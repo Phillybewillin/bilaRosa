@@ -22,11 +22,15 @@
    //transition: font-size 1s ease-out;
     
     font-size: small;
-    left: 4rem;    
+    left: 4rem;   
+    @include tablet {
+      height: 510px;
+    } 
     @include mobile {
         font-size: 1rem;
-        height: 500px;
+        height: 620px;
         left: 0rem;
+      margin-bottom: 2rem;
         
     }
  }
@@ -148,7 +152,7 @@ margin-bottom: 1rem;
         height: 300px;
     }
     @include tablet {
-        height: 600px;
+        height: 480px;
     }
 }
 .spotlight-content{
