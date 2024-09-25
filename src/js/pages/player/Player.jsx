@@ -19,7 +19,8 @@ import { ToastContainer , toast } from "react-toastify";
 
 export default function Player() {
   const { title, id, season_number, episode_number } = useParams();
-  const [playerSource, setPlayerSource] = useState([]);
+  const testurl = import.meta.env.VITE_CORS_URL;
+  const [playerSource, setPlayerSource] = useState({});
   const [textTracks, setTextTracks] = useState([]);
   const [episodes, setEpisodeData] = useState([]);
   const [currentEpisode, setCurrentEpisode] = useState(episode_number);
@@ -27,17 +28,12 @@ export default function Player() {
   const [seasons, setSeasons] = useState([]);
   const [currentSeason, setCurrentSeason] = useState(season_number);
   const [quality, setQuality] = useState("auto");
+  const [totalEpisodes , setTotalEpisodes] = useState(0);
   const lastFetchArgs = useRef(null);
-
-  //const [sources, setSources] = useState([]);
   const [loading, setLoading] = useState(true);
-  //const [errorMessage, setErrorMessage] = useState("");
 
-  const testurl = import.meta.env.VITE_CORS_URL;
   const navigate = useNavigate();
- // const location = useLocation();
   
-
   useEffect(() => {
     if (title) {
       const decodedTitles = decodeURIComponent(title);
@@ -46,7 +42,7 @@ export default function Player() {
          .split(' ')
           .map(word => word.charAt(0).toUpperCase() + word.slice(1))
            .join(' ');
-        document.title = `Watching ${decodedTitle}`;
+        document.title = `${decodedTitle}`;
 
       if (season_number && episode_number) {
         document.title = `${decodedTitle} • S${currentSeason} • E${currentEpisode}`;
@@ -54,65 +50,53 @@ export default function Player() {
   
     }
    
-    if (id && currentSeason) {
+    if (id) {
+      //fetchData(id, currentSeason, currentEpisode);
       fetchEpisodes(id, currentSeason);
+    
     }
   }, [title, id, currentSeason ,currentEpisode]);
 
-  useEffect(() => {
-    const previousArgs = lastFetchArgs.current || [];
-    if (id && currentSeason && currentEpisode) {
-      const args = [id, currentSeason, currentEpisode];
-      if (!previousArgs || !arraysEqual(previousArgs, args)) {
-        lastFetchArgs.current = args;
-        fetchData(id, currentSeason, currentEpisode);
-      }
-    } else {
-      const args = [id];
-      if (!previousArgs || !arraysEqual(previousArgs, args)) {
-        lastFetchArgs.current = args;
-        fetchData(id);
-      }
-    }
-  }, [id , currentSeason, currentEpisode]);
-  
-  function arraysEqual(arr1, arr2) {
-    if (arr1.length !== arr2.length) return false;
-    return arr1.every((value, index) => value === arr2[index]);
-  }
-  
-  useEffect(() => {
-    const getseasons = async () => {
-        const { data } = await axios.get(`${apiConfig.baseUrl}tv/${id}?api_key=${apiConfig.apiKey}`);
-        const validSeasons = data.seasons.filter(({ air_date }) => air_date && new Date(air_date) <= new Date());
-        setSeasons(validSeasons);
-        setbgChanged(apiConfig.w200Image(validSeasons[0].poster_path))
-   
-    };
-    getseasons();
-}, [id]);
 
+  useEffect(() => {
+    const previousArgs = lastFetchArgs.current;
+    let args = [id, currentSeason, currentEpisode];
+    if (id && currentSeason && currentEpisode) {
+      args = [id, currentSeason, currentEpisode];
+    } else {
+      args = [id];
+    }
+    if (!previousArgs || JSON.stringify(previousArgs) !== JSON.stringify(args)) {
+      lastFetchArgs.current = args;
+      fetchData(...args);
+    }
+  }, [id, currentSeason, currentEpisode]);
   const fetchData = async (showTMDBid, seasonNumber, episodeNumber) => {
+     //console.log('fetchData called', showTMDBid, seasonNumber, episodeNumber);
     try {
+       // Start loading
+     
       let baseurl = `${testurl}/vidsrc?id=${showTMDBid}`;
       let additionalParams = "";
+
       if (seasonNumber && episodeNumber) {
         additionalParams = `&s=${seasonNumber}&e=${episodeNumber}`;
       }
+
       let url = baseurl + additionalParams + "&provider=flixhq";
       setLoading(false);
+    
       const response = await axios.get(url);
       const dataz = response.data;
-      
       if (response.status === 500) {
-        toast.error("Failed to find any resource. Please try again later.");
-     
+         toast.error("Failed to find any resource. Please try again later."); 
         throw new Error("Resource not found. try again later.");
-      }
-
+      };
+      
       const sourcesData = dataz?.data?.sources || [];
       //console.log(sourcesData);
-        const initialSource = sourcesData.find(source => source.quality === quality);
+      const initialSource = sourcesData.find(source => source.quality === quality);
+      //console.log(initialSource);
       setPlayerSource(initialSource ? initialSource.url : "");
    
       setTextTracks(mapSubtitlesToTracks(dataz?.data?.subtitles));
@@ -120,8 +104,8 @@ export default function Player() {
       
       //console.log(dataz?.data?.subtitles);
     } catch (error) {
-      toast.error("Failed to find any Playable resource. Please try again later.");
-     
+      setLoading(false);
+      toast.error("Failed to find any resource. Please try again later.");
       //console.error("Failed to fetch data:", error);
       //setErrorMessage(error.message || "An unexpected error occurred.");
     }
@@ -139,6 +123,17 @@ export default function Player() {
       kind: "subtitles",
     }));
   };
+  useEffect(() => {
+    const getseasons = async () => {
+        const { data } = await axios.get(`${apiConfig.baseUrl}tv/${id}?api_key=${apiConfig.apiKey}`);
+        const validSeasons = data.seasons.filter(({ air_date }) => air_date && new Date(air_date) <= new Date());
+        setSeasons(validSeasons);
+        //console.log(validSeasons);
+        setbgChanged(apiConfig.w200Image(validSeasons[0].poster_path))
+   
+    };
+    getseasons();
+}, [id]);
   const fetchEpisodes = async (id , selectedSeason) => {
     if (id && selectedSeason) {
       try {
@@ -151,6 +146,10 @@ export default function Player() {
         }
 
         setEpisodeData(response.data.episodes);
+        const releasedEpisodes = response.data.episodes.filter((episode) => episode.air_date && new Date(episode.air_date) <= new Date());
+
+        setTotalEpisodes(releasedEpisodes.length);
+        //console.log(releasedEpisodes.length);
       } catch (error) {
         //console.error("Failed to fetch episodes:", error);
         //setErrorMessage(error.message || "An unexpected error occurred.");
@@ -162,12 +161,11 @@ export default function Player() {
     const url = new URL(window.location.href);
     url.pathname = url.pathname.replace(/\/\d+$/, `/${episodeNumber}`);
     window.history.pushState({}, '', url.toString());
-    //setLoading(true);
     setPlayerSource([]);
+    console.log(episodes.length);
     setCurrentEpisode(episodeNumber);
     setbgChanged(apiConfig.w200Image(episodeUrl))
-    //console.log(episodeUrl , apiConfig.w200Image(episodeUrl) ,episodeNumber);
-    //fetchData(id, season_number, episodeNumber);
+ 
   };
  
 const handleSeasonClick = (seasonNumber) => {
@@ -206,7 +204,7 @@ const handleCanPlay = () => {
 
 class CustomMediaStorage extends LocalMediaStorage {
   async getTime() {
-    const storageKey = `my-player-${id} -${currentSeason} -${currentEpisode}`; // Replace with your desired key
+    const storageKey = `zilla${id}${currentSeason}${currentEpisode}`; // Replace with your desired key
     const storedTime = window.localStorage.getItem(storageKey);
     if (storedTime) {
       return parseFloat(storedTime);
@@ -216,7 +214,7 @@ class CustomMediaStorage extends LocalMediaStorage {
   }
 
   async setTime(currentTime ) {
-    const storageKey = `my-player-${id} -${currentSeason} -${currentEpisode}`; // Replace with your desired key
+    const storageKey = `zilla${id}${currentSeason}${currentEpisode}`; // Replace with your desired key
     window.localStorage.setItem(storageKey, currentTime);
   }
 }
@@ -228,7 +226,7 @@ class CustomMediaStorage extends LocalMediaStorage {
   return (
     <ErrorBoundary>
       {loading ? (
-       <>
+        <>
         <ColorRing
         visible={true}
         height="50"
@@ -238,13 +236,12 @@ class CustomMediaStorage extends LocalMediaStorage {
         wrapperClass="color-ring-wrapper"
         colors={['#000000', '#ff0040', '#f8b26a', '#ffffff', '#16e5e9']}
         />
-        <ToastContainer theme="light" fontSize="11px" position="top-right" autoClose={8000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} progressStyle={{ backgroundColor: '#00000', color: 'white', borderRadius: '5px' }} />
-        </>
+         </>
       ) : (
         <> 
           <div className="player-container">
             <div className="topbar">
-            <div className="logozz">
+            <div className="logozz" onClick={() => navigate('/')}>
                <img src={logo} alt="ZillaXR"/>
                <h4 className="logotext">ZillaXR</h4> </div>
               <div className="menu">
@@ -256,7 +253,7 @@ class CustomMediaStorage extends LocalMediaStorage {
 
              <MediaPlayer
               title={`${document.title} `}
-              src={playerSource}
+              src={{src: playerSource, type: 'application/x-mpegURL'}}
               id="player"
               streamType="on-demand"
               load="eager"
@@ -265,21 +262,42 @@ class CustomMediaStorage extends LocalMediaStorage {
               crossOrigin
               playsInline
               preload="auto"
-              onLoadedMetadata={handleCanPlay}
+              onEnded={() => {
+                const nextEpisode = currentEpisode + 1;
+                if (nextEpisode <= totalEpisodes - 1) {
+                  handleEpisodeClick(nextEpisode);
+                }
+              }}
+              onCanPlay={handleCanPlay}
+              //onLoadedMetadata={handleCanPlay}
               storage={ new CustomMediaStorage()}
               autoPlay={autoPlay}
-             
+        
             >
-              
+         
+             
               <MediaProvider>
+         
                 {textTracks.map(track => (
                   <Track {...track} key={track.src} />
                 ))}
+                
               </MediaProvider>
-              <DefaultVideoLayout icons={defaultLayoutIcons} />
+              <DefaultVideoLayout 
+
+
+              icons={defaultLayoutIcons}
+               />
              
             </MediaPlayer>
+            <ToastContainer theme="light" fontSize="11px" position="top-right" autoClose={8000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} progressStyle={{ backgroundColor: '#00000', color: 'white', borderRadius: '5px' }} />
+      
           </div>
+          {currentEpisode < totalEpisodes  ? (
+      <div className="rea" onClick={() => handleEpisodeClick(currentEpisode + 1)}>
+    Next Episode
+  </div>
+) : null}
           <div className="lights"></div>
           <div className="seasons">
         
@@ -314,6 +332,7 @@ class CustomMediaStorage extends LocalMediaStorage {
         </ul>
       </div>
     )}
+      
         </>
       )}
     </ErrorBoundary>
