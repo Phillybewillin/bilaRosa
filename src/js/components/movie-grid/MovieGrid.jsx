@@ -15,7 +15,7 @@ const MovieGrid = props => {
 
     const [items, setItems] = useState([]);
 
-    document.title = `${props.category === category.movie ? 'Movies • ZillaXR' : 'TV Series • ZillaXR'} `;
+    document.title = `${props.category === category.movie ? 'Movies • ZillaXR' : 'TV Shows • ZillaXR'} `;
     const { type } = useParams();
     const [tags, setTags] = useState([]);
     const [selectedGenre, setSelectedGenre] = useState([]);
@@ -313,7 +313,7 @@ useEffect(() => {
                   <div className="section_search">
                   {props.category === category.movie && (
         <div className='label'>
-          <label><h3 className="mb2x">BROWSE MOVIES:</h3></label>
+          <h3 className="mb2x">MOVIES:</h3>
           <div className='select-container'>
           {Object.entries(movieType).map(([value, label]) => (
               <div
@@ -332,7 +332,7 @@ useEffect(() => {
       )}
       {props.category === category.tv && (
         <div className='label'>
-          <label><h3 className="mb2x">BROWSE TV SHOWS:</h3></label>
+          <h3 className="mb2x">TV SHOWS:</h3>
           <div className='select-container'>
             {Object.entries(tvType).map(([value, label]) => (
               <div
@@ -388,7 +388,7 @@ useEffect(() => {
                     </div>
                 ) : null
             }
-            <div className="scrolltotop" onClick={scrollToTop} style={{position: 'fixed', bottom: '50px', right: '20px', cursor: 'pointer',fontSize: '20px',backgroundColor: 'black', borderRadius: '50%', width: '40px', height: '40px', display: 'flex', justifyContent: 'center', alignItems: 'center',color: '#00ffbb'}}><i className="bx bx-chevron-up"></i></div>
+            <div className="scrolltotop" onClick={scrollToTop} style={{position: 'fixed', bottom: '30px', right: '30px', cursor: 'pointer',fontSize: '20px',backgroundColor: 'white', borderRadius: '10px', width: '40px', height: '40px', display: 'flex', justifyContent: 'center', alignItems: 'center',color: 'black' ,opacity: ".6"}}><i className="bx bx-chevron-up"></i></div>
             </div>
             <ToastContainer theme="dark" position="top-right" autoClose={2500} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#ff0000' , color : 'white', borderRadius : '10px'}}/>
         </>
