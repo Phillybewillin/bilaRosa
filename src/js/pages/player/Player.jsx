@@ -49,7 +49,7 @@ export default function Player() {
         document.title = `Watching ${decodedTitle}`;
 
       if (season_number && episode_number) {
-        document.title = `Watching ${decodedTitle} • S${currentSeason} • E${currentEpisode}`;
+        document.title = `${decodedTitle} • S${currentSeason} • E${currentEpisode}`;
       }
   
     }
@@ -94,17 +94,14 @@ export default function Player() {
 
   const fetchData = async (showTMDBid, seasonNumber, episodeNumber) => {
     try {
-       // Start loading
       let baseurl = `${testurl}/vidsrc?id=${showTMDBid}`;
       let additionalParams = "";
-
       if (seasonNumber && episodeNumber) {
         additionalParams = `&s=${seasonNumber}&e=${episodeNumber}`;
       }
-
       let url = baseurl + additionalParams + "&provider=flixhq";
-      const response = await axios.get(url);
       setLoading(false);
+      const response = await axios.get(url);
       const dataz = response.data;
       
       if (response.status === 500) {
@@ -165,7 +162,7 @@ export default function Player() {
     const url = new URL(window.location.href);
     url.pathname = url.pathname.replace(/\/\d+$/, `/${episodeNumber}`);
     window.history.pushState({}, '', url.toString());
-    setLoading(true);
+    //setLoading(true);
     setPlayerSource([]);
     setCurrentEpisode(episodeNumber);
     setbgChanged(apiConfig.w200Image(episodeUrl))
@@ -258,8 +255,7 @@ class CustomMediaStorage extends LocalMediaStorage {
             
 
              <MediaPlayer
-              //storage={`custom-storage-key-${id}-${season_number}-${episode_number}`} 
-              title={document.title && season_number && episode_number ? `Currently ${document.title} ` : ` Currently ${document.title} ` }
+              title={`${document.title} `}
               src={playerSource}
               id="player"
               streamType="on-demand"
