@@ -22,11 +22,16 @@ html {
 body {
   font-family: $font-family;
   background: $body-bg;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.9) .5px, transparent 0);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.8) .5px, transparent 0);
   background-size: 23px 23px;
   background-position: -28px -28px;
   color: white;
 
+  @include tablet {
+    margin-bottom: 1rem;
+     background-color: $body-bg;
+    background-image: none;
+  }
   @include mobile {
     margin-bottom: 1rem;
      background-color: $body-bg;
