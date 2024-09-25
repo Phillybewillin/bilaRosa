@@ -32,8 +32,10 @@ i {
     }
    
     @include mobile {
+      backdrop-filter: none;
+      border-right: none;
       position: absolute;
-      right: 0px;
+      right: 2px;
       z-index: 99;
         
     }
@@ -109,12 +111,13 @@ i {
    
     &.shrink {
         height: $header-shrink-height;
-        background-color: rgba(0, 0, 0, 0.767);
-        //backdrop-filter: blur(10px);
+        background-color: rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(10px);
         //border-bottom: 2px ridge black;
 
         @include mobile {
-           backdrop-filter: none
+            backdrop-filter: none;
+            height: 5rem;
         }
     }
 
@@ -169,17 +172,19 @@ i {
 
 
         @include mobile {
+            //border-top: 1px solid rgb(57, 57, 57);
             position: fixed;
             bottom: 0;
             left: 0;
-            right: 0;
+            //right: 0;
             height: 5.8rem;
             width: 100%;
-            justify-content: space-around;
-            background-color: rgba(0, 0, 0, 0.498);
-            backdrop-filter: blur(10px);
+            justify-content: space-evenly;
+            //background-color: $body-bg;
+            backdrop-filter: none;
             font-size: medium;
             padding: 0.5rem ;
+           // margin-bottom: .5rem;
         
             
             @include flex(center, space-around);
@@ -209,9 +214,9 @@ i {
 
 .iconbox{
    color: rgb(255, 255, 255);
-   background-color: rgba(15, 15, 15, 0.648);
+   background-color: $body-bg;
    padding: 8px 10px;
-    border-radius: 10px;
+    border-radius: 7px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -229,6 +234,7 @@ i {
       width: 0;
       transition: width 0.5s ease;
       height: 2px;
+      
       background-color: $main-bg;
   }
   &.active::after ,&:hover::after{
@@ -236,13 +242,18 @@ i {
       
   }
   @include mobile {
+    
     color: rgb(255, 255, 255);
      opacity: 1;
-     font-size: 1rem;
+     scale: 1.5;
+     height: 100%;
+     width: 100%;
+     font-size: 5rem;
  }
 }
 .active{
   position: relative;
+  color: red;
   &::after{
     content: "";
     position: absolute;
@@ -252,24 +263,21 @@ i {
     width: 0;
     transition: width 0.5s ease;
     height: 2.5px;
+    
     background-color: $main-bg;
 }
 &.active::after ,&:hover::after{
+    
     width: 100%;
     
 }
 }
 .iconv{
    opacity: 0;
-    font-size: .1rem;
+    font-size: 0;
     font-weight: 250;
-    transition: all 0.3s ease-in-out;
+   
   
-    @include mobile {
-      
-        opacity: 1;
-        font-size: 1rem;
-    }
 }
 .mds{
     min-height: 0px;
@@ -328,6 +336,15 @@ i {
       border-image: linear-gradient(to bottom, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
       width: 600px;
 
+     
+      @include mobile {
+        border: none;
+        border-radius: 20px;
+        backdrop-filter: none;
+        padding: 1rem 1.5rem;
+        background-color: black;
+        width: 100%;
+    }
     
       
    }
@@ -336,6 +353,7 @@ i {
        color: rgba(255, 255, 255, 0.696);
    }
    @include tablet {
+    
      margin-left: 0;
       width: 310px; 
      
