@@ -97,7 +97,7 @@ export default function Player() {
       //console.log(response.data);
       const dataz = response.data;
       setLoading(false);
-
+      setQuality("auto");
       if (response.status === 500) {
         
         throw new Error("Resource not found. try again later.");
@@ -123,7 +123,7 @@ export default function Player() {
       //setErrorMessage(error.message || "An unexpected error occurred.");
     }
   };
- //console.log(header);
+  //console.log(header);
   //console.log(playerSource);
   const mapSubtitlesToTracks = (subtitles) => {
     //console.log(subtitles)
@@ -176,7 +176,7 @@ export default function Player() {
     url.pathname = url.pathname.replace(/\/\d+$/, `/${episodeNumber}`);
     window.history.pushState({}, '', url.toString());
     //setPlayerSource('');
-    //setHeader("");
+    setHeader("");
     setLoading(true);
     //console.log(episodes.length);
     setCurrentEpisode(episodeNumber);
@@ -192,7 +192,7 @@ const handleSeasonClick = (seasonNumber) => {
   url.pathname = pathnameParts.join('/');
   window.history.pushState({}, '', url.toString());
  // setPlayerSource('');
- // setHeader("");
+  setHeader("");
   setCurrentSeason(seasonNumber);
   setCurrentEpisode(1);
   setLoading(true);
@@ -204,7 +204,7 @@ const handleSeasonClick = (seasonNumber) => {
     if(id && season_number && episode_number){
       navigate(`/tv/${id}`)
     }else{
-      navigate(`/movie/${id}`);
+      navigate(-1);
     }
     
   };
@@ -270,16 +270,18 @@ class CustomMediaStorage extends LocalMediaStorage {
 
              <MediaPlayer
               title={`${document.title} `}
-              src={playerSource}
-              type="application/x-mpegURL"
+              src={{src: playerSource , type: 'application/vnd.apple.mpegurl' ,headers: header}}
+              type="application/vnd.apple.mpegurl"
               id="player"
-              header={header}
+              headers={header}
+              
               streamType="on-demand"
               load="eager"
               viewType='video'
-              logLevel='warn'
-              crossOrigin={true}
+              logLevel='debug'
+              crossOrigin={"anonymous"}
               playsInline
+              onHls
               preload="auto"
               onEnded={() => {
                 const nextEpisode = currentEpisode + 1;
@@ -300,7 +302,7 @@ class CustomMediaStorage extends LocalMediaStorage {
                 {textTracks.map(track => (
                   <Track {...track} key={track.src} />
                 ))}
-                <source src={playerSource} type="application/x-mpegURL" />
+                <source src={playerSource}  type="application/vnd.apple.mpegurl" />
               </MediaProvider>
               <DefaultVideoLayout 
 
