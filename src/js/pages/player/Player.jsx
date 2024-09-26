@@ -110,7 +110,7 @@ export default function Player() {
       //console.log(sourcesData);
       const initialSource = sourcesData.find(source => source.quality === quality);
       //console.log(initialSource.url);
-      setPlayerSource(initialSource?.url || "");
+      setPlayerSource(initialSource.url);
    
       setTextTracks(mapSubtitlesToTracks(dataz?.data?.subtitles));
        
@@ -124,7 +124,7 @@ export default function Player() {
     }
   };
   //console.log(header);
-  //console.log(playerSource);
+  console.log(playerSource);
   const mapSubtitlesToTracks = (subtitles) => {
     //console.log(subtitles)
     if (!subtitles) {
