@@ -19,7 +19,7 @@ import { ToastContainer , toast } from "react-toastify";
 
 export default function Player() {
   const { title, id, season_number, episode_number } = useParams();
-  const testurl = import.meta.env.VITE_FETCH_URL_TEST;
+  const testurl = import.meta.env.VITE_CORS_URL;
   const [playerSource, setPlayerSource] = useState('');
   const [textTracks, setTextTracks] = useState([]);
   const [episodes, setEpisodeData] = useState([]);
