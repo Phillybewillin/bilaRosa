@@ -7,7 +7,7 @@ import '@vidstack/react/player/styles/default/layouts/video.css';
 
 import { defaultLayoutIcons, DefaultVideoLayout } from '@vidstack/react/player/layouts/default';
 import { MediaPlayer, MediaProvider, Track , LocalMediaStorage } from '@vidstack/react';
-
+//import { tmdbScrape } from "vidsrc.extractor.module/src/vidsrc";
 import axios from "axios";
 import "./player.scss";
 import '../detail/seasons.scss';
@@ -19,8 +19,8 @@ import { ToastContainer , toast } from "react-toastify";
 
 export default function Player() {
   const { title, id, season_number, episode_number } = useParams();
-  const testurl = import.meta.env.VITE_CORS_URL;
-   const [playerSource, setPlayerSource] = useState('');
+  const testurl = import.meta.env.VITE_FETCH_URL_TEST;
+  const [playerSource, setPlayerSource] = useState('');
   const [textTracks, setTextTracks] = useState([]);
   const [episodes, setEpisodeData] = useState([]);
   const [currentEpisode, setCurrentEpisode] = useState(episode_number);
@@ -52,7 +52,7 @@ export default function Player() {
         document.title = `${decodedTitle}`;
 
       if (season_number && episode_number) {
-        document.title = `${decodedTitle} •S${currentSeason} •E${currentEpisode}`;
+        document.title = `Streaming ${decodedTitle} • S${currentSeason} • E${currentEpisode}`;
       }
   
     }
@@ -64,6 +64,7 @@ export default function Player() {
     }
   }, [title, id, currentSeason ,currentEpisode]);
 
+ 
 
   useEffect(() => {
     const previousArgs = lastFetchArgs.current;
@@ -77,13 +78,14 @@ export default function Player() {
       lastFetchArgs.current = args;
       fetchData(...args);
     }
-  }, [currentSeason, currentEpisode]);
+  }, [id ,currentSeason, currentEpisode]);
   const fetchData = async (showTMDBid, seasonNumber, episodeNumber) => {
+    //console.log(await tmdbScrape(id , 'movie'));
      //console.log('fetchData called', showTMDBid, seasonNumber, episodeNumber);
     try {
        // Start loading
      
-      let baseurl = `${testurl}/vidsrc?id=${showTMDBid}`;
+      let baseurl = `${testurl}/proxy/vidsrc?id=${showTMDBid}`;
       let additionalParams = "";
 
       if (seasonNumber && episodeNumber) {
@@ -92,7 +94,7 @@ export default function Player() {
 
       let url = baseurl + additionalParams + "&provider=flixhq";
      
-     // console.log(url);
+     console.log(url);
       const response = await axios.get(url);
       //console.log(response.data);
       const dataz = response.data;
@@ -110,7 +112,7 @@ export default function Player() {
       //console.log(sourcesData);
       const initialSource = sourcesData.find(source => source.quality === quality);
       //console.log(initialSource.url);
-      setPlayerSource(initialSource.url);
+      setPlayerSource(initialSource?.url || "");
    
       setTextTracks(mapSubtitlesToTracks(dataz?.data?.subtitles));
        
@@ -123,8 +125,8 @@ export default function Player() {
       //setErrorMessage(error.message || "An unexpected error occurred.");
     }
   };
-  //console.log(header);
-  console.log(playerSource);
+ //console.log(header);
+  //console.log(playerSource);
   const mapSubtitlesToTracks = (subtitles) => {
     //console.log(subtitles)
     if (!subtitles) {
@@ -176,7 +178,7 @@ export default function Player() {
     url.pathname = url.pathname.replace(/\/\d+$/, `/${episodeNumber}`);
     window.history.pushState({}, '', url.toString());
     //setPlayerSource('');
-    setHeader("");
+    //setHeader("");
     setLoading(true);
     //console.log(episodes.length);
     setCurrentEpisode(episodeNumber);
@@ -192,7 +194,7 @@ const handleSeasonClick = (seasonNumber) => {
   url.pathname = pathnameParts.join('/');
   window.history.pushState({}, '', url.toString());
  // setPlayerSource('');
-  setHeader("");
+ // setHeader("");
   setCurrentSeason(seasonNumber);
   setCurrentEpisode(1);
   setLoading(true);
@@ -204,7 +206,7 @@ const handleSeasonClick = (seasonNumber) => {
     if(id && season_number && episode_number){
       navigate(`/tv/${id}`)
     }else{
-      navigate(-1);
+      navigate(`/movie/${id}`);
     }
     
   };
@@ -270,18 +272,16 @@ class CustomMediaStorage extends LocalMediaStorage {
 
              <MediaPlayer
               title={`${document.title} `}
-              src={{src: playerSource , type: 'application/vnd.apple.mpegurl' ,headers: header}}
-              type="application/vnd.apple.mpegurl"
+              src={playerSource}
+              type="application/x-mpegURL"
               id="player"
-              headers={header}
-              
+              header={header}
               streamType="on-demand"
               load="eager"
               viewType='video'
-              logLevel='debug'
-              crossOrigin={"anonymous"}
+              logLevel='warn'
+              crossOrigin={true}
               playsInline
-              onHls
               preload="auto"
               onEnded={() => {
                 const nextEpisode = currentEpisode + 1;
@@ -302,7 +302,7 @@ class CustomMediaStorage extends LocalMediaStorage {
                 {textTracks.map(track => (
                   <Track {...track} key={track.src} />
                 ))}
-                <source src={playerSource}  type="application/vnd.apple.mpegurl" />
+                <source src={playerSource} type="application/x-mpegURL" />
               </MediaProvider>
               <DefaultVideoLayout 
 
