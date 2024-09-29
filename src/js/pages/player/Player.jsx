@@ -94,11 +94,12 @@ export default function Player() {
 
       let url = baseurl + additionalParams + "&provider=flixhq";
      
-     console.log(url);
+     //console.log(url);
+      setLoading(false);
       const response = await axios.get(url);
       //console.log(response.data);
       const dataz = response.data;
-      setLoading(false);
+      
       setQuality("auto");
       if (response.status === 500) {
         
