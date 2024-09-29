@@ -85,7 +85,7 @@ export default function Player() {
     try {
        // Start loading
      
-      let baseurl = `${testurl}/proxy/vidsrc?id=${showTMDBid}`;
+      let baseurl = `${testurl}/vidsrc?id=${showTMDBid}`;
       let additionalParams = "";
 
       if (seasonNumber && episodeNumber) {
