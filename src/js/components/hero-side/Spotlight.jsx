@@ -78,7 +78,7 @@ const Spotlight = () => {
           <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">R</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/9l1eZiJHmhr5jIlthMdJN5WYoff.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(232, 207, 151, 0.32))'}}/>
+                <img src={'https://image.tmdb.org/t/p/w1280/cOoVcVQ3i1m5b2xtqKBtoTSbxC1.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(137, 48, 50, 0.4))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .1</h4>
@@ -366,13 +366,13 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">PG</h1>
-              <img src={'https://image.tmdb.org/t/p/w1280/izvpS5dMnTQDLxM45u2smPhEDA0.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1rem #8C458B)'}}/>
+              <img src={'https://image.tmdb.org/t/p/w1280/izvpS5dMnTQDLxM45u2smPhEDA0.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1rem rgba(54, 122, 181, 0.4)'}}/>
               <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .11</h4>
               
 
-                  <h2 className="spotlight-name">DESPECTABLE ME 4</h2>
+                  <h2 className="spotlight-name">DESPICABLE ME 4</h2>
                   
                   <p className="spotlight-genres">
                     <span className="genre a">Animation & Comedy</span>
@@ -395,7 +395,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/hJPkcUc4ON7RchgDIkO0k6K10Zu.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1rem rgba(46, 99, 95, 0.3))'}}/>
+                <img src={'https://image.tmdb.org/t/p/w1280/hJPkcUc4ON7RchgDIkO0k6K10Zu.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(12, 237, 204, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                 <h4 className="spon">#Spotlight .12</h4>
