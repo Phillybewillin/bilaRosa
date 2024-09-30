@@ -7,20 +7,20 @@ import '@vidstack/react/player/styles/default/layouts/video.css';
 
 import { defaultLayoutIcons, DefaultVideoLayout } from '@vidstack/react/player/layouts/default';
 import { MediaPlayer, MediaProvider, Track , LocalMediaStorage } from '@vidstack/react';
-//import { tmdbScrape } from "vidsrc.extractor.module/src/vidsrc";
+
 import axios from "axios";
 import "./player.scss";
 import '../detail/seasons.scss';
 import apiConfig from "../../api/apiConfig";
 import ErrorBoundary from "../../pages/Errorboundary"; // Import the ErrorBoundary component
-import { ColorRing } from "react-loader-spinner";
+import { Bars } from "react-loader-spinner";
 import logo from '../../assets/icons8-alien-monster-emoji-48.png';
 import { ToastContainer , toast } from "react-toastify";
 
 export default function Player() {
   const { title, id, season_number, episode_number } = useParams();
   const testurl = import.meta.env.VITE_CORS_URL;
-  const [playerSource, setPlayerSource] = useState('');
+  const [playerSource, setPlayerSource] = useState(null);
   const [textTracks, setTextTracks] = useState([]);
   const [episodes, setEpisodeData] = useState([]);
   const [currentEpisode, setCurrentEpisode] = useState(episode_number);
@@ -49,7 +49,7 @@ export default function Player() {
          .split(' ')
           .map(word => word.charAt(0).toUpperCase() + word.slice(1))
            .join(' ');
-        document.title = `${decodedTitle}`;
+        document.title = ` Streaming ${decodedTitle}`;
 
       if (season_number && episode_number) {
         document.title = `Streaming ${decodedTitle} • S${currentSeason} • E${currentEpisode}`;
@@ -58,7 +58,7 @@ export default function Player() {
     }
    
     if (id) {
-      //fetchData(id, currentSeason, currentEpisode);
+      
       fetchEpisodes(id, currentSeason);
     
     }
@@ -94,12 +94,11 @@ export default function Player() {
 
       let url = baseurl + additionalParams + "&provider=flixhq";
      
-     //console.log(url);
-      setLoading(false);
+       //console.log(url);
       const response = await axios.get(url);
-      //console.log(response.data);
+    
       const dataz = response.data;
-      
+      setLoading(false);
       setQuality("auto");
       if (response.status === 500) {
         
@@ -113,7 +112,7 @@ export default function Player() {
       //console.log(sourcesData);
       const initialSource = sourcesData.find(source => source.quality === quality);
       //console.log(initialSource.url);
-      setPlayerSource(initialSource?.url || "");
+      setPlayerSource(initialSource?.url);
    
       setTextTracks(mapSubtitlesToTracks(dataz?.data?.subtitles));
        
@@ -247,19 +246,19 @@ class CustomMediaStorage extends LocalMediaStorage {
     <ErrorBoundary>
       {loading ? (
         <>
-        <ColorRing
-        visible={true}
-        height="50"
-        width="50"
-        ariaLabel="color-ring-loading"
-        wrapperStyle={{}}
-        wrapperClass="color-ring-wrapper"
-        colors={['#000000', '#ff0040', '#f8b26a', '#ffffff', '#16e5e9']}
-        />
+        <Bars
+  height="60"
+  width="60"
+  color="#ff0000"
+  ariaLabel="bars-loading"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+  />
          </>
       ) : (
         <> 
-          <div className="player-container">
+          <div className="player-container" >
             <div className="topbar">
             <div className="logozz" onClick={() => navigate('/')}>
                <img src={logo} alt="ZillaXR"/>
@@ -270,13 +269,13 @@ class CustomMediaStorage extends LocalMediaStorage {
             </div>
             </div>
             
-
+            {playerSource && (
              <MediaPlayer
               title={`${document.title} `}
               src={playerSource}
               type="application/x-mpegURL"
               id="player"
-              header={header}
+              headers={header}
               streamType="on-demand"
               load="eager"
               viewType='video'
@@ -312,6 +311,7 @@ class CustomMediaStorage extends LocalMediaStorage {
                />
              
             </MediaPlayer>
+            )}
             <ToastContainer theme="light" fontSize="11px" position="top-right" autoClose={8000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} progressStyle={{ backgroundColor: '#00000', color: 'white', borderRadius: '5px' }} />
       
           </div>
