@@ -6,20 +6,20 @@ import '@vidstack/react/player/styles/default/layouts/audio.css';
 import '@vidstack/react/player/styles/default/layouts/video.css';
 
 import { defaultLayoutIcons, DefaultVideoLayout } from '@vidstack/react/player/layouts/default';
-import { MediaPlayer, MediaProvider, Track , LocalMediaStorage } from '@vidstack/react';
-
+import { MediaPlayer, MediaProvider, Track , LocalMediaStorage ,isHLSProvider } from '@vidstack/react';
+//import { tmdbScrape } from "vidsrc.extractor.module/src/vidsrc";
 import axios from "axios";
 import "./player.scss";
 import '../detail/seasons.scss';
 import apiConfig from "../../api/apiConfig";
 import ErrorBoundary from "../../pages/Errorboundary"; // Import the ErrorBoundary component
-import { Bars } from "react-loader-spinner";
+import {Bars } from "react-loader-spinner";
 import logo from '../../assets/icons8-alien-monster-emoji-48.png';
 import { ToastContainer , toast } from "react-toastify";
 
 export default function Player() {
   const { title, id, season_number, episode_number } = useParams();
-  const testurl = import.meta.env.VITE_CORS_URL;
+  const testurl = import.meta.env.VITE_FETCH_URL_TEST;
   const [playerSource, setPlayerSource] = useState(null);
   const [textTracks, setTextTracks] = useState([]);
   const [episodes, setEpisodeData] = useState([]);
@@ -27,7 +27,7 @@ export default function Player() {
   const [bgChanged, setbgChanged] = useState(null);
   const [seasons, setSeasons] = useState([]);
   const [currentSeason, setCurrentSeason] = useState(season_number);
-  const [header , setHeader] = useState("");
+  const [header , setHeader] = useState(null);
   const [quality, setQuality] = useState("auto");
   const [totalEpisodes , setTotalEpisodes] = useState(0);
   const lastFetchArgs = useRef(null);
@@ -85,19 +85,20 @@ export default function Player() {
     try {
        // Start loading
      
-      let baseurl = `${testurl}/vidsrc?id=${showTMDBid}`;
+      let baseurl = `https://virgo-ten.vercel.app/${showTMDBid}`;
       let additionalParams = "";
 
       if (seasonNumber && episodeNumber) {
-        additionalParams = `&s=${seasonNumber}&e=${episodeNumber}`;
+        additionalParams = `/${seasonNumber}/${episodeNumber}`;
       }
 
-      let url = baseurl + additionalParams + "&provider=flixhq";
+      let url = baseurl + additionalParams;
      
-       //console.log(url);
-      const response = await axios.get(url);
+       const response = await axios.get(url);
     
       const dataz = response.data;
+      //console.log('darrttrer',dataz);
+     
       setLoading(false);
       setQuality("auto");
       if (response.status === 500) {
@@ -106,13 +107,13 @@ export default function Player() {
         
       
       }
-      setHeader(dataz?.data?.headers.Referer || "");
+      //setHeader(dataz?.data?.headers.Referer || "");
 
-      const sourcesData = dataz?.data?.sources;
-      //console.log(sourcesData);
-      const initialSource = sourcesData.find(source => source.quality === quality);
+      const sourcesData = dataz?.stream;
+      //console.log('zaza' , sourcesData);
+      //const initialSource = sourcesData.find(source => source.quality === quality);
       //console.log(initialSource.url);
-      setPlayerSource(initialSource?.url);
+      setPlayerSource(dataz[0].stream);
    
       setTextTracks(mapSubtitlesToTracks(dataz?.data?.subtitles));
        
@@ -221,6 +222,7 @@ const handleCanPlay = () => {
 };
 
 
+
 class CustomMediaStorage extends LocalMediaStorage {
   async getTime() {
     const storageKey = `zilla${id}${currentSeason}${currentEpisode}`; // Replace with your desired key
@@ -247,13 +249,13 @@ class CustomMediaStorage extends LocalMediaStorage {
       {loading ? (
         <>
         <Bars
-  height="60"
-  width="60"
-  color="#ff0000"
-  ariaLabel="bars-loading"
-  wrapperStyle={{}}
-  wrapperClass=""
-  visible={true}
+      height="60"
+       width="60"
+     color="#ff0000"
+     ariaLabel="bars-loading"
+      wrapperStyle={{}}
+     wrapperClass=""
+     visible={true}
   />
          </>
       ) : (
@@ -271,11 +273,12 @@ class CustomMediaStorage extends LocalMediaStorage {
             
             {playerSource && (
              <MediaPlayer
+              //onProviderChange={onProviderChange}
               title={`${document.title} `}
               src={playerSource}
               type="application/x-mpegURL"
               id="player"
-              headers={header}
+              headers={{headers : header}}
               streamType="on-demand"
               load="eager"
               viewType='video'
