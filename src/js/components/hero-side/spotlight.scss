@@ -236,7 +236,7 @@ margin-bottom: 1rem;
   //transform: scale(1.1);
   transition: all .3s ease-in-out;
   cursor: pointer;
-  color: rgb(137, 30, 25);
+  color: rgb(238, 49, 49);
 }
 .spon {
   width: max-content;
@@ -275,7 +275,7 @@ margin-bottom: 1rem;
   box-orient: vertical;
   
     @include tablet {
-       display: none;
+       //display: none;
         width: 100%;
         margin: .3rem;
         font-size:x-small;
