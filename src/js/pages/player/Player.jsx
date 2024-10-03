@@ -172,8 +172,7 @@ const handleSeasonClick = (seasonNumber) => {
 
           <iframe
             className="episodes__iframe"
-            title={`Episode ${currentEpisode}`}
-            src={ currentEpisode  ? `https://vidsrc.pro/embed/tv/${id}/${currentSeason}/${currentEpisode}` : `https://vidsrc.pro/embed/movie/${id}`}
+            src={ currentEpisode  ? `https://embed.su/embed/tv/${id}/${currentSeason}/${currentEpisode}` : `https://embed.su/embed/movie/${id}`}
             width={"100%"}
             height={"100%"}
             frameBorder="0"
