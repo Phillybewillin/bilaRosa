@@ -113,7 +113,7 @@ margin-bottom: 1rem;
     padding: 1.2rem;
     border-right: 1px solid rgb(130, 130, 130);
 
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
     color: rgba(245, 222, 179, 0.566);
 
     background-color: rgba(0, 0, 0, 0.582);
@@ -146,10 +146,11 @@ margin-bottom: 1rem;
     object-fit: cover;
     background-size: cover;
     background-position: center;
-    border-radius: 5px;
+    border-radius: 20px;
     
     @include mobile {
         height: 600px;
+        border-radius: 2px;
     }
     @include tablet {
         height: 480px;
@@ -163,19 +164,25 @@ margin-bottom: 1rem;
     position: absolute;
     bottom: 0px;
     left: 0px;
-    padding-top:calc(100vh - 25rem);
-    margin-bottom: .3rem;
+    //padding-top:calc(100vh - 25rem);
+    margin-bottom: -.5rem;
     //gap: .1rem;
     width: 100%;
-    //height: 500;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
     //background-image: linear-gradient(220deg, transparent, rgba(0, 0, 0, 0.468));
     font-size: smaller;
     font-weight: 300;
     // ... existing styles ...
   
     @include tablet {
-      padding-top: calc(50vh - 14rem);
-      width: 90%;
+      padding: 0 1rem;
+      //margin: 0 1rem;
+      align-items: center;
+      backdrop-filter: none;
+      background-color: rgba(0, 0, 0, 0.664);
+      //padding-top: calc(50vh - 14rem);
+      width: 100%;
       opacity: 0; // hide spotlight content by default
       transition: opacity 0.5s ease-in-out;
       font-size: small;
@@ -234,13 +241,13 @@ margin-bottom: 1rem;
 .spon {
   width: max-content;
   margin:  .2rem .5rem ;
-  background-color: rgba(0, 0, 0, 0.559);
+ // background-color: rgba(0, 0, 0, 0.559);
   
   padding: .1rem .5rem;
   border-radius: 5px;
   font-size: .7rem;
   font-weight: 600;
-  color: rgba(245, 222, 179, 0.566);
+  color: rgba(251, 206, 122, 0.865);
 }
 .spotlight-genres{
     font-size: x-small;
