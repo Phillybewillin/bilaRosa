@@ -144,7 +144,7 @@ backdrop-filter: blur(10px);
   }
 }
 .episode_list{
-  background-image: linear-gradient(180deg, $body-bg , #18181861);
+  background-image: linear-gradient(180deg, $black , #18181861);
   backdrop-filter: blur(10px);
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
