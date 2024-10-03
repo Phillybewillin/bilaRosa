@@ -7,6 +7,7 @@
     justify-content: space-between;
     //text-align: start;
 }
+
 .movie-list{
   overflow: hidden;
     scrollbar-color: rgba(47, 47, 47, 0.021) rgba(26, 27, 26, 0.062);
@@ -47,7 +48,7 @@
 
 .villa{
 
-  //background-color:rgba(39, 39, 39, 0.148);
+   //background-color:rgba(39, 39, 39, 0.148);
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 1rem;
@@ -125,10 +126,11 @@
 .catx{
  
   padding: 5px 10px;
-  background-color: rgba(23, 23, 23, 0.763);
-  border-radius: 10px;
+  margin-top: .7rem;
+  background-color: rgba(17, 17, 17, 0.763);
+  border-radius: 5px;
   font-weight: 200;
-  color: rgba(233, 233, 233, 0.644);
+  color: rgba(250, 227, 163, 0.571);
   text-align: end;
 
   @include mobile {
@@ -136,28 +138,28 @@
   }
 }
 .bluez{
-    background-color: rgba(43, 43, 43, 0.468);
-    position: absolute;
-    right: 10px;
-    color: white;
-    text-align: center;
+    background-color: rgba(0, 255, 234, 0.068);
+    position: relative;
+    right: 90px;
+    top: 25px;
+    color: rgb(0, 255, 221);
+    //text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     padding: 5px 10px;
     font-size: .7rem;
-    //text-decoration: underline;
-    margin: 1.5rem;
+    text-decoration: underline;
+    opacity: 0;
+    //margin: 1.5rem;
     border-radius: 20px;
     @include tablet {
         font-size: xx-small;
     }
     @include mobile {
-      background-color: $body-bg;
-   
-        margin: 1rem;
-        font-size: xx-small;
+      display: none;
+     
     }
 
 }
