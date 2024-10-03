@@ -9,7 +9,7 @@
   align-items: center;
   height: 100vh;
   width: 100%;
-  background-color: $body-bg;
+  background-color: rgba(234, 22, 22, 0.5);
   position: relative;
 }
 .watched {
@@ -24,7 +24,7 @@ backdrop-filter: blur(10px);
   position: absolute;
   top: 0;
   left: 0;
-  padding: .2rem;
+  padding: .3rem .2rem;
   //background-color: #1414145f;
   z-index: 20;
   border-radius: 5px;
@@ -37,16 +37,17 @@ backdrop-filter: blur(10px);
 }
 .logozz{
   //border: .5px solid rgba(255, 0, 0, 0.201);
-  background-color: rgba(44, 0, 0, 0.861);
+  background-color: rgba(32, 32, 32, 0.559);
     //border-radius: 10px;
    //margin-left: 20px;
    position: absolute;
-   right: 0px;
-   top: 0px;
+   right: 10px;
+   top: 30px;
+   backdrop-filter: blur(10px);
     font-size: 1rem;
     font-weight: 500;
     color: white;
-    border-radius: 2px ;
+    border-radius: 20px ;
 
     @include flex(center, flex-start);
 
@@ -66,12 +67,7 @@ backdrop-filter: blur(10px);
         
     }
 }
-.logotext{
-  display: none;
-}
-.logotext:hover{
-  display: flex;
-}
+
 .topbar {
   display: flex;
   justify-content:space-between;
@@ -91,24 +87,24 @@ backdrop-filter: blur(10px);
 .navi{
   display: flex;
   align-items: center;
-  background-color: rgba(253, 253, 253, 0.37);
+  background-color: rgba(6, 6, 6, 0.263);
   
   padding: 4px;
   cursor: pointer;
   margin: 0 2px;
-  font-size: .8rem;
+  font-size: .9rem;
   font-weight: 400;
-  color: rgb(23, 23, 23);
+  color: rgb(120, 120, 120);
   border-radius: 5px ;
 }
 .navih{
-  background-color: rgba(48, 0, 0, 0.537);
+  background-color: rgb(255, 255, 255);
   padding: 1px 5px;
   cursor: pointer;
-  margin: 0px 1px;
+  margin: 0px 4px;
   font-size: 1.3rem;
   font-weight: 500;
-  color: rgb(255, 255, 255);
+  color: rgb(2, 2, 2);
   border-radius: 5px ;
  
 }
@@ -117,13 +113,12 @@ backdrop-filter: blur(10px);
   color: #000000;
 }
 .navih:hover{
-  background-color: rgba(0, 0, 0, 0.856);
-  color: #ffffff;
+ opacity: .7;
 }
 #player {
   width: 100%;
   height: 100vh;
-  filter: drop-shadow(0 0 1rem  rgba(255, 255, 255, 0.091));
+  //filter: drop-shadow(0 0 1rem  rgba(255, 255, 255, 0.091));
  
 }
 
