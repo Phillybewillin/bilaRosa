@@ -12,7 +12,7 @@ import BoxOffice from '../components/movie-list/BoxOffice';
 
 
 const Home = () => {
-  document.title = 'ZillaXR • Home';
+  document.title = '• Home | ZillaXR';
 
   const [tv, setTv] = useState([]);
   const [moviesData, setMoviesData] = useState([]);
@@ -125,41 +125,8 @@ const Home = () => {
   return (
     <>
       <Spotlight />
-      <h4 className="continue-watching-title">Recently Viewed</h4>
-      <div className="continue_watchingcontainer">
-        <i
-          className='bx bxs-brush-alt'
-          onClick={clearContinueWatching}
-          style={{ color: 'red', paddingLeft: '2px', cursor: 'pointer' }}
-        ></i>
-        <div className="contin">
-          {continueWatching.map((item) => (
-            <div className="continuewatching" key={item.id}>
-              <img
-                loading='lazy'
-                src={`${apiConfig.w200Image(item.poster_path)}`}
-                onClick={() => handleCardClick(item.id, item.category, item.title || item.name, item.poster_path)}
-                alt={item.title}
-              />
-              <p className="movietitle"  onClick={() => handleCardClick(item.id, item.category, item.title || item.name, item.poster_path)}
-               >{item.title || item.name}</p>
-              <i
-                onClick={() => handleDelete(item.id)}
-                className="bx bx-trash"
-                style={{
-                  color: 'red',
-                  fontSize: '20px',
-                  cursor: 'pointer',
-                  position: 'absolute',
-                  top: '5px',
-                  right: '3px'
-    
-                }}
-              ></i>
-            </div>
-          ))}
-        </div>
-      </div>
+      
+      
 
       <div className="container">
         {/* Trending Movies Section */}
@@ -215,33 +182,7 @@ const Home = () => {
         </div>
 
         <BoxOffice />
-        <div className="section mb-3">
-          <div className="section-tit">
-            <h3 className='villa'>• POPULAR MOVIES <h6 className="catx"># Most Popular movies this year</h6></h3>
-            <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.upcoming)}>view all--+</h5>
-          </div>
-          <MovieList category={category.movie} type={movieType.popular} />
-        </div>
-
-        {/* More Sections */}
-        <div className="section mb-3">
-          <div className="section-tit">
-            <h3 className='villa'>• TOP RATED MOVIES <h6 className="catx">• Fan Favourites Movies</h6></h3>
-            <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.top_rated)}>view all--+</h5>
-          </div>
-          <MovieList category={category.movie} type={movieType.top_rated} />
-        </div>
-
-        <div className="section mb-3">
-          <div className="section-tit">
-            <h3 className='villa'>• TOP RATED TV SHOWS <h6 className="catx">• Fan Favourites Shows</h6></h3>
-            <h5 className="bluez" onClick={(event) => handleClick(event, category.tv, tvType.top_rated)}>view all--+</h5>
-          </div>
-          <MovieList category={category.tv} type={tvType.top_rated} />
-        </div>
       </div>
-
-      {/* Toast Notification */}
       <ToastContainer theme="dark" position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#1eff00', color: 'white', borderRadius: '10px' }} />
      </>
     );
