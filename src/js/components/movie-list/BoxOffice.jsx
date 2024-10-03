@@ -19,6 +19,7 @@ const BoxOffice = () => {
     const [showCount, setShowCount] = useState(10);
     const [networkid ,setNetworkid] = useState(213);
     const [nettitle, setNettitle] = useState('Netflix');
+    const [backdrop, setBackdrop] = useState(netflix);
     // Your TMDB API key
     const API_KEY = '861e1d76c42a3a6e9038e0bf6dc95277'; 
     //const NETWORK_ID = 213; // Netflix network ID
@@ -146,8 +147,9 @@ const BoxOffice = () => {
                  </div>
             </div>
         </div>
-        <div className="boxoffice">
-            <div className="settitle">
+        <div className="boxoffice" style={{backgroundImage: `url(${backdrop})`  , backgroundRepeat: 'no-repeat' , backgroundSize: 'contain' , backgroundPosition: 'center'}}>
+          <div className="blurr">
+          <div className="settitle">
             <h4 className="boxoffice__titlez">{nettitle}</h4>
             <h3 className="boxoffice__title">POPULAR STREAMING</h3>
            
@@ -155,49 +157,49 @@ const BoxOffice = () => {
             <div className="watchprov">
   <h5
     className={`netflix ${networkid === 213 ? 'active' : ''}`}
-    onClick={() => {setNetworkid(213); setNettitle('Netflix')}}
+    onClick={() => {setNetworkid(213); setNettitle('Netflix') ; setBackdrop(netflix)}}
   >
     <img className="provimg" src={netflix} />
   </h5>
   <h5
     className={`apple ${networkid === 2552 ? 'active' : ''}`}
-    onClick={() => {setNetworkid(2552); setNettitle('Apple TV+')}}
+    onClick={() => {setNetworkid(2552); setNettitle('Apple TV+') ; setBackdrop(apple)}}
   >
     <img className="provimg" src={apple} />
   </h5>
   <h5
     className={`hbo ${networkid === 49 ? 'active' : ''}`}
-    onClick={() => {setNetworkid(49); setNettitle('HBO Max')}}
+    onClick={() => {setNetworkid(49); setNettitle('HBO Max') ; setBackdrop(hbo)}}
   >
     <img className="provimg" src={hbo} />
   </h5>
   <h5
     className={`hulu ${networkid === 453 ? 'active' : ''}`}
-    onClick={() => {setNetworkid(453); setNettitle('Hulu')}}
+    onClick={() => {setNetworkid(453); setNettitle('Hulu') ; setBackdrop(hulu)}}
   >
     <img className="provimg" src={hulu} />
   </h5>
   <h5
     className={`max ${networkid === 6783 ? 'active' : ''}`}
-    onClick={() => {setNetworkid(6783); setNettitle('Max')}}
+    onClick={() => {setNetworkid(6783); setNettitle('Max') ; setBackdrop(max)}}
   >
     <img className="provimg" src={max} />
   </h5>
   <h5
     className={`fx ${networkid === 88 ? 'active' : ''}`}
-    onClick={() => {setNetworkid(88); setNettitle('FX Network')}}
+    onClick={() => {setNetworkid(88); setNettitle('FX Network') ; setBackdrop(fx)}}
   >
     <img className="provimg" src={fx} />
   </h5>
   <h5
     className={`prime ${networkid === 1024 ? 'active' : ''}`}
-    onClick={() => {setNetworkid(1024); setNettitle('Amazon Prime Video')}}
+    onClick={() => {setNetworkid(1024); setNettitle('Amazon Prime Video') ; setBackdrop(prime)}}
   >
     <img className="provimg" src={prime} />
   </h5>
   <h5
     className={`disney ${networkid === 2739 ? 'active' : ''}`}
-    onClick={() => {setNetworkid(2739); setNettitle('Disney+')}}
+    onClick={() => {setNetworkid(2739); setNettitle('Disney+') ; setBackdrop(disney)}}
   >
     <img className="provimg" src={disney} />
   </h5>
@@ -216,6 +218,8 @@ const BoxOffice = () => {
   )}
 </div>
         </div>
+          </div>
+           
         </div>
         
     )
