@@ -78,7 +78,7 @@ const Spotlight = () => {
           <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">R</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/9l1eZiJHmhr5jIlthMdJN5WYoff.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(137, 48, 50, 0.4))'}}/>
+                <img src={'https://image.tmdb.org/t/p/w1280/9l1eZiJHmhr5jIlthMdJN5WYoff.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(137, 48, 50, 0.4))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .1</h4>
@@ -102,24 +102,54 @@ const Spotlight = () => {
               </div>
             </SwiperSlide>
             <SwiperSlide>
+          
               <div className="spotlight-item">
-                <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/original/iKfYhpMqcpJgXqciWZOIZRRJDF6.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(255, 255, 255, 0.3))'}}/>
+              <h1 className="spotlight-number">TV-MA</h1>
+                 
+                <img src={'https://image.tmdb.org/t/p/w1280/zsy6D6MXkROv6ESN4i0cz7nCEb5.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem  rgb(238, 140, 49 ,0.4))'}} />
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .2</h4>
+                
+                  <h2 className="spotlight-name">THE LEGEND OF VOX MACHINA</h2>
+                  
+                  <p className="spotlight-genres">
+                    <span className="genre a">Sci-Fi & Fantasy</span>
+                    <span className="genre a">Action & Adventure</span>
+                    <span className="genre a">Animation</span>
+
+                  </p>
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Aimation</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  
+                  <p className="spotlight-overview">They're rowdy, they're ragtag, they're misfits turned mercenaries for hire. Vox Machina is more interested in easy money and cheap ale than actually protecting the realm..</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('tv/135934')}> <i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(135934, "THE LEGEND OF VOX MACHINA" ,1 ,1)}>  <i className='bx bx-play'></i> Watch Now</Button>
+                  </div>
+                  </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">TV-MA</h1>
+                <img src={'https://image.tmdb.org/t/p/original/iKfYhpMqcpJgXqciWZOIZRRJDF6.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(255, 255, 255, 0.3))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .3</h4>
                  
                   <h2 className="spotlight-name">UZUMAKI</h2>
                 
                   <p className="spotlight-genres">
-                    <span className="genre a">Crime</span>
+                    <span className="genre a">Animation</span>
                    
-                    <span className="genre a">Drama</span>
+                    <span className="genre a">Mystery</span>
                    
-                    <span className="genre a">Comedy</span>
+                    <span className="genre a">Horror</span>
                   </p>
                   <div className="spotty">
-                   <h6 className="genre b">HD</h6><h6 className="genre a">Series</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                   <h6 className="genre b">HD</h6><h6 className="genre a">ANIME</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
                   </div>
                   
                   <p className="spotlight-overview">A town of people slowly go insane over increasing obsessions with spiral shapes: patterns in the clouds, everyday objects, hair, insects, skin....</p>
@@ -133,7 +163,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">R</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/49VKxxoLrIKNidJBz2A5t7aORPz.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(137, 48, 50, 0.4))'}}/>
+                <img src={'https://image.tmdb.org/t/p/w1280/49VKxxoLrIKNidJBz2A5t7aORPz.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(137, 48, 50, 0.4))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .3</h4>
@@ -160,7 +190,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/original/56O2drADoJPtv9Z49jKZoBNyMc5.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem  rgba(144, 101, 63, 0.4))'}} />
+                <img src={'https://image.tmdb.org/t/p/original/56O2drADoJPtv9Z49jKZoBNyMc5.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem  rgba(144, 101, 63, 0.4))'}} />
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .4</h4>
@@ -189,7 +219,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/l9Qwe6v1NzgOweld95NdegQ5jsO.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(28, 73, 89, 0.5))'}}/>
+                <img src={'https://image.tmdb.org/t/p/w1280/l9Qwe6v1NzgOweld95NdegQ5jsO.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(28, 73, 89, 0.5))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .5</h4>
@@ -218,7 +248,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/1ACyVF58W8SYAxnqAP0JnAOoLlw.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1rem rgba(93, 53, 18, 0.6))'}}/>
+                <img src={'https://image.tmdb.org/t/p/w1280/1ACyVF58W8SYAxnqAP0JnAOoLlw.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 2rem rgba(93, 53, 18, 0.6))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                 <h4 className="spon">#Spotlight .6</h4>
@@ -246,7 +276,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-14</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/8IMDPLdpEDTqKZZti2MIYTwBP7d.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(155, 112, 92, 0.3))'}}/>
+                <img src={'https://image.tmdb.org/t/p/w1280/8IMDPLdpEDTqKZZti2MIYTwBP7d.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(155, 112, 92, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .7</h4>
@@ -275,41 +305,12 @@ const Spotlight = () => {
               </div>
             </SwiperSlide>
            
-            <SwiperSlide>
-          
-              <div className="spotlight-item">
-              <h1 className="spotlight-number">TV-14</h1>
-                 
-                <img src={'https://image.tmdb.org/t/p/w1280/ymTx7ebsmBjqh47fiZnBUjIDx5K.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(43, 6, 130, 0.4))'}} />
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .8</h4>
-                
-                  <h2 className="spotlight-name">AGATHA ALL ALONG</h2>
-                  
-                  <p className="spotlight-genres">
-                    <span className="genre a">Sci-Fi & Fantasy</span>
-                    <span className="genre a">Action & Adventure</span>
-                    <span className="genre a">Mystery</span>
-
-                  </p>
-                  <div className="spotty">
-                  <h6 className="genre b">HD</h6><h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  
-                  <p className="spotlight-overview">Agatha Harkness gathers a coven of witches and sets off down, down, down The Witches' Road.</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('tv/138501')}> <i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(138501, "Agatha All Along" ,1 ,1)}>  <i className='bx bx-play'></i> Watch Now</Button>
-                  </div>
-                  </div>
-              </div>
-            </SwiperSlide>
+            
           
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">PG</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/xg27NrXi7VXCGUr7MG75UqLl6Vg.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1rem rgba(128, 0, 128, 0.5))'}}/>
+                <img src={'https://image.tmdb.org/t/p/w1280/xg27NrXi7VXCGUr7MG75UqLl6Vg.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 2rem rgba(128, 0, 128, 0.5))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon"> #Spotlight .9</h4>
@@ -339,7 +340,7 @@ const Spotlight = () => {
            <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">PG-13</h1>
-                <img src={'https://image.tmdb.org/t/p/original/eLlglZsphAtqknkMsS39gswYaRn.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(143, 143, 143, 0.4))'}}/>
+                <img src={'https://image.tmdb.org/t/p/original/eLlglZsphAtqknkMsS39gswYaRn.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(143, 143, 143, 0.4))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .10</h4>
@@ -367,7 +368,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">PG</h1>
-              <img src={'https://image.tmdb.org/t/p/w1280/izvpS5dMnTQDLxM45u2smPhEDA0.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1rem rgba(54, 122, 181, 0.4)'}}/>
+              <img src={'https://image.tmdb.org/t/p/w1280/izvpS5dMnTQDLxM45u2smPhEDA0.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 2rem rgba(54, 122, 181, 0.4)'}}/>
               <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .11</h4>
@@ -396,7 +397,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/hJPkcUc4ON7RchgDIkO0k6K10Zu.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1rem rgba(12, 237, 204, 0.3))'}}/>
+                <img src={'https://image.tmdb.org/t/p/w1280/hJPkcUc4ON7RchgDIkO0k6K10Zu.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(12, 237, 204, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                 <h4 className="spon">#Spotlight .12</h4>
