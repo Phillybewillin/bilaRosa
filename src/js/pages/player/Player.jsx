@@ -1,13 +1,6 @@
 import {useRef , useState, useEffect} from "react";
 import { useNavigate, useParams} from "react-router-dom";
 
-import '@vidstack/react/player/styles/default/theme.css';
-import '@vidstack/react/player/styles/default/layouts/audio.css';
-import '@vidstack/react/player/styles/default/layouts/video.css';
-
-import { defaultLayoutIcons, DefaultVideoLayout } from '@vidstack/react/player/layouts/default';
-import { MediaPlayer, MediaProvider, Track , LocalMediaStorage ,isHLSProvider } from '@vidstack/react';
-//import { tmdbScrape } from "vidsrc.extractor.module/src/vidsrc";
 import axios from "axios";
 import "./player.scss";
 import '../detail/seasons.scss';
@@ -33,7 +26,7 @@ export default function Player() {
   const lastFetchArgs = useRef(null);
 
   //const [sources, setSources] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   //const [errorMessage, setErrorMessage] = useState("");
 
   
@@ -64,83 +57,10 @@ export default function Player() {
     }
   }, [title, id, currentSeason ,currentEpisode]);
 
- 
 
   useEffect(() => {
-    const previousArgs = lastFetchArgs.current;
-    let args = [id, currentSeason, currentEpisode];
-    if (id && currentSeason && currentEpisode) {
-      args = [id, currentSeason, currentEpisode];
-    } else {
-      args = [id];
-    }
-    if (!previousArgs || JSON.stringify(previousArgs) !== JSON.stringify(args)) {
-      lastFetchArgs.current = args;
-      fetchData(...args);
-    }
-  }, [id ,currentSeason, currentEpisode]);
-  const fetchData = async (showTMDBid, seasonNumber, episodeNumber) => {
-    //console.log(await tmdbScrape(id , 'movie'));
-     //console.log('fetchData called', showTMDBid, seasonNumber, episodeNumber);
-    try {
-       // Start loading
-     
-      let baseurl = `https://virgo-ten.vercel.app/${showTMDBid}`;
-      let additionalParams = "";
-
-      if (seasonNumber && episodeNumber) {
-        additionalParams = `/${seasonNumber}/${episodeNumber}`;
-      }
-
-      let url = baseurl + additionalParams;
-     
-       const response = await axios.get(url);
-    
-      const dataz = response.data;
-      //console.log('darrttrer',dataz);
-     
-      setLoading(false);
-      setQuality("auto");
-      if (response.status === 500) {
-        
-        throw new Error("Resource not found. try again later.");
-        
-      
-      }
-      //setHeader(dataz?.data?.headers.Referer || "");
-
-      const sourcesData = dataz?.stream;
-      //console.log('zaza' , sourcesData);
-      //const initialSource = sourcesData.find(source => source.quality === quality);
-      //console.log(initialSource.url);
-      setPlayerSource(dataz[0].stream);
-   
-      setTextTracks(mapSubtitlesToTracks(dataz?.data?.subtitles));
-       
-      
-      //console.log(dataz?.data?.subtitles);
-    } catch (error) {
-      setLoading(false);
-      toast.error("Failed to find any resource. Please try again later.");
-      //console.error("Failed to fetch data:", error);
-      //setErrorMessage(error.message || "An unexpected error occurred.");
-    }
-  };
- //console.log(header);
-  //console.log(playerSource);
-  const mapSubtitlesToTracks = (subtitles) => {
-    //console.log(subtitles)
-    if (!subtitles) {
-      return [];
-    }
-    return subtitles.map((subtitle) => ({
-      src: subtitle.url,
-      label: subtitle.lang || '',
-      kind: "subtitles",
-    }));
-  };
-  useEffect(() => {
-    const getseasons = async () => {
+    if (id && season_number && episode_number) {
+      const getseasons = async () => {
         const { data } = await axios.get(`${apiConfig.baseUrl}tv/${id}?api_key=${apiConfig.apiKey}`);
         const validSeasons = data.seasons.filter(({ air_date }) => air_date && new Date(air_date) <= new Date());
         setSeasons(validSeasons);
@@ -148,7 +68,9 @@ export default function Player() {
         setbgChanged(apiConfig.w200Image(validSeasons[0].poster_path))
    
     };
+
     getseasons();
+    }
 }, [id]);
   const fetchEpisodes = async (id , selectedSeason) => {
     if (id && selectedSeason) {
@@ -180,7 +102,7 @@ export default function Player() {
     window.history.pushState({}, '', url.toString());
     //setPlayerSource('');
     //setHeader("");
-    setLoading(true);
+    //setLoading(true);
     //console.log(episodes.length);
     setCurrentEpisode(episodeNumber);
     setbgChanged(apiConfig.w200Image(episodeUrl))
@@ -198,7 +120,7 @@ const handleSeasonClick = (seasonNumber) => {
  // setHeader("");
   setCurrentSeason(seasonNumber);
   setCurrentEpisode(1);
-  setLoading(true);
+  //setLoading(true);
   //fetchEpisodes(id, currentSeason);
   
 };
@@ -217,33 +139,7 @@ const handleSeasonClick = (seasonNumber) => {
   };
   const [autoPlay, setAutoPlay] = useState(false);
 
-const handleCanPlay = () => {
-  setAutoPlay(false);
-};
 
-
-
-class CustomMediaStorage extends LocalMediaStorage {
-  async getTime() {
-    const storageKey = `zilla${id}${currentSeason}${currentEpisode}`; // Replace with your desired key
-    const storedTime = window.localStorage.getItem(storageKey);
-    if (storedTime) {
-      return parseFloat(storedTime);
-    } else {
-      return null;
-    }
-  }
-
-  async setTime(currentTime ) {
-    const storageKey = `zilla${id}${currentSeason}${currentEpisode}`; // Replace with your desired key
-    window.localStorage.setItem(storageKey, currentTime);
-  }
-}
-
-// Provide the storage to the player via `storage` prop.
-//player.storage = new CustomMediaStorage();
-//const nextEpisode = parseInt(currentEpisode) + 1;
-  
   return (
     <ErrorBoundary>
       {loading ? (
@@ -256,7 +152,7 @@ class CustomMediaStorage extends LocalMediaStorage {
       wrapperStyle={{}}
      wrapperClass=""
      visible={true}
-  />
+      />
          </>
       ) : (
         <> 
@@ -271,50 +167,23 @@ class CustomMediaStorage extends LocalMediaStorage {
             </div>
             </div>
             
-            {playerSource && (
-             <MediaPlayer
-              //onProviderChange={onProviderChange}
-              title={`${document.title} `}
-              src={playerSource}
-              type="application/x-mpegURL"
-              id="player"
-              headers={{headers : header}}
-              streamType="on-demand"
-              load="eager"
-              viewType='video'
-              logLevel='warn'
-              crossOrigin={true}
-              playsInline
-              preload="auto"
-              onEnded={() => {
-                const nextEpisode = currentEpisode + 1;
-                if (nextEpisode <= totalEpisodes - 1) {
-                  handleEpisodeClick(nextEpisode);
-                }
-              }}
-              //onCanPlay={handleCanPlay}
-              //onLoadedMetadata={handleCanPlay}
-              storage={ new CustomMediaStorage()}
-              autoPlay={autoPlay}
-        
-            >
-         
-             
-              <MediaProvider>
-         
-                {textTracks.map(track => (
-                  <Track {...track} key={track.src} />
-                ))}
-                <source src={playerSource} type="application/x-mpegURL" />
-              </MediaProvider>
-              <DefaultVideoLayout 
+            <div className="episodes__iframe-container" style={{ backgroundColor: 'rgba(0, 0, 0, 0.9)',width : '100%', height : '100%'}}>
+          
 
-
-              icons={defaultLayoutIcons}
-               />
-             
-            </MediaPlayer>
-            )}
+          <iframe
+            className="episodes__iframe"
+            title={`Episode ${currentEpisode}`}
+            src={ currentEpisode  ? `https://vidsrc.pro/embed/tv/${id}/${currentSeason}/${currentEpisode}` : `https://vidsrc.pro/embed/movie/${id}`}
+            width={"100%"}
+            height={"100%"}
+            frameBorder="0"
+            allowFullScreen
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            
+                              
+            
+          />
+        </div>
             <ToastContainer theme="light" fontSize="11px" position="top-right" autoClose={8000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} progressStyle={{ backgroundColor: '#00000', color: 'white', borderRadius: '5px' }} />
       
           </div>
