@@ -32,7 +32,7 @@
     position: relative;
     top: 5px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     padding: .5rem;
     background-color: rgb(23, 23, 23);
     font-size: small;
@@ -44,6 +44,39 @@
      left: .5rem;
   }
 }
+.del{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: .4rem;
+  background-color: rgba(30, 30, 30, 0.829);
+  font-size: small;
+  border-radius: 10px;
+  font-weight: 200;
+  //color: rgba(233, 233, 233, 0.842);
+  top: 34.4rem;
+  left: 9rem;
+
+@include mobile {
+  display: none;
+  position: absolute;
+  top: 5px;
+  display: flex;
+  justify-content: flex-start;
+  padding: .5rem;
+  //background-color: rgb(23, 23, 23);
+  font-size: small;
+   border-radius: 10px;
+   font-weight: 200;
+    color: rgba(233, 233, 233, 0.644);
+   position: relative;
+    width: 120px;
+   left: 2rem;
+}
+}
+
 
 
 .villa{
@@ -72,7 +105,7 @@
   }
 }
 .continue_watchingcontainer{
-  background-color: rgba(27, 27, 27, 0.514);
+ // background-color: rgba(27, 27, 27, 0.514);
   display: flex;
   margin: 1rem;
   border-radius: 10px;
