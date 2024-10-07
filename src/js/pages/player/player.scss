@@ -19,12 +19,12 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-backdrop-filter: blur(10px);
+//backdrop-filter: blur(10px);
   font-size: 12px;
   position: absolute;
   top: 0;
   left: 0;
-  padding: .3rem .2rem;
+  //padding:  .2rem;
   //background-color: #1414145f;
   z-index: 20;
   border-radius: 5px;
@@ -42,7 +42,7 @@ backdrop-filter: blur(10px);
    //margin-left: 20px;
    position: absolute;
    right: 10px;
-   top: 39px;
+   top: 30px;
    backdrop-filter: blur(10px);
     font-size: 1rem;
     font-weight: 500;
@@ -89,17 +89,17 @@ backdrop-filter: blur(10px);
   align-items: center;
   background-color: rgba(255, 255, 255, 0.167);
   
-  padding: 10px;
+  padding: 8px;
   cursor: pointer;
   margin:  2px;
   font-size: .85rem;
   font-weight: 400;
   color: rgb(207, 207, 207);
   border-radius: 15px ;
-  opacity: .7;
+  opacity: .5;
 }
 .navih{
-  background-color: rgba(255, 255, 255, 0.167);
+  background-color: rgba(122, 122, 122, 0.167);
   padding: 5px;
   cursor: pointer;
   margin: 0px 4px;
@@ -279,7 +279,7 @@ width: 100%;
   font-size: smaller;
   background-color: #16161671;
   backdrop-filter: blur(10px);
-  padding: 10px;
+  padding: 8px;
   @include mobile {
     display: none;
   }
