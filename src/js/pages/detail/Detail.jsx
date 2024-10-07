@@ -250,14 +250,14 @@ const Detail = () => {
                         </div>
 
                         <div className="castdiv">
-                        <h4 className='titledetailz'>Cast</h4>
+                       
 
                                        <div className="castdix">
-                                           <p className='cast'>
+                                       <h4 className='titledetailz'>Credits</h4>
                                             <Suspense fallback={null}>
                                             <CastList id={item.id}/>
                                             </Suspense>
-                                            </p>
+                                            
                                             
                                        </div>
                                        
