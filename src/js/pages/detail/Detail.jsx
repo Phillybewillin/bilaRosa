@@ -29,8 +29,9 @@ const Detail = () => {
        //console.log(similar);
   }
   useEffect(() => {
-    document.title =  item ? `${item?.title || item?.name} - Watch it on ZillaXR` : 'ZillaXR';
+    document.title =  item ? `${item?.title || item?.name} - Watch it on ZillaXR` : 'Weed With a movie or TV Show - Watch it on ZillaXR';
     getDetail();
+    
     //console.log('items:', items);
   }, [category, id , item]);
 
@@ -197,7 +198,7 @@ const Detail = () => {
                     
                        <div className="detail-container">
                        <>
-                    <div className="banner" loading="lazy" style={{backgroundImage: `url(${apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',position: 'absolute', top: '0' , left: '0' , width: '100%' , height: '55vh'}}></div>
+                    <div className="banner" style={{backgroundImage: `url(${apiConfig.w1280Image(item.backdrop_path ? item.backdrop_path : item.poster_path)})`, backgroundSize: 'cover', backgroundPosition: 'top', backgroundRepeat: 'no-repeat',position: 'fixed', top: '0' , left: '0' , width: '100%' , height: '55vh'}}></div>
                     </>
                         <div className="movie-content">
                            <div className="movie-content__info">
