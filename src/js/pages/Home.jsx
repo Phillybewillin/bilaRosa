@@ -82,7 +82,7 @@ const Home = () => {
         style={style}
         key={item.id}
         className="wrappwe"
-        onClick={() => navigate(`/${category}/${item.id}`)}
+        //onClick={() => navigate(`/${category}/${item.id}`)}
       >
         <MovieCard key={item.id} item={item} category={category} />
       </div>
