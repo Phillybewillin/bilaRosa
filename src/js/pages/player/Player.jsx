@@ -167,12 +167,13 @@ const handleSeasonClick = (seasonNumber) => {
             </div>
             </div>
             
-            <div className="episodes__iframe-container" style={{ backgroundColor: 'rgba(0, 0, 0, 0.9)',width : '100%', height : '100%'}}>
+            <div className="episodes__iframe-container" style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)',width : '100%', height : '100%'}}>
           
 
           <iframe
             className="episodes__iframe"
-            src={ currentEpisode  ? `https://embed.su/embed/tv/${id}/${currentSeason}/${currentEpisode}` : `https://embed.su/embed/movie/${id}`}
+           
+            src= {season_number && episode_number ? `https://embed.su/embed/tv/${id}/${currentSeason}/${currentEpisode}` : `https://embed.su/embed/movie/${id}`}
             width={"100%"}
             height={"100%"}
             frameBorder="0"
@@ -219,7 +220,7 @@ const handleSeasonClick = (seasonNumber) => {
               }`}
               onClick={() => handleEpisodeClick(episode.episode_number , episode.still_path)}
             >
-                {episode.episode_number}. {episode.name}
+                 E{episode.episode_number} <div className="s"></div>{episode.name}
               </li>
             ))}
         </ul>
