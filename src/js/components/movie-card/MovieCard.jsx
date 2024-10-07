@@ -123,7 +123,7 @@ const MovieCard = React.memo((props) => {
             <Skeleton baseColor="#141414cc" variant="rect" className="movie-card"/>
           </SkeletonTheme>
         ) : (
-          <div className="bgmov" onClick={() => handlecardClick(item.id,props.category, item.title, item.poster_path) }>
+          <div className="bgmov" onClick={() => handlecardClick(item.id,props.category, item.title || item.name, item.poster_path) }>
           <div className="movie-card" onClick={() => navigate(`/${props.category}/${item.id}`) }  style={{backgroundImage : `url(${bg})`, backgroundSize : 'cover' , backgroundPosition : 'center' , backgroundRepeat : 'no-repeat'}}>
             <div className="inCinema">
               <i className='bx bx-badge-check' style={{fontSize :'13px'}}></i> {cinemaStatus}
