@@ -129,6 +129,43 @@ const Home = () => {
       
 
       <div className="container">
+      <h4 className="continue-watching-title">Recently Viewed </h4>
+      <div className="del" onClick={clearContinueWatching}
+      ><i
+          className='bx bx-message-square-x'
+          
+          style={{ color: 'pink', fontSize: '20px', cursor: 'pointer' }}
+        ></i></div>
+      <div className="continue_watchingcontainer">
+        
+        <div className="contin">
+          {continueWatching.map((item) => (
+            <div className="continuewatching" key={item.id}>
+              <img
+                loading='lazy'
+                src={`${apiConfig.w200Image(item.poster_path)}`}
+                onClick={() => handleCardClick(item.id, item.category, item.title || item.name, item.poster_path)}
+                alt={item.title}
+              />
+              <p className="movietitle"  onClick={() => handleCardClick(item.id, item.category, item.title || item.name, item.poster_path)}
+               >{item.title || item.name}</p>
+              <i
+                onClick={() => handleDelete(item.id)}
+                className="bx bx-trash"
+                style={{
+                  color: 'grey',
+                  fontSize: '20px',
+                  cursor: 'pointer',
+                  position: 'absolute',
+                  top: '5px',
+                  right: '3px'
+    
+                }}
+              ></i>
+            </div>
+          ))}
+        </div>
+      </div>
         {/* Trending Movies Section */}
         <div className="section mb-3">
           <div className="section-tit">
@@ -182,6 +219,7 @@ const Home = () => {
         </div>
 
         <BoxOffice />
+        
       </div>
       <ToastContainer theme="dark" position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#1eff00', color: 'white', borderRadius: '10px' }} />
      </>
