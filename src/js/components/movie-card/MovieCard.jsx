@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 import Skeleton , { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-const MovieCard = (props) => {
+const MovieCard = React.memo((props) => {
     const {user} = UserAuth();
     const [saved , setSaved] = useState(false);
 
@@ -66,7 +66,7 @@ const MovieCard = (props) => {
             localStorage.setItem('ContinueWatching' , JSON.stringify(continueWatching));
             //console.log(continueWatching);
         }
-        navigate(`/${category}/${id}`);
+        //navigate(`/${category}/${id}`);
     }
     const inCinema = (releaseDate) => {
         const today = new Date();
@@ -117,14 +117,14 @@ const MovieCard = (props) => {
     return (
         <>
         <div>
-        <Link to={`/${props.category}/${item.id}`}>
+        
         {isLoading ? (
           <SkeletonTheme color="#141414cc" highlightColor="#141414f3" >
             <Skeleton baseColor="#141414cc" variant="rect" className="movie-card"/>
           </SkeletonTheme>
         ) : (
-          <div className="bgmov">
-          <div className="movie-card" onClick={() => handlecardClick(item.id, props.category ,item.title || item.name, item.poster_path, )} style={{backgroundImage : `url(${bg})`, backgroundSize : 'cover' , backgroundPosition : 'center' , backgroundRepeat : 'no-repeat'}}>
+          <div className="bgmov" onClick={() => handlecardClick(item.id,props.category, item.title, item.poster_path) }>
+          <div className="movie-card" onClick={() => navigate(`/${props.category}/${item.id}`) }  style={{backgroundImage : `url(${bg})`, backgroundSize : 'cover' , backgroundPosition : 'center' , backgroundRepeat : 'no-repeat'}}>
             <div className="inCinema">
               <i className='bx bx-badge-check' style={{fontSize :'13px'}}></i> {cinemaStatus}
             </div>
@@ -153,13 +153,13 @@ const MovieCard = (props) => {
           </div>
           
         )}
-      </Link>
+    
           
          
            </div>
         </>
     );
-}
+});
 MovieCard.propTypes = {
   category: PropTypes.string.isRequired,
   item: PropTypes.shape({ title : PropTypes.string , name : PropTypes.string , poster_path : PropTypes.string , id : PropTypes.number.isRequired , vote_average : PropTypes.number }).isRequired
