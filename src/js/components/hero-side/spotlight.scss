@@ -163,16 +163,17 @@ margin-bottom: 1rem;
     flex-direction: column;
     position: absolute;
     bottom: 0px;
-    left: 0px;
+    left: -.1px;
     //padding-top:calc(100vh - 25rem);
     margin-bottom: -.5rem;
     //gap: .1rem;
     width: 100%;
     border-radius: 20px;
-    backdrop-filter: blur(15px);
-    //background-image: linear-gradient(220deg, transparent, rgba(0, 0, 0, 0.468));
+    backdrop-filter: blur(20px);
+    background-image: linear-gradient(230deg, transparent, rgba(0, 0, 0, 0.779));
     font-size: smaller;
     font-weight: 300;
+    //opacity: 0.7;
     // ... existing styles ...
   
     @include tablet {
@@ -180,7 +181,7 @@ margin-bottom: 1rem;
       //margin: 0 1rem;
       align-items: center;
       backdrop-filter: none;
-      background-color: rgba(0, 0, 0, 0.664);
+      //background-color: rgba(0, 0, 0, 0.664);
       //padding-top: calc(50vh - 14rem);
       width: 100%;
       opacity: 0; // hide spotlight content by default
