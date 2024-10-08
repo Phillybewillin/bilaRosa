@@ -78,6 +78,32 @@ const Spotlight = () => {
           <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">R</h1>
+                <img src={'https://image.tmdb.org/t/p/w1280/vfqDoPo20OLgnP9Aa2Q3PXStJGf.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(7, 41, 75, 0.5))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .1</h4>
+                
+                  <h2 className="spotlight-name">BEETLEJUICE BEETLEJUICE</h2>
+                  
+                  <p className="spotlight-genres">
+                    <span className="genre a">Comedy</span>
+                    <span className="genre a">Horror</span>
+                    <span className="genre a">Fantasy</span>
+                  </p>
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  <p className="spotlight-overview">After a family tragedy, three generations of the Deetz family return home to Winter River. Still haunted by Betelgeuse, Lydia's life is turned upside down when her teenage daughter, Astrid, accidentally opens the portal to the Afterlife...</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/movie/917496')}><i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer(917496, "Beetlejuice Beetlejuice")}>  <i className='bx bx-play'></i> Watch Now </Button>
+                  </div>
+                  </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="spotlight-item">
+              <h1 className="spotlight-number">R</h1>
                 <img src={'https://image.tmdb.org/t/p/w1280/9l1eZiJHmhr5jIlthMdJN5WYoff.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(137, 48, 50, 0.4))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
@@ -102,39 +128,9 @@ const Spotlight = () => {
               </div>
             </SwiperSlide>
             <SwiperSlide>
-          
-              <div className="spotlight-item">
-              <h1 className="spotlight-number">TV-MA</h1>
-                 
-                <img src={'https://image.tmdb.org/t/p/w1280/zsy6D6MXkROv6ESN4i0cz7nCEb5.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem  rgb(238, 140, 49 ,0.4))'}} />
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .2</h4>
-                
-                  <h2 className="spotlight-name">THE LEGEND OF VOX MACHINA</h2>
-                  
-                  <p className="spotlight-genres">
-                    <span className="genre a">Sci-Fi & Fantasy</span>
-                    <span className="genre a">Action & Adventure</span>
-                    <span className="genre a">Animation</span>
-
-                  </p>
-                  <div className="spotty">
-                  <h6 className="genre b">HD</h6><h6 className="genre a">Aimation</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  
-                  <p className="spotlight-overview">They're rowdy, they're ragtag, they're misfits turned mercenaries for hire. Vox Machina is more interested in easy money and cheap ale than actually protecting the realm..</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('tv/135934')}> <i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(135934, "THE LEGEND OF VOX MACHINA" ,1 ,1)}>  <i className='bx bx-play'></i> Watch Now</Button>
-                  </div>
-                  </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/original/iKfYhpMqcpJgXqciWZOIZRRJDF6.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(255, 255, 255, 0.3))'}}/>
+                <img src={'https://image.tmdb.org/t/p/original/AbjjEOwBtDk1PP32m1DgGqE3Zpt.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(255, 255, 255, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .3</h4>
@@ -163,7 +159,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">R</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/49VKxxoLrIKNidJBz2A5t7aORPz.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(137, 48, 50, 0.4))'}}/>
+                <img src={'https://image.tmdb.org/t/p/w1280/9R9Za5kybgl5AhuCNoK3gngaBdG.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(108, 75, 46, 0.4))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .3</h4>
