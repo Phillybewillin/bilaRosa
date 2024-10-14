@@ -20,9 +20,9 @@ This site does not store any files on our server, we only linked to the media wh
                        <div className="splitter"></div>
                        <Link to="/filter">Filters</Link>
                         <div className="splitter"></div>
-                        <Link to="/movie">Movies</Link>
+                        <Link to="/z/movie">Movies</Link>
                         <div className="splitter"></div>
-                        <Link to="/tv">TV Series</Link>
+                        <Link to="/z/tv">TV Series</Link>
                        </div>
                        
                        
