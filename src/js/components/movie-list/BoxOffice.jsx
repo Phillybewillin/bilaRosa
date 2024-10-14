@@ -62,6 +62,14 @@ const BoxOffice = () => {
             <div className="boxoffice">
             <h3 className="boxoffice__title">TOP 10 BOX OFFICE</h3>
             <div className="boxoffice__list">
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/889737')}><span className="boxoffice__rank1">8</span>Joker: Folie  à Deux</h4>
+                  <div className="boxofficer">
+                  <p className="boxoffice__rt">RT:33%</p>
+                <p className="boxoffice__rating">R</p>
+              
+                  </div>
+            </div>
+            <div className="boxoffice__list">
                 <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1184918')}><span className="boxoffice__rank1">1</span>The Wild Robot</h4>
                  <div className="boxofficer">
                  <p className="boxoffice__rt">RT:97%</p>
@@ -97,21 +105,22 @@ const BoxOffice = () => {
                
                 </div>
             </div>
+            
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/592831')}><span className="boxoffice__rank">5</span>Megalopolis</h4>
-                  <div className="boxofficer">
-                  <p className="boxoffice__rt">RT:47%</p>
-                <p className="boxoffice__rating">R</p>
-              
-                  </div>
-            </div>
-            <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/811941')}><span className="boxoffice__rank">6</span>Devara Part 1</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1358407')}><span className="boxoffice__rank">6</span>Sam and Colby : The Legends of the Paranormal </h4>
                   <div className="boxofficer">
                   <p className="boxoffice__rt">RT:31%</p>
                 <p className="boxoffice__rating">PG13</p>
               
                   </div>
+            </div>
+            <div className="boxoffice__list">
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/779816')}><span className="boxoffice__rank">9</span>White Bird</h4>
+                 <div className="boxofficer">
+                 <p className="boxoffice__rt">RT:72%</p>
+                <p className="boxoffice__rating">-</p>
+               
+                 </div>
             </div>
             <div className="boxoffice__list">
                 <h4 className="boxoffice__movie" onClick={() => navigate('/movie/533535')}> <span className="boxoffice__rank">7</span>Deadpool & Wolverine</h4>
@@ -120,24 +129,10 @@ const BoxOffice = () => {
                  <p className="boxoffice__rating">R</p>
                  </div>
             </div>
-            <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/947891')}><span className="boxoffice__rank">8</span>My Old Ass</h4>
-                  <div className="boxofficer">
-                  <p className="boxoffice__rt">RT:91%</p>
-                <p className="boxoffice__rating">R</p>
-              
-                  </div>
-            </div>
+          
           
            
-            <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/814889')}><span className="boxoffice__rank">9</span>Never Let Go</h4>
-                 <div className="boxofficer">
-                 <p className="boxoffice__rt">RT:58%</p>
-                <p className="boxoffice__rating">-</p>
-               
-                 </div>
-            </div>
+            
             <div className="boxoffice__list">
                 <h4 className="boxoffice__movie" onClick={() => navigate('/movie/933260')}><span className="boxoffice__rank">X</span>The Substance</h4>
                  <div className="boxofficer">
@@ -145,6 +140,14 @@ const BoxOffice = () => {
                  <p className="boxoffice__rating">PG</p>
               
                  </div>
+            </div>
+            <div className="boxoffice__list">
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/592831')}><span className="boxoffice__rank">5</span>Megalopolis</h4>
+                  <div className="boxofficer">
+                  <p className="boxoffice__rt">RT:47%</p>
+                <p className="boxoffice__rating">R</p>
+              
+                  </div>
             </div>
         </div>
         <div className="boxoffice" style={{backgroundImage: `url(${backdrop})`  , backgroundRepeat: 'no-repeat' , backgroundSize: 'contain' , backgroundPosition: 'center'}}>
