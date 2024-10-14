@@ -513,18 +513,16 @@
   //background-color: #080808c3;
   padding: 10px;
   margin:  5px;
-  display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(240px, 50%), .5fr));
-    gap: 8px;
+  columns: 5;
     
     
     @include tablet {
-      grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr));
+     columns: 3;
     
   }
 
   @include mobile {
-      grid-template-columns: repeat(auto-fill, minmax(min(150px, 100%), 1fr));
+    columns: 2;
   
   }
   
