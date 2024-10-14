@@ -68,14 +68,14 @@
     width: 98%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     gap: 1rem;
     margin: 1rem;
 
     @include mobile {
         flex-direction: column;
         width: 100%;
-        margin: 0;
+        margin: 2px;
     }
 }
 .boxoffice__title{
@@ -95,7 +95,7 @@
     margin: .5rem 0 ;
     font-size: .85rem;
     //border-left: 1px solid rgba(233, 233, 233, 0.644);
-    padding: 1rem;
+    padding: .5rem;
     @include mobile {
      font-size: 1rem;
     }
@@ -108,7 +108,7 @@
     width: 100%;
     gap: .3rem;
     padding: 7px;
-    background-color: rgb(28, 28, 28);
+    background-color: rgb(20, 20, 20);
     color: rgb(255, 255, 255);
     border-radius: 5px;
     font-weight: 300;
@@ -123,7 +123,7 @@
     flex-direction: row-reverse;
     gap: .5rem;
     padding: 7px;
-    background-color: rgba(123, 123, 123, 0.322);
+    background-color: rgba(34, 34, 34, 0.322);
     color: rgba(255, 255, 255, 0.831);
     font-weight: 600;
     border-radius: 10px;
@@ -131,7 +131,7 @@
 }
 .blurr{
     border-radius: 20px;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
     width: 100%;
     height: 100%;
     padding: 1rem;
