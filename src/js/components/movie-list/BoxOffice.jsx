@@ -62,7 +62,7 @@ const BoxOffice = () => {
             <div className="boxoffice">
             <h3 className="boxoffice__title">TOP 10 BOX OFFICE</h3>
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/889737')}><span className="boxoffice__rank1">8</span>Joker: Folie  à Deux</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/889737')}><span className="boxoffice__rank1">1</span>Joker: Folie  à Deux</h4>
                   <div className="boxofficer">
                   <p className="boxoffice__rt">RT:33%</p>
                 <p className="boxoffice__rating">R</p>
@@ -70,7 +70,7 @@ const BoxOffice = () => {
                   </div>
             </div>
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1184918')}><span className="boxoffice__rank1">1</span>The Wild Robot</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1184918')}><span className="boxoffice__rank1">2</span>The Wild Robot</h4>
                  <div className="boxofficer">
                  <p className="boxoffice__rt">RT:97%</p>
                 <p className="boxoffice__rating">PG</p>
@@ -80,14 +80,14 @@ const BoxOffice = () => {
             </div>
             <div className="boxoffice__list">
             
-            <h4 className="boxoffice__movie" onClick={() => navigate('/movie/917496')}><span className="boxoffice__rank1">2</span>Beetleiuice BeetleJuice</h4>
+            <h4 className="boxoffice__movie" onClick={() => navigate('/movie/917496')}><span className="boxoffice__rank1">3</span>Beetleiuice BeetleJuice</h4>
              <div className="boxofficer">
                 <p className="boxoffice__rt">77%</p>
                 <p className="boxoffice__rating">PG13</p>
             </div>
         </div>
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/698687')}><span className="boxoffice__rank1">3</span>Transfomers One</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/698687')}><span className="boxoffice__rank1">4</span>Transfomers One</h4>
                 
                 <div className="boxofficer">
                 <p className="boxoffice__rt"> RT:89%</p>
@@ -97,7 +97,7 @@ const BoxOffice = () => {
             </div>
            
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1114513')}><span className="boxoffice__rank">4</span> Speak No Evil</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1114513')}><span className="boxoffice__rank">5</span> Speak No Evil</h4>
                 
                 <div className="boxofficer">
                 <p className="boxoffice__rt">83%</p>
@@ -115,7 +115,7 @@ const BoxOffice = () => {
                   </div>
             </div>
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/779816')}><span className="boxoffice__rank">9</span>White Bird</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/779816')}><span className="boxoffice__rank">7</span>White Bird</h4>
                  <div className="boxofficer">
                  <p className="boxoffice__rt">RT:72%</p>
                 <p className="boxoffice__rating">-</p>
@@ -123,7 +123,7 @@ const BoxOffice = () => {
                  </div>
             </div>
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/533535')}> <span className="boxoffice__rank">7</span>Deadpool & Wolverine</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/533535')}> <span className="boxoffice__rank">8</span>Deadpool & Wolverine</h4>
                  <div className="boxofficer">
                  <p className="boxoffice__rt">78%</p>
                  <p className="boxoffice__rating">R</p>
@@ -134,7 +134,7 @@ const BoxOffice = () => {
            
             
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/933260')}><span className="boxoffice__rank">X</span>The Substance</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/933260')}><span className="boxoffice__rank">9</span>The Substance</h4>
                  <div className="boxofficer">
                  <p className="boxoffice__rt">RT:91%</p>
                  <p className="boxoffice__rating">PG</p>
@@ -142,7 +142,7 @@ const BoxOffice = () => {
                  </div>
             </div>
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/592831')}><span className="boxoffice__rank">5</span>Megalopolis</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/592831')}><span className="boxoffice__rank">10</span>Megalopolis</h4>
                   <div className="boxofficer">
                   <p className="boxoffice__rt">RT:47%</p>
                 <p className="boxoffice__rating">R</p>
@@ -228,4 +228,4 @@ const BoxOffice = () => {
     )
 }
 
-export default BoxOffice
+export default BoxOffice;
