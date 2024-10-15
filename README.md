@@ -1,8 +1,6 @@
-# React + Vite
+Version 2.1.0
+ZillaXR - Movies 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple movie website that enables you to watch movies for free, It has ads caused by video embedding from another site, initially it was supposed to scrape known sources but due to cors problems it failed 
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Soon maybe it will 
