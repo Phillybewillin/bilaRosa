@@ -74,6 +74,32 @@ const Spotlight = () => {
             grabCursor = {true}
             autoplay={{ delay: 7000 }}
           > 
+            <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">PG</h1>
+                <img src={'https://image.tmdb.org/t/p/w1280/v9acaWVVFdZT5yAU7J2QjwfhXyD.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(12, 237, 204, 0.3))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                <h4 className="spon">#Spotlight .1</h4>
+                
+                  <h2 className="spotlight-name">WILD ROBOT</h2>
+                  
+                  <p className="spotlight-genres">
+                       <span className="genre a">Animation & Family </span>
+                          <span className="genre a">Science Fiction</span>
+
+                  </p>    
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Animation</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  <p className="spotlight-overview"> After a shipwreck, an intelligent robot called Roz is stranded on an uninhabited island. To survive the harsh ....</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/movie/1184918')}><i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 1184918, "WILD ROBOT")}>  <i className='bx bx-play'></i> Watch Now </Button>
+                  </div>
+                    </div>
+              </div>
+            </SwiperSlide>
           <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">R</h1>
@@ -103,7 +129,7 @@ const Spotlight = () => {
            <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">R</h1>
-              <img src={'https://image.tmdb.org/t/p/w1280/b0itXhS69X33BvLi7uWjUZQs9MB.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 2rem rgba(54, 122, 181, 0.4)'}}/>
+              <img src={'https://image.tmdb.org/t/p/w1280/32DyfprhjiqVmJbdtLRaVo5gzyr.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 2rem rgba(54, 122, 181, 0.4)'}}/>
               <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .2</h4>
@@ -418,32 +444,7 @@ const Spotlight = () => {
             
            
            
-            <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/hJPkcUc4ON7RchgDIkO0k6K10Zu.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(12, 237, 204, 0.3))'}}/>
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                <h4 className="spon">#Spotlight .12</h4>
-                
-                  <h2 className="spotlight-name">Shōgun</h2>
-                  
-                  <p className="spotlight-genres">
-                       <span className="genre a">War & Politics</span>
-                          <span className="genre a">Drama</span>
-
-                  </p>    
-                  <div className="spotty">
-                  <h6 className="genre b">HD</h6><h6 className="genre a">Show</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  <p className="spotlight-overview"> In Japan in the year 1600, at the dawn of a century-defining civil war, Lord Yoshii Toranaga is fighting for his life as...</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('tv/126308')}>  <i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(126308, "Shogun" ,1 ,1)}>  <i className='bx bx-play'></i> Watch Now</Button>
-                  </div>
-                   </div>
-              </div>
-            </SwiperSlide>
+          
             
            
             <div className="alignerbutts">
