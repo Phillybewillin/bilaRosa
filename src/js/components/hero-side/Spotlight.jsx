@@ -106,7 +106,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/w1280/9SSEUrSqhljBMzRe4aBTh17rUaC.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(255, 0, 0, 0.3)'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .1</h4>
+                  <h4 className="spon">#Spotlight .2</h4>
                 
                   <h2 className="spotlight-name">ALIEN ROMULUS</h2>
                   
@@ -132,7 +132,7 @@ const Spotlight = () => {
               <img src={'https://image.tmdb.org/t/p/w1280/32DyfprhjiqVmJbdtLRaVo5gzyr.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 2rem rgba(54, 122, 181, 0.4)'}}/>
               <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .2</h4>
+                  <h4 className="spon">#Spotlight .3</h4>
               
 
                   <h2 className="spotlight-name">THE SUBSTANCE</h2>
@@ -161,7 +161,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/w1280/vbAIe8DgAfrhkfwK8uiujXQEIoZ.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(108, 75, 46, 0.4))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .3</h4>
+                  <h4 className="spon">#Spotlight .4</h4>
                
                   <h2 className="spotlight-name">CADDO LAKE</h2>
                  
@@ -189,7 +189,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/w1280/xi1VSt3DtkevUmzCx2mNlCoDe74.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(7, 41, 75, 0.5))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .3</h4>
+                  <h4 className="spon">#Spotlight .5</h4>
                 
                   <h2 className="spotlight-name">BEETLEJUICE BEETLEJUICE</h2>
                   
@@ -215,7 +215,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/original/gFsheBr0csPaUja8aGrv4gTpyRI.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(137, 48, 50, 0.4))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .3</h4>
+                  <h4 className="spon">#Spotlight .6</h4>
                 
                   <h2 className="spotlight-name">DEADPOOL & WOLVERINE</h2>
                   
@@ -241,7 +241,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/original/iKfYhpMqcpJgXqciWZOIZRRJDF6.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(255, 255, 255, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .4</h4>
+                  <h4 className="spon">#Spotlight .7</h4>
                  
                   <h2 className="spotlight-name">UZUMAKI</h2>
                 
@@ -271,7 +271,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/w1280/4TdmuuwiIiKw3JOjIuhdgYxRXnN.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem  rgba(144, 101, 63, 0.4))'}} />
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .4</h4>
+                  <h4 className="spon">#Spotlight .8</h4>
                   
                   <h2 className="spotlight-name">THE PENGUIN</h2>
                   
@@ -300,7 +300,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/w1280/l9Qwe6v1NzgOweld95NdegQ5jsO.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(28, 73, 89, 0.5))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .5</h4>
+                  <h4 className="spon">#Spotlight .9</h4>
                  
                   <h2 className="spotlight-name">FROM</h2>
                 
@@ -329,7 +329,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/original/3flYugGbVGB1gxdG9KBJyMqiPcm.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 2rem rgba(93, 53, 18, 0.6))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                <h4 className="spon">#Spotlight .6</h4>
+                <h4 className="spon">#Spotlight .10</h4>
                 
                   <h2 className="spotlight-name">OUTERBANKS</h2>
                   
@@ -357,7 +357,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/w1280/8IMDPLdpEDTqKZZti2MIYTwBP7d.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(155, 112, 92, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .7</h4>
+                  <h4 className="spon">#Spotlight .11</h4>
                  
                   <h2 className="spotlight-name">THE LORD OF THE RINGS: THE RINGS OF POWER</h2>
                 
@@ -391,7 +391,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/w1280/xg27NrXi7VXCGUr7MG75UqLl6Vg.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 2rem rgba(128, 0, 128, 0.5))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon"> #Spotlight .9</h4>
+                  <h4 className="spon"> #Spotlight .12</h4>
             
                   <h2 className="spotlight-name">INSIDE OUT 2</h2>
               
@@ -421,7 +421,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/original/eLlglZsphAtqknkMsS39gswYaRn.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(143, 143, 143, 0.4))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .10</h4>
+                  <h4 className="spon">#Spotlight .13</h4>
                 
                   <h2 className="spotlight-name">TWISTERS</h2>
                   
