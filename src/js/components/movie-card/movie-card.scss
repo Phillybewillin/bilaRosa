@@ -127,7 +127,7 @@
 
     @include mobile {
         font-size: 8px;
-        padding: .2rem .5rem;
+        padding:  .5rem;
         font-weight: 300;
     }
     .title{
@@ -169,6 +169,10 @@
   font-weight: 600;
   padding: 8px;
   border-radius: 5px;
+
+  @include mobile {
+    right: 3rem;
+  }
 
 }
 
