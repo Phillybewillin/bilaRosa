@@ -128,7 +128,8 @@ margin-bottom: 1rem;
     }
 }
 .spotlight-name{
-    font-size: larger;
+    font-size: 2,5rem;
+    padding-top: 10px;
     padding-left: 1rem;
     //background-color: rgba(0, 0, 0, 0.139);
     border-radius: 10px;
@@ -163,14 +164,15 @@ margin-bottom: 1rem;
     flex-direction: column;
     position: absolute;
     bottom: 0px;
-    left: -.1px;
+    //left: -.1px;
+    padding-bottom: .8rem;
     //padding-top:calc(100vh - 25rem);
     margin-bottom: -.5rem;
     //gap: .1rem;
     width: 100%;
     border-radius: 20px;
-    backdrop-filter: blur(20px);
-    background-image: linear-gradient(230deg, transparent, rgba(0, 0, 0, 0.779));
+    //backdrop-filter: blur(100px);
+    background-image: linear-gradient(220deg, transparent, rgb(0, 0, 0));
     font-size: smaller;
     font-weight: 300;
     //opacity: 0.7;
@@ -240,14 +242,31 @@ margin-bottom: 1rem;
   color: rgb(238, 49, 49);
 }
 .spon {
-  width: max-content;
   margin:  .2rem .5rem ;
- // background-color: rgba(0, 0, 0, 0.559);
-  
+  position : absolute;
+  bottom: 0;
+  right: 2px;
+ background-color: rgba(0, 0, 0, 0.559);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: .1rem .5rem;
   border-radius: 5px;
   font-size: .7rem;
   font-weight: 600;
+  color: rgba(251, 206, 122, 0.865);
+  @include mobile {
+    position: relative;
+    width: max-content;
+    margin:  .2rem .5rem ;
+   background-color: rgba(0, 0, 0, 0.559);
+    
+    padding: .1rem .5rem;
+    border-radius: 5px;
+    font-size: .7rem;
+    font-weight: 600;
+  }
+ 
   color: rgba(251, 206, 122, 0.865);
 }
 .spotlight-genres{
