@@ -60,20 +60,20 @@
   left: 9rem;
 
 @include mobile {
-  display: none;
-  position: absolute;
-  top: 5px;
+  //display: none;
+  //position: absolute;
+  //top: 5px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
   padding: .5rem;
-  //background-color: rgb(23, 23, 23);
+  background-color: rgb(153, 43, 43);
   font-size: small;
    border-radius: 10px;
    font-weight: 200;
     color: rgba(233, 233, 233, 0.644);
-   position: relative;
-    width: 120px;
-   left: 2rem;
+   //position: relative;
+    
+   //left: 2rem;
 }
 }
 
@@ -120,21 +120,22 @@
   flex-direction: row-reverse;
   justify-content: flex-start;
   align-items: center;
-  padding: .5rem;
-  gap: .5rem;
+  padding: .3rem;
+  gap: 1rem;
 }
 .continuewatching{
    cursor: pointer;
    position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    width: 100px;
     align-items: center;
     flex-direction: row;
     transition: all 0.5s ease-in-out;
     overflow: auto;
-    background-color: #2a2a2a63;
+    background-color: #14141463;
    
-    border-radius: 10px;
+    border-radius: 2px;
     
     img{
       width: 70px;
@@ -143,14 +144,29 @@
     }
 }
 .movietitle{
-  font-size: small;
+  
+  font-size: x-small;
   font-weight: 200;
-  color: rgba(233, 233, 233, 0.842);
-  text-align: center;
-  width: 150px;
+  color: rgba(151, 151, 151, 0.842);
+  text-align: start;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 1;
+  box-orient: vertical;
+  @include mobile {
+    font-size: xx-small;
+  }
+  //height: 70px;
+  transform: rotate(90deg);
 }
+
 .continuewatching:hover{
-   opacity: .6;
+  color: white;
+   opacity: .7;
   //border: 1.5px solid $main-bg;
   transform: scale(1);
   transition: all 0.2s ease-in-out;
@@ -160,10 +176,10 @@
  
   padding: 5px 10px;
   margin-top: .7rem;
-  background-color: rgba(17, 17, 17, 0.763);
+  background-color: rgb(13, 13, 13);
   border-radius: 5px;
   font-weight: 200;
-  color: rgba(250, 227, 163, 0.571);
+  color: rgba(255, 133, 133, 0.571);
   text-align: end;
 
   @include mobile {
