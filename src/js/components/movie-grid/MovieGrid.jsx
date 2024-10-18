@@ -313,7 +313,8 @@ useEffect(() => {
                   <div className="section_search">
                   {props.category === category.movie && (
         <div className='label'>
-          <h3 className="mb2x">MOVIES:</h3>
+          <div className="mb2x" >MOVIES <i className="bx bx-movie"></i></div>
+          
           <div className='select-container'>
           {Object.entries(movieType).map(([value, label]) => (
               <div
@@ -332,7 +333,7 @@ useEffect(() => {
       )}
       {props.category === category.tv && (
         <div className='label'>
-          <h3 className="mb2x">TV SHOWS:</h3>
+          <div className="mb2x">TV SHOWS <i className="bx bx-tv"></i> </div>
           <div className='select-container'>
             {Object.entries(tvType).map(([value, label]) => (
               <div
@@ -346,11 +347,9 @@ useEffect(() => {
           </div>
         </div>
       )} 
-        <Button className="btn" onClick={handleFilter}>Filters</Button>
-               
                 </div>
                </div>
-                
+                <div className="tity">Quick filters <i className='bx bxs-hand-down'></i></div>
                 <div className="tags">
   {tags.map((genre) => (
     <div  className={`tagOutline ${selectedGenre.includes(genre.id) ? 'selected' : ''}`} key={genre.id}
@@ -372,7 +371,7 @@ useEffect(() => {
      
       
                   <div className="movie-grid" loading="lazy">
-                  <React.Suspense fallback={<div id="spinner"></div>}>
+                  <React.Suspense fallback={null}>
                   {
                     items.map((item, i) => <MovieCard category={props.category} item={item} key={i}/>)
                   }
