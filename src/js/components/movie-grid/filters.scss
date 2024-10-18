@@ -79,7 +79,7 @@
     justify-content: space-between;
     padding: .5rem;
    @include mobile {
-     columns: 2;
+     columns: 1;
    }
 }
 .cbut{
@@ -104,6 +104,9 @@
     &:hover{
         color: grey;
 }
+@include mobile{
+    font-size: x-small;
+}
 
 }
 
@@ -115,6 +118,9 @@
     border-radius: 5px;
     
     font-size: small;
+    @include mobile{
+        font-size: x-small;
+    }
 }
 
 .movie-gridk{
@@ -206,6 +212,6 @@ input[type="checkbox"] {
 }
 input[type="radio"] {
     accent-color: $main-bg;
-    //width: 20px;
+    width: 20px;
 
 }
