@@ -110,7 +110,7 @@ const Filters = () => {
         setDraftSelectedGenre([]);
         setDraftSelectedCountry("");
         setDraftSelectedYear("");
-        setItems([]); // Optionally clear items if needed
+        setItems([]);
         setCurrentPage(1);
     };
     
@@ -133,7 +133,12 @@ const Filters = () => {
     }, []);
     const toggleCategory = (newCategory) => {
         setCategory(newCategory);
-        setCurrentPage(1); // Reset page number when category changes
+        setCurrentPage(1); 
+        setDraftSelectedGenre([]);
+        setDraftSelectedCountry("");
+        setDraftSelectedYear("");
+        setItems([]);
+        // Reset page number when category changes
     };
     const toggleFilters = () => {
         setIsMinimized(!isMinimized);
@@ -143,41 +148,23 @@ const Filters = () => {
         <>
         <div className="filters">
         <div className="toggle-filters">
-                <Button className="small" onClick={toggleFilters}>
+                <Button className="btn" onClick={toggleFilters}>
                     {isMinimized ? "Show Filters" : "Hide Filters"}
                 </Button>
             </div>
             {!isMinimized && (
                 <> 
-            <div className="category-toggle">
-                <div className="genrezz">
-                    <input
-                        type="radio"
-                        id="movie"
-                        name="category"
-                        value="movie"
-                        checked={category === 'movie'}
-                        onChange={() => toggleCategory('movie')}
-                    />
-                    <label htmlFor="movie">Movies</label>
-                    <input
-                        type="radio"
-                        id="tv"
-                        name="category"
-                        value="tv"
-                        checked={category === 'tv'}
-                        onChange={() => toggleCategory('tv')}
-                    />
-                    <label htmlFor="tv">TV Shows</label>
+                <div className="bigmovie">
+                    <div className={`lefter ${ category === 'movie' ? 'select' : ''}`} onClick={() => toggleCategory('movie')}><h3>MOVIES</h3><i className="bx bx-movie" ></i></div>
+                    <div className={`righter ${category === 'tv' ? 'select' : ''}`} onClick={() => toggleCategory('tv')}><h3>TV SHOWS</h3><i className="bx bx-tv" ></i></div>
                 </div>
-            </div>
            
             <form onSubmit={handleFormSubmit}>
-                <h3>Genres:</h3>
+                <h3 className= "formtitle">GENRES</h3>
             <div className="gen">
                 {genres.map((genre) => (
                     <label className={`checkbox-label ${draftSelectedGenre.includes(genre.id) ? 'checked' : ''}`} key={genre.id}>
-                        <div className="genrezz">
+                        <div className="genrezzx">
                         <input
                                         type="checkbox"
                                         value={genre.id}
@@ -201,7 +188,7 @@ const Filters = () => {
             </div>
 
                 <br />
-                   <h3>Country:</h3>
+                   <h3 className= "formtitle">COUNTRIES</h3>
                     <div className="gen">
                         {countries && countries.map((country) => (
                             <label
@@ -227,7 +214,7 @@ const Filters = () => {
                 <br />
                 <div className="gensz">
                     
-                        <h3>Select Year:</h3>
+                        <h3 className= "formtitle">YEAR</h3>
                         <div className="gen">
                             {years.map((year) => (
                                 <label className={`radio-label ${selectedYear ? 'checked' : ''}`}
@@ -257,10 +244,14 @@ const Filters = () => {
                  </form>
                  </>
             )}
+              {
+                     items && items.length > 0 && (category==='movie' ? <div className="righters"> <h3>MOVIES</h3><i className="bx bx-movie" ></i></div> : <div className="righters"> <h3>TV SHOWS</h3><i className="bx bx-tv" ></i></div>) 
+            }
             <div className="movie-gridk">
             {items && items.length === 0 ? (
-                    <p>Nothing to see here</p>
+                    <p className= "formtitle"> Try Selecting some filters </p>
                 ) : (
+                   
                     items && items.filter(item => item.poster_path).map((item) => (
                         <MovieCard
                           key={item.id}
@@ -273,7 +264,7 @@ const Filters = () => {
             </div>
            <div className="lod">
                 {items && items.length > 0 && (
-                    <Button className="btn" onClick={handleLoadMore}>Next Page</Button>
+                    <Button className="btn" onClick={handleLoadMore}>Next </Button>
                 )}
            </div>
         </div>
