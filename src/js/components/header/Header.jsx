@@ -26,8 +26,13 @@ const Header = React.memo(() => {
     const [hidesearch , sethide] =  React.useState(false);
     const headerNav = [
       {
-          display:<span className="iconbox"><i className='bx bxs-home'></i> <h5 className='iconv'>Home</h5></span>,
+          display:<span className="iconbox"><i className='bx bx-home-alt'></i> <h5 className='iconv'>Home</h5></span>,
           path: '/'
+      }
+      ,
+      {
+          display: <span className="iconbox"><i className='bx bxs-invader'></i><h5 className='iconv'>Filters</h5></span>,
+          path: '/filter'
       },
       {
           display: <span className="iconbox"><i className="bx bx-movie"></i> <h5 className='iconv'>Movies</h5></span>,
@@ -36,10 +41,6 @@ const Header = React.memo(() => {
       {
           display: <span className="iconbox"><i className="bx bx-tv"></i> <h5 className='iconv'>Shows</h5></span>,
           path: '/z/tv'
-      },
-      {
-          display: <span className="iconbox"><i className='bx bxs-mask'></i><h5 className='iconv'>Filters</h5></span>,
-          path: '/filter'
       },
   
       {
@@ -127,7 +128,7 @@ const Header = React.memo(() => {
     <div className="searchmovie">
       <Input
         type="text"
-        placeholder="What do you wanna watch...."
+        placeholder=" Weed + The substance 😂" 
         value={searchValue}
         onChange={handleInputChange}
       />
