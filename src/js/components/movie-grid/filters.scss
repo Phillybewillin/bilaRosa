@@ -1,45 +1,120 @@
 @use '../../scss/' as *;
 
 .filters {
-    margin-top: 6rem;
+    margin-top: 3rem;
     min-height: fit-content;
     height: 100%;
-    padding: 1rem;
+    padding: .5rem;
     //background-color: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     position: relative;
     gap: 1rem;
 }
-.gen{
+.formtitle{
+    padding: .3rem;
+    background-color: #101010;
+    color: rgb(255, 255, 255);
+    font-size: smaller;
+    text-align: center;
+    border-radius: 5px;
+}
+.bigmovie{
     display: flex;
-    flex-wrap: wrap;
-    gap: .5rem;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    padding: .5rem;
+    justify-content: space-around;
+}
+.lefter{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+    background-color: blueviolet;
+    width: 100%;
+    margin: .5rem;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.righter{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+    background-color: blueviolet;
+    width: 100%;
+    margin: .5rem;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.righters{
+    position: sticky;
+    top: 0rem;
+    z-index: 99;
+    display: flex;
 
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    font-size: 1rem;
+    font-weight: 100;
+    backdrop-filter: blur(20px);
+    //background-color: rgb(14, 14, 14);
+    color: rgb(255, 255, 255);
+    width: 100%;
+    margin: .5rem 0;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.select{
+    background-color: #ff00c8;
+}
+.gen{
+    columns: 3;
+    break-inside: avoid-column;
+    gap: .5rem;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: .5rem;
+   @include mobile {
+     columns: 2;
+   }
 }
 .cbut{
     display: flex;
     margin-bottom: 1rem;
     gap: .5rem;
 }
+
 .genrezz{
-    background-color: rgb(39, 39, 39);
+    cursor: pointer;
+    background-color: rgb(13, 13, 13);
     border: 1px solid $black;
     padding: 5px 10px;
     border-radius: 5px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    font-size: smaller;
+    justify-content: space-between;
+    font-size: small;
     gap: .5rem;
-    transition: all 0.7s ease-in-out;
+    transition: all 0.2s ease-in-out;
     &:hover{
-        
-    gap: .5rem; 
+        color: grey;
 }
+
+}
+
+.genrezzx{
+    cursor: pointer;
+    background-color: rgb(14, 14, 14);
+    border: 1px solid $black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    
+    font-size: small;
 }
 
 .movie-gridk{
@@ -72,13 +147,13 @@
 
 .checkbox-custom {
     display: inline-block;
-    width: 20px; /* Adjust size as needed */
-    height: 20px; /* Adjust size as needed */
-    border: 2px solid #fff; /* Red border */
+    width: 30px; /* Adjust size as needed */
+    height: 10px; /* Adjust size as needed */
+    //border: 1px solid #d900ff; /* Red border */
     background-color: #202020; /* Grey background */
     position: relative;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 10px;
     margin-right: 10px; /* Space between checkbox and text */
 }
 
@@ -108,25 +183,29 @@ input[type="checkbox"] {
 }
 
 .checkbox-label:hover .checkbox-custom {
-    background-color: #aaa; /* Grey background on hover */
+    background-color: #7f7f7f; /* Grey background on hover */
 }
 
 .checkbox-label:hover .checkbox-text {
-    color: $main-bg; /* Red text color on hover */
+    color: grey; /* Red text color on hover */
 }
 
 .checkbox-label.checked .checkbox-custom {
     background-color: $main-bg; /* Red background when checked */
-    border-color: $main-bg; /* Red border when checked */
+    border-color: rgba(255, 255, 255, 0.587); /* Red border when checked */
 }
 
 .checkbox-label.checked .checkbox-text {
-    color: grey;
+    color: rgb(192, 192, 192);
     border-bottom: 2px solid $main-bg;
-    text-decoration: underline;
+   // text-decoration: underline;
      /* Red text color when checked */
 }
-
+.radio-text:hover{
+   color: #7f7f7f;
+}
 input[type="radio"] {
     accent-color: $main-bg;
+    //width: 20px;
+
 }
