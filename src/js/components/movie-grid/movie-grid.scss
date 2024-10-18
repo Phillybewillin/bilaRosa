@@ -15,7 +15,7 @@
     }
 
     @include mobile {
-        grid-template-columns: repeat(auto-fill, minmax(min(150px, 100%), 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
     
     }
     
@@ -27,10 +27,10 @@
 }
 .section_header {
     position: relative;
-    display: flex;
+    //display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 5px;
+    margin-top: 1rem;
     padding-top: 2rem;
     width: 100%;
     //margin-bottom: 1rem;
@@ -39,18 +39,7 @@
 }
 
 
-.section_search {
-   display: flex;
- width: 100%;
-  //flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-   // position: relative;
 
-   padding: 10px;
-  
-    
-}
 .label{
     display: flex;
     text-align: center;
@@ -70,36 +59,37 @@
 }
 .mb2x{
    font-size: 25px;
-    align-items: center;
-    background-color: rgb(23, 23, 23);
-    color: rgba(255, 255, 255, 0.831);
-    font-weight: 500;
-    padding: 8px 10px;
-    border-radius: 5px;
+   align-items: center;
 
+    background-color: rgb(12, 12, 12);
+    color: rgb(255, 255, 255);
+    font-weight: 300;
+    padding: 1.5rem;
+    border-radius: 15px;
+    width: 100%;
     @include tablet{
         font-size: 23px;
     }
 }
 .select-container{
-    display: flex;
-    margin-top: 1rem;
-    gap: 10px;
+    columns: 2;
+    margin-top: .4rem;
+    gap: 3px;
     padding: 5px;
     @include mobile {
-        flex-wrap: wrap;
-        justify-content: center;
+        columns: 4;
         
     }
 }
 .select-option{
-    background-color: rgb(255, 255, 255);
-    color: rgb(15, 15, 15);
+    background-color: rgb(15, 15, 15);
+    color: rgb(255, 255, 255);
     padding: .5rem 1rem;
+    margin-bottom: .5em;
     //margin-bottom: 1rem;
-    border-radius: 5px;
+    border-radius: 7px;
     font-size: 11px;
-    font-weight: 450;
+    font-weight: 300;
 
     cursor: pointer;
 
@@ -109,9 +99,26 @@
     color: rgb(26, 26, 26);
 }
 .selected{
-    background-color: rgb(32, 32, 32);
+    background-color: rgb(48, 47, 47);
     color: rgb(255, 255, 255);
 }
 .scrolltotop:hover{
     opacity: 1 !important;
+}
+.tity{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #101010;
+    padding: .5rem;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    width: 20%;
+    font-size: .7rem;
+    margin-bottom: .4rem;
+
+    @include mobile{
+        display: none;
+    }
 }
