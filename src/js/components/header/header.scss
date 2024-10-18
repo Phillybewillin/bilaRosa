@@ -5,24 +5,24 @@ i {
     font-size: 1.3rem;
 }
 .logo {
+    z-index: 99;
   cursor: pointer;
-  background-color: rgba(24, 24, 24, 0.648);
-    border-radius: 20px;
+  background-color: rgba(102, 95, 95, 0.274);
+    border-radius: 10px;
     margin-left: 10px;
     font-size: 1.3rem;
     font-weight: 500;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
     border-right: 1px solid transparent;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    border-image: linear-gradient(to bottom, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
-  
+    
 
     @include flex(center, flex-start);
 
     img {
         //margin-right: 20px;
-        width: 40px;
+        width: 35px;
 
         @include mobile {
           //position: absolute;
@@ -112,7 +112,7 @@ i {
     &.shrink {
         height: $header-shrink-height;
         background-color: rgba(0, 0, 0, 0.45);
-        backdrop-filter: blur(10px);
+        //backdrop-filter: blur(10px);
         //border-bottom: 2px ridge black;
 
         @include mobile {
@@ -214,7 +214,7 @@ i {
 
 .iconbox{
    color: rgb(255, 255, 255);
-   background-color: $body-bg;
+   background-color: black;
    padding: 8px 10px;
     border-radius: 7px;
     display: flex;
@@ -297,7 +297,7 @@ i {
     margin-right: 2px;
    
     @include tablet {
-        margin-top: calc(100vh - 50rem);
+        margin-top: calc(100vh - 5rem);
         width: 75vw;
        
         
@@ -312,23 +312,23 @@ i {
 
 .searchmovie{
   //position: relative;
-  margin-left: -100px;
+  margin-left: -200px;
    display: flex;
    //justify-content: flex-start;
    padding: 0 0.3rem;
    position: relative;
    align-items: center;
-   width: 600px;
+   width: 500px;
    input {
-       background-color: rgba(20, 20, 20, 0.605);
+       background-color: rgba(102, 95, 95, 0.274);
       
        margin-top: 1rem;
-       border-radius: 30px;
+       border-radius: 10px;
       
-       backdrop-filter: blur(10px);
+       backdrop-filter: blur(20px);
       
-      color: white;
-      padding: .8rem 1.5rem;
+      color: rgb(255, 255, 255);
+      padding: .7rem 1.5rem;
       margin-bottom: 1rem;
       border-left: 1px solid transparent;
       border-top-left-radius: 0;
@@ -354,7 +354,7 @@ i {
    }
    @include tablet {
     
-     margin-left: 0;
+     //margin-left: -;
       width: 310px; 
      
    }
