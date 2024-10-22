@@ -96,10 +96,10 @@ const BoxOffice = () => {
             </div>
         </div>
         <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/779816')}><span className="boxoffice__rank">5</span>We Live in Time</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1100099')}><span className="boxoffice__rank">5</span>We Live in Time</h4>
                  <div className="boxofficer">
-                 <p className="boxoffice__rt">RT:80%</p>
-                <p className="boxoffice__rating">-</p>
+                 <p className="boxoffice__rt">RT:83%</p>
+                <p className="boxoffice__rating">R</p>
                
                  </div>
         </div>
