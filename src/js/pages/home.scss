@@ -20,11 +20,11 @@
     display: flex;
     justify-content: flex-start;
     padding: .5rem;
-    background-color: rgba(30, 30, 30, 0.829);
+    background-color: rgb(14, 14, 14);
     font-size: small;
-    border-radius: 10px;
+    border-radius: 5px;
     font-weight: 200;
-    color: rgba(233, 233, 233, 0.842);
+    color: rgba(233, 233, 233);
     top: 34.4rem;
     left: 1rem;
 
@@ -123,19 +123,26 @@
   padding: .3rem;
   gap: 1rem;
 }
+.movieimage{
+  cursor: pointer;
+  border-radius: 10px;
+  margin-left: .4rem;
+}
 .continuewatching{
    cursor: pointer;
    position: relative;
     display: flex;
     justify-content: flex-start;
-    width: 100px;
+    width: 130px;
+    height: 130px;
+   
     align-items: center;
     flex-direction: row;
     transition: all 0.5s ease-in-out;
     overflow: auto;
     background-color: #14141463;
    
-    border-radius: 2px;
+    border-radius: 12px;
     
     img{
       width: 70px;
@@ -148,12 +155,12 @@
   font-size: x-small;
   font-weight: 200;
   color: rgba(151, 151, 151, 0.842);
-  text-align: start;
-  width: 100%;
+  //text-align: start;
+  //max-width: 110%;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   line-clamp: 1;
   box-orient: vertical;
@@ -166,7 +173,7 @@
 
 .continuewatching:hover{
   color: white;
-   opacity: .7;
+  background-color: rgba(39, 39, 39, 0.575);
   //border: 1.5px solid $main-bg;
   transform: scale(1);
   transition: all 0.2s ease-in-out;
