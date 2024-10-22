@@ -43,13 +43,13 @@
 
     @include tablet {
         flex-direction: column;
-        margin-top: 30rem;
+        margin-top: 50rem;
     }
  
 
   @include mobile {
      flex-direction: column;
-      margin-top: 60rem;
+      margin-top: 80rem;
   }
 
 }
@@ -248,7 +248,7 @@
               text-align: center;
               color: rgba(255, 255, 255, 0.829);
               //backdrop-filter: blur(10px);
-              background-color: rgba(92, 92, 92, 0.29);
+              background-color: rgba(12, 12, 12, 0.413);
               border-radius: 7px;
               //height: 35px;
               padding:  5px 10px;
@@ -263,7 +263,7 @@
               text-align: start;
               color: rgba(255, 255, 255, 0.642);
               //backdrop-filter: blur(10px);
-              background-color: rgba(56, 56, 56, 0.413);
+              background-color: rgba(12, 12, 12, 0.413);
               border-radius: 7px;
               padding: 5px 10px;
               font-weight: 300;
@@ -510,19 +510,20 @@
 }
 .wrappwez{
   position: relative;
+  height: 100%;
   //background-color: #080808c3;
-  padding: 10px;
+  padding: 5px;
   margin:  5px;
   columns: 5;
     
     
     @include tablet {
-     columns: 3;
+     columns: 4;
     
   }
 
   @include mobile {
-    columns: 2;
+    columns: 1;
   
   }
   
