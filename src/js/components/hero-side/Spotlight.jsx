@@ -426,7 +426,7 @@ const Spotlight = () => {
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .11</h4>
                  
-                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/iVv0zphX2s5aGZQ3K6aCPIZFIfz.png"/></h2>
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/lRurLSVUlUBjIBUkZOjvkBTdkKL.png"/></h2>
                 
                
                 
@@ -467,7 +467,7 @@ const Spotlight = () => {
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .13</h4>
                 
-                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/eWUohy0Wn7X5AXSwKI8KOdb3gbi.png"/></h2>
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/qK5r6MtCkQI1FqXvAGg82z6sXsL.svg"/></h2>
                 
                   
                   <p className="spotlight-genres">
