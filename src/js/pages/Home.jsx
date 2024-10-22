@@ -12,7 +12,7 @@ import BoxOffice from '../components/movie-list/BoxOffice';
 
 
 const Home = () => {
-  document.title = '• Home | ZillaXR';
+  document.title = 'Home - • - ZillaXR';
 
   const [tv, setTv] = useState([]);
   const [moviesData, setMoviesData] = useState([]);
@@ -142,6 +142,7 @@ const Home = () => {
           {continueWatching.map((item) => (
             <div className="continuewatching" key={item.id}>
               <img
+                className="movieimage"
                 loading='lazy'
                 src={`${apiConfig.w200Image(item.poster_path)}`}
                 onClick={() => handleCardClick(item.id, item.category, item.title || item.name, item.poster_path)}
@@ -153,13 +154,13 @@ const Home = () => {
                 onClick={() => handleDelete(item.id)}
                 className="bx bx-trash"
                 style={{
-                  color: 'grey',
+                  color: 'red',
                   fontSize: '20px',
                   cursor: 'pointer',
                   position: 'absolute',
                   top: '5px',
                   right: '3px'
-    
+                  
                 }}
               ></i>
             </div>
