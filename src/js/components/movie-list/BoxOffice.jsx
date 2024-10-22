@@ -62,12 +62,13 @@ const BoxOffice = () => {
             <div className="boxoffice">
             <h3 className="boxoffice__title">TOP 10 BOX OFFICE</h3>
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/889737')}><span className="boxoffice__rank1">1</span>Joker: Folie  à Deux</h4>
-                  <div className="boxofficer">
-                  <p className="boxoffice__rt">RT:33%</p>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1100782')}><span className="boxoffice__rank1">1</span> Smile 2</h4>
+                
+                <div className="boxofficer">
+                <p className="boxoffice__rt">85%</p>
                 <p className="boxoffice__rating">R</p>
-              
-                  </div>
+               
+                </div>
             </div>
             <div className="boxoffice__list">
                 <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1184918')}><span className="boxoffice__rank1">2</span>The Wild Robot</h4>
@@ -79,15 +80,41 @@ const BoxOffice = () => {
                 
             </div>
             <div className="boxoffice__list">
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1034541')}><span className="boxoffice__rank1">3</span>Terrifier 3</h4>
+                  <div className="boxofficer">
+                  <p className="boxoffice__rt">RT:75%</p>
+                <p className="boxoffice__rating">R</p>
+              
+                  </div>
+            </div>
+            <div className="boxoffice__list">
             
-            <h4 className="boxoffice__movie" onClick={() => navigate('/movie/917496')}><span className="boxoffice__rank1">3</span>Beetleiuice BeetleJuice</h4>
+            <h4 className="boxoffice__movie" onClick={() => navigate('/movie/917496')}><span className="boxoffice__rank1">4</span>Beetleiuice BeetleJuice</h4>
              <div className="boxofficer">
                 <p className="boxoffice__rt">77%</p>
                 <p className="boxoffice__rating">PG13</p>
             </div>
         </div>
+        <div className="boxoffice__list">
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/779816')}><span className="boxoffice__rank">5</span>We Live in Time</h4>
+                 <div className="boxofficer">
+                 <p className="boxoffice__rt">RT:80%</p>
+                <p className="boxoffice__rating">-</p>
+               
+                 </div>
+        </div>
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/698687')}><span className="boxoffice__rank1">4</span>Transfomers One</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/889737')}><span className="boxoffice__rank">6</span>Joker: Folie  à Deux</h4>
+                  <div className="boxofficer">
+                  <p className="boxoffice__rt">RT:33%</p>
+                <p className="boxoffice__rating">R</p>
+              
+                  </div>
+            </div>
+           
+            
+            <div className="boxoffice__list">
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/698687')}><span className="boxoffice__rank">7</span>Transfomers One</h4>
                 
                 <div className="boxofficer">
                 <p className="boxoffice__rt"> RT:89%</p>
@@ -96,32 +123,8 @@ const BoxOffice = () => {
                 </div>
             </div>
            
-            <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1114513')}><span className="boxoffice__rank">5</span> Speak No Evil</h4>
-                
-                <div className="boxofficer">
-                <p className="boxoffice__rt">83%</p>
-                <p className="boxoffice__rating">R</p>
-               
-                </div>
-            </div>
-            
-            <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1358407')}><span className="boxoffice__rank">6</span>Sam and Colby : The Legends of the Paranormal </h4>
-                  <div className="boxofficer">
-                  <p className="boxoffice__rt">RT:31%</p>
-                <p className="boxoffice__rating">PG13</p>
-              
-                  </div>
-            </div>
-            <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/779816')}><span className="boxoffice__rank">7</span>White Bird</h4>
-                 <div className="boxofficer">
-                 <p className="boxoffice__rt">RT:72%</p>
-                <p className="boxoffice__rating">-</p>
-               
-                 </div>
-            </div>
+           
+          
             <div className="boxoffice__list">
                 <h4 className="boxoffice__movie" onClick={() => navigate('/movie/533535')}> <span className="boxoffice__rank">8</span>Deadpool & Wolverine</h4>
                  <div className="boxofficer">
@@ -211,6 +214,7 @@ const BoxOffice = () => {
   <ul>
     {shows.slice(0, showCount).map((show) => (
       <li key={show.id} className="boxoffice__list">
+        
         <h4 className="boxoffice__movie" onClick={() => navigate(`/tv/${show.id}`)}><span className="boxoffice__rank">{show.number}</span>{show.name}</h4>
         <p className="boxofficer">{show.vote_average.toFixed(1)}</p>
       </li>
