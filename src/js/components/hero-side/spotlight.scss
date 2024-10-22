@@ -38,10 +38,11 @@
  .swiper-slide.swiper-slide-active {
   //padding-left: .5rem;
   font-size: 1.5rem;
-  transition: width .9s ease-in-out, font-size .9s ease-out;
+  transition: width .9s ease, font-size .9s ease-out;
   will-change: auto;
    width: 750px !important;
    object-fit: cover;
+
    @include mobile {
     width: 100% !important;
    }
@@ -52,7 +53,7 @@
  }
  .swiper-slide.swiper-slide-next {
   transition: width .9s ease-out;
- transition-delay: 1s; /* delay the transition by 0.5 seconds */
+ //transition-delay: 1s; /* delay the transition by 0.5 seconds */
 }
 
 }
@@ -127,6 +128,12 @@ margin-bottom: 1rem;
         font-size: 1rem;
     }
 }
+.spotim{
+  max-width: 100%;
+  height: 80px;
+  object-fit: cover;
+  padding: 5px;
+}
 .spotlight-name{
     font-size: 2,5rem;
     padding-top: 10px;
@@ -180,9 +187,13 @@ margin-bottom: 1rem;
   
     @include tablet {
       padding: 0 1rem;
+      padding-bottom: .8rem;
+      margin-bottom: -2rem;
+      border-radius: 0;
       //margin: 0 1rem;
       align-items: center;
-      backdrop-filter: none;
+      background-image: linear-gradient(180deg, transparent, rgb(0, 0, 0));
+   
       //background-color: rgba(0, 0, 0, 0.664);
       //padding-top: calc(50vh - 14rem);
       width: 100%;
