@@ -11,18 +11,25 @@ button{
     //border: 3px solid transparent;
     background-color: $white;
     color : $black;
-    border-radius: $border-radius;
+    border-radius: 5px;
     padding: .5rem 1.8rem;
     font-size: .8rem;
     font-weight: 500;
     position: relative;
     margin-top: .5rem;
+
+    @include mobile {
+        font-size: .9rem;
+        margin-bottom: 1rem;
+        padding: .7rem 1.8rem;
+        //padding: .3rem 1rem;
+    }
 }
 .btnprime{
   //border: 3px solid transparent;
-  background-color: rgba(18, 18, 18, 0.922);
+  background-color: rgb(18, 18, 18);
   color : $white;
-  border-radius: $border-radius;
+  border-radius: 5px;
   padding: .7rem 1.8rem;
   font-size: .8rem;
   font-weight: 500;
