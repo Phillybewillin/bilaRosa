@@ -2,31 +2,33 @@
 
 
 i {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
+
+    @include mobile {
+        font-size: 1.3rem;
+    }
 }
 .logo {
     z-index: 99;
   cursor: pointer;
-  background-color: rgba(102, 95, 95, 0.274);
+  background-color: rgba(0, 0, 0, 0.402);
     border-radius: 10px;
     margin-left: 10px;
     font-size: 1.3rem;
-    font-weight: 500;
-    backdrop-filter: blur(20px);
-    border-right: 1px solid transparent;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    font-weight: 300;
+    //backdrop-filter: blur(20px);
+    
     
 
     @include flex(center, flex-start);
 
     img {
         //margin-right: 20px;
-        width: 35px;
+        width: 37px;
 
         @include mobile {
           //position: absolute;
-            width: 30px;
+            width: 28px;
             margin-right: 0;
         }
     }
@@ -99,7 +101,7 @@ i {
 .header {
     @include flex(center, space-between);
     align-items: center;
-    margin-right: 7rem;
+    //margin-right: 7rem;
     //justify-content: flex-start;
     height: $header-height;
     position: fixed;
@@ -112,7 +114,7 @@ i {
     &.shrink {
         height: $header-shrink-height;
         background-color: rgba(0, 0, 0, 0.45);
-        //backdrop-filter: blur(10px);
+        backdrop-filter: blur(20px);
         //border-bottom: 2px ridge black;
 
         @include mobile {
@@ -214,7 +216,7 @@ i {
 
 .iconbox{
    color: rgb(255, 255, 255);
-   background-color: black;
+   background-color: rgba(0, 0, 0, 0.521);
    padding: 8px 10px;
     border-radius: 7px;
     display: flex;
@@ -242,7 +244,7 @@ i {
       
   }
   @include mobile {
-    
+    background-color: black;
     color: rgb(255, 255, 255);
      opacity: 1;
      scale: 1.5;
@@ -320,22 +322,23 @@ i {
    align-items: center;
    width: 500px;
    input {
-       background-color: rgba(102, 95, 95, 0.274);
+       background-color: rgba(8, 8, 8, 0.534);
       
        margin-top: 1rem;
        border-radius: 10px;
       
-       backdrop-filter: blur(20px);
+       //backdrop-filter: blur(20px);
       
       color: rgb(255, 255, 255);
       padding: .7rem 1.5rem;
       margin-bottom: 1rem;
-      border-left: 1px solid transparent;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      border-image: linear-gradient(to bottom, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
       width: 600px;
-
+      
+      &:focus {
+        outline: none;
+        border: 1px solid rgb(242, 0, 255);
+      }
+      
      
       @include mobile {
         border: none;
