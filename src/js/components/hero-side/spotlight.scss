@@ -109,38 +109,41 @@ margin-bottom: 1rem;
 .spotlight-number{
   position: absolute;
     margin-top: 1rem;
-    font-size: 1rem;
+    font-size: 1.3rem;
     right: 0px;
     padding: 1.2rem;
     border-right: 1px solid rgb(130, 130, 130);
 
-    backdrop-filter: blur(10px);
-    color: rgba(245, 222, 179, 0.566);
+   // backdrop-filter: blur(10px);
+    color: rgb(250, 250, 250);
 
-    background-color: rgba(0, 0, 0, 0.582);
+    background-color: rgba(52, 52, 52, 0);
    
     font-weight: 400;
     z-index: 10;
     @include mobile {
-        font-size: 1rem;
+        font-size: 1.5rem;
     }
     @include tablet {
-        font-size: 1rem;
+        font-size: 1.4rem;
     }
 }
 .spotim{
-  max-width: 50%;
+  max-width: 70%;
   height: 80px;
   object-fit: contain;
   padding: 5px;
-     @include mobile {
-        max-width: 100%;
-    }
+
+  @include mobile {
+    max-width: 100%;
+    
+  }
 }
 .spotlight-name{
-    font-size: 2,5rem;
-    padding-top: 10px;
-    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    padding-top: 15px;
+    padding-left: .5rem;
     //background-color: rgba(0, 0, 0, 0.139);
     border-radius: 10px;
     font-weight: 400;
@@ -260,28 +263,28 @@ margin-bottom: 1rem;
   position : absolute;
   bottom: 0;
   right: 2px;
- background-color: rgba(0, 0, 0, 0.559);
+ background-color: rgba(255, 0, 34, 0.559);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: .1rem .5rem;
-  border-radius: 5px;
-  font-size: .7rem;
+  padding: .5rem;
+  border-radius: 15px;
+  font-size: .65rem;
   font-weight: 600;
-  color: rgba(251, 206, 122, 0.865);
+  color: rgba(0, 0, 0, 0.865);
   @include mobile {
     position: relative;
     width: max-content;
     margin:  .2rem .5rem ;
-   background-color: rgba(0, 0, 0, 0.559);
+   // background-color: rgba(0, 0, 0, 0.559);
     
-    padding: .1rem .5rem;
+    padding: .3rem .5rem;
     border-radius: 5px;
     font-size: .7rem;
     font-weight: 600;
   }
  
-  color: rgba(251, 206, 122, 0.865);
+  //color: rgba(251, 206, 122, 0.865);
 }
 .spotlight-genres{
     font-size: x-small;
@@ -295,12 +298,17 @@ margin-bottom: 1rem;
     }
 }
 .spotlight-overview{
-  font-size: .65rem;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.687);
-  padding: 10px;
-  margin-left: 10px;
-  //overflow: hidden;
+  padding: 0 .5rem;
+  margin: .3rem;
+  max-width: 100%;
+  //background-color: #0000004a;
+  font-size: x-small;
+  font-weight: 200;
+  border-radius: 5px;
+  color: rgb(192, 192, 192);
+  //text-align: start;
+  //max-width: 110%;
+  overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -312,7 +320,7 @@ margin-bottom: 1rem;
        //display: none;
         width: 100%;
         margin: .3rem;
-        font-size:x-small;
+        font-size:xx-small;
     }
    
     
@@ -328,10 +336,10 @@ margin-bottom: 1rem;
   gap: 5px;
 }
 .genre {
-   margin-left: 10px;
+    margin-left: 10px;
     display: inline-block;
     padding: 5px 8px;
-    margin: 2.5px;
+    margin: 1.5px;
     border-radius: 5px;
      font-size: xx-small;
     font-weight: 300;
