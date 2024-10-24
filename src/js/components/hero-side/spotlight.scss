@@ -109,15 +109,15 @@ margin-bottom: 1rem;
 .spotlight-number{
   position: absolute;
     margin-top: 1rem;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     right: 0px;
     padding: 1.2rem;
-    border-right: 1px solid rgb(130, 130, 130);
+    //border-right: 1px solid white;
+    border-radius: 10px;
+   backdrop-filter: blur(5px);
+    color: rgba(255, 255, 255, 0.438);
 
-   // backdrop-filter: blur(10px);
-    color: rgb(250, 250, 250);
-
-    background-color: rgba(52, 52, 52, 0);
+    background-color: rgba(0, 0, 0, 0.463);
    
     font-weight: 400;
     z-index: 10;
@@ -136,7 +136,7 @@ margin-bottom: 1rem;
 
   @include mobile {
     max-width: 100%;
-    
+    height: 80px;
   }
 }
 .spotlight-name{
@@ -263,15 +263,15 @@ margin-bottom: 1rem;
   position : absolute;
   bottom: 0;
   right: 2px;
- background-color: rgba(255, 0, 34, 0.559);
+ background-color: rgba(14, 14, 14, 0.646);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: .5rem;
-  border-radius: 15px;
+  border-radius: 5px;
   font-size: .65rem;
-  font-weight: 600;
-  color: rgba(0, 0, 0, 0.865);
+  font-weight: 500;
+  color: $main-bg;
   @include mobile {
     position: relative;
     width: max-content;
