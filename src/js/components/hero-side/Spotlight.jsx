@@ -77,7 +77,66 @@ const Spotlight = () => {
           <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">R</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/63xYQj1BwRFielxsBDXvHIJyXVm.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(212, 195, 187, 0.3))'}}/>
+                <img src={'https://image.tmdb.org/t/p/w1280/aciP8Km0waTLXEYf5ybFK5CSUxl.jpg'} alt='D2' className="spotlight-image" style={{ filter: 'drop-shadow(0 0 2rem rgb(12, 115, 113, 0.4))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .1</h4>
+               
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/cy6WlTXPsAZEIfNK2laJiSETwb1.png"/></h2>
+                  
+              
+                  <p className="spotlight-genres">
+                    
+                    <span className="genre a">Drama</span>
+                    <span className="genre a">Crime</span>
+                    <span className="genre a">Thriller</span>
+
+                  </p>
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Movies</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  
+                  <p className="spotlight-overview">While struggling with his dual identity, Arthur Fleck not only stumbles upon true love, but also finds the music that's always been inside him. </p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/movie/889737')}><i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 889737, "Joker 2")}>  <i className='bx bx-play'></i> Watch Now</Button>
+                  </div>
+                 </div>
+              </div>
+            </SwiperSlide> 
+            <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">PG</h1>
+                <img src={'https://image.tmdb.org/t/p/original/w6BVxQez9yY17dchfFHHorPuCVo.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(254, 228, 7, 0.35))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .2</h4>
+               
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/xLGWvGTuVyr58XvCn3oy6kmqGxN.png"/></h2>
+                
+                
+                 
+                  <p className="spotlight-genres">
+                    
+                    <span className="genre a">Music</span>
+                    <span className="genre a">Animation</span>
+                  </p>
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Movies</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  
+                  <p className="spotlight-overview">The story of the life and career of American musician Pharrell Williams in the style of LEGO animation.</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/movie/1236419')}><i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 1236419, "Piece By Piece")}>  <i className='bx bx-play'></i> Watch Now</Button>
+                  </div>
+                 </div>
+              </div>
+            </SwiperSlide> 
+          <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">R</h1>
+                <img src={'https://image.tmdb.org/t/p/original/fD4ZNG3r6qWH4DBXw2CHonm2yHK.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(212, 195, 187, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .1</h4>
@@ -104,40 +163,11 @@ const Spotlight = () => {
                  </div>
               </div>
             </SwiperSlide>
+          
           <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">R</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/ePpljkI25tbh10WP65pMOJjuSdx.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(130, 171, 143, 0.4))'}}/>
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .2</h4>
-               
-                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/sY2QZIjjKM39KYeU5i5f6x9y2Cz.png"/></h2>
-                  
-              
-                  <p className="spotlight-genres">
-                    
-                    <span className="genre a">Drama</span>
-                    <span className="genre a">Crime</span>
-                    <span className="genre a">Thriller</span>
-
-                  </p>
-                  <div className="spotty">
-                  <h6 className="genre b">HD</h6><h6 className="genre a">Movies</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  
-                  <p className="spotlight-overview">While struggling with his dual identity, Arthur Fleck not only stumbles upon true love, but also finds the music that's always been inside him. </p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/movie/889737')}><i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 889737, "Joker 2")}>  <i className='bx bx-play'></i> Watch Now</Button>
-                  </div>
-                 </div>
-              </div>
-            </SwiperSlide> 
-          <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">R</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/iRCgqpdVE4wyLQvGYU3ZP7pAtUc.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(255, 255, 252, 0.2))'}}/>
+                <img src={'https://image.tmdb.org/t/p/w1280/iHPIBzrjJHbXeY9y7VVbEVNt7LW.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(255, 255, 252, 0.2))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .2.5</h4>
@@ -331,35 +361,7 @@ const Spotlight = () => {
                   </div>
               </div>
             </SwiperSlide>
-            <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">PG-13</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/vbAIe8DgAfrhkfwK8uiujXQEIoZ.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(73, 75, 61, 0.4))'}}/>
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .8</h4>
-               
-                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/5MGvtpGowspHXPWry8a5kNuDayo.png"/></h2>
-                
-                
-                 
-                  <p className="spotlight-genres">
-                    
-                    <span className="genre a">Mystery</span>
-                    <span className="genre a">Thriller</span>
-                  </p>
-                  <div className="spotty">
-                  <h6 className="genre b">HD</h6><h6 className="genre a">Movies</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  
-                  <p className="spotlight-overview">When an 8-year-old girl mysteriously vanishes, a series of past deaths and disappearances begins to link together. </p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/movie/863873')}><i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 863873, "Caddo Lake")}>  <i className='bx bx-play'></i> Watch Now</Button>
-                  </div>
-                 </div>
-              </div>
-            </SwiperSlide> 
+           
           
           
            
