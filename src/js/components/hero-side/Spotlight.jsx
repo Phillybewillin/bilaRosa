@@ -488,7 +488,7 @@ const Spotlight = () => {
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .11</h4>
                  
-                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/lRurLSVUlUBjIBUkZOjvkBTdkKL.png"/></h2>
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/iVv0zphX2s5aGZQ3K6aCPIZFIfz.png"/></h2>
                 
                
                 
