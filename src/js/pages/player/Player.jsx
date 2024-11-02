@@ -45,7 +45,7 @@ export default function Player() {
         document.title = ` Streaming ${decodedTitle}`;
 
       if (season_number && episode_number) {
-        document.title = `Streaming ${decodedTitle} • S${currentSeason} • E${currentEpisode}`;
+        document.title = `Watching  ${decodedTitle} • S${currentSeason} • E${currentEpisode}`;
       }
   
     }
@@ -167,14 +167,14 @@ const handleSeasonClick = (seasonNumber) => {
             </div>
             </div>
             
-            <div className="episodes__iframe-container" style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)',width : '100%', height : '97%'}}>
+            <div className="episodes__iframe-container" style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)',width : '100%', height : '100%'}}>
           
 
           <iframe
             className="episodes__iframe"
            
             src= {season_number && episode_number ? `https://vidlink.pro/tv/${id}/${currentSeason}/${currentEpisode}?poster=true&autoplay=false&nextbutton=true` : `https://vidlink.pro/movie/${id}?poster=true&autoplay=false`}  width={"100%"}
-            height={"95%"}
+            height={"100%"}
             frameBorder="0"
             allowFullScreen
             //allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
