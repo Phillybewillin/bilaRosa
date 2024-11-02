@@ -32,6 +32,11 @@
 
     }
 }
+.postertitle {
+  position: relative;
+  width: 30%;
+  height: 30%;
+}
 
 .detail-container {
   //height: 100vh;
@@ -55,11 +60,11 @@
 }
 .movie-content {
     //backdrop-filter: blur(15px);
-    background-image:linear-gradient(to bottom, rgba(0, 0, 0, 0.822), rgba(0, 0, 0, 0));
+    background-image:linear-gradient(to top, rgba(0, 0, 0, 0.822), rgba(0, 0, 0, 0));
    
-    border-radius: 20px;
+    border-radius: 10px;
     @include flex(flex-start, flex-start);
-    width: 1000px;
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
     //margin-top: -450px;
@@ -70,7 +75,7 @@
 
     &__info {
       backdrop-filter: blur(10px);
-        background-color: #000000a9;
+        background-color: #00000040;
         border-radius: 20px;
         padding: 2rem;
         width: 99%;
@@ -164,8 +169,8 @@
     }
 
     @include tablet {
-        //margin-top: -100px;
-        width: 100%;
+        margin-top: -300px;
+       width: 100%;
        
     }
 
@@ -181,44 +186,31 @@
 .castdiv{
   display: flex;
   flex-direction: column;
-  //justify-content: center;
+  
   align-items: center;
+  justify-content: center;
   margin: 0 5px;
   .castdix{
     position: relative;
-    
-    width: 250px;
+   
+    width: auto;
     height: 350px;
-   background-image:linear-gradient(to bottom, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+   background-image:linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
     border-radius: 10px;
-    padding: 10px 5px;
+    padding: 5px;
      overflow: auto;
      scrollbar-color: #1a1a1a00 #00000000;
     .casts {
-      //background-color: #000000e0;
-   
-      margin-top: .2rem;
-      //margin-left: 1rem;
-      display: flex;
-      flex-direction: column;
-      //flex-wrap: wrap;
-      width: 100%;
-      overflow: auto;
-      justify-content: center;
-      //align-items: center;
-      //stroke-width: 1px;
+      margin-left: .5rem;
+      line-height: 1;
       scrollbar-width: 10px;
       scrollbar-color: #1a1a1a78 #00000000;
-   
-      //align-items: center;
-      //text-align: start;
-      gap: 3px;
   
       &__item {
         position: relative;
         display: flex;
-       // flex-direction: row;
-       // align-items: center;
+       flex-direction: column;
+       align-items: center;
         gap: 7px;
   
           &__img {
@@ -227,7 +219,7 @@
               width: 70px;
               background-size: cover;
               background-position: center;
-              border-radius: 50%;
+              border-radius: 30%;
              
               margin-bottom: .2rem;
   
@@ -243,7 +235,7 @@
           &__name {
             
               position: relative;
-              top: 10px;
+             // top: 10px;
               font-size: .67rem;
               text-align: center;
               color: rgba(255, 255, 255, 0.829);
@@ -257,7 +249,7 @@
           }
           &__char{
             position: relative;
-            top: 12px;
+            //top: 12px;
             //right: -20px;
               font-size: .65rem;
               text-align: start;
@@ -269,10 +261,17 @@
               font-weight: 300;
           }
       }
+  
+      @include tablet {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 10px;
+        padding: 10px;
+      }
          @include mobile {
           //flex-direction: row;
           display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
+          grid-template-columns: repeat(4, minmax(0, 1fr));
         
           
         &__item {
@@ -495,23 +494,26 @@
   color: rgb(7, 7, 7);
 }
 .titledetailz{
-  width: 100%;
+  //width: 100%;
   font-size: smaller;
-  text-align: end;
-  margin-bottom: 7px;
+  text-align: center;
+  margin-bottom: 0px;
+  font-size: .7rem;
   //justify-content: center;
   font-weight: 200;
   padding: 5px 10px;
-  background-color: rgba(0, 0, 0, 0.253);
+  background-color: rgb(0, 0, 0);
  // backdrop-filter: blur(10px);
   position: relative;
-  border-radius: 5px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
   color: rgba(255, 255, 255, 0.772);
 }
 .wrappwez{
   position: relative;
   height: 100%;
-  //background-color: #080808c3;
+  background-color: #080808dd;
   padding: 5px;
   margin:  5px;
   columns: 5;
@@ -532,19 +534,28 @@
   position: fixed;
   height: 100vh;
   width: 100%;
-  background-color: rgba(184, 182, 182, 0.477);
+  //background-color: rgba(184, 182, 182, 0);
   top: 0;
   left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 70;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(2px);
 }
-.movie_iframe {
-  width: 100%;
-  height: 100%;
+.videoframe {
+  width: 70%;
+  height: 70%;
+  border-radius: 40px;
   border: none;
+
+
+  @include mobile {
+    width: 100%;
+    margin: 0 .5rem;
+    height: 40%;
+    border-radius: 15px;
+  }
   
 }
 .titlechoice{
@@ -559,6 +570,11 @@
   border-radius: 10px;
   background-color: #9999996b;
 
+}
+.one{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 .butzs{
   display: flex;
