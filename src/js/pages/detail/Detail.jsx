@@ -17,20 +17,45 @@ const CastList = React.lazy(() => import('./CastList'));
 const Detail = () => {
       
     const { category, id } = useParams();
-    //const [choice , setChoice ] = useState(false)
+    const [choice , setChoice ] = useState(false)
+    const [title , setTitle ] = useState('');
     const [item, setItem] = useState(null);
     const [items, setItems] = useState([]);
+    const [videos , setVideos] = useState([]);
     //const [iframeSrc, setIframeSrc] = useState(''); 
     const getDetail = async () => {
       const response = await tmdbApi.detail(category, id, {params: {}});
       const similar = await tmdbApi.similar(category, id )
       setItem(response);
       setItems(similar)
-       //console.log(similar);
+     //console.log(response);
   }
+  const Images = async () => {
+    const responsei = await tmdbApi.Images(category, id, {params: {}});
+    const logoi = responsei.logos.find(itemu => itemu.iso_639_1.includes('en'));
+    if (logoi) {
+      setTitle(logoi.file_path);
+    }
+   console.log(logoi);
+}
+  const getVideos = async () => {
+    const res = await tmdbApi.getVideos(category, id);
+    const trailer = res.results.find(video => video.name.toLowerCase().includes('official trailer'));
+    if (trailer) {
+      setVideos(trailer.key);
+    } else {
+      console.log('No trailer found');
+    }
+}
+  useEffect(() => {
+    Images();
+    getVideos();
+    getDetail();
+  }, [category, id]);
+
   useEffect(() => {
     document.title =  item ? `${item?.title || item?.name} - Watch it on ZillaXR` : 'Weed With a movie or TV Show - Watch it on ZillaXR';
-    getDetail();
+    
     
     //console.log('items:', items);
   }, [category, id , item]);
@@ -187,6 +212,12 @@ const Detail = () => {
             behavior: 'smooth'
           });
     }
+    const watchTrailer = () => {
+        setChoice(true);
+    }
+    const cancelwatchTrailer = () => {
+        setChoice(false);
+    }
     
 
     return (
@@ -198,15 +229,15 @@ const Detail = () => {
                     
                        <div className="detail-container">
                        <>
-                    <div className="banner" style={{backgroundImage: `url(${apiConfig.w1280Image(item.backdrop_path ? item.backdrop_path : item.poster_path)})`, backgroundSize: 'cover', backgroundPosition: 'top', backgroundRepeat: 'no-repeat',position: 'fixed', top: '0' , left: '0' , width: '100%' , height: '55vh'}}></div>
+                    <div className="banner" style={{backgroundImage: `url(${apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',position: 'fixed', top: '0' , left: '0' , width: '100%' , height: '55vh'}}></div>
                     </>
                         <div className="movie-content">
                            <div className="movie-content__info">
                             <div className="titleholder">
-                               <h2 className="title">
-                                   {item.title || item.name}
+                              
+                                   <img className="postertitle" src={apiConfig.w500Image(title)} alt="" />
                                   
-                               </h2>
+                              
                                <div className="language"><i className="bx bx-world" style={{fontSize:'11px'}}></i> {item.original_language.toUpperCase()}</div>
                                <div className="language">• {Number.isNaN(year) ? '' : year}</div>
                                 <div className="language"><i className="bx bx-time" style={{fontSize:'11px'}}></i>{item.runtime || item.episode_run_time} min</div>
@@ -231,13 +262,19 @@ const Detail = () => {
                                </p>
                             
                                
-                              {category === 'tv' && <Suspense fallback={null}> <Seasons category={category}
-                              id={item.id} title={item.name || item.title}/> </Suspense>}
+                              {category === 'tv' && <Suspense fallback={null}>
+
+                                 <Seasons category={category}
+                              id={item.id} title={item.name || item.title}/> 
+                            
+                                </Suspense>
+                              }
                               
                               {category === 'movie' && 
                               <>
                               
                         <div className="buttonz">
+                        
                         <Button className='btn' onClick={handlescrolldown}>Recommendations</Button>
                         <Button className="btn" onClick={() => handlePlayer(item.id, item.name || item.title)}> <i className='bx bx-play-circle'></i> Watch Now</Button> 
                       </div>
@@ -250,10 +287,15 @@ const Detail = () => {
                         </div>
 
                         <div className="castdiv">
+                            <div className="one">
+                            <Button className='btn' onClick={watchTrailer}><i class='bx bx-joystick-alt'></i>  Trailer</Button>
+                            <h4 className='titledetailz'>Actors</h4>
+                                      
+                            </div>
                        
-
                                        <div className="castdix">
-                                       <h4 className='titledetailz'>Credits</h4>
+                                      
+                              
                                             <Suspense fallback={null}>
                                             <CastList id={item.id}/>
                                             </Suspense>
@@ -264,6 +306,25 @@ const Detail = () => {
                         </div>
                            
                        </div>
+                       {
+                        choice && (
+                            <div className="choices" onClick={cancelwatchTrailer}>
+                            <iframe
+                            className='videoframe'
+                         width="50%"
+                         height="auto"
+                     src={`https://www.youtube.com/embed/${videos}`}
+                     title={item.name}
+                     //ref={iframeRef}
+                     frameBorder="0"
+                     referrerpolicy="strict-origin-when-cross-origin" 
+                     //allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      ></iframe>
+                            </div>
+                        )
+                       }
+                      
                        
                        <div className="overviewz">
                                    <h3 className='titledetails'>Recommendations based on {item.title || item.name}</h3>
