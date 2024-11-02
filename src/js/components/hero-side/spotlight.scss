@@ -112,12 +112,12 @@ margin-bottom: 1rem;
     font-size: 1.1rem;
     right: 0px;
     padding: 1.2rem;
-    //border-right: 1px solid white;
-    border-radius: 10px;
-   backdrop-filter: blur(5px);
+    border-right: 1px solid $main-bg;
+    //border-radius: 10px;
+   //backdrop-filter: blur(5px);
     color: rgba(255, 255, 255, 0.438);
 
-    background-color: rgba(0, 0, 0, 0.463);
+    background-color: rgba(0, 0, 0, 0.5);
    
     font-weight: 400;
     z-index: 10;
