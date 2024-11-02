@@ -36,11 +36,12 @@ const Detail = () => {
     if (logoi) {
       setTitle(logoi.file_path);
     }
-   console.log(logoi);
+  // console.log(logoi);
 }
   const getVideos = async () => {
     const res = await tmdbApi.getVideos(category, id);
-    const trailer = res.results.find(video => video.name.toLowerCase().includes('official trailer'));
+   // console.log(res);
+    const trailer = res.results.find(video => video.type === 'Trailer');
     if (trailer) {
       setVideos(trailer.key);
     } else {
