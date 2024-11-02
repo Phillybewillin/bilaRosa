@@ -163,7 +163,7 @@ const handleSeasonClick = (seasonNumber) => {
                <h4 className="logotext">ZillaXR</h4> </div>
               <div className="menu">
               <div className="navih" onClick={handleHome}><i className="bx bx-home" ></i></div>
-              <div className="navi" onClick={handleBack}><i className='bx bx-undo'></i>Back to Details</div>
+              <div className="navi" onClick={handleBack}><i className='bx bxs-left-arrow'></i></div>
             </div>
             </div>
             
