@@ -235,8 +235,11 @@ const Detail = () => {
                         <div className="movie-content">
                            <div className="movie-content__info">
                             <div className="titleholder">
-                              
-                                   <img className="postertitle" src={apiConfig.w500Image(title)} alt="" />
+                                {
+                                title ? (<img className="postertitle" src={apiConfig.w500Image(title)} alt="" />) : (<h2 className="title">
+                                   {item.title || item.name} 
+                                   </h2>)
+                              }
                                   
                               
                                <div className="language"><i className="bx bx-world" style={{fontSize:'11px'}}></i> {item.original_language.toUpperCase()}</div>
