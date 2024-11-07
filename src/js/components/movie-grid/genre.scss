@@ -1,6 +1,7 @@
 @use '../../scss/' as *;
 
 .tags{
+ 
   
     top: 50px;
     z-index: 99;
@@ -30,15 +31,16 @@
     justify-content: center;
     position: relative;
     color: white;
-    font-size: .65rem;
-    padding: 5px 10px;
-    height: 30px;
+    font-size: .7rem;
+    padding: 7px 20px;
+    height: 34px;
     min-width: 60px;
     text-align: center;
-    background: rgba(19, 19, 19, 0.751);
-    border-radius: 20px;
+    border: 1px solid #4f4f4fb8;
+    //background: rgba(48, 48, 48, 0.751);
+    border-radius: 7px;
     cursor: pointer;
-    font-weight: 300;
+    font-weight: 200;
     //transition: all 0.5s ease-in-out;
     &:hover{
         opacity: 0.5;
@@ -57,7 +59,7 @@
     position: relative;
     padding: 2.5px;
     border-radius: 10px;
-    background: #15151560;
+    background: #15151500;
     transition: all 0.5s ease-in-out;
 
     @include mobile {
