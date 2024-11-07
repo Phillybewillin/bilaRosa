@@ -10,12 +10,12 @@
     
 
     @include tablet {
-        grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr));
         left: 0;
     }
 
     @include mobile {
-        grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(min(140px, 100%), 1fr));
     
     }
     
@@ -26,9 +26,9 @@
     
 }
 .section_header {
-    position: sticky;
-    top: 15px;
-    z-index: 9;
+    //position: sticky;
+    top: -15px;
+    z-index: 99;
     //display: flex;
     justify-content: space-between;
     align-items: center;
@@ -63,31 +63,32 @@
    font-size: 25px;
    align-items: center;
  backdrop-filter: blur(20px);
-    background-color: rgba(4, 4, 4, 0.632);
+    background-color: $main-bg;
     color: rgb(255, 255, 255);
     font-weight: 300;
     padding: 1.5rem;
-    border-radius: 15px;
+    border-radius: 10px;
     width: 100%;
     @include tablet{
         font-size: 23px;
     }
 }
 .select-container{
-    columns: 2;
+    columns: 3;
     margin-top: .4rem;
     gap: 3px;
     padding: 5px;
     @include mobile {
-        columns: 4;
+        columns:none;
         
     }
 }
 .select-option{
-    background-color: rgba(15, 15, 15, 0.744);
+    background-color: rgb(18, 18, 18);
     color: rgb(255, 255, 255);
     padding: .5rem 1rem;
-    margin-bottom: .5em;
+    //margin-bottom: .5em;
+    height: 75px;
     //margin-bottom: 1rem;
     border-radius: 7px;
     font-size: 11px;
@@ -95,18 +96,31 @@
 
     cursor: pointer;
 
+    @include tablet {
+        background-color: #00000034;
+        color: rgba(255, 255, 255, 0.34);
+        height: 25px;
+        font-size: 10px;
+    }
+
 }
 .select-option:hover{
     background-color: rgba(255, 255, 255, 0.76);
     color: rgb(26, 26, 26);
 }
 .selected{
-    background-color: rgb(48, 47, 47);
-    color: rgb(255, 255, 255);
+    background-color: $main-bg;
+    color: rgb(0, 0, 0);
+}
+.scrolltotop{
+    @include mobile{
+        display: none !important;
+    }
 }
 .scrolltotop:hover{
     opacity: 1 !important;
 }
+
 .tity{
     display: flex;
     align-items: center;
