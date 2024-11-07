@@ -7,7 +7,7 @@ import tmdbApi, { category} from '../../api/tmdbApi';
 import { ToastContainer } from 'react-toastify';
 import apiConfig from '../../api/apiConfig';
 import axios from 'axios';
-import HeroSide from '../hero-side/HeroSide';
+//import HeroSide from '../hero-side/HeroSide';
 
 const MovieCard = React.lazy(() => import("../movie-card/MovieCard"));
 
