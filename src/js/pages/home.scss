@@ -20,7 +20,7 @@
     display: flex;
     justify-content: flex-start;
     padding: .5rem;
-    background-color: rgb(14, 14, 14);
+    background-color: rgb(5, 5, 5);
     font-size: small;
     border-radius: 5px;
     font-weight: 200;
@@ -28,18 +28,33 @@
     top: 34.4rem;
     left: 1rem;
 
+    @include tablet {
+      position: relative;
+      top: 5px;
+      display: flex;
+      justify-content: center;
+      padding: .5rem;
+      background-color: rgb(5, 5, 5);
+      font-size: small;
+       border-radius: 10px;
+       font-weight: 200;
+        color: rgba(233, 233, 233, 0.644);
+       
+        width: 120px;
+       left: .5rem;
+    }
   @include mobile {
     position: relative;
-      text-align: center;
     top: 5px;
     display: flex;
     justify-content: center;
     padding: .5rem;
-    background-color: rgb(23, 23, 23);
-    font-size: x-small;
-     border-radius: 5px;
+    background-color: rgb(5, 5, 5);
+    font-size: small;
+     border-radius: 10px;
      font-weight: 200;
       color: rgba(233, 233, 233, 0.644);
+     position: relative;
       width: 120px;
      left: .5rem;
   }
@@ -51,7 +66,7 @@
   align-items: center;
   cursor: pointer;
   padding: .4rem;
-  background-color: rgba(30, 30, 30, 0.829);
+  background-color: rgb(5, 5, 5);
   font-size: small;
   border-radius: 10px;
   font-weight: 200;
