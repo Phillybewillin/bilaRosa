@@ -7,7 +7,7 @@ import tmdbApi, { category} from '../../api/tmdbApi';
 import { ToastContainer } from 'react-toastify';
 import apiConfig from '../../api/apiConfig';
 import axios from 'axios';
-
+import HeroSide from '../hero-side/HeroSide';
 
 const MovieCard = React.lazy(() => import("../movie-card/MovieCard"));
 
@@ -172,10 +172,11 @@ const MovieGrid = props => {
         top_rated: 'TOP RATED'
     }
     const tvType = {
+      airing_today: ' TRENDING',
       popular: 'POPULAR',
+      
       top_rated: 'TOP RATED',
-      on_the_air: ' TRENDING',
-      airing_today: 'AIRING TODAY'
+     // airing_today: 'AIRING TODAY'
   }
        
      
@@ -349,8 +350,7 @@ useEffect(() => {
       )} 
                 </div>
                </div>
-                <div className="tity">Quick filters <i className='bx bxs-hand-down'></i></div>
-                <div className="tags">
+                   <div className="tags">
   {tags.map((genre) => (
     <div  className={`tagOutline ${selectedGenre.includes(genre.id) ? 'selected' : ''}`} key={genre.id}
     >
@@ -368,6 +368,7 @@ useEffect(() => {
    
   ))}
 </div>
+
      
       
                   <div className="movie-grid" loading="lazy">
