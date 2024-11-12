@@ -173,7 +173,7 @@ const handleSeasonClick = (seasonNumber) => {
           <iframe
             className="episodes__iframe"
            
-            src= {season_number && episode_number ? `https://vidlink.pro/tv/${id}/${currentSeason}/${currentEpisode}?poster=true&autoplay=false&nextbutton=true` : `https://vidlink.pro/movie/${id}?poster=true&autoplay=false`}  width={"100%"}
+            src= {season_number && episode_number ? `https://vidlink.pro/tv/${id}/${currentSeason}/${currentEpisode}?poster=true&autoplay=false&nextbutton=true&icons=vid` : `https://vidlink.pro/movie/${id}?poster=true&autoplay=false&icons=vid`}  width={"100%"}
             height={"100%"}
             frameBorder="0"
             allowFullScreen
