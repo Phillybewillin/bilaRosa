@@ -26,7 +26,7 @@ const Header = React.memo(() => {
     const [hidesearch , sethide] =  React.useState(false);
     const headerNav = [
       {
-          display:<span className="iconbox"><i className='bx bx-home-alt'></i> <h5 className='iconv'>Home</h5></span>,
+          display:<span className="iconbox"><i  className="bx bx-home"></i> <h5 className='iconv'>Home</h5></span>,
           path: '/'
       }
       ,
@@ -121,14 +121,14 @@ const Header = React.memo(() => {
         <div ref={headerRef} className="header">
         <div className="logo" onClick={() => navigate('/')}>
                <img src={logo} alt="ZillaXR"/>
-               <h4 className="logotext">ZillaXR</h4>
+               <h4 className="logotext">ZILLAXR</h4>
        </div>
        {!hidesearch && (
   <div className="mlrowa">
     <div className="searchmovie">
       <Input
         type="text"
-        placeholder="Scary Movie 3 " 
+        placeholder="...Arcane" 
         value={searchValue}
         onChange={handleInputChange}
       />
