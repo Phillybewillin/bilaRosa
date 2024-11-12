@@ -60,65 +60,60 @@ const BoxOffice = () => {
     return (
         <div className="mainbox">
             <div className="boxoffice">
-            <h3 className="boxoffice__title">TOP 10 BOX OFFICE</h3>
-            <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1100782')}><span className="boxoffice__rank1">1</span> Smile 2</h4>
-                
-                <div className="boxofficer">
-                <p className="boxoffice__rt">85%</p>
-                <p className="boxoffice__rating">R</p>
-               
-                </div>
-            </div>
-            <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1184918')}><span className="boxoffice__rank1">2</span>The Wild Robot</h4>
-                 <div className="boxofficer">
-                 <p className="boxoffice__rt">RT:97%</p>
-                <p className="boxoffice__rating">PG</p>
-              
-                </div>
-                
-            </div>
-            <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1034541')}><span className="boxoffice__rank1">3</span>Terrifier 3</h4>
-                  <div className="boxofficer">
-                  <p className="boxoffice__rt">RT:75%</p>
-                <p className="boxoffice__rating">R</p>
-              
-                  </div>
-            </div>
+            <h3 className="boxoffice__title">#TOP 10: BOX OFFICE</h3>
             <div className="boxoffice__list">
             
-            <h4 className="boxoffice__movie" onClick={() => navigate('/movie/917496')}><span className="boxoffice__rank1">4</span>Beetleiuice BeetleJuice</h4>
+            <h4 className="boxoffice__movie" onClick={() => navigate('/movie/912649')}><span className="boxoffice__rank1">1</span>Venom: The Last Dance</h4>
              <div className="boxofficer">
-                <p className="boxoffice__rt">77%</p>
-                <p className="boxoffice__rating">PG13</p>
+                <p className="boxoffice__rt">41%</p>
+                <p className="boxoffice__rating">PG~13</p>
             </div>
         </div>
         <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1100099')}><span className="boxoffice__rank">5</span>We Live in Time</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1206617')}><span className="boxoffice__rank1">2</span>The Best Christmas Pageant Ever</h4>
                  <div className="boxofficer">
-                 <p className="boxoffice__rt">RT:83%</p>
-                <p className="boxoffice__rating">R</p>
+                 <p className="boxoffice__rt">90%</p>
+                <p className="boxoffice__rating">~PG</p>
                
                  </div>
         </div>
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/889737')}><span className="boxoffice__rank">6</span>Joker: Folie  à Deux</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1138194')}><span className="boxoffice__rank1">3</span>Heretic</h4>
                   <div className="boxofficer">
-                  <p className="boxoffice__rt">RT:33%</p>
-                <p className="boxoffice__rating">R</p>
+                  <p className="boxoffice__rt">93%</p>
+                <p className="boxoffice__rating">~R</p>
               
                   </div>
             </div>
+            <div className="boxoffice__list">
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1184918')}><span className="boxoffice__rank">4</span>The Wild Robot</h4>
+                 <div className="boxofficer">
+                 <p className="boxoffice__rt">97%</p>
+                <p className="boxoffice__rating">~PG</p>
+              
+                </div>
+                
+            </div>
+            <div className="boxoffice__list">
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1100782')}><span className="boxoffice__rank">5</span> Smile 2</h4>
+                
+                <div className="boxofficer">
+                <p className="boxoffice__rt">85%</p>
+                <p className="boxoffice__rating">~R</p>
+               
+                </div>
+            </div>
+           
+           
+          
            
             
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/698687')}><span className="boxoffice__rank">7</span>Transfomers One</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/974576')}><span className="boxoffice__rank">6</span>Conclave</h4>
                 
                 <div className="boxofficer">
                 <p className="boxoffice__rt"> RT:89%</p>
-                <p className="boxoffice__rating">PG</p>
+                <p className="boxoffice__rating">PG~13</p>
 
                 </div>
             </div>
@@ -126,10 +121,10 @@ const BoxOffice = () => {
            
           
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/533535')}> <span className="boxoffice__rank">8</span>Deadpool & Wolverine</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1064213')}> <span className="boxoffice__rank">7</span>Anora</h4>
                  <div className="boxofficer">
                  <p className="boxoffice__rt">78%</p>
-                 <p className="boxoffice__rating">R</p>
+                 <p className="boxoffice__rating">~R</p>
                  </div>
             </div>
           
@@ -137,18 +132,26 @@ const BoxOffice = () => {
            
             
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/933260')}><span className="boxoffice__rank">9</span>The Substance</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/940139')}><span className="boxoffice__rank">8</span>Here</h4>
                  <div className="boxofficer">
-                 <p className="boxoffice__rt">RT:91%</p>
-                 <p className="boxoffice__rating">PG</p>
+                 <p className="boxoffice__rt">36%</p>
+                 <p className="boxoffice__rating">~PG</p>
               
                  </div>
             </div>
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/592831')}><span className="boxoffice__rank">10</span>Megalopolis</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1100099')}><span className="boxoffice__rank">9</span>We Live in Time</h4>
                   <div className="boxofficer">
-                  <p className="boxoffice__rt">RT:47%</p>
-                <p className="boxoffice__rating">R</p>
+                  <p className="boxoffice__rt">78%</p>
+                <p className="boxoffice__rating">~R</p>
+              
+                  </div>
+            </div>
+            <div className="boxoffice__list">
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1034541')}><span className="boxoffice__rank">10</span>Terrifier 3</h4>
+                  <div className="boxofficer">
+                  <p className="boxoffice__rt">75%</p>
+                <p className="boxoffice__rating">~R</p>
               
                   </div>
             </div>
@@ -156,8 +159,8 @@ const BoxOffice = () => {
         <div className="boxoffice" style={{backgroundImage: `url(${backdrop})`  , backgroundRepeat: 'no-repeat' , backgroundSize: 'contain' , backgroundPosition: 'center'}}>
           <div className="blurr">
           <div className="settitle">
-            <h4 className="boxoffice__titlez">{nettitle}</h4>
-            <h3 className="boxoffice__title">POPULAR STREAMING</h3>
+            <div className="boxoffice__titlename" ><img className="backdropstream" src={backdrop} alt="Netflix" /></div>
+            <h3 className="boxoffice__title">#POPULAR STREAMING</h3>
            
             </div>
             <div className="watchprov">
@@ -232,4 +235,4 @@ const BoxOffice = () => {
     )
 }
 
-export default BoxOffice;
+export default BoxOffice
