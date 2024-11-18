@@ -72,12 +72,12 @@ const Spotlight = () => {
             className="swiper"
             //cssMode = {true}
             //pointCursor = {true}
-            autoplay={{ delay: 7000 }}
+            autoplay={{ delay: 5000 }}
           > 
           <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/original/xqklHoZ4YqNtpFRFo20ePZUotOS.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.9rem rgb(118, 97, 78 , 0.5))'}}/>
+                <img src={'https://image.tmdb.org/t/p/original/xqklHoZ4YqNtpFRFo20ePZUotOS.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.5rem rgb(246, 157, 36, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .1</h4>
@@ -105,7 +105,36 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/original/p6ZP3Humvo90UXkDeEv5x9aynNH.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgb(246, 157, 36, 0.4))'}}/>
+                <img src={'https://image.tmdb.org/t/p/original/hmqqtqsUFyk6Qq3kgjqrBdDfSt4.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.9rem rgb(88, 60, 23, 0.5))'}} />
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                <h4 className="spon">#Spotlight .1.5</h4>
+                
+                <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/zvONe1taIlwyuvZwL43CscDZhci.png"/></h2>
+                
+                
+                  
+                  <p className="spotlight-genres">
+                       <span className="genre a">Sci-Fi & Fantasy</span>
+                        <span className="genre a">Drama</span>
+                        
+
+                  </p>    
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Show</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  <p className="spotlight-overview">Ten thousand years before the ascension of Paul Atreides, sisters Valya and Tula Harkonnen establish the fabled sect and female order that would become known as the Bene Gesserit to control the future of humankind.</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('tv/90228')}> <i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 90228, "Dune: Prophecy" ,1 ,1)}>  <i className='bx bx-play'></i> Watch Now</Button>
+                  </div>
+                   </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">TV-MA</h1>
+                <img src={'https://image.tmdb.org/t/p/original/fQGrzO0Iwo7CO4b2zVdJLkcnhwK.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.9rem rgb(118, 97, 78 , 0.5))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                 <h4 className="spon">#Spotlight .2</h4>
