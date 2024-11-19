@@ -541,19 +541,19 @@
   justify-content: center;
   align-items: center;
   z-index: 70;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(10px);
 }
 .videoframe {
   width: 70%;
   height: 70%;
-  border-radius: 40px;
+  border-radius: 20px;
   border: none;
 
 
   @include mobile {
     width: 100%;
-    margin: 0 .5rem;
-    height: 40%;
+    margin: 0 .2rem;
+    height: 35%;
     border-radius: 15px;
   }
   
