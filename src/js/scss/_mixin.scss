@@ -5,5 +5,5 @@
   }
 
 @mixin overlay{
-    background-color: rgba($color: rgb(0, 0, 0), $alpha: 0.3);
+    background-color: rgba($color: rgba(0, 0, 0, 0.365), $alpha: 0.1);
 }
