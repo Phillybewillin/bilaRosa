@@ -235,17 +235,21 @@ const Detail = () => {
                         <div className="movie-content">
                            <div className="movie-content__info">
                             <div className="titleholder">
-                                {
+                              
+                              {
                                 title ? (<img className="postertitle" src={apiConfig.w500Image(title)} alt="" />) : (<h2 className="title">
                                    {item.title || item.name} 
                                    </h2>)
                               }
-                                  
-                              
-                               <div className="language"><i className="bx bx-world" style={{fontSize:'11px'}}></i> {item.original_language.toUpperCase()}</div>
-                               <div className="language">• {Number.isNaN(year) ? '' : year}</div>
-                                <div className="language"><i className="bx bx-time" style={{fontSize:'11px'}}></i>{item.runtime || item.episode_run_time} min</div>
+                                   
+                            <div className="langu">
+                            <div className="language"><i className="bx bx-world" style={{fontSize:'11px'}}></i> {item.original_language.toUpperCase()}</div>
+                               <div className="language"><i className='bx bxs-calendar' style={{fontSize:'11px'}}></i>{Number.isNaN(year) ? '' : year}</div>
+                                <div className="language"><i className="bx bx-time" style={{fontSize:'11px'}}></i>{item.runtime || item.episode_run_time}MIN</div>
                             
+                                </div>   
+                              
+                               
                             </div>
                               
           
