@@ -110,6 +110,10 @@ i {
     width: 100%;
     z-index: 50;
     transition: height 0.5s ease, background-color 0.3s ease;
+
+    @include mobile {
+        height: 5rem;
+    }
    
     &.shrink {
         height: $header-shrink-height;
@@ -142,7 +146,7 @@ i {
         @include flex(center,center);
        
         & > * ~ * {
-            margin: 0 1rem;
+         margin: 0 1rem;
             
         }
 
@@ -179,7 +183,7 @@ i {
             bottom: 0;
             left: 0;
             //right: 0;
-            height: 5.8rem;
+            height: 6rem;
             width: 100%;
             justify-content: space-evenly;
             //background-color: $body-bg;
@@ -192,7 +196,9 @@ i {
             @include flex(center, space-around);
 
             & > * ~ * {
+
                 margin: 0;
+                
 
             }
         }
@@ -236,15 +242,16 @@ i {
       width: 0;
       transition: width 0.5s ease;
       height: 2px;
-      
+      color: $main-bg;
       background-color: $main-bg;
   }
   &.active::after ,&:hover::after{
       width: 100%;
+      color: $main-bg;
       
   }
   @include mobile {
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.872);
     color: rgb(255, 255, 255);
      opacity: 1;
      scale: 1.5;
@@ -255,7 +262,7 @@ i {
 }
 .active{
   position: relative;
-  color: red;
+  //color: red;
   &::after{
     content: "";
     position: absolute;
@@ -343,6 +350,7 @@ i {
       @include mobile {
         border: none;
         border-radius: 20px;
+       // margin-top: 4px;
         backdrop-filter: none;
         padding: 1rem 1.5rem;
         background-color: black;
@@ -362,6 +370,7 @@ i {
      
    }
    @include mobile {
+     //margin-top: 5px;
        margin-left: -2px;
        width: 100vw;
        
