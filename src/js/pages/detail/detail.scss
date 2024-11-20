@@ -33,9 +33,16 @@
     }
 }
 .postertitle {
+
   position: relative;
-  width: 30%;
-  height: 30%;
+  max-width: 35%;
+  max-height: 150px;
+  background-size: contain;
+  @include mobile {
+    width: 50%;
+  height: 20%;
+  }
+  
 }
 
 .detail-container {
@@ -62,20 +69,20 @@
     //backdrop-filter: blur(15px);
     background-image:linear-gradient(to top, rgba(0, 0, 0, 0.822), rgba(0, 0, 0, 0));
    
-    border-radius: 10px;
+   border-radius: 5px;
     @include flex(flex-start, flex-start);
     width: 90%;
     margin-left: auto;
     margin-right: auto;
     //margin-top: -450px;
     position: relative;
-    padding: 1rem  .5rem;
+    padding: 1rem  .3rem;
 
     
 
     &__info {
       backdrop-filter: blur(10px);
-        background-color: #00000040;
+       // background-color: #00000040;
         border-radius: 20px;
         padding: 2rem;
         width: 99%;
@@ -87,6 +94,7 @@
 
 
         @include mobile {
+          border-radius: 10px;
           margin-top: 1rem;
           display: flex;
           flex-direction: column;
@@ -94,7 +102,7 @@
           //align-items: center;
             margin-left: 10px;
             width: 100%;
-            padding-left: 2rem;
+            padding: 1rem;
             font-size: 15px;
         }
 
@@ -106,7 +114,31 @@
           display: flex;
           flex-direction: row;
           align-items: center;
+
+          @include mobile {
+            flex-direction: column;
+          }
           
+        }
+      
+        .langu{
+          padding: .5rem;
+          margin-left: 1rem;
+          display: flex;
+          flex-direction: row;
+          background-color: #ffffff0e;
+          border-radius: 10px;
+          @include mobile {
+            margin-top: .6rem;
+            padding: .4rem ;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+          }
+          
+
+         
+
         }
 
         .title {
@@ -119,7 +151,7 @@
             @include mobile {
               justify-content: flex-start;
                 //padding-top: 10px;
-                font-size: 2rem;
+                font-size: 4rem;
             }
         }
 
@@ -135,7 +167,7 @@
                 padding: .5rem 1.2rem;
                 border: 2px solid;
                 border-radius: 15px;
-                font-size: .5rem;
+                font-size: .67rem;
                 font-weight: 500;
                 //backdrop-filter: blur(10px);
             }
@@ -193,15 +225,15 @@
   .castdix{
     position: relative;
    
-    width: auto;
+    width: 100%;
     height: 350px;
    background-image:linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
     border-radius: 10px;
-    padding: 5px;
+    //padding: 5px;
      overflow: auto;
      scrollbar-color: #1a1a1a00 #00000000;
     .casts {
-      margin-left: .5rem;
+      //margin-left: .5rem;
       line-height: 1;
       scrollbar-width: 10px;
       scrollbar-color: #1a1a1a78 #00000000;
@@ -264,14 +296,14 @@
   
       @include tablet {
         display: grid;
-        grid-template-columns: repeat(7, minmax(0, 1fr));
+        grid-template-columns: repeat(10, minmax(0, 1fr));
         gap: 10px;
-        padding: 10px;
+        //padding: 10px;
       }
          @include mobile {
           //flex-direction: row;
           display: grid;
-          grid-template-columns: repeat(4, minmax(0, 1fr));
+          grid-template-columns: repeat(5, minmax(0, 1fr));
         
           
         &__item {
@@ -512,10 +544,12 @@
 }
 .wrappwez{
   position: relative;
-  height: 100%;
-  background-color: #080808dd;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: auto;
+  background-color: #080808;
   padding: 5px;
-  margin:  5px;
+  //margin:  5px;
   columns: 5;
     
     
@@ -525,7 +559,8 @@
   }
 
   @include mobile {
-    columns: 1;
+    
+    columns: 2;
   
   }
   
@@ -541,19 +576,19 @@
   justify-content: center;
   align-items: center;
   z-index: 70;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(2px);
 }
 .videoframe {
   width: 70%;
   height: 70%;
-  border-radius: 20px;
+  border-radius: 40px;
   border: none;
 
 
   @include mobile {
     width: 100%;
-    margin: 0 .2rem;
-    height: 35%;
+    margin: 0 .5rem;
+    height: 40%;
     border-radius: 15px;
   }
   
