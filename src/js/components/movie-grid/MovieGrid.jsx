@@ -7,7 +7,7 @@ import tmdbApi, { category} from '../../api/tmdbApi';
 import { ToastContainer } from 'react-toastify';
 import apiConfig from '../../api/apiConfig';
 import axios from 'axios';
-//import HeroSide from '../hero-side/HeroSide';
+import HeroSide from '../hero-side/HeroSide';
 
 const MovieCard = React.lazy(() => import("../movie-card/MovieCard"));
 
@@ -42,6 +42,7 @@ const MovieGrid = props => {
                 switch(props.category) {
                     case category.movie:
                         response = await tmdbApi.getMoviesList(movieType.popular, {params});
+                        //setSelectedType(popular)
                         break;
                     default:
                         response = await tmdbApi.getTvList(tvType.airing_today, {params});
@@ -308,7 +309,7 @@ useEffect(() => {
     
     return (
         <>
-            <div className="section mb-3">
+            <div className="sectiongrid">
                
                 <div className="section_header">
                   <div className="section_search">
