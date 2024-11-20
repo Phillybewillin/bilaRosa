@@ -1,7 +1,10 @@
 @use '../../scss/' as *;
 
 
-
+.sectiongrid{
+    display: flex;
+    flex-direction: column;
+}
 .movie-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
@@ -28,7 +31,7 @@
 .section_header {
     //position: sticky;
     top: -15px;
-    z-index: 99;
+    //z-index: 99;
     //display: flex;
     justify-content: space-between;
     align-items: center;
@@ -45,7 +48,8 @@
 .label{
     display: flex;
     text-align: center;
-    align-items: center;
+    flex-direction: column;
+    //align-items: center;
     gap: 5px;
     padding: 5px;
 
@@ -60,10 +64,15 @@
     }
 }
 .mb2x{
+    position: relative;
    font-size: 25px;
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
    align-items: center;
- backdrop-filter: blur(20px);
-    background-color: $main-bg;
+  // backdrop-filter: blur(20px);
+ // background-image: linear-gradient(170deg, yellow, rgb(255, 42, 0));
+  
     color: rgb(255, 255, 255);
     font-weight: 300;
     padding: 1.5rem;
@@ -73,22 +82,89 @@
         font-size: 23px;
     }
 }
+.mb2x::before{
+    content: "";
+  position: absolute;
+  top: 0;
+  left: 1;
+  bottom: 0;
+  right: 0;
+  border-radius: 10px;
+  background: linear-gradient(
+    45deg,
+    #ff0008,
+    #022def,
+    #07bf3b,
+    #de056e,
+    #4c00b7,
+    #ff6700
+  );
+  background-size: 450%;
+  z-index: -1;
+  animation: glow 20s linear infinite;
+  width: 100%;
+}
+.mb2x::after{
+    content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 10px;
+  background: linear-gradient(
+    45deg,
+    #ff0008,
+    #1a03e8,
+    #04c030,
+    #eca013,
+    #4c00b7,
+    #ff6700
+  );
+  background-size: 400%;
+   z-index: -1;
+  animation: glow 20s linear infinite;
+  width: 100%;
+    
+}
+.mb2x::after {
+    filter: blur(25px);
+    transform: translate3d(0, 0, 0);
+    border-radius: 10px;
+  }
+@keyframes glow {
+    0% {
+      background-position: 0 0;
+    }
+  
+    50% {
+      background-position: 100% 0;
+    }
+  
+    100% {
+      background-position: 0 0;
+    }
+  }
+
+
 .select-container{
-    columns: 3;
-    margin-top: .4rem;
-    gap: 3px;
-    padding: 5px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: .7rem;
     @include mobile {
         columns:none;
         
     }
 }
 .select-option{
-    background-color: rgb(18, 18, 18);
+    background-color: rgba(161, 157, 157, 0.167);
     color: rgb(255, 255, 255);
-    padding: .5rem 1rem;
+    padding:  1rem;
+    width: 100%;
+    
     //margin-bottom: .5em;
-    height: 75px;
+    //height: 75px;
     //margin-bottom: 1rem;
     border-radius: 7px;
     font-size: 11px;
@@ -99,18 +175,18 @@
     @include tablet {
         background-color: #00000034;
         color: rgba(255, 255, 255, 0.34);
-        height: 25px;
+        //height: 25px;
         font-size: 10px;
     }
 
 }
 .select-option:hover{
-    background-color: rgba(255, 255, 255, 0.76);
-    color: rgb(26, 26, 26);
+    background-color: rgba(255, 255, 255, 0.178);
+    color: rgb(180, 170, 170);
 }
 .selected{
-    background-color: $main-bg;
-    color: rgb(0, 0, 0);
+    background-color: rgba(197, 186, 191, 0.368);
+    color: rgb(255, 255, 255);
 }
 .scrolltotop{
     @include mobile{
