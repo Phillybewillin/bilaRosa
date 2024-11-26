@@ -39,7 +39,7 @@
   max-height: 150px;
   background-size: contain;
   @include mobile {
-    width: 50%;
+    width: 60%;
   height: 20%;
   }
   
@@ -547,7 +547,7 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   height: auto;
-  background-color: #080808;
+  background-color: #000000;
   padding: 5px;
   //margin:  5px;
   columns: 5;
@@ -576,20 +576,21 @@
   justify-content: center;
   align-items: center;
   z-index: 70;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(10px);
 }
 .videoframe {
   width: 70%;
   height: 70%;
-  border-radius: 40px;
+  z-index: 75;
+  border-radius: 20px;
   border: none;
 
 
   @include mobile {
     width: 100%;
-    margin: 0 .5rem;
-    height: 40%;
-    border-radius: 15px;
+    margin: 0 .1rem;
+    height: 35%;
+    border-radius: 10px;
   }
   
 }
