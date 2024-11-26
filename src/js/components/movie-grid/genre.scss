@@ -37,7 +37,7 @@
     min-width: 120px;
     text-align: center;
     //border: 1px solid #4f4f4fb8;
-    background: rgba(255, 255, 255, 0.139);
+    background: rgba(255, 255, 255, 0.091);
     border-radius: 10px;
     cursor: pointer;
     font-weight: 200;
@@ -48,11 +48,8 @@
     }
     
     @include mobile {
-        font-size: .9rem;
-        padding: 5px 10px;
-        height: 27px;
-        min-width: 50px;
-
+        font-size: 1rem;
+        
     }
 }
 .tagOutline{
