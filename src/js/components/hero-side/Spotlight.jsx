@@ -77,26 +77,26 @@ const Spotlight = () => {
            <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">R</h1>
-                <img src={'https://image.tmdb.org/t/p/original/vmUcEX2cFPzD8hmiXuVN8xJQFUK.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(143, 143, 143, 0.4))'}}/>
+                <img src={'https://image.tmdb.org/t/p/w1280/eZzNdjNDvaSoyywy9ICg2UmFwul.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(143, 143, 143, 0.4))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .1</h4>
                 
-                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/cVZAAht5YpkN3u1mPVTQPAKfvYI.png"/></h2>
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/uykwNyOAqRtY0xXYZS2wDBuwdAi.png"/></h2>
                 
                   
                   <p className="spotlight-genres">
-                    <span className="genre a"></span>
+                    <span className="genre a">Drama</span>
                     <span className="genre a">Mystery</span>
-                    <span className="genre a">Horror</span>
+                    <span className="genre a">Thriller</span>
                   </p>
                   <div className="spotty">
                   <h6 className="genre b">HD</h6><h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
                   </div>
-                  <p className="spotlight-overview">About to embark on a new world tour, global pop sensation Skye Riley begins experiencing increasingly terrifying and inexplicable events. Overwhelmed by the escalating horrors and the pressures of fame, Skye is forced to face her dark past to regain control of her life before it spirals out of control..</p>
+                  <p className="spotlight-overview">After the unexpected death of the Pope, Cardinal Lawrence is tasked with managing the covert and ancient ritual of electing a new one. Sequestered in the Vatican with the Catholic Church’s most powerful leaders until the process is complete, Lawre</p>
                   <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/movie/1100782')}>  <i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 1100782, "Smile 2")}>  <i className='bx bx-play'></i> Watch Now </Button>
+                  <Button className="btnprime" onClick={() => navigate('/movie/974576')}>  <i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 974576, "Conclave")}>  <i className='bx bx-play'></i> Watch Now </Button>
                   </div>
                   </div>
               </div>
@@ -105,7 +105,7 @@ const Spotlight = () => {
           <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/original/xqklHoZ4YqNtpFRFo20ePZUotOS.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.5rem rgb(246, 157, 36, 0.3))'}}/>
+                <img src={'https://image.tmdb.org/t/p/original/qDe9Z7qQ4ITUKJ27cQQE3bZQ7q8.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.5rem rgb(151, 68, 84, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .2</h4>
