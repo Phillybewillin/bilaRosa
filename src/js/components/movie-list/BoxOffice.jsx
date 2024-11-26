@@ -62,6 +62,22 @@ const BoxOffice = () => {
             <div className="boxoffice">
             <h3 className="boxoffice__title">#TOP 10: BOX OFFICE</h3>
             <div className="boxoffice__list">
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/402431')}><span className="boxoffice__rank">9</span>Wicked</h4>
+                  <div className="boxofficer">
+                  <p className="boxoffice__rt">90%</p>
+                <p className="boxoffice__rating">PG~13</p>
+              
+                  </div>
+            </div>
+            <div className="boxoffice__list">
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/558449')}><span className="boxoffice__rank">10</span>Gladiator II</h4>
+                  <div className="boxofficer">
+                  <p className="boxoffice__rt">71%</p>
+                <p className="boxoffice__rating">~R</p>
+              
+                  </div>
+            </div>
+            <div className="boxoffice__list">
                 <h4 className="boxoffice__movie" onClick={() => navigate('/movie/845781')}><span className="boxoffice__rank1">1</span>Red One</h4>
                  <div className="boxofficer">
                  <p className="boxoffice__rt">33%</p>
@@ -136,22 +152,7 @@ const BoxOffice = () => {
                  </div>
             </div>
           
-            <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1100099')}><span className="boxoffice__rank">9</span>We Live in Time</h4>
-                  <div className="boxofficer">
-                  <p className="boxoffice__rt">78%</p>
-                <p className="boxoffice__rating">~R</p>
-              
-                  </div>
-            </div>
-            <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1034541')}><span className="boxoffice__rank">10</span>Terrifier 3</h4>
-                  <div className="boxofficer">
-                  <p className="boxoffice__rt">75%</p>
-                <p className="boxoffice__rating">~R</p>
-              
-                  </div>
-            </div>
+            
         </div>
         <div className="boxoffice" style={{backgroundImage: `url(${backdrop})`  , backgroundRepeat: 'no-repeat' , backgroundSize: 'contain' , backgroundPosition: 'center'}}>
           <div className="blurr">
@@ -232,4 +233,4 @@ const BoxOffice = () => {
     )
 }
 
-export default BoxOffice
+export default BoxOffice;
