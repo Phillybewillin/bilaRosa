@@ -1,6 +1,8 @@
 @use '../../scss/' as *;
 
 .movie-card {
+  display: inline-block;
+  width: 99%;
     position: relative;
     background-position: center;
     background-size: cover;
