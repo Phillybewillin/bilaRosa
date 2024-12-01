@@ -6,9 +6,10 @@ import "./player.scss";
 import '../detail/seasons.scss';
 import apiConfig from "../../api/apiConfig";
 import ErrorBoundary from "../../pages/Errorboundary"; // Import the ErrorBoundary component
-import {Bars } from "react-loader-spinner";
+//import {Bars } from "react-loader-spinner";
 import logo from '../../assets/icons8-alien-monster-emoji-48.png';
 import { ToastContainer , toast } from "react-toastify";
+import Select from 'react-select';
 
 export default function Player() {
   const { title, id, season_number, episode_number } = useParams();
@@ -26,7 +27,7 @@ export default function Player() {
   const lastFetchArgs = useRef(null);
 
   //const [sources, setSources] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [Loading, setLoading] = useState(false);
   //const [errorMessage, setErrorMessage] = useState("");
 
   
@@ -137,30 +138,34 @@ const handleSeasonClick = (seasonNumber) => {
   const handleHome = () => {
     navigate('/');
   };
-  const [autoPlay, setAutoPlay] = useState(false);
-
+  const handleSelectChange = (selectedOption) => {
+    const baseUrl = selectedOption.value;
+    setIframeUrl(baseUrl);
+    setLoading(true);
+  };
+ // const [autoPlay, setAutoPlay] = useState(false);
+  const [iframeUrl, setIframeUrl] = useState('https://vidlink.pro/');
+ //console.log(iframeUrl);
+  const options = [
+    { value: 'https://vidlink.pro/', label: 'Vanilla' },
+    { value: 'https://player.autoembed.cc/embed/', label: 'Strawberry' },
+    { value: 'https://vidsrc.xyz/embed/', label: 'Banana' },
+    { value: 'https://embed.su/embed/', label: 'Grape' },
+    { value: 'https://vidbinge.dev/embed/', label: 'Blueberry' },
+   
+  ]
+  const handleIframeLoad = () => {
+    setLoading(false);
+  };
 
   return (
     <ErrorBoundary>
-      {loading ? (
-        <>
-        <Bars
-      height="60"
-       width="60"
-     color="#ff0000"
-     ariaLabel="bars-loading"
-      wrapperStyle={{}}
-     wrapperClass=""
-     visible={true}
-      />
-         </>
-      ) : (
         <> 
           <div className="player-container" >
             <div className="topbar">
             <div className="logozz" onClick={() => navigate('/')}>
                <img src={logo} alt="ZillaXR"/>
-               <h4 className="logotext">ZillaXR</h4> </div>
+               <h4 className="logotext">ZILLA</h4> </div>
               <div className="menu">
               <div className="navih" onClick={handleHome}><i className="bx bx-home" ></i></div>
               <div className="navi" onClick={handleBack}><i className='bx bxs-left-arrow'></i></div>
@@ -170,18 +175,32 @@ const handleSeasonClick = (seasonNumber) => {
             <div className="episodes__iframe-container" style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)',width : '100%', height : '100%'}}>
           
 
+            {Loading ? (
+        <div>Loading...</div>
+      ) : (
+        season_number && episode_number ? (
           <iframe
+            src={`${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?poster=true&autoplay=false&nextbutton=true&icons=vid`}
             className="episodes__iframe"
-           
-            src= {season_number && episode_number ? `https://vidlink.pro/tv/${id}/${currentSeason}/${currentEpisode}?poster=true&autoplay=false&nextbutton=true&icons=vid` : `https://vidlink.pro/movie/${id}?poster=true&autoplay=false&icons=vid`}  width={"100%"}
+            width={"100%"}
             height={"100%"}
             frameBorder="0"
             allowFullScreen
-            //allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            
-                              
-            
+            onLoad={handleIframeLoad}
+         
           />
+        ) : (
+          <iframe
+            src={`${iframeUrl}movie/${id}?poster=true&autoplay=false&icons=vid`}
+            className="episodes__iframe"
+            width={"100%"}
+            height={"100%"}
+            frameBorder="0"
+            allowFullScreen
+            onLoad={handleIframeLoad}
+          />
+        ))}
+       
         </div>
             <ToastContainer theme="light" fontSize="11px" position="top-right" autoClose={8000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} progressStyle={{ backgroundColor: '#00000', color: 'white', borderRadius: '5px' }} />
       
@@ -193,8 +212,47 @@ const handleSeasonClick = (seasonNumber) => {
 ) : null}
           <div className="lights"></div>
           <div className="seasons">
-        
+            <div className="servers">
+              <h4>Sources :</h4> 
+              <div className="sources"> 
+                
+              <Select
+       defaultValue={options[0]}
+       options={options}
+       onChange={(selectedOption) => {
+        const baseUrl = selectedOption.value;
+        setIframeUrl(baseUrl);
+        setLoading(false);
+      }}
+       theme={(theme) => ({
+      ...theme,
+      
+    
+      borderRadius: 10,
+      colors: {
+        ...theme.colors,
+        primary25: '#afafaf54',
+        primary: '#38383879',
+        neutral0 : '#00000a2',
+
+       neutral5: 'grey',
+       neutral10: '#38383879',
+        neutral20: '#38383879',
+neutral30: 'red',
+neutral40: 'pink',
+neutral50: '#a9a9a9',
+neutral60: '#38383879',
+neutral70: '#696969',
+neutral80: '#505050',
+neutral90: '#303030'
+      },
+    })}
+  />
+              </div>
+            </div>
+          
         <div className="seasons__content">
+       
             {seasons && seasons.filter(item => item.season_number !== 0).map((item, i) => (
                 <div className="seasons__list" key={i} onClick={() => handleSeasonClick(item.season_number)}>
                     <div className={`seas ${item.season_number == currentSeason ? "actively" : ""}`}
@@ -227,7 +285,6 @@ const handleSeasonClick = (seasonNumber) => {
     )}
       
         </>
-      )}
     </ErrorBoundary>
   );
 }
