@@ -52,6 +52,7 @@ const Detail = () => {
     Images();
     getVideos();
     getDetail();
+    scrollToTop();
   }, [category, id]);
 
   useEffect(() => {
