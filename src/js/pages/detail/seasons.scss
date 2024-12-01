@@ -39,7 +39,7 @@
     @include flex(center, center);
     flex-direction: row;
     font-size: 15px;
-    color: rgb(230, 230, 230);
+    color: rgb(87, 87, 87);
     position: relative;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
@@ -75,7 +75,7 @@
 
 .seasons__name {
    text-align: center;
-     font-weight: 400;
+     font-weight: 500;
     font-size: .65rem;
     
     padding: 3px;
@@ -86,6 +86,6 @@
   
 }
 .actively{
-    background-color: #5b5b5b90;
+    background-color: #f7f7f71c;
     color: rgb(255, 255, 255);
 }
