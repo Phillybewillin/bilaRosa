@@ -114,12 +114,12 @@ const Home = () => {
 
   const handleScrollLeft = () => {
     const currentOffset = listRef.current.state.scrollOffset || Movieref.current.state.scrollOffset;
-    smoothScroll(currentOffset - 200); // Adjust the scroll distance as needed
+    smoothScroll(currentOffset - 700); // Adjust the scroll distance as needed
   };
 
   const handleScrollRight = () => {
     const currentOffset = listRef.current.state.scrollOffset || Movieref.current.state.scrollOffset;
-    smoothScroll(currentOffset + 200); // Adjust the scroll distance as needed
+    smoothScroll(currentOffset + 1000); // Adjust the scroll distance as needed
   };
 
   return (
@@ -130,12 +130,7 @@ const Home = () => {
 
       <div className="container">
       <h4 className="continue-watching-title">Recently Viewed </h4>
-      <div className="del" onClick={clearContinueWatching}
-      ><i
-          className='bx bx-message-square-x'
-          
-          style={{ color: 'pink', fontSize: '20px', cursor: 'pointer' }}
-        ></i></div>
+     
       <div className="continue_watchingcontainer">
         
         <div className="contin">
@@ -154,12 +149,12 @@ const Home = () => {
                 onClick={() => handleDelete(item.id)}
                 className="bx bx-trash"
                 style={{
-                  color: 'red',
+                  color: 'orange',
                   fontSize: '20px',
                   cursor: 'pointer',
                   position: 'absolute',
-                  top: '5px',
-                  right: '3px'
+                  bottom: '7px',
+                  right: '1px'
                   
                 }}
               ></i>
