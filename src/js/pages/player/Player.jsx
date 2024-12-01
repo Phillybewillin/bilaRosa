@@ -165,10 +165,10 @@ const handleSeasonClick = (seasonNumber) => {
             <div className="topbar">
             <div className="logozz" onClick={() => navigate('/')}>
                <img src={logo} alt="ZillaXR"/>
-               <h4 className="logotext">ZILLA</h4> </div>
+               <h4 className="logotext">ZILLAXR</h4> </div>
               <div className="menu">
               <div className="navih" onClick={handleHome}><i className="bx bx-home" ></i></div>
-              <div className="navi" onClick={handleBack}><i className='bx bxs-left-arrow'></i></div>
+              <div className="navi" onClick={handleBack}><i className='bx bxs-chevron-left'></i></div>
             </div>
             </div>
             
