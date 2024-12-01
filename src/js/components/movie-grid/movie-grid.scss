@@ -3,6 +3,8 @@
 
 .sectiongrid{
     display: flex;
+    //width: 99.5%;
+    margin: 0 .3rem;
     flex-direction: column;
 }
 .movie-grid {
@@ -185,7 +187,7 @@
     color: rgb(180, 170, 170);
 }
 .selected{
-    background-color: rgba(197, 186, 191, 0.368);
+    background-color: rgba(255, 255, 255, 0.21);
     color: rgb(255, 255, 255);
 }
 .scrolltotop{
