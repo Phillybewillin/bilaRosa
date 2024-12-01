@@ -1,6 +1,28 @@
 @use '../scss/' as *;
 @use '../scss/breakpoint' as *;
 
+.my-div{
+  position: fixed;
+  top: 0;
+  padding: 10rem;
+  text-align: start;
+  z-index: 99;
+
+  width: 50vw;
+  height: 100vh;
+  background: #000000a7;
+  backdrop-filter: blur(10px);
+
+  @include tablet {
+   // top: none;
+    padding: 2rem;
+    width: 100vw;
+    bottom: 0;
+  }
+}
+
+
+
 .section-tit{
     display: flex;
     //flex-direction: column;
@@ -104,7 +126,7 @@
   color: white;
   //margin: .6rem  0rem;
   border-left: 3px solid transparent;
-  border-image: linear-gradient(to top, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
+  border-image: linear-gradient(to top, $main-bg, rgb(234, 86, 160)) 1;
   width: 50%; 
   
   display: flex;
@@ -153,14 +175,14 @@
    
     align-items: center;
     flex-direction: column;
-    transition: all 0.5s ease-in-out;
+    //transition: all 0.5s ease-in-out;
     overflow: auto;
     background-color: #2c2c2c4f;
    
     border-radius: 7px;
     
     img{
-      width: 79px;
+      width: 80px;
       height: 100px;
       object-fit: cover;
     }
@@ -188,20 +210,20 @@
 
 .continuewatching:hover{
   color: white;
-  background-color: rgba(39, 39, 39, 0.575);
+  background-color: rgba(86, 62, 26, 0.648);
   //border: 1.5px solid $main-bg;
-  transform: scale(1);
-  transition: all 0.2s ease-in-out;
+ // transform: scale(1);
+ // transition: all 0.2s ease-in-out;
  
 }
 .catx{
  
-  padding: 5px 10px;
+  padding: 5px 15px;
   margin-top: .7rem;
-  background-color: rgb(13, 13, 13);
-  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.075);
+  border-radius: 15px;
   font-weight: 200;
-  color: rgba(255, 133, 133, 0.571);
+  color: rgba(245, 226, 9, 0.674);
   text-align: end;
 
   @include mobile {
@@ -234,34 +256,5 @@
     }
 
 }
-.ad{
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 200px;
-  justify-content: center;
- background-color: rgba(255, 255, 255, 0.105);
- border-radius: 10px;
- gap: 1rem;
- margin: 5px;
- padding: 10px;
-  @include mobile {
-    //display: none;
-  }
-}
-.adtitle{
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10rem;
-  font-weight: 600;
-  color: rgba(0, 0, 0, 0.614);
-  //z-index: 1;
-}
-.adback{
-  width: 150px;
-  height: 150px;
-  border-radius: 10px;
-}
+
   
