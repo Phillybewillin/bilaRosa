@@ -10,7 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import MovieCard from '../components/movie-card/MovieCard';
 import BoxOffice from '../components/movie-list/BoxOffice';
 
-
+import Button from '../components/button/Button';
 const Home = () => {
   document.title = 'Home - • - ZillaXR';
 
@@ -73,7 +73,16 @@ const Home = () => {
     localStorage.removeItem('ContinueWatching');
     setContinueWatching([]);
   };
+  const divId = 'my-div';
+  const [isVisible, setIsVisible] = useState(true);
 
+  useEffect(() => {
+    // Check if the user has already viewed the div
+    const viewedDivs = JSON.parse(localStorage.getItem('viewedDivs') || '[]');
+    if (viewedDivs.includes(divId)) {
+      setIsVisible(false);
+    }
+  }, [divId]);
   // Common function to render a list of movies or TV shows
   const renderList = (items, category) => ({ index, style }) => {
     const item = items[index];
@@ -121,11 +130,32 @@ const Home = () => {
     const currentOffset = listRef.current.state.scrollOffset || Movieref.current.state.scrollOffset;
     smoothScroll(currentOffset + 1000); // Adjust the scroll distance as needed
   };
+  const handleClose = () => {
+    setIsVisible(false);
+    const viewedDivs = JSON.parse(localStorage.getItem('viewedDivs') || '[]');
+    const newViewedDivs = [...viewedDivs, divId];
+    localStorage.setItem('viewedDivs', JSON.stringify(newViewedDivs));
+  };
 
   return (
     <>
       <Spotlight />
-      
+      <div id={divId} className="my-div" style={{ display: isVisible ? 'block' : 'none' }}>
+       <h4>What's New ~ Update Version 2.1.0</h4>
+        <p> • Added More Sources ~ Named after fruits for some reason</p>
+        <p> • Fixed Some Styling Issues </p>
+        <p> • Added navigation buttons to the episodes ~ on PC & TV</p>
+        <h4>Still to Do :</h4>
+        <p> • Track Clicked Episodes and Seasons</p>
+        <p> • Fix Login Issues and  Saving </p>
+        <p> • Add Light Mode</p>
+        <p> • Allow Recently viewed to be shared accross devices </p>
+       
+         
+      <Button onClick={handleClose}>Close</Button>
+      <p> ~ Happy Streaming ~  </p>
+
+    </div>
       
 
       <div className="container">
@@ -162,6 +192,7 @@ const Home = () => {
           ))}
         </div>
       </div>
+
         {/* Trending Movies Section */}
         <div className="section mb-3">
           <div className="section-tit">
