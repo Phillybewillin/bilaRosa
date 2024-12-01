@@ -1,8 +1,13 @@
 @use "../../scss/" as *;
 
-
+.bigman{
+  min-height: 100vh;
+  transition: all .3s ease-in-out;
+  //overflow: hidden;
+  position: relative;
+}
 .banner {
-    height: 50vh;
+    height: 70vh;
     position: fixed;
     background-position: top;
     background-size: cover;
@@ -36,7 +41,7 @@
 
   position: relative;
   max-width: 35%;
-  max-height: 150px;
+  max-height: 100px;
   background-size: contain;
   @include mobile {
     width: 60%;
@@ -557,6 +562,7 @@
   height: auto;
   background-color: #000000;
   padding: 5px;
+  break-inside: avoid;
   //margin:  5px;
   columns: 5;
     
