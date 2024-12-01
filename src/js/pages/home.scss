@@ -21,10 +21,10 @@
     justify-content: flex-start;
     padding: .5rem;
     background-color: rgb(5, 5, 5);
-    font-size: small;
+    font-size: 0.7rem;
     border-radius: 5px;
     font-weight: 200;
-    color: rgba(233, 233, 233);
+    color: rgba(233, 233, 233, 0.674);
     top: 34.4rem;
     left: 1rem;
 
@@ -50,7 +50,7 @@
     justify-content: center;
     padding: .5rem;
     background-color: rgb(5, 5, 5);
-    font-size: small;
+    font-size: x-small;
      border-radius: 10px;
      font-weight: 200;
       color: rgba(233, 233, 233, 0.644);
@@ -234,4 +234,34 @@
     }
 
 }
-
+.ad{
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 200px;
+  justify-content: center;
+ background-color: rgba(255, 255, 255, 0.105);
+ border-radius: 10px;
+ gap: 1rem;
+ margin: 5px;
+ padding: 10px;
+  @include mobile {
+    //display: none;
+  }
+}
+.adtitle{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.614);
+  //z-index: 1;
+}
+.adback{
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+}
+  
