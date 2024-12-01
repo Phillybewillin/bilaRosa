@@ -223,8 +223,8 @@ const Detail = () => {
 
     return (
         <>
-
-            {
+           <div className="bigman">
+           {
                 item && (
                     <>
                     
@@ -356,6 +356,8 @@ const Detail = () => {
                     </>
                 )
             }
+           </div>
+            
         </>
     );
 }
