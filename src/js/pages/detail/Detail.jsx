@@ -49,15 +49,16 @@ const Detail = () => {
     }
 }
   useEffect(() => {
+   
     Images();
     getVideos();
     getDetail();
-    scrollToTop();
+   
   }, [category, id]);
 
   useEffect(() => {
     document.title =  item ? `${item?.title || item?.name} - Watch it on ZillaXR` : 'Weed With a movie or TV Show - Watch it on ZillaXR';
-    
+    scrollToTop();
     
     //console.log('items:', items);
   }, [category, id , item]);
