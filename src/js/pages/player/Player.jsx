@@ -148,10 +148,12 @@ const handleSeasonClick = (seasonNumber) => {
  //console.log(iframeUrl);
   const options = [
     { value: 'https://vidlink.pro/', label: 'Vanilla' },
-    { value: 'https://player.autoembed.cc/embed/', label: 'Strawberry' },
-    { value: 'https://vidsrc.xyz/embed/', label: 'Banana' },
     { value: 'https://embed.su/embed/', label: 'Grape' },
+    { value: 'https://vidsrc.cc/v2/embed/', label: 'Cherry' },
+    { value: 'https://vidsrc.me/embed/', label: 'Banana' },
+    
     { value: 'https://vidbinge.dev/embed/', label: 'Blueberry' },
+    { value: 'https://flicky.host/embed/', label: 'Pineapple - Multi Audio' },
    
   ]
   const handleIframeLoad = () => {
@@ -162,15 +164,7 @@ const handleSeasonClick = (seasonNumber) => {
     <ErrorBoundary>
         <> 
           <div className="player-container" >
-            <div className="topbar">
-            <div className="logozz" onClick={() => navigate('/')}>
-               <img src={logo} alt="ZillaXR"/>
-               <h4 className="logotext">ZILLAXR</h4> </div>
-              <div className="menu">
-              <div className="navih" onClick={handleHome}><i className="bx bx-home" ></i></div>
-              <div className="navi" onClick={handleBack}><i className='bx bxs-chevron-left'></i></div>
-            </div>
-            </div>
+           
             
             <div className="episodes__iframe-container" style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)',width : '100%', height : '100%'}}>
           
@@ -180,23 +174,24 @@ const handleSeasonClick = (seasonNumber) => {
       ) : (
         season_number && episode_number ? (
           <iframe
-            src={`${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?poster=true&autoplay=false&nextbutton=true&icons=vid`}
             className="episodes__iframe"
-            width={"100%"}
+        src={`${iframeUrl === 'https://flicky.host/embed/' ? 'https://flicky.host/embed/tv/?id=' + id + '/' + currentSeason + '/' + currentEpisode : iframeUrl + 'tv/' + id + '/' + currentSeason + '/' + currentEpisode}${iframeUrl === 'https://vidlink.pro/' ? '?poster=true&autoplay=false&nextbutton=true&icons=vid' : ''}`}   width={"100%"}
             height={"100%"}
             frameBorder="0"
             allowFullScreen
+            sandbox
             onLoad={handleIframeLoad}
          
           />
         ) : (
           <iframe
-            src={`${iframeUrl}movie/${id}?poster=true&autoplay=false&icons=vid`}
+          src={`${iframeUrl === 'https://flicky.host/embed/' ? 'https://flicky.host/embed/movie/?id=' + id : iframeUrl + 'movie/' + id}?poster=true&autoplay=false&icons=vid`}
             className="episodes__iframe"
             width={"100%"}
             height={"100%"}
             frameBorder="0"
             allowFullScreen
+            sandbox
             onLoad={handleIframeLoad}
           />
         ))}
@@ -211,7 +206,16 @@ const handleSeasonClick = (seasonNumber) => {
   </div>
 ) : null}
           <div className="lights"></div>
-          <div className="seasons">
+          <div className="sertop">
+          <div className="topbar">
+            <div className="logozz" onClick={() => navigate('/')}>
+               <img src={logo} alt="ZillaXR"/>
+               <h4 className="logotext">ZILLAXR</h4> </div>
+              <div className="menu">
+              <div className="navih" onClick={handleHome}><i className="bx bx-home" ></i></div>
+              <div className="navi" onClick={handleBack}><i className='bx bxs-left-arrow'></i></div>
+            </div>
+            </div>
             <div className="servers">
               <h4>Sources :</h4> 
               <div className="sources"> 
@@ -250,6 +254,9 @@ neutral90: '#303030'
   />
               </div>
             </div>
+          </div>
+          <div className="seasons">
+            
           
         <div className="seasons__content">
        
