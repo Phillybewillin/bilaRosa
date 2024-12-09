@@ -76,11 +76,38 @@ const Spotlight = () => {
           > 
           <SwiperSlide>
               <div className="spotlight-item">
+              <h1 className="spotlight-number">R</h1>
+                <img src={'https://image.tmdb.org/t/p/original/bzajGtlHlqYfB21lOAzZFwYUQqG.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(143, 143, 143, 0.4))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .1</h4>
+                
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/f2j9DtQXZBYpfUJ6nyON258aHRe.png"/></h2>
+                
+                  
+                  <p className="spotlight-genres">
+                    <span className="genre a">Sci-Fi</span>
+                    <span className="genre a">Action</span>
+                    <span className="genre a">Adventure</span>
+                  </p>
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  <p className="spotlight-overview">Eddie and Venom are on the run. Hunted by both of their worlds and with the net closing in, the duo are forced into a devastating decision that will bring the curtains down on Venom and Eddie's last dance.</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/movie/912649')}>  <i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 912649, "Venom: The Last Dance")}>  <i className='bx bx-play'></i> Watch Now </Button>
+                  </div>
+                  </div>
+              </div>
+            </SwiperSlide>
+          <SwiperSlide>
+              <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
                 <img src={'https://image.tmdb.org/t/p/original/jkyQBtr0dU0uIaovQs3xoXHP9kV.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(255, 0, 0, 0.4))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .1</h4>
+                  <h4 className="spon">#Spotlight .2</h4>
                  
                   <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/zuFnfprVt0r5qE2IBWN8ewhqhsb.png"/></h2>
                 
@@ -107,33 +134,7 @@ const Spotlight = () => {
                   </div>
               </div>
            </SwiperSlide>
-           <SwiperSlide>
-              <div className="spotlight-item">
-              <h1 className="spotlight-number">R</h1>
-                <img src={'https://image.tmdb.org/t/p/original/3mn38SpFswT0dRIV8ADcJ4Go98i.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(143, 143, 143, 0.4))'}}/>
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .2</h4>
-                
-                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/uykwNyOAqRtY0xXYZS2wDBuwdAi.png"/></h2>
-                
-                  
-                  <p className="spotlight-genres">
-                    <span className="genre a">Drama</span>
-                    <span className="genre a">Mystery</span>
-                    <span className="genre a">Thriller</span>
-                  </p>
-                  <div className="spotty">
-                  <h6 className="genre b">HD</h6><h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  <p className="spotlight-overview">After the unexpected death of the Pope, Cardinal Lawrence is tasked with managing the covert and ancient ritual of electing a new one. Sequestered in the Vatican with the Catholic Church’s most powerful leaders until the process is complete, Lawre</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/movie/974576')}>  <i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 974576, "Conclave")}>  <i className='bx bx-play'></i> Watch Now </Button>
-                  </div>
-                  </div>
-              </div>
-            </SwiperSlide>
+           
             
           <SwiperSlide>
               <div className="spotlight-item">
