@@ -183,10 +183,11 @@ i {
             bottom: 0;
             left: 0;
             //right: 0;
-            height: 6rem;
+            height: 5rem;
             width: 100%;
             justify-content: space-evenly;
-            //background-color: $body-bg;
+            background-image: linear-gradient(180deg , transparent , black);
+            //background-color: rgba(0, 0, 0, 0.68);
             backdrop-filter: none;
             font-size: medium;
             padding: 0.5rem ;
@@ -206,7 +207,7 @@ i {
 }
 }
 .bur{
-    display: flex;
+    display: none;
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
@@ -251,7 +252,7 @@ i {
       
   }
   @include mobile {
-    background-color: rgba(0, 0, 0, 0.872);
+    background-color: rgba(0, 0, 0, 0.224);
     color: rgb(255, 255, 255);
      opacity: 1;
      scale: 1.5;
@@ -292,13 +293,14 @@ i {
     min-height: 0px;
     display: flex;
     flex-direction: column;
-    background-color: rgba(20, 20, 20, 0.872);
+    background-color: rgba(0, 0, 0, 0.537);
       
     backdrop-filter: blur(10px);
     scrollbar-color: rgba(171, 171, 171, 0) transparent;
     gap: 1rem;
     position: absolute;
     width: 100%;
+    //min-height: 10vh;
     max-height: 80vh;
     border-radius: 10px;
     margin-top: calc(100vh - 4rem);
@@ -312,6 +314,10 @@ i {
         
     }
     @include mobile {
+        background-color: rgba(0, 0, 0, 0.731);
+      
+        backdrop-filter: none;
+      
       margin-top: calc(100vh - 3rem);
       max-height: 90vh;
        width: 100vw;
@@ -329,7 +335,7 @@ i {
    align-items: center;
    width: 500px;
    input {
-       background-color: rgba(8, 8, 8, 0.534);
+       background-color: rgba(18, 18, 18, 0.534);
       
        margin-top: 1rem;
        border-radius: 10px;
@@ -343,7 +349,7 @@ i {
       
       &:focus {
         outline: none;
-        border: 1px solid $main-bg;
+        border: 1px solid orange;
       }
       
      
@@ -371,7 +377,7 @@ i {
    }
    @include mobile {
      //margin-top: 5px;
-       margin-left: -2px;
+       margin-left: -2.2px;
        width: 100vw;
        
    }
