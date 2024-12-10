@@ -140,23 +140,6 @@ const Home = () => {
   return (
     <>
       <Spotlight />
-      <div id={divId} className="my-div" style={{ display: isVisible ? 'block' : 'none' }}>
-       <h4>What's New ~ Update Version 2.1.0</h4>
-        <p> • Added More Sources ~ Named after fruits for some reason</p>
-        <p> • Fixed Some Styling Issues </p>
-        <p> • Added navigation buttons to the episodes ~ on PC & TV</p>
-        <h4>Still to Do :</h4>
-        <p> • Track Clicked Episodes and Seasons</p>
-        <p> • Fix Login Issues and  Saving </p>
-        <p> • Add Light Mode</p>
-        <p> • Allow Recently viewed to be shared accross devices </p>
-       
-         
-      <Button onClick={handleClose}>Close</Button>
-      <p> ~ Happy Streaming ~  </p>
-
-    </div>
-      
 
       <div className="container">
       <h4 className="continue-watching-title">Recently Viewed </h4>
