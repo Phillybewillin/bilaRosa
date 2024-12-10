@@ -42,7 +42,7 @@ const Spotlight = () => {
         
           <Swiper
             ref={sliderRef}
-            spaceBetween={20}
+            spaceBetween={14}
             slidesPerView={4}
             lazy={true}
             preloadImages={false}
