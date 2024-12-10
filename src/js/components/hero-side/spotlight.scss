@@ -18,7 +18,7 @@
     height: 520px;
     padding-top: 3rem;
     object-fit: cover;
-   transition: all .9s ease-in-out;
+  // transition: all .9s ease;
    //transition: font-size 1s ease-out;
     
     font-size: small;
@@ -38,7 +38,7 @@
  .swiper-slide.swiper-slide-active {
   //padding-left: .5rem;
   font-size: 1.5rem;
-  transition: width .9s ease, font-size .9s ease-out;
+  transition: width .7s ease, font-size .9s ease-out;
   will-change: auto;
    width: 750px !important;
    object-fit: cover;
@@ -49,10 +49,12 @@
   
  }
  .swiper-slide.swiper-slide-prev{
-  transition: width .9s ease , font-size 1s ease-out;
+  cursor: pointer;
+  transition: width .7s ease , font-size 1s ease-out;
  }
  .swiper-slide.swiper-slide-next {
-  transition: width .9s ease-out;
+  cursor: pointer;
+  transition: width .3s ease;
  //transition-delay: 1s; /* delay the transition by 0.5 seconds */
 }
 
@@ -86,7 +88,7 @@ margin-bottom: 1rem;
 .swiper-pagination-bullet {
   width: 15px;
   height: 5px;
-  background-color: #ffffffa9;
+  background-color: #ffffff;
   border-radius: 10px;
 }
 }
@@ -265,15 +267,16 @@ margin-bottom: 1rem;
   position : absolute;
   bottom: 0;
   right: 2px;
- background-color: rgba(14, 14, 14, 0.646);
+ background-color: rgba(255, 255, 255, 0.057);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: .5rem;
   border-radius: 5px;
   font-size: .65rem;
-  font-weight: 500;
-  color: $main-bg;
+  font-weight: 300;
+  color: rgb(206, 206, 206);
+  //text-rendering: geometricPrecision;
   @include mobile {
     position: relative;
     width: max-content;
