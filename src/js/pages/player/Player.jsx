@@ -43,10 +43,10 @@ export default function Player() {
          .split(' ')
           .map(word => word.charAt(0).toUpperCase() + word.slice(1))
            .join(' ');
-        document.title = ` Streaming ${decodedTitle}`;
+        document.title = ` Currently Watching ${decodedTitle}`;
 
       if (season_number && episode_number) {
-        document.title = `Watching  ${decodedTitle} • S${currentSeason} • E${currentEpisode}`;
+        document.title = ` Currently Watching ${decodedTitle} • S${currentSeason} • E${currentEpisode}`;
       }
   
     }
@@ -147,11 +147,12 @@ const handleSeasonClick = (seasonNumber) => {
   const [iframeUrl, setIframeUrl] = useState('https://vidlink.pro/');
  //console.log(iframeUrl);
   const options = [
-    { value: 'https://vidlink.pro/', label: 'Vanilla' },
+    { value: 'https://vidlink.pro/', label: 'Apple' },
+    { value: 'https://player.autoembed.cc/embed/', label: 'Strawberry' },
     { value: 'https://embed.su/embed/', label: 'Grape' },
     { value: 'https://vidsrc.cc/v2/embed/', label: 'Cherry' },
     { value: 'https://vidsrc.me/embed/', label: 'Banana' },
-    
+    { value: 'https://vidsrc.xyz/embed/', label: 'Mango' },
     { value: 'https://vidbinge.dev/embed/', label: 'Blueberry' },
     { value: 'https://flicky.host/embed/', label: 'Pineapple - Multi Audio' },
    
