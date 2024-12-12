@@ -128,7 +128,7 @@ const Header = React.memo(() => {
     <div className="searchmovie">
       <Input
         type="text"
-        placeholder="What if, you searched for a  Christmas movie ?" 
+        placeholder="What if, you searched for a movie 🎥?" 
         value={searchValue}
         onChange={handleInputChange}
       />
