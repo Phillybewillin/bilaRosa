@@ -77,7 +77,7 @@ const Spotlight = () => {
            <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-14</h1>
-                <img src={'https://image.tmdb.org/t/p/original/iGFxEE7a6z6960GcKAD2gdntjKq.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(255, 0, 0, 0.23))'}}/>
+                <img src={'https://image.tmdb.org/t/p/original/7Wd7ZmYve15GjQfCYCkvq7EFU8c.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(43, 137, 150, 0.25))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .1 #TV</h4>
@@ -167,7 +167,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/original/rOmUuQEZfPXglwFs5ELLLUDKodL.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(143, 143, 143, 0.25))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .3 #Movies</h4>
+                  <h4 className="spon">#Spotlight .1 #Movies</h4>
                 
                   <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/rPftQWhQ7ZINyruA3S6rSeaofE2.png"/></h2>
                 
@@ -513,11 +513,6 @@ const Spotlight = () => {
                  </div>
               </div>
             </SwiperSlide>
-          
-         
-          
-           
-           
            <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">R</h1>
@@ -550,38 +545,11 @@ const Spotlight = () => {
             </SwiperSlide>
             <SwiperSlide>
               <div className="spotlight-item">
-              <h1 className="spotlight-number">PG-13</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/kKgQzkUCnQmeTPkyIwHly2t6ZFI.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(7, 41, 75, 0.5))'}}/>
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .14</h4>
-                
-                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/61Z6mL60ltShU393JkgBawAaeCw.png"/></h2>
-                
-                  
-                  <p className="spotlight-genres">
-                    <span className="genre a">Comedy</span>
-                    <span className="genre a">Horror</span>
-                    <span className="genre a">Fantasy</span>
-                  </p>
-                  <div className="spotty">
-                  <h6 className="genre b">HD</h6><h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  <p className="spotlight-overview">After a family tragedy, three generations of the Deetz family return home to Winter River. Still haunted by Betelgeuse, Lydia's life is turned upside down when her teenage daughter, Astrid, accidentally opens the portal to the Afterlife...</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/movie/917496')}><i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer(917496, "Beetlejuice Beetlejuice")}>  <i className='bx bx-play'></i> Watch Now </Button>
-                  </div>
-                  </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="spotlight-item">
                 <h1 className="spotlight-number">PG</h1>
                 <img src={'https://image.tmdb.org/t/p/w1280/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgb(170, 161, 176,0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon"> #Spotlight .15</h4>
+                  <h4 className="spon"> #Spotlight .14</h4>
             
                   <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/h40hblm8J1if7T2CBMjCD85HwuD.png"/></h2>
                 
@@ -602,42 +570,6 @@ const Spotlight = () => {
                   </div>
                  </div>
             </SwiperSlide>
-           
-            
-            <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">TV-14</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/gc8PfyTqzqltKPW3X0cIVUGmagz.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(143, 143, 143, 0.4))'}}/>
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .16</h4>
-                 
-                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/chw44B2VnLha8iiTdyZcIW0ZELC.png"/></h2>
-                
-               
-                
-                  <p className="spotlight-genres">
-                  
-                   
-                    <span className="genre a">Drama</span>
-                   
-                    <span className="genre a">Crime</span>
-                
-
-                  </p>
-                  <div className="spotty">
-                   <h6 className="genre b">HD</h6><h6 className="genre a">Series</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2008</h6>
-                  </div>
-                  
-                  <p className="spotlight-overview">Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given a prognosis of only two years left to live. He becomes filled with a sense of fearlessness and an unrelenting desire to secure his family's financial future at any cost as he enters the dangerous world of drugs and crime.</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/tv/1396')}> <i className='bx bx-info-circle'></i>  Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 1396, "Breaking Bad " ,1 ,1 )}> <i className='bx bx-play' ></i> Watch Now</Button>
-                  </div>
-                  </div>
-              </div>
-            </SwiperSlide>
-           
            
             <div className="alignerbutts">
               <div className="butts" ref={navigationPrevRef} ><i className='bx bxs-left-arrow'></i></div>
