@@ -109,10 +109,7 @@ useEffect(() => {
     setContinueWatching(newContinueWatching);
   };
 
-  const clearContinueWatching = () => {
-    localStorage.removeItem('ContinueWatching');
-    setContinueWatching([]);
-  };
+  
   const divId = 'my-div';
   const [isVisible, setIsVisible] = useState(true);
 
