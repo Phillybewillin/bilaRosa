@@ -1,209 +1,214 @@
-import React from 'react';
-
-import { useRef , useEffect ,useCallback } from 'react';
-
-import { Link , NavLink} from 'react-router-dom';
-import apiConfig from '../../api/apiConfig';
-import { useNavigate } from 'react-router-dom';
-
-import Button ,{ OutlineButton } from '../button/Button';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { UserAuth } from '../../context/AuthContext';
+import Button, { OutlineButton } from '../button/Button';
 import './header.scss';
-import {UserAuth} from '../../context/AuthContext'
 import Mlist from './Mlist';
 import Input from '../input/Input';
-//import logo from '/icons8-cool-64.png';
 import logo from '../../assets/icons8-alien-monster-emoji-48.png';
 import Signup from '../../pages/authpages/Signup';
 import Login from '../../pages/authpages/Login';
+import { Menu, MenuItem, MenuButton, MenuDivider } from '@szhsin/react-menu';
+import '@szhsin/react-menu/dist/index.css';
+import '@szhsin/react-menu/dist/transitions/zoom.css';
+import Avatar from 'react-avatar';
+import apiConfig from '../../api/apiConfig';
+
+const Header = () => {
+  const { user, logOut } = UserAuth();
+  const navigate = useNavigate();
+  const headerRef = useRef(null);
+
+  const [showModal, setShowModal] = useState(false);
+  const [showSignup, setShowSignup] = useState(true);
+  const [movies, setMovies] = useState([]);
+  const [hidesearch , setHidesearch] =  useState(true);
+  const [searchValue, setSearchValue] = useState('');
+
+  const headerNav = [
+    {
+      display: (
+        <span className="iconbox">
+          <i className="bx bx-home-alt"></i>
+          <h5 className="iconv">Home</h5>
+        </span>
+      ),
+      path: '/',
+    },
+    {
+      display: (
+        <span className="iconbox">
+          <i className='bx bx-equalizer'></i>
+          <h5 className="iconv">Filters</h5>
+        </span>
+      ),
+      path: '/filter',
+    },
+    {
+      display: (
+        <span className="iconbox">
+          <i className="bx bx-movie"></i>
+          <h5 className="iconv">Movies</h5>
+        </span>
+      ),
+      path: '/z/movie',
+    },
+    {
+      display: (
+        <span className="iconbox">
+          <i className="bx bx-tv"></i>
+          <h5 className="iconv">Shows</h5>
+        </span>
+      ),
+      path: '/z/tv',
+    },
+  ];
+
+  const handleLogout = useCallback(async () => {
+    try {
+      await logOut();
+      navigate('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  }, [logOut, navigate]);
 
 
-// eslint-disable-next-line react/display-name
-const Header = React.memo(() => {
 
-    //const { user , logOut } = React.useContext(UserAuth) || {};
-    const [showModal, setShowModal] = React.useState(false);
-    const [showSignup, setShowSignup] = React.useState(true);
-    const [hidesearch , sethide] =  React.useState(false);
-    const headerNav = [
-      {
-          display:<span className="iconbox"><i  className="bx bx-home"></i> <h5 className='iconv'>Home</h5></span>,
-          path: '/'
-      }
-      ,
-      {
-          display: <span className="iconbox"><i className='bx bxs-invader'></i><h5 className='iconv'>Filters</h5></span>,
-          path: '/filter'
-      },
-      {
-          display: <span className="iconbox"><i className="bx bx-movie"></i> <h5 className='iconv'>Movies</h5></span>,
-          path: '/z/movie'
-      },
-      {
-          display: <span className="iconbox"><i className="bx bx-tv"></i> <h5 className='iconv'>Shows</h5></span>,
-          path: '/z/tv'
-      },
-  
-      {
-          display: <span className="iconbox"><i className='bx bxs-hide'></i><h5 className='iconv'>Hide</h5></span>,
-          onClick: () => sethide(!hidesearch), // add this line
-   
-      }
-  ]
+  const getMoviesResult = async (searchValue) => {
+      if (searchValue) {
+          const url = `https://api.themoviedb.org/3/search/multi?query=${searchValue}&api_key=${apiConfig.apiKey}`;
+          const response = await fetch(url);
+          const data = await response.json();
 
-
-   const handleShowModal = () => {
-    setShowModal(true);
-    setShowSignup(false);
-    //localStorage.setItem('updateModalShown', 'true');
- };
-    const { user, logOut } = UserAuth();
-    const  navigate= useNavigate(); // Move useNavigate here
-
-    const handlelogout = useCallback(async () => {
-        try {
-            await logOut();
-            navigate('/'); // Now you can use navigate here
-        } catch (error) {
-            console.log(error);
-        }
-    }, [logOut, navigate]);
-    //const { pathname } = useLocation();
-    const headerRef = useRef(null);
-
-    //const active = headerNav.findIndex(e => e.path === pathname);
-
-    
-     
-    const [movies , setMovies] = React.useState([]);
-    const [searchValue, setSearchValue] = React.useState('');
-
-
-    const getMoviesResult = async (searchValue) => {
-        if (searchValue) {
-            const url = `https://api.themoviedb.org/3/search/multi?query=${searchValue}&api_key=${apiConfig.apiKey}`;
-            const response = await fetch(url);
-            const data = await response.json();
-
-            if(data.results){
-                const filteredMovies = data.results.filter(movie => movie.poster_path && movie.overview);
-                setMovies(filteredMovies);
-            } else {
-                setMovies([]);
-            }
-        }
-    };
-    useEffect(() => {
-        //handleInputChange({ target: { value: searchValue } });
-        getMoviesResult(searchValue);
-        setShowModal(false)
-    }, [searchValue ,user]);
-    
-    const handleInputChange = (e) => {
-      setSearchValue(e.target.value);
-      setMovies([]); // Reset movies when user types in the search input
-    };
-
-    useEffect(() => {
-      const shrinkHeader = () => {
-          if (headerRef.current && (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50)) {
-              headerRef.current.classList.add('shrink');
-          } else if (headerRef.current) {
-              headerRef.current.classList.remove('shrink');
+          if(data.results){
+              const filteredMovies = data.results.filter(movie => movie.poster_path && movie.overview);
+              setMovies(filteredMovies);
+          } else {
+              setMovies([]);
           }
       }
-      window.addEventListener('scroll', shrinkHeader);
-      return () => {
-          window.removeEventListener('scroll', shrinkHeader);
-      };
+  };
+  useEffect(() => {
+      //handleInputChange({ target: { value: searchValue } });
+      if(searchValue !== null || searchValue !== ''){
+        getMoviesResult(searchValue);
+      }
+      
+      setShowModal(false)
+  }, [searchValue ,user]);
+  
+  const handleInputChange = (e) => {
+    setSearchValue(e.target.value);
+    setMovies([]); // Reset movies when user types in the search input
+  };
+  useEffect(() => {
+    const shrinkHeader = () => {
+      if (headerRef.current) {
+        headerRef.current.classList.toggle('shrink', window.scrollY > 50);
+      }
+    };
+    window.addEventListener('scroll', shrinkHeader);
+    return () => window.removeEventListener('scroll', shrinkHeader);
   }, []);
-    return (
-        <>
-        <div ref={headerRef} className="header">
-        <div className="logo" onClick={() => navigate('/')}>
+
+  return (
+    <>
+      <div ref={headerRef} className="header">
+      <div className="logo" onClick={() => navigate('/')}>
                <img src={logo} alt="ZillaXR"/>
                <h4 className="logotext">ZILLAXR</h4>
        </div>
        {!hidesearch && (
   <div className="mlrowa">
     <div className="searchmovie">
-      <Input
-        type="text"
-        placeholder="What if, you searched for a movie 🎥?" 
-        value={searchValue}
-        onChange={handleInputChange}
-      />
+    <Input
+  type="text"
+  placeholder="What if, you searched for a movie ?"
+  value={searchValue}
+  onChange={handleInputChange}
+  
+/>
+
+
+
       <div className="mds">
         <Mlist movies={movies || []} value={searchValue} />
       </div>
     </div>
   </div>
 )}
-       
 
-   
-       <div className="header__wrap container">
-           <nav className="header__nav">
-           {headerNav.map((navItem) => (
-  <NavLink
-    key={navItem.path}
-    to={navItem.path}
-    className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-    onClick={navItem.onClick ? navItem.onClick : null}
-  >
-    {navItem.display}
-  </NavLink>
-))}
-          </nav>
-        
-         
-                     
-    {user?.email? (
-              
-                <div className="bur">
-                    
-                <div className="login" style={{display: 'flex',justifyContent:'space-between'}}>
-                <Link to ="/account">
-                <OutlineButton className="blue"><i className="bx bx-user"></i></OutlineButton>
-                </Link> 
-                <OutlineButton onClick={handlelogout} className="blue">LogOut</OutlineButton>
-                </div> 
-                </div>
-            ) : (
-               <div className="bur" >
-               
-                <Button onClick={handleShowModal} className="pink"><i className="bx bx-user"></i></Button>
-               
-          </div>
-           )}      
+        <div className="header__wrap container">
+          <nav className="header__nav">
+            {headerNav.map((navItem, index) => (
+              <NavLink
+                key={index}
+                to={navItem.path}
+                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+              >
+                {navItem.display}
+              </NavLink>
+            ))}
+            <div className="icserch">
+            <span className="iconbox" onClick={() => setHidesearch(!hidesearch)}>
+           <i className='bx bx-search-alt'></i>
+           <h5 className='iconv'>Search</h5>
+            </span>
+            </div>
            
-       </div> 
-       
-           </div>
-                <div className="modal" style={{ display: showModal ? 'block' : 'none' }}>
-               <div className="modal_content">
-      {showSignup ? (
-        <Signup />
-      ) : (
-        <Login />
-      )
-      }
-      <div className="ggd">
-      <Button className="btn" onClick={() => setShowSignup(true)}>
-        signup
-    </Button>
-      <Button className="btn" onClick={() => setShowModal(false)}>
-        close
-    </Button>
-      </div>
-    
-  
-</div>
+            <div className="menuzz">
+            <Menu 
+              menuButton={
+                <MenuButton >
+                  <Avatar
+                    name={user?.email || ''}
+                    size="43"
+                    round
+                    color="#000000d9"
+                  />
+                  
+                </MenuButton>
+              }
+              transition
+            >
+              {user?.email ? (
+                <>
+                  <MenuItem onClick={() => navigate('/account')}> <div className="loggz"> Watchlist  <i class='bx bxs-collection'></i></div> </MenuItem>
+                  <MenuDivider  style={{ backgroundColor: '#ffff1165' , borderRadius : '5px'}}/>
+                  <MenuItem onClick={handleLogout}> <div className="loggz"> LogOut <i className='bx bx-log-out'></i></div></MenuItem>
+                </>
+              ) : (
+                <>
+                  <MenuItem  style={{ justifyContent: 'flex-start' }} onClick={() => { setShowModal(true); setShowSignup(false); }}> <div className="loggz"> LogIn <i className='bx bxs-user-plus'></i>
+                    </div></MenuItem>
+                  <MenuItem  style={{ justifyContent: 'flex-start' }} onClick={() => { setShowModal(true); setShowSignup(true); }}> <div className="loggz"> Sign-Up <i className='bx bx-user-plus'></i></div></MenuItem>
+                  <MenuDivider  style={{ backgroundColor: '#ff001165' , borderRadius : '5px'}}/>
+                  <MenuItem  onClick={() => navigate('/dmca')}> <div className="loggz"> DMCA <i className='bx bxs-bot'></i></div></MenuItem>
+                  <MenuItem  onClick={() => navigate('/privacy')}> <div className="loggz"> Privacy Policy <i className='bx bxs-shield-plus'></i></div></MenuItem>
+                  <MenuItem  onClick={() => navigate('/dmca')}> <div className="loggz"> DMCA <i className='bx bxs-bot'></i></div></MenuItem>
+                   
+                </>
+              )}
+            </Menu>
           </div>
-
-
-        </>
-        
-    );
-}, );
+          </nav>
+          
+        </div>
+      </div>
+      {showModal && (
+        <div className="modal">
+          <div className="modal_content">
+            {showSignup ? <Signup /> : <Login />}
+            <Button className="btn" onClick={() => setShowSignup((prev) => !prev)}>
+              {showSignup ? 'Switch to Login' : 'Switch to Signup'}
+            </Button>
+            <Button className="btn" onClick={() => setShowModal(false)}>Close</Button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
 
 export default Header;
