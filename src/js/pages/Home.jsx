@@ -110,16 +110,22 @@ useEffect(() => {
   };
 
   
-  const divId = 'my-div';
-  const [isVisible, setIsVisible] = useState(true);
+  const divId = 'message';
 
-  useEffect(() => {
+  const [isVisible, setIsVisible] = useState(() => {
     // Check if the user has already viewed the div
-    const viewedDivs = JSON.parse(localStorage.getItem('viewedDivs') || '[]');
-    if (viewedDivs.includes(divId)) {
-      setIsVisible(false);
+    const viewedDivs = JSON.parse(localStorage.getItem('message') || '[]');
+    return !viewedDivs.includes(divId);
+  });
+  
+  useEffect(() => {
+    // Update local storage when isVisible changes
+    if (!isVisible) {
+      const viewedDivs = JSON.parse(localStorage.getItem('message') || '[]');
+      viewedDivs.push(divId);
+      localStorage.setItem('message', JSON.stringify(viewedDivs));
     }
-  }, [divId]);
+  }, [isVisible, divId]);
   // Common function to render a list of movies or TV shows
   const renderList = (items, category) => ({ index, style }) => {
     const item = items[index];
@@ -169,15 +175,63 @@ useEffect(() => {
   };
   const handleClose = () => {
     setIsVisible(false);
-    const viewedDivs = JSON.parse(localStorage.getItem('viewedDivs') || '[]');
+    const viewedDivs = JSON.parse(localStorage.getItem('message') || '[]');
     const newViewedDivs = [...viewedDivs, divId];
-    localStorage.setItem('viewedDivs', JSON.stringify(newViewedDivs));
+    localStorage.setItem('message', JSON.stringify(newViewedDivs));
   };
 
   return (
     <>
       <Spotlight />
-
+      {
+        isVisible && (
+          <div className="message" onClick={handleClose}>
+          <div className="update3">
+          <h3><i className='bx bx-list-check'></i> ZILLAXR ~ Update 3.0.0</h3>
+            <div className="topper">
+              
+              <p className='txtup'>• Accounts are now fixed <i className='bx bx-check-double'></i></p>
+               <p className='txtup'> - meaning you can create and manage your watchlists 
+               </p>
+               <p className='txtup'> - Have Favourites and Cross platform management 
+               </p>
+               <p className='txtup'> ,but if you had created an account before , you'll need to create one again </p>
+               ----------------------------------------
+               <p className='txtup'><i className='bx bxs-bug'></i> Minor bugs Fixes</p>
+                 <p className='txtup'> <i class='bx bxs-bowl-hot'></i> UI updates</p>
+                 <p className='txtup'><i class='bx bx-bowl-hot'></i> Release Date Counter - for movies , know when they come out  </p>
+               
+               ----------------------------------------
+               <p className='txtup'> -Enjoy ~ disfruta zillaxr ~ JOIN OUR DISCORD -  
+               </p>
+               
+            </div>
+            <div className="bottomer">
+            <a href="https://discord.gg/MCt2R9gqGb" target="_blank">
+             <div className="coccio">
+             <i className='bx bxl-discord-alt'></i>
+            </div>
+             </a>
+             <a href="https://t.me/+MQUUqEx2WXA0ZmZk" target="_blank">
+             <div className="coccio">
+             <i className="bx bxl-telegram"></i>
+            </div>
+             </a> 
+             <a href="https://x.com/ZillaXRxyz" target="_blank">
+             <div className="coccio">
+             <i className='bx bx-x'></i>
+            </div>
+             </a>
+             <div className="coccio" onClick={handleClose}>
+             <p className='txtupz'> Close </p>
+            </div>
+            </div>
+            
+          </div>
+        </div>
+        )
+      }
+      
       { user && isLoading && (
         <div className="load">loading</div>
       )}
@@ -187,7 +241,7 @@ useEffect(() => {
       {user && !isLoading && watchlist?.length > 0 && (
         
            <div className="watchlisthome" style={{color : 'white'}}>
-            <div className="favew"><h3  className="fava">From Thy Watchlist</h3></div>
+            <div className="favew"><h3 className="fava">From Thy Watchlist</h3></div>
              {
            watchlist.map((item, i) => 
               <div  
@@ -222,7 +276,15 @@ useEffect(() => {
       
      
       <div className="continue_watchingcontainer">
-      <h4 className="favazi">Recently Viewed</h4>
+        {
+          continueWatching.length > 0 && (
+            <div className="divcon">
+                <h4 className="favazi">Recently Viewed</h4>
+            </div>
+            
+          )
+        }
+      
         <div className="contin">
           {continueWatching.map((item) => (
             <div className="continuewatching" key={item.id}>
