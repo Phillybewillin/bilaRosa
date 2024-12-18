@@ -11,12 +11,12 @@ i {
 .logo {
     z-index: 99;
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.402);
+  background-color: rgba(0, 0, 0, 0.272);
     border-radius: 10px;
     margin-left: 10px;
     font-size: 1.3rem;
     font-weight: 300;
-    //backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     
     
 
@@ -117,8 +117,8 @@ i {
    
     &.shrink {
         height: $header-shrink-height;
-        background-color: rgba(0, 0, 0, 0.45);
-        backdrop-filter: blur(20px);
+        //background-color: rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(5px);
         //border-bottom: 2px ridge black;
 
         @include mobile {
@@ -130,7 +130,7 @@ i {
     &__wrap {
        display: flex;
        align-items: center;
-       justify-content: space-between;
+       justify-content: space-evenly;
        gap: 1rem;
         height: 100%;
         padding: 0 2rem;
@@ -206,8 +206,63 @@ i {
         
 }
 }
+
+.szh-menu {
+    border: 1px solid rgba(0, 0, 0, 0.144) !important;
+    background-color: rgba(0, 0, 0, 0.804) !important;
+   // font-family: sans-serif;
+    font-size: 0.7rem !important;
+    user-select: none;
+    //box-shadow: 1px 1px 20px 1px rgba(228, 27, 27, 0.877) !important;
+    border-radius: 10px !important;
+    padding: 10px !important;
+    min-width: 5rem !important;
+     color: #fff !important;
+    &--state-opening {
+      animation: szh-menu-show 0.15s ease-out;
+    }
+  
+    &--state-closing {
+      animation: szh-menu-hide 0.2s ease-out forwards;
+    }
+
+    &-button {
+      border-radius: 6px;
+      background-color: rgba(0, 0, 0, 0);
+      //padding: 0.375rem 0.625rem !important;
+      &--hover {
+        color: #fff;
+        background-color: #1a1a1a83 !important;
+      }
+    }
+  
+    &__item {
+        font-size: small !important;
+        border-radius: 6px;
+        padding: 0.375rem 0.625rem !important;
+      &--hover {
+        color: #fff;
+        background-color: #1a1a1a83 !important;
+      }
+      }
+    }
+
+    .logout{
+        font-size: .4rem !important;
+    }
+
+.loggz{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap : 1rem;
+    //margin-top: 1rem;
+    //margin-left: 7rem;
+    
+}
 .bur{
-    display: none;
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
@@ -223,14 +278,16 @@ i {
 
 .iconbox{
    color: rgb(255, 255, 255);
-   background-color: rgba(0, 0, 0, 0.521);
-   padding: 8px 10px;
+   background-color: rgba(0, 0, 0, 0.432);
+   //border: 1px solid rgba(0, 0, 0, 0.144);
+   backdrop-filter: blur(10px);
+   padding: 10px;
     border-radius: 7px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size:.6rem;
+    font-size:.7rem;
     gap: .1rem;
     transition: all 0.7s ease-in-out;
     position: relative;
@@ -252,7 +309,8 @@ i {
       
   }
   @include mobile {
-    background-color: rgba(0, 0, 0, 0.224);
+    backdrop-filter: none;
+    background-color: #00000039;
     color: rgb(255, 255, 255);
      opacity: 1;
      scale: 1.5;
@@ -317,7 +375,7 @@ i {
         background-color: rgba(0, 0, 0, 0.731);
       
         backdrop-filter: none;
-      
+        margin-right: 0;
       margin-top: calc(100vh - 3rem);
       max-height: 90vh;
        width: 100vw;
@@ -335,12 +393,12 @@ i {
    align-items: center;
    width: 500px;
    input {
-       background-color: rgba(18, 18, 18, 0.534);
+       background-color: rgba(2, 2, 2, 0.75);
       
        margin-top: 1rem;
        border-radius: 10px;
       
-       //backdrop-filter: blur(20px);
+       backdrop-filter: blur(20px);
       
       color: rgb(255, 255, 255);
       padding: .7rem 1.5rem;
@@ -349,7 +407,7 @@ i {
       
       &:focus {
         outline: none;
-        border: 1px solid orange;
+        border: 1px solid purple;
       }
       
      
@@ -359,7 +417,7 @@ i {
        // margin-top: 4px;
         backdrop-filter: none;
         padding: 1rem 1.5rem;
-        background-color: black;
+        background-color: rgba(2, 2, 2, 0.85);
         width: 100%;
     }
     
@@ -377,7 +435,7 @@ i {
    }
    @include mobile {
      //margin-top: 5px;
-       margin-left: -2.2px;
+       margin-left: -2px;
        width: 100vw;
        
    }
