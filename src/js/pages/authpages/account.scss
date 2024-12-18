@@ -3,34 +3,105 @@
 
 .account {
    display: flex;
-   align-items: self-start;
-   justify-content: space-between;
+   flex-direction: column;
+   min-height: 100vh;
+   backdrop-filter: blur(30px) !important;
   
-   margin-top: 4rem
-   
-
 }
-.accountleft{
-    width: 50%;
-    float: left;
-    right: 1rem;
-    padding: 1rem ;
-}
-.accountright{
-    
-    width: 50%;
-    float: right;
-    padding: 1rem;
-}
-
-.account__title{
+.user{
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgba(26, 26, 26, 0.717);
-    border-radius: 30px;
-    padding: .8rem ;
-    margin-bottom: .3rem;
+
+    width: 98%;
+    margin: 1rem;
+    height: 40vh;
+    @include mobile{
+        height: 34vh;
+        width: 97%;
+        //scale: 1.2;
+    }
+
+}
+.userAvator{
+    margin-top: 2.5rem;
+
+    @include mobile{
+        margin-top: 2rem;
+        //scale: 1.2;
+    }
+}
+.accountle{
+    margin-top: .3rem;
+    border-bottom: 1px solid pink;
+}
+
+.User{
+    
+    background: linear-gradient(to right, rgb(255, 105, 180), rgb(255, 215, 0));
+   background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+
+
+.shit{
+    margin: .5rem;
+    display: flex;
+    gap: .5rem;
+    flex-direction: row;
+}
+.userem{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    background-color: rgba(77, 77, 77, 0.121);
+    padding: 5px;
+    font-weight: 300;
+    border-radius: 10px;
+   
+}
+.shi{
+    cursor: pointer;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    //text-align: center;
+    min-width: 10px;
+    font-size: small;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #ffffff0f;
+}
+.accounttitle{
+   
+    text-align: center;
+}
+.dh{
+    padding: 1rem;
+  font-size: 3rem;
+
+}
+.history{
+    overflow: auto;
+
+}
+.clear{
+    display: flex;
+    align-items: center;
     font-size: 1rem;
-    font-weight: 500;
+    padding: 0 1rem;
+    gap: .5rem;
+    transition: all .4s ease;
+    cursor: pointer;
+
+    &:hover{
+        color: rgba(255, 115, 0, 0.856);
+    }
+    &:focus{
+        color: red;
+    }
 }
