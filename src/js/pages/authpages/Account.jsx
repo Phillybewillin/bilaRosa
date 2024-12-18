@@ -114,7 +114,7 @@ const Account = () => {
                 onClick={() => handleDelete(item.id)}
                 className="bx bxs-trash"
                 style={{
-                  color: 'orange',
+                  color: 'pink',
                   fontSize: '20px',
                   cursor: 'pointer',
                   position: 'absolute',
