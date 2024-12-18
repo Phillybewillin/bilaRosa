@@ -59,6 +59,7 @@ useEffect(() => {
         });
     }
   }, [user?.uid, getWatchlist]);
+  const hasMounted = useRef(false);
   const getTVresults = async (timewindow) => {
     const url = `https://api.themoviedb.org/3/trending/tv/${timewindow}?api_key=${apiConfig.apiKey}`;
     const response = await fetch(url);
@@ -79,7 +80,8 @@ useEffect(() => {
     
     // Fetch movie results
     getMovieresults('day');
-  }, []);
+    hasMounted.current = true;
+  }, [hasMounted]);
   
 
   const handleClick = (event, category, type) => {
