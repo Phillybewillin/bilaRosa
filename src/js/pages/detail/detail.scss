@@ -86,7 +86,8 @@
     
 
     &__info {
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
        // background-color: #00000040;
         border-radius: 20px;
         padding: 2rem;
@@ -232,7 +233,7 @@
    
     width: 100%;
     max-height: 350px;
-   background-image:linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+   background-image:linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0.4));
     border-radius: 10px;
     //padding: 5px;
      overflow: auto;
@@ -632,7 +633,9 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   height: auto;
-  background-color: #000000;
+  background-color: #000000a6;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 5px;
   break-inside: avoid;
   //margin:  5px;
@@ -663,6 +666,7 @@
   align-items: center;
   z-index: 70;
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 .videoframe {
   width: 70%;
