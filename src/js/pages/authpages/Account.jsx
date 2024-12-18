@@ -61,12 +61,17 @@ const Account = () => {
                 </div>
                 <div className="someshit">
                   <div className="shit">
-                    <div className="shi">
-                     <i className='bx bxs-heart'></i>
-                    </div>
-                    <div className="shi">
-                    <i className='bx bxl-discord-alt'></i>
-                      </div>
+                  <a href="https://discord.gg/MCt2R9gqGb" target="_blank">
+  <div className="shi">
+    <i className='bx bxl-discord-alt'></i>
+  </div>
+</a>
+
+<a href="https://ko-fi.com/zillaxr" target="_blank">
+  <div className="shi">
+    <i className='bx bxs-heart'></i>
+  </div>
+</a>
                       <div className="shi">
                       <i className='bx bxs-bot'></i>
                       </div>
