@@ -9,6 +9,16 @@
    overflow: auto;
    border-bottom: 1px solid rgba(128, 128, 128, 0.21);
    scrollbar-color: rgba(46, 46, 46, 0.279) rgba(48, 31, 42, 0.057);
+ }
+.watchlisthome{
+  //height: 10rem;
+  position: relative;
+   display: flex;
+   flex-direction: row;
+   overflow: auto;
+   border-bottom: 1px solid rgba(128, 128, 128, 0.21);
+    scrollbar-color: rgba(46, 46, 46, 0) rgba(48, 31, 42, 0);
+
 }
 .watchlistcard{
     position: relative;
@@ -33,6 +43,29 @@
    
     }
     
+}
+.watchlistcardhome{
+  position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 5px;
+    gap: 1px;
+    min-width: 120px;
+    height: 205px;
+    overflow: hidden;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    &:hover{
+      transition: all .3s ease-in-out;
+      background-color: rgba(177, 255, 255, 0.146);
+    }
+    &:focus{
+      transition: all .3s ease-in-out;
+      background-color: rgba(0, 255, 255, 0.146);
+   
+    }
 }
 
 .watchlistimg{
@@ -143,6 +176,43 @@
 }
 .fave{
   background-color: #ffffff0f;
+}
+.fava{
+  margin-top: 2rem;
+  font-size: 2rem;
+  border-radius: 10px;
+  background: linear-gradient(to right,  rgb(211, 185, 255),  rgba(255, 6, 81, 0.354));
+  background-clip: text;
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+ line-height: 1.3;
+  //margin: 10px;
+  //text-align: center;
+  transform: rotate(90deg);
+
+  @include mobile{
+    margin-top: 2rem;
+    font-size: 2.5rem;
+  }
+}
+.favazi{
+  margin-left: -3rem;
+  font-size: 2rem;
+  border-radius: 10px;
+  background: linear-gradient(to right, rgb(255, 245, 245), rgb(93, 0, 255));
+  background-clip: text;
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+ //line-height: 1.3;
+  //margin: 10px;
+  //text-align: center;
+  transform: rotate(90deg);
+
+  @include mobile{
+    margin-top: 1rem;
+    margin-left: -6rem;
+    font-size: 1.6rem;
+  }
 }
 .favz{
   margin-top: calc(315px - 185px);
