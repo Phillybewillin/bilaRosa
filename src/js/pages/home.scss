@@ -35,7 +35,11 @@
     scrollbar-color: rgba(47, 47, 47, 0.021) rgba(26, 27, 26, 0.062);
     scrollbar-width: thin;
 }
-
+.divcon{
+  //height: 2rem;
+  width: 6rem;
+  object-fit: contain;
+}
 
 .continue-watching-title{
   position: absolute;
@@ -258,3 +262,34 @@
     }
 
 }
+.ad{
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 200px;
+  justify-content: center;
+ background-color: rgba(255, 255, 255, 0.105);
+ border-radius: 10px;
+ gap: 1rem;
+ margin: 5px;
+ padding: 10px;
+  @include mobile {
+    //display: none;
+  }
+}
+.adtitle{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.614);
+  //z-index: 1;
+}
+.adback{
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+}
+  
