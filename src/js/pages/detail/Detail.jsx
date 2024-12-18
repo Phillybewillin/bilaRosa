@@ -4,8 +4,9 @@ import tmdbApi from '../../api/tmdbApi';
 import apiConfig from '../../api/apiConfig';
 import Button ,{OutlineButton}  from '../../components/button/Button';
 import {UserAuth} from "../../context/AuthContext";
-import {db} from "../../Firebase";
-import{arrayUnion , doc , updateDoc} from "firebase/firestore";
+import { useFirestore } from '../../Firestore';
+//import {db} from "../../Firebase";
+//import{arrayUnion , doc , updateDoc} from "firebase/firestore";
 import './detail.scss';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,7 +23,11 @@ const Detail = () => {
     const [item, setItem] = useState(null);
     const [items, setItems] = useState([]);
     const [videos , setVideos] = useState([]);
+    const {user} = UserAuth();
+    const { addToWatchlist, checkIfInWatchlist , addToFavourites , checkIfInFavourites } = useFirestore();
     //const [iframeSrc, setIframeSrc] = useState(''); 
+    const [ saved ,setSaved] = useState(false);
+    const [like , setLike] = useState(false);
     const getDetail = async () => {
       const response = await tmdbApi.detail(category, id, {params: {}});
       const similar = await tmdbApi.similar(category, id )
@@ -30,6 +35,76 @@ const Detail = () => {
       setItems(similar)
      //console.log(response);
   }
+  const saveShow = async (item) => {
+      if (!user) {
+        toast.error('Please log in to save a movie');
+        return;
+      }
+  
+      const data = {
+        id: item?.id,
+        title: item?.title || item?.name,
+        category: category,
+        poster_path: item?.poster_path,
+        release_date: item?.release_date || item?.first_air_date,
+        vote_average: item?.vote_average,
+        //overview: details?.overview,
+      };
+  
+      const dataId = item?.id?.toString();
+      await addToWatchlist(user?.uid, dataId, data);
+      const isSetToWatchlist = await checkIfInWatchlist(user?.uid, dataId);
+      setSaved(isSetToWatchlist);
+    };
+  
+    useEffect(() => {
+      if (!user) {
+        setSaved(false);
+        return;
+      }
+  
+      checkIfInWatchlist(user?.uid, item?.id).then((data) => {
+        setSaved(data);
+      });
+    }, [item, user, checkIfInWatchlist]);
+
+    const AddfavShow = async(item) => {
+
+        if (!user) {
+          toast.error('Please log in to save a movie');
+          return;
+        }
+    
+        const data = {
+          id: item?.id,
+          title: item?.title || item?.name,
+          category: category,
+          poster_path: item?.poster_path,
+          release_date: item?.release_date || item?.first_air_date,
+          vote_average: item?.vote_average,
+          //overview: details?.overview,
+        };
+        //console.log(data)
+    
+        const dataId = item?.id?.toString();
+        await addToFavourites(user?.uid, dataId, data);
+        const isSetToWatchlist = await checkIfInFavourites(user?.uid, dataId);
+        setLike(isSetToWatchlist);
+      };
+    
+      useEffect(() => {
+        if (!user) {
+            setLike(false);
+            return;
+          }
+
+        if (item) {
+          checkIfInFavourites(user?.uid, item?.id).then((data) => {
+            setLike(data);
+          });
+        }
+      }, [user, checkIfInFavourites , AddfavShow , item ]);
+  
   const Images = async () => {
     const responsei = await tmdbApi.Images(category, id, {params: {}});
     const logoi = responsei.logos.find(itemu => itemu.iso_639_1.includes('en'));
@@ -45,7 +120,8 @@ const Detail = () => {
     if (trailer) {
       setVideos(trailer.key);
     } else {
-      console.log('No trailer found');
+        toast.error('No trailer found')
+       console.log('No trailer found');
     }
 }
   useEffect(() => {
@@ -96,7 +172,7 @@ const Detail = () => {
             case 'War':
                 return 'junglegreen';
             case 'History':
-                return 'lightbrown';
+                return 'brown';
             case 'Music':
                 return 'pink';
             case 'Western':
@@ -134,41 +210,8 @@ const Detail = () => {
                 return 'white';
         }
     }
-    const {user} = UserAuth();
-    const [ ,setSaved] = useState(false);
-
-    const movieID = doc(db , 'users' ,  `${user?.email}`);
-
-    const saveShow = async () => {
-        if(user?.email){
-            if(user){
-            setLike(!like);
-            setSaved(true);
-            try{
-                const collection = item.title ? 'movies' : 'tv';
-                await updateDoc(movieID , {
-                [collection] : arrayUnion({
-                    id : item.id,
-                    title : item.title || item.name,
-                    img : item.poster_path || item.backdrop_path
-
-                })
-               
-            })
-            }catch(error){
-                console.log("error saving ", error);
-            }
-            toast.success('Saved successfully');
-        }else{
-            console.log("invalid data");
-        }
-            
-        }else{
-            toast.error('Please logIn to save a movie');
-        }
-    }
-    
-    const [like , setLike] = useState(false);
+    //const {user} = UserAuth();
+  
    
    
   
@@ -221,7 +264,30 @@ const Detail = () => {
     const cancelwatchTrailer = () => {
         setChoice(false);
     }
+   
+      
+    const [timeLeft, setTimeLeft] = useState('');
+
+    useEffect(() => {
+      const releaseDate = item?.release_date;
+      if (releaseDate && new Date(releaseDate) > new Date()) {
+        const intervalId = setInterval(() => {
+          const today = new Date();
+          const releaseDateObj = new Date(releaseDate);
+          const diffTime = releaseDateObj - today;
+          const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+          const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const diffMinutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+          const diffSeconds = Math.floor((diffTime % (1000 * 60)) / 1000);
     
+          setTimeLeft(`${diffDays} days, ${diffHours} hours, ${diffMinutes} minutes, ${diffSeconds} seconds`);
+        }, 1000);
+    
+        return () => clearInterval(intervalId);
+      }
+    }, [item?.release_date]);
+
+      
 
     return (
         <>
@@ -243,13 +309,37 @@ const Detail = () => {
                                    {item.title || item.name} 
                                    </h2>)
                               }
-                                   
-                            <div className="langu">
-                            <div className="language"><i className="bx bx-world" style={{fontSize:'11px'}}></i> {item.original_language.toUpperCase()}</div>
+                               <div className="languandr">
+                               <div className="langu">
+                               <div className="language"><i className="bx bx-world" style={{fontSize:'11px'}}></i> {item.original_language.toUpperCase()}</div>
                                <div className="language"><i className='bx bxs-calendar' style={{fontSize:'11px'}}></i>{Number.isNaN(year) ? '' : year}</div>
                                 <div className="language"><i className="bx bx-time" style={{fontSize:'11px'}}></i>{item.runtime || item.episode_run_time}MIN</div>
                             
-                                </div>   
+                                </div>
+                                <div className="langu">
+                                    {
+                                        saved ? (
+                                            <div className="languagezz" ><i class='bx bxs-add-to-queue' style={{fontSize:'17px'}} ></i> In thy Watchlist</div>
+                               
+                                        ):(
+                                            <div className="languagez" onClick={() => saveShow(item)}><i class='bx bx-add-to-queue' style={{fontSize:'17px'}} ></i> Add To Watchlist</div>
+                              
+                                        )
+                                    }
+                                <div className="languagez">|</div>
+                                {
+                                        like ? (
+                                            <div className="languagezz" ><i className='bx bxs-heart' style={{fontSize:'17px'}}></i></div>
+                                        ):(
+                                            <div className="languagez" onClick={() => AddfavShow(item)}><i className='bx bx-heart' style={{fontSize:'17px'}}></i></div>
+                              
+                                        )
+                                    }
+                               
+                                
+                                </div>  
+                                </div>    
+                             
                               
                                
                             </div>
@@ -267,9 +357,7 @@ const Detail = () => {
                                 }
                                </div>
                                <div className="rating" style={{color: getColor(votePercentage.toFixed(0))}}>{votePercentage.toFixed(0)}%</div>
-                               <p onClick={saveShow} style={{ position:'absolute', bottom:'0' ,right:'0',cursor : 'pointer' , color : like ? 'red' : 'black'}}>
-                                     {like ? <i className='bx bxs-bookmark-plus'  style={{fontSize :'17px'}}></i> :<i className='bx bx-bookmark-plus' style={{fontSize :'17px'}}></i> }
-                               </p>
+                               
                             
                                
                               {category === 'tv' && <Suspense fallback={null}>
@@ -281,16 +369,19 @@ const Detail = () => {
                               }
                               
                               {category === 'movie' && 
-                              <>
-                              
-                        <div className="buttonz">
-                        
-                        <Button className='btn' onClick={handlescrolldown}>Recommendations</Button>
-                        <Button className="btn" onClick={() => handlePlayer(item.id, item.name || item.title)}> <i className='bx bx-play-circle'></i> Watch Now</Button> 
-                      </div>
-                              </>
-                            
-                             }  
+  <>
+    {item.release_date && new Date(item.release_date) > new Date() ? (
+      <div className="timeleft" >
+        <p>Check back in {timeLeft}</p>
+      </div>
+    ) : (
+      <div className="buttonz">
+        <Button className='btn' onClick={handlescrolldown}>Recommendations</Button>
+        <Button className="btn" onClick={() => handlePlayer(item.id, item.name || item.title)}> <i className='bx bx-play-circle'></i> Watch Now</Button> 
+      </div>
+    )}
+  </>
+} 
 
                                  
                            </div>
