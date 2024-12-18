@@ -176,6 +176,13 @@ const Header = () => {
                 <>
                   <MenuItem onClick={() => navigate('/account')}> <div className="loggz"> Watchlist  <i class='bx bxs-collection'></i></div> </MenuItem>
                   <MenuDivider  style={{ backgroundColor: '#ffff1165' , borderRadius : '5px'}}/>
+                  <MenuItem onClick={() => window.open('https://discord.gg/MCt2R9gqGb', '_blank')}>
+                    <div className="loggz">Join our DD<i className='bx bxl-discord-alt'></i></div>
+                  </MenuItem>
+                  <MenuItem onClick={() => window.open('https://ko-fi.com/zillaxr', '_blank')}>
+                    <div className="loggz"> Donate <i className='bx bx-donate-heart'></i></div>
+                  </MenuItem>
+                  <MenuDivider  style={{ backgroundColor: '#ffff1165' , borderRadius : '5px'}}/>
                   <MenuItem onClick={handleLogout}> <div className="loggz"> LogOut <i className='bx bx-log-out'></i></div></MenuItem>
                 </>
               ) : (
@@ -185,8 +192,13 @@ const Header = () => {
                   <MenuItem  style={{ justifyContent: 'flex-start' }} onClick={() => { setShowModal(true); setShowSignup(true); }}> <div className="loggz"> Sign-Up <i className='bx bx-user-plus'></i></div></MenuItem>
                   <MenuDivider  style={{ backgroundColor: '#ff001165' , borderRadius : '5px'}}/>
                   <MenuItem  onClick={() => navigate('/dmca')}> <div className="loggz"> DMCA <i className='bx bxs-bot'></i></div></MenuItem>
-                  <MenuItem  onClick={() => navigate('/privacy')}> <div className="loggz"> Privacy Policy <i className='bx bxs-shield-plus'></i></div></MenuItem>
-                  <MenuItem  onClick={() => navigate('/dmca')}> <div className="loggz"> DMCA <i className='bx bxs-bot'></i></div></MenuItem>
+                  <MenuItem  onClick={() => navigate('/privacypolicy')}> <div className="loggz"> Privacy Policy <i className='bx bxs-shield-plus'></i></div></MenuItem>
+                  <MenuItem onClick={() => window.open('https://discord.gg/MCt2R9gqGb', '_blank')}>
+                    <div className="loggz">Join our DD<i className='bx bxl-discord-alt'></i></div>
+                  </MenuItem>
+                  <MenuItem onClick={() => window.open('https://ko-fi.com/zillaxr', '_blank')}>
+                    <div className="loggz"> Donate <i className='bx bx-donate-heart'></i></div>
+                  </MenuItem>
                    
                 </>
               )}
