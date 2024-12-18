@@ -1,14 +1,18 @@
 @use '../scss/' as *;
 @use '../scss/breakpoint' as *;
 
-.my-div{
+.message{
   position: fixed;
   top: 0;
+  cursor: pointer;
   padding: 10rem;
-  text-align: start;
+  //text-align: start;
   z-index: 99;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  width: 50vw;
+  width: 100vw;
   height: 100vh;
   background: #000000a7;
   backdrop-filter: blur(10px);
@@ -19,6 +23,42 @@
     width: 100vw;
     bottom: 0;
   }
+}
+.update3{
+  text-align: center;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 300px;
+  width: 400px;
+  border-radius: 10px;
+  background-color: rgba(206, 196, 196, 0.256);
+}
+.topper{
+  text-align: start;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.txtup{
+  font-size: .8rem;
+
+}
+.txtupz{
+  font-size: .8rem;
+  cursor: pointer;
+}
+.bottomer{
+  gap: 1rem;
+  display: flex;
+  justify-content: center;
+  flex-direction:row;
+}
+.coccio{
+  padding: 8px;
+  border-radius: 5px;
+  background-color: rgba(199, 5, 125, 0.205);
 }
 
 
