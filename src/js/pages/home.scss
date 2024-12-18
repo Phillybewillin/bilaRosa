@@ -126,7 +126,8 @@
   color: white;
   //margin: .6rem  0rem;
   border-left: 3px solid transparent;
-  border-image: linear-gradient(to top, $main-bg, rgb(234, 86, 160)) 1;
+  border-image:linear-gradient(to top, rgb(0, 0, 0), rgb(248, 248, 249)
+  ) 1;
   width: 50%; 
   
   display: flex;
@@ -135,7 +136,7 @@
   //align-items: center;
 
   @include mobile {
-      width: 100%;
+      width: 95%;
       padding: 5px;
       margin-bottom: .5rem;
       font-size: small;
@@ -177,7 +178,7 @@
     flex-direction: column;
     //transition: all 0.5s ease-in-out;
     overflow: auto;
-    background-color: #2c2c2c4f;
+    background-color: #ffffff0a;
    
     border-radius: 7px;
     
@@ -210,7 +211,7 @@
 
 .continuewatching:hover{
   color: white;
-  background-color: rgba(86, 62, 26, 0.648);
+  background-color: rgba(246, 246, 246, 0.233);
   //border: 1.5px solid $main-bg;
  // transform: scale(1);
  // transition: all 0.2s ease-in-out;
@@ -220,10 +221,11 @@
  
   padding: 5px 15px;
   margin-top: .7rem;
-  background-color: rgba(255, 255, 255, 0.075);
-  border-radius: 15px;
+  border-top: 1px solid rgba(128, 128, 128, 0.276);
+  //background-color: rgba(255, 255, 255, 0.037);
+  //border-radius: 5px;
   font-weight: 200;
-  color: rgba(245, 226, 9, 0.674);
+  color: rgba(255, 255, 255, 0.272);
   text-align: end;
 
   @include mobile {
@@ -256,5 +258,3 @@
     }
 
 }
-
-  
