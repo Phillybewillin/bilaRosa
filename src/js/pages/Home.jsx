@@ -6,19 +6,59 @@ import { FixedSizeList } from 'react-window'; // Import FixedSizeList from react
 import { category, movieType, tvType } from '../api/tmdbApi';
 import apiConfig from '../api/apiConfig';
 import './home.scss';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import MovieCard from '../components/movie-card/MovieCard';
 import BoxOffice from '../components/movie-list/BoxOffice';
-
+import { UserAuth } from '../context/AuthContext';
+import { useFirestore } from '../Firestore';
+import '../pages/authpages/savedshows.scss'
 import Button from '../components/button/Button';
 const Home = () => {
-  document.title = 'Home - • - ZillaXR';
+  document.title = 'Home ~ Viva la Zilla';
+  const { user } = UserAuth();
+  
+  const{ getWatchlist } = useFirestore();
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [watchlist, setWatchlist] = useState([]);
   const [tv, setTv] = useState([]);
   const [moviesData, setMoviesData] = useState([]);
   const navigate = useNavigate();
   const listRef = useRef(null);
   const Movieref = useRef(null);
+  const [randomIndex, setRandomIndex] = useState(Math.floor(Math.random() * watchlist.length));
+
+useEffect(() => {
+  setRandomIndex(Math.floor(Math.random() * watchlist.length));
+}, []);
+
+  useEffect(() => {
+    if(!user){
+      setIsLoading(false)
+    }
+    if (user?.uid) {
+      getWatchlist(user?.uid)
+      .then((data) => {
+        const shuffledData = [...data];
+        for (let i = shuffledData.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffledData[i], shuffledData[j]] = [shuffledData[j], shuffledData[i]];
+        }
+        setWatchlist(shuffledData);
+        //setWatchlist(data);
+       // console.log(movies, "tv", tv, "watchlist", watchlist.all);
+     
+      })
+
+        .catch((err) => {
+          toast.error('fuck , something wrong happened ')
+          //console.log(err, "error getting Favourites");
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, [user?.uid, getWatchlist]);
   const getTVresults = async (timewindow) => {
     const url = `https://api.themoviedb.org/3/trending/tv/${timewindow}?api_key=${apiConfig.apiKey}`;
     const response = await fetch(url);
@@ -141,11 +181,51 @@ const Home = () => {
     <>
       <Spotlight />
 
+      { user && isLoading && (
+        <div className="load">loading</div>
+      )}
+      {user && !isLoading && watchlist?.length === 0 && (
+        <div className="load">No Favourites</div>
+      )}
+      {user && !isLoading && watchlist?.length > 0 && (
+        
+           <div className="watchlisthome" style={{color : 'white'}}>
+            <div className="favew"><h3  className="fava">From Thy Watchlist</h3></div>
+             {
+           watchlist.map((item, i) => 
+              <div  
+               key={i}
+               className="watchlistcardhome"  onClick={() => handleCardClick(item.id, item.category, item.title || item.name, item.poster_path)}
+               >
+                  
+                  <div className="watchlistimgcontainer">
+                  {
+                      item ? (<img  className="watchlistimg" 
+                      src={`https://image.tmdb.org/t/p/w200/${item.poster_path}`}
+                      alt=""
+                      
+                      />) : (  <SkeletonTheme color="#000000" highlightColor="#444">
+                        <Skeleton baseColor="#161616d6" variant="rectangular"  className="watchlistimg" />
+                      </SkeletonTheme>
+                      )
+                    }
+              </div>
+              <div className="feature">
+                      <div className="featuretitlewf"> <h4 className="r2">-</h4></div>
+              
+                 </div>
+            
+             </div>  
+              
+           )}
+           </div>
+      )}
+
       <div className="container">
-      <h4 className="continue-watching-title">Recently Viewed </h4>
+      
      
       <div className="continue_watchingcontainer">
-        
+      <h4 className="favazi">Recently Viewed</h4>
         <div className="contin">
           {continueWatching.map((item) => (
             <div className="continuewatching" key={item.id}>
@@ -160,9 +240,9 @@ const Home = () => {
                >{item.title || item.name}</p>
               <i
                 onClick={() => handleDelete(item.id)}
-                className="bx bx-trash"
+                className="bx bxs-trash"
                 style={{
-                  color: 'orange',
+                  color: 'rgba(255, 245, 245, 0.354)',
                   fontSize: '20px',
                   cursor: 'pointer',
                   position: 'absolute',
