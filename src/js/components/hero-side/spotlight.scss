@@ -16,7 +16,7 @@
    .swiper-slide {
     width: 100%;
     height: 520px;
-    padding-top: 3rem;
+    padding-top: .3rem;
     object-fit: cover;
   // transition: all .9s ease;
    //transition: font-size 1s ease-out;
@@ -28,7 +28,7 @@
     } 
     @include mobile {
         font-size: 1rem;
-        height: 500px;
+        height: 650px;
         left: 0rem;
       margin-bottom: 2rem;
         
@@ -164,13 +164,14 @@ margin-bottom: 1rem;
     background-position: center;
     border-radius: 20px;
     
-    @include mobile {
-        height: 600px;
-        border-radius: 2px;
-    }
+    
     @include tablet {
         height: 480px;
     }
+    @include mobile {
+      height: 630px;
+      border-radius: 2px;
+  }
 }
 .spotlight-content{
   display: flex;
@@ -178,7 +179,7 @@ margin-bottom: 1rem;
     justify-content: center;
     flex-direction: column;
     position: absolute;
-    bottom: 0px;
+    bottom: 2rem;
     //left: -.1px;
     padding-bottom: .8rem;
     //padding-top:calc(100vh - 25rem);
@@ -199,7 +200,7 @@ margin-bottom: 1rem;
     @include mobile {
       padding: 0 1rem;
       padding-bottom: .8rem;
-      margin-bottom: -2rem;
+      margin-bottom: -3rem;
       border-radius: 0;
       //margin: 0 1rem;
       align-items: center;
