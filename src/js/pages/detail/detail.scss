@@ -571,12 +571,15 @@
 
 }
 .timeleft{
+  margin-top: 1rem;
   padding: 1rem;
-  font-size: 1rem;
+  font-size: .8rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 3px;
+  border-radius: 10px;
+  background-color: #17171779;
 }
 .playbtn {
  
@@ -709,3 +712,5 @@
   align-items: center;
   gap: 10px;
 }
+
+
