@@ -2,14 +2,14 @@ import React from "react";
 import alien from "../assets/icons8-alien-monster-emoji-48.png";
 import { useNavigate } from "react-router-dom"
 const info = () => {
-    return <div className="infooo" style={{display : 'flex', flexDirection : 'column', justifyContent : 'flex-start', alignItems : 'flex-start', gap : '1rem',padding : '1rem',margin : '2rem',borderRadius : '10px',color : 'black',width: '94vw',fontSize:"12px"}}>
+    return <div className="infooo" style={{display : 'flex', flexDirection : 'column', justifyContent : 'flex-start', alignItems : 'flex-start', gap : '1rem',padding : '1rem',margin : '2rem',borderRadius : '10px',color : 'grey',width: '94vw',fontSize:"12px"}}>
        
         <h2>WELCOME TO Zilla-XR</h2>
         <h3>What is Zilla-XR?</h3>
         <p>Zilla-XR is a streaming platform that offers a wide range of immersive and entertainment content. </p>
         <ul>
             <li><strong>Unmatched Selection:</strong> Explore a diverse range of  movies, shows and more.</li>
-            <li><strong>Cutting-Edge Technology:</strong> Enjoy seamless streaming and high-quality visuals, optimized for a smooth and immersive experience.</li>
+            <li><strong>Cutting-Edge Technology:</strong> Enjoy seamless streaming and high-quality movies and shows, optimized for a smooth and immersive experience.</li>
             <li><strong>Constantly Evolving:</strong> We are always adding new and exciting content to keep you coming back for more.</li>
         </ul>
         <h3>Do I need an account to use the website?</h3>
@@ -24,7 +24,7 @@ const info = () => {
         <h3>How much does it cost?</h3>
         <p>It is free to use , and you dont need to pay anything to use Zilla-XR.</p>
           <h3>How can I watch?</h3>
-        <p>Zilla-XR is accessible through various XR devices like TV 📺, PC  ,Laptops 💻 , and even your mobile phone 📱 (with compatible apps). We provide detailed instructions and compatibility information for each experience on the platform.</p>
+        <p>Zilla-XR is accessible through various devices like TV 📺, PC  ,Laptops 💻 , and even your mobile phone 📱 </p>
         <h3>Is it legal to use Zilla-XR?</h3>
         <p>Absolutely! Zilla-XR only offers legally obtained and licensed content. We take copyright protection seriously and have robust measures in place to ensure compliance with DMCA regulations.</p>
         <h3>DMCA & Registration Info</h3>
