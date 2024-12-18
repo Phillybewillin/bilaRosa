@@ -5,11 +5,12 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.11);
 }
 
 html {
   font-size: 100%;
-
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.11);
   @include tablet {
     font-size: 80%;
   }
@@ -20,6 +21,7 @@ html {
 }
 
 body {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.11);
   font-family: $font-family;
   background: $black;
    color: white;
@@ -32,6 +34,7 @@ a {
 }
 button,
 input {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.11);
   outline: 0;
   border: 0;
 }
