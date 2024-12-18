@@ -171,9 +171,9 @@
                 background-color: #0000001b;
                 padding: .5rem 1.2rem;
                 border: 2px solid;
-                border-radius: 15px;
-                font-size: .67rem;
-                font-weight: 500;
+                border-radius: 20px;
+                font-size: .62rem;
+                font-weight: 300;
                 //backdrop-filter: blur(10px);
             }
 
@@ -404,7 +404,7 @@
     font-size: x-small;
     font-weight: 400;
     align-items: center;
-    gap: 0.1rem;
+    gap: 0.2rem;
     padding: 7px 7px;
     width: auto;
     
@@ -412,6 +412,70 @@
     @include mobile {
      font-size: .7rem;
     }
+}
+.languagez{
+  cursor: pointer;
+  text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    font-size: small;
+    font-weight: 400;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 7px 7px;
+    width: auto;
+    background: linear-gradient(to right, rgb(255, 105, 180), rgb(255, 215, 0));
+   background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.7s ease-in-out;
+   
+  &:hover{
+    transition: all 0.8s ease-in-out;
+    background: linear-gradient(to left, rgb(255, 105, 180), rgb(255, 215, 0));
+    background-clip: text;
+  -webkit-background-clip: text;
+    
+   }
+    @include mobile {
+     font-size: .7rem;
+    }
+}
+.languagezz{
+  cursor: pointer;
+  text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    font-size: small;
+    font-weight: 400;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 7px 7px;
+    width: auto;
+    background: linear-gradient(to right, rgb(245, 1, 58), rgb(255, 179, 0));
+   background-clip: text;
+  -webkit-background-clip: text;
+  //scale: 1.1;
+  transition: all .3s ease-out;
+  -webkit-text-fill-color: transparent;
+   &:hover{
+    background: linear-gradient(to left, rgb(245, 1, 58), rgb(255, 179, 0));
+    background-clip: text;
+  -webkit-background-clip: text;
+    
+   }
+    @include mobile {
+     font-size: .8rem;
+    }
+}
+.languandr{
+  display: flex;
+  align-items: center;
+    flex-direction: row;
+  @include mobile {
+    display: flex;
+    flex-direction: row;
+   }
 }
 
 .rating{
@@ -504,6 +568,14 @@
   align-items: center;
   gap: 10px;
 
+}
+.timeleft{
+  padding: 1rem;
+  font-size: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
 }
 .playbtn {
  
