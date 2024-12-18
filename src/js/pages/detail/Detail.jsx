@@ -280,7 +280,7 @@ const Detail = () => {
           const diffMinutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
           const diffSeconds = Math.floor((diffTime % (1000 * 60)) / 1000);
     
-          setTimeLeft(`${diffDays} days, ${diffHours} hours, ${diffMinutes} minutes, ${diffSeconds} seconds`);
+          setTimeLeft(`${diffDays} days ~ ${diffHours} hours ~ ${diffMinutes} minutes ~ ${diffSeconds} seconds`);
         }, 1000);
     
         return () => clearInterval(intervalId);
