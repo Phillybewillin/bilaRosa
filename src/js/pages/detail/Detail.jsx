@@ -426,8 +426,10 @@ const Detail = () => {
                         )
                        }
                       
-                       
-                       <div className="overviewz">
+                       {
+                        items.results.length > 0 && (
+                          <>
+                           <div className="overviewz">
                                    <h3 className='titledetails'>Recommendations based on {item.title || item.name}</h3>
                       </div>
                        <div className="wrappwez">
@@ -443,6 +445,10 @@ const Detail = () => {
   ))
 }
                            </div>
+                          </>
+                        )
+                       }
+                      
                        
                        <ToastContainer theme='dark' position="top-right" autoClose={4000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#ffffff' , color : 'white', borderRadius : '5px'}}/>
            
