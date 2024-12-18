@@ -32,15 +32,15 @@
 }
 .section_header {
     //position: sticky;
-    top: -15px;
+    //top: -15px;
     //z-index: 99;
     //display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 1rem;
-    padding-top: 2rem;
+    margin-top: .1rem;
+    //padding-top: .1rem;
     width: 100%;
-    //margin-bottom: 1rem;
+    margin-bottom: .3rem;
 
    
 }
@@ -96,7 +96,7 @@
     45deg,
     #833ab4,
     #fd1d1d,
-    #fcb045,
+    hsl(340, 97%, 63%),
     #fc4545,
     #4c00b7,
     #ff6700
@@ -118,7 +118,7 @@
     45deg,
     #833ab4,
     #fd1d1d,
-    #fcb045,
+    #fc45e1,
     #fc4545,
     #4c00b7,
     #ff6700
