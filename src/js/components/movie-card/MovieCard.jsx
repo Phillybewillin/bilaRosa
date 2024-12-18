@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './movie-card.scss';
 import {Link} from 'react-router-dom';
@@ -6,53 +6,65 @@ import PropTypes from 'prop-types';
 import apiConfig from "../../api/apiConfig";
 import {UserAuth} from "../../context/AuthContext";
 import {db} from "../../Firebase";
-import{arrayUnion , doc , updateDoc} from "firebase/firestore";
+import { useFirestore } from "../../Firestore";
+import{arrayUnion , doc , updateDoc , setDoc} from "firebase/firestore";
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import Skeleton , { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { addDoc, collection } from "firebase/firestore"; 
+import { category } from '../../api/tmdbApi';
+
 
 const MovieCard = React.memo((props) => {
     const {user} = UserAuth();
+    const { addToWatchlist, checkIfInWatchlist  } = useFirestore();
+ 
     const [saved , setSaved] = useState(false);
 
     const item = props.item  // Add a fallback empty object if item is undefined
 
-
-    const movieDoc = doc(db , 'users' ,  `${user?.email}`);
-    const releaseYear = item?.release_date || item?.first_air_date;
+    const [isInWatchlist, setIsInWatchlist] = useState(false);
+     const releaseYear = item?.release_date || item?.first_air_date;
     const year = (new Date(releaseYear)).getFullYear();
     //console.log(year);
-    
+    //const movieDoc = doc(db , 'users' ,  `${user?.email}`);
     const saveShow = async (event) => {
       event.preventDefault();
       event.stopPropagation();
-        if(user?.email){
-            if(user){
-            setSaved(true);
-            try{
-                const collection = item.title ? 'movies' : 'tv';
-                await updateDoc(movieDoc , {
-                [collection] : arrayUnion({
-                    id : item.id,
-                    title : item.title || item.name,
-                    img : item.poster_path
 
-                })
-            })
-            }catch(error){
-                console.log("error saving ", error);
-            }
-        }else{
-            console.log("invalid data");
+        if (!user) {
+          toast.error('Please log in to save a movie');
+          return;
         }
-            
-        }else{
-            toast.error("Please logIn to save a Movie");
+    
+        const data = {
+          id: item?.id,
+          title: item?.title || item?.name,
+          category: props.category,
+          poster_path: item?.poster_path,
+          release_date: item?.release_date || item?.first_air_date,
+          vote_average: item?.vote_average,
+          //overview: details?.overview,
+        };
+    
+        const dataId = item?.id?.toString();
+        await addToWatchlist(user?.uid, dataId, data);
+        const isSetToWatchlist = await checkIfInWatchlist(user?.uid, dataId);
+        setIsInWatchlist(isSetToWatchlist);
+      };
+    
+      useEffect(() => {
+        if (!user) {
+          setIsInWatchlist(false);
+          return;
         }
-
-      
-    }
+    
+        checkIfInWatchlist(user?.uid, item?.id).then((data) => {
+          setIsInWatchlist(data);
+        });
+      }, [item, user, checkIfInWatchlist]);
+    
     const navigate = useNavigate();
 
     const handlecardClick = (id,category, title, poster_path) => {
@@ -143,8 +155,8 @@ const MovieCard = React.memo((props) => {
             • {Number.isNaN(year) ? '' : year}
            </h4>
                 <div className="vote" style={{color: getColor(votePercentage.toFixed(0))}}>{votePercentage.toFixed(0)}%</div> 
-                <button className="savemovie" onClick={saveShow}>    <p style={{ cursor : 'pointer' , color : saved ? 'red' : 'rgba(255, 255, 255, 0.549)'}}>
-          {saved ? <i className='bx bxs-bookmark-plus'  style={{fontSize :'19px'}}></i> :<i className='bx bx-bookmark-plus' style={{fontSize :'18px'}}></i>}
+                <button className="savemovie" onClick={saveShow}>    <p style={{ cursor : 'pointer' , color : isInWatchlist ? 'aqua' : 'rgba(255, 255, 255, 0.549)'}}>
+          {isInWatchlist ? <i className='bx bxs-bookmark-plus'  style={{fontSize :'19px'}}></i> :<i className='bx bx-bookmark-plus' style={{fontSize :'18px'}}></i>}
            </p>
               </button>
                 </div>
