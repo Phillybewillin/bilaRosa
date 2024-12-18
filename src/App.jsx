@@ -11,8 +11,8 @@ import lazyWithPreload from 'react-lazy-with-preload';
 import { AuthContextProvider } from './js/context/AuthContext';
 import ContactPage from './js/pages/authpages/Contact';
 import Search from './js/pages/Search';
-
-const Player = lazyWithPreload(() => import('./js/pages/player/Player'));
+import Player from './js/pages/player/Player';
+//const Player = lazyWithPreload(() => import('./js/pages/player/Player'));
 const Filters = lazyWithPreload(() => import('./js/components/movie-grid/Filters'));
 //const Login = lazyWithPreload(() => import('./js/pages/authpages/Login'));
 const Account = lazyWithPreload(() => import('./js/pages/authpages/Account'));
@@ -22,7 +22,7 @@ const Info = lazyWithPreload(() => import('./js/pages/Infoz'));
 
 const DMCATakedownRequest = lazyWithPreload(() => import('./js/pages/authpages/Dmca'));
 
-Player.preload();
+//Player.preload();
 Filters.preload();
 Account.preload();
 Socials.preload();
@@ -54,16 +54,16 @@ const App = () => {
           <Route path="/:category/:id" element={<Detail />} />
           
           <Route path="/search/:keyword" element={<Search />} />
-          <Route path="/watch/:title/:id" element= {<Suspense fallback={null}><Player /> </Suspense>} />
+          <Route path="/watch/:title/:id" element= {<Player />} />
          <Route path="/watch/:title/:id/:season_number/:episode_number" element={ <Suspense fallback={null}><Player /> </Suspense>} />
          <Route path='/contact' element={ <Suspense fallback={null}><ContactPage/> </Suspense>} />
            <Route path='/dmca' element={ <Suspense fallback={null}><DMCATakedownRequest/> </Suspense>} />
-          <Route path="/socials" element={ <Suspense fallback={null}><Socials /> </Suspense>} />
+          <Route path="/privacypolicy" element={ <Suspense fallback={null}><Socials /> </Suspense>} />
           <Route path="/account" element={ <Suspense fallback={null}>
             <ProtectedRoutes><Account /></ProtectedRoutes>
           </Suspense>} />
         
-          <Route path="/info" element={ <Suspense fallback={null}><Info /></Suspense>} />
+          <Route path="/aboutzilla" element={ <Suspense fallback={null}><Info /></Suspense>} />
          
       
         <Route path="*" element={<h1> You got lost somehow , Damn  a 404  </h1>} />
