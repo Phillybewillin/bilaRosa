@@ -29,7 +29,7 @@ const Header = () => {
     {
       display: (
         <span className="iconbox">
-          <i className="bx bx-home-alt"></i>
+          <i className='bx bx-home-alt-2'></i>
           <h5 className="iconv">Home</h5>
         </span>
       ),
@@ -163,7 +163,7 @@ const Header = () => {
                 <MenuButton >
                   <Avatar
                     name={user?.email || ''}
-                    size="43"
+                    size="42"
                     round
                     color="#000000d9"
                   />
@@ -175,13 +175,6 @@ const Header = () => {
               {user?.email ? (
                 <>
                   <MenuItem onClick={() => navigate('/account')}> <div className="loggz"> Watchlist  <i class='bx bxs-collection'></i></div> </MenuItem>
-                  <MenuDivider  style={{ backgroundColor: '#ffff1165' , borderRadius : '5px'}}/>
-                  <MenuItem onClick={() => window.open('https://discord.gg/MCt2R9gqGb', '_blank')}>
-                    <div className="loggz">Join our DD<i className='bx bxl-discord-alt'></i></div>
-                  </MenuItem>
-                  <MenuItem onClick={() => window.open('https://ko-fi.com/zillaxr', '_blank')}>
-                    <div className="loggz"> Donate <i className='bx bx-donate-heart'></i></div>
-                  </MenuItem>
                   <MenuDivider  style={{ backgroundColor: '#ffff1165' , borderRadius : '5px'}}/>
                   <MenuItem onClick={handleLogout}> <div className="loggz"> LogOut <i className='bx bx-log-out'></i></div></MenuItem>
                 </>
@@ -209,7 +202,7 @@ const Header = () => {
         </div>
       </div>
       {showModal && (
-        <div className="modal">
+        <div className="modal" onClick={() => setShowModal(false)}>
           <div className="modal_content">
             {showSignup ? <Signup /> : <Login />}
             <Button className="btn" onClick={() => setShowSignup((prev) => !prev)}>
