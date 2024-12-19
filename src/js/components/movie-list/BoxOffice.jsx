@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import "./movie-list.scss";
 import { useNavigate } from "react-router-dom";
+//import apiConfig from "../../api/apiConfig";
+import { UserAuth } from "../../context/AuthContext";
+import { useFirestore } from "../../Firestore";
 import axios from "axios";
 import apple from '../../assets/apple.png';
 import netflix from '../../assets/netflix.png';
@@ -10,6 +13,7 @@ import hbo from '../../assets/hbo.png';
 import hulu from '../../assets/hulu.png';
 import disney from '../../assets/disney.png';
 import max from '../../assets/max.png';
+import { toast } from "react-toastify";
 const BoxOffice = () => {
     const navigate = useNavigate();
 
@@ -21,9 +25,14 @@ const BoxOffice = () => {
     const [nettitle, setNettitle] = useState('Netflix');
     const [backdrop, setBackdrop] = useState(netflix);
     // Your TMDB API key
-    const API_KEY = '861e1d76c42a3a6e9038e0bf6dc95277'; 
+    const API_KEY = import.meta.env.VITE_TMDB_API_KEY; 
+    const {user} = UserAuth();
+    const { addToWatchlist, checkIfInWatchlist  } = useFirestore();
     //const NETWORK_ID = 213; // Netflix network ID
-  
+    const [isInWatchlist, setIsInWatchlist] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [watchlistStatus, setWatchlistStatus] = useState({});
+
     useEffect(() => {
       // Function to fetch TV shows from TMDB
       const fetchNetflixShows = async () => {
@@ -41,6 +50,12 @@ const BoxOffice = () => {
           setShows(response.data.results); 
           //console.log(response.data.results); // Set the TV shows
           setLoading(false);
+          if (!user) {
+            setIsInWatchlist(false);
+            return;
+          }
+  
+         
         } catch (err) {
           setError(err.message);
           setLoading(false);
@@ -48,29 +63,81 @@ const BoxOffice = () => {
       };
   
       fetchNetflixShows();
-    }, [networkid , nettitle]);
-   
+    }, [networkid , nettitle , checkIfInWatchlist  ,user ]);
+    useEffect(() => {
+      if (selectedItem) {
+       // console.log('selected item', selectedItem)
+        checkIfInWatchlist(user?.uid, selectedItem?.id).then((data) => {
+          setWatchlistStatus((prevStatus) => ({ ...prevStatus, [selectedItem.id]: data }));
+        });
+      }
+    }, [user , selectedItem ,watchlistStatus ]);
 
    
     // Display loading, error, or the list of shows
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
-  
+    const saveShow = async (show) => {
+     
+        if (!user) {
+          toast.error('Please log In to add to watchlit');
+          return;
+        }
+    
+        const data = {
+          id: show?.id,
+          title: show?.title || show?.name,
+          category: 'tv',
+          poster_path: show?.poster_path,
+          release_date: show?.release_date || show?.first_air_date,
+          vote_average: show?.vote_average,
+          //overview: details?.overview,
+        };
+    
+        const dataId = show?.id?.toString();
+        await addToWatchlist(user?.uid, dataId, data);
+        const isSetToWatchlist = await checkIfInWatchlist(user?.uid, dataId);
+        setIsInWatchlist(isSetToWatchlist);
+      };
+    
+     
 
     return (
         <div className="mainbox">
             <div className="boxoffice">
+              <div className="sharezilla">
+              
+                <h2 className="sharehead"> <i className='bx bx-sun bx-spin'></i> Share ZILLAXR <i className='bx bx-sun bx-spin'></i></h2>
+                <p className="sharemess">Help Us Spread the word</p>
+              </div>
             <h3 className="boxoffice__title">#TOP 10: BOX OFFICE</h3>
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/402431')}><span className="boxoffice__rank1">1</span>Wicked</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1241982')}><span className="boxoffice__rank1">1</span>Moana 2</h4>
+                
+                <div className="boxofficer">
+                <p className="boxoffice__rt">61%</p>
+                <p className="boxoffice__rating">PG</p>
+
+                </div>
+            </div>
+            <div className="boxoffice__list">
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/402431')}><span className="boxoffice__rank1">2</span>Wicked</h4>
                   <div className="boxofficer">
-                  <p className="boxoffice__rt">90%</p>
+                  <p className="boxoffice__rt">88%</p>
                 <p className="boxoffice__rating">PG~13</p>
               
                   </div>
             </div>
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/558449')}><span className="boxoffice__rank1">2</span>Gladiator II</h4>
+            
+            <h4 className="boxoffice__movie" onClick={() => navigate('/movie/539972')}><span className="boxoffice__rank1">3</span>Kraven the Hunter</h4>
+             <div className="boxofficer">
+                <p className="boxoffice__rt">14%</p>
+                <p className="boxoffice__rating">PG~13</p>
+            </div>
+        </div>
+            <div className="boxoffice__list">
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/558449')}><span className="boxoffice__rank">4</span>Gladiator II</h4>
                   <div className="boxofficer">
                   <p className="boxoffice__rt">71%</p>
                 <p className="boxoffice__rating">~R</p>
@@ -78,52 +145,46 @@ const BoxOffice = () => {
                   </div>
             </div>
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/845781')}><span className="boxoffice__rank1">3</span>Red One</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/839033')}><span className="boxoffice__rank">5</span>The Lord of the Rings: The War of ...</h4>
                  <div className="boxofficer">
-                 <p className="boxoffice__rt">33%</p>
+                 <p className="boxoffice__rt">49%</p>
+                <p className="boxoffice__rating">~PG</p>
+               
+                 </div>
+        </div>
+            <div className="boxoffice__list">
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/845781')}><span className="boxoffice__rank">6</span>Red One</h4>
+                 <div className="boxofficer">
+                 <p className="boxoffice__rt">30%</p>
                  <p className="boxoffice__rating">PG~13</p>
               
                  </div>
             </div>
+           
+        
             <div className="boxoffice__list">
-            
-            <h4 className="boxoffice__movie" onClick={() => navigate('/movie/912649')}><span className="boxoffice__rank">4</span>Venom: The Last Dance</h4>
-             <div className="boxofficer">
-                <p className="boxoffice__rt">41%</p>
-                <p className="boxoffice__rating">PG~13</p>
-            </div>
-        </div>
-        <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1206617')}><span className="boxoffice__rank">5</span>The Best Christmas Pageant Ever</h4>
-                 <div className="boxofficer">
-                 <p className="boxoffice__rt">90%</p>
-                <p className="boxoffice__rating">~PG</p>
-               
-                 </div>
-        </div>
-            <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1138194')}><span className="boxoffice__rank">6</span>Heretic</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/857598')}><span className="boxoffice__rank">7</span>Pushpa: The Rule - Part 2</h4>
                   <div className="boxofficer">
-                  <p className="boxoffice__rt">93%</p>
-                <p className="boxoffice__rating">~R</p>
+                  <p className="boxoffice__rt">-</p>
+                <p className="boxoffice__rating">-</p>
               
                   </div>
             </div>
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1184918')}><span className="boxoffice__rank">7</span>The Wild Robot</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/157336')}><span className="boxoffice__rank">8</span>Interstellar</h4>
                  <div className="boxofficer">
-                 <p className="boxoffice__rt">97%</p>
-                <p className="boxoffice__rating">~PG</p>
+                 <p className="boxoffice__rt">73%</p>
+                <p className="boxoffice__rating">PG~13</p>
               
                 </div>
                 
             </div>
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1100782')}><span className="boxoffice__rank">8</span> Smile 2</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1357633')}><span className="boxoffice__rank">9</span>Solo Leveling - ReAwakening</h4>
                 
                 <div className="boxofficer">
-                <p className="boxoffice__rt">85%</p>
-                <p className="boxoffice__rating">~R</p>
+                <p className="boxoffice__rt">-</p>
+                <p className="boxoffice__rating">~</p>
                
                 </div>
             </div>
@@ -132,23 +193,15 @@ const BoxOffice = () => {
           
            
             
-            <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/974576')}><span className="boxoffice__rank">9</span>Conclave</h4>
-                
-                <div className="boxofficer">
-                <p className="boxoffice__rt">89%</p>
-                <p className="boxoffice__rating">PG~13</p>
-
-                </div>
-            </div>
+           
            
            
           
             <div className="boxoffice__list">
-                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/1064213')}> <span className="boxoffice__rank">10</span>Anora</h4>
+                <h4 className="boxoffice__movie" onClick={() => navigate('/movie/762509')}> <span className="boxoffice__rank">10</span>Mufasa - The Lion King</h4>
                  <div className="boxofficer">
-                 <p className="boxoffice__rt">78%</p>
-                 <p className="boxoffice__rating">~R</p>
+                 <p className="boxoffice__rt">-</p>
+                 <p className="boxoffice__rating">~</p>
                  </div>
             </div>
           
@@ -213,11 +266,31 @@ const BoxOffice = () => {
 </div>
             <div className="boxoffice__lis">
   <ul>
-    {shows.slice(0, showCount).map((show) => (
+    {shows.slice(0, showCount).map((show , s ) => (
       <li key={show.id} className="boxoffice__list">
         
         <h4 className="boxoffice__movie" onClick={() => navigate(`/tv/${show.id}`)}><span className="boxoffice__rank">{show.number}</span>{show.name}</h4>
         <p className="boxofficer">{show.vote_average.toFixed(1)}</p>
+        <button
+    className="boxofficerz"
+    onClick={() => {
+      saveShow(show);
+      setSelectedItem(show);
+    }}
+  >
+    <p
+      style={{
+        cursor: "pointer",
+        color: watchlistStatus[show.id] ? "aqua" : "rgba(255, 255, 255, 0.549)",
+      }}
+    >
+      {watchlistStatus[show.id] ? (
+        <i className="bx bxs-bookmark-plus" style={{ fontSize: "19px" }}></i>
+      ) : (
+        <i className="bx bx-bookmark-plus" style={{ fontSize: "18px" }}></i>
+      )}
+    </p>
+  </button>
       </li>
     ))}
   </ul>
@@ -233,4 +306,4 @@ const BoxOffice = () => {
     )
 }
 
-export default BoxOffice
+export default BoxOffice;
