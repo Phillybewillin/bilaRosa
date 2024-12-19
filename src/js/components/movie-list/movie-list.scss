@@ -74,7 +74,7 @@
 
     @include mobile {
         flex-direction: column;
-        width: 99%;
+        width: 98%;
         //margin: 2px;
     }
 }
@@ -119,22 +119,44 @@
 .boxoffice__movie:hover{
     color: #565656cb;
 }
+.sharemess{
+    border-top: 1px solid pink;
+    width: 200px;
+    color: #e1b8c8d0;
+}
+.sharehead{
+    font-size: 2.2rem;
+    color: #ed333c;
+}
 .boxofficer{
     display: flex;
     flex-direction: row-reverse;
     gap: .5rem;
     padding: 7px;
-    border: 1px solid rgba(175, 157, 0, 0.607);
+    border: 1px solid rgba(175, 0, 61, 0.607);
    // background-color: rgb(186, 0, 93);
     color: rgba(199, 199, 199, 0.692);
     font-weight: 300;
     border-radius: 6px;
     //width: 100%;
 }
+.boxofficerz{
+    display: flex;
+    background-color: #0000004c;
+    flex-direction: row-reverse;
+    gap: .5rem;
+    padding: 7px;
+    //border: 1px solid rgba(175, 157, 0, 0.607);
+   // background-color: rgb(186, 0, 93);
+    color: rgba(100, 100, 100, 0.692);
+    font-weight: 300;
+   // border-radius: 6px;
+    //width: 100%;
+}
 .blurr{
     //border-radius: 20px;
-    backdrop-filter: blur(5px);
-    width: 100%;
+    backdrop-filter: blur(35px);
+    width: 97%;
     height: 100%;
     padding: 1rem;
 }
@@ -172,7 +194,7 @@
     height: 100px;
 }
 .backdropstream{
-    width: 100%;
+    width: 97%;
     height: 100%;
     background-position: center;
     object-fit: contain;
@@ -333,7 +355,7 @@
     color: rgba(255, 255, 255, 0.39);
     font-weight: 600;
     border-right: 1.5px solid transparent;
-    border-image: linear-gradient(to top, rgba(238, 15, 104, 0.911), rgb(255, 0, 0)) 1;
+    border-image: linear-gradient(to top, rgba(159, 90, 117, 0.911), rgb(50, 79, 45)) 1;
     
     padding-right: .5rem;
     //font-size: 1.2rem;
@@ -343,7 +365,7 @@
     font-weight: 600;
     
     border-right: 1.5px solid transparent;
-    border-image: linear-gradient(to top, rgba(219, 219, 0, 0.911), rgb(255, 0, 128)) 1;
+    border-image: linear-gradient(to top, rgba(214, 214, 200, 0.911), rgb(255, 0, 128)) 1;
     padding-right: .5rem;
     //font-size: 1.2rem;
 }
