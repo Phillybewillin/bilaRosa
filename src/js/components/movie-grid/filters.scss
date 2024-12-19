@@ -12,17 +12,22 @@
 }
 .formtitle{
     padding: .3rem;
-    background-color: #101010;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.37);
+    //background-color: #101010;
     color: rgb(255, 255, 255);
     font-size: smaller;
-    text-align: center;
-    border-radius: 5px;
+    text-align: end;
+    //border-radius: 5px;
 }
 .bigmovie{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+
+    @include mobile{
+        flex-direction: column;
+    }
 }
 .lefter{
     display: flex;
@@ -30,7 +35,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 2rem;
-    background-color: blueviolet;
+    background-color: rgba(135, 135, 135, 0.388);
+  
     width: 100%;
     margin: .5rem;
     border-radius: 10px;
@@ -42,7 +48,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 2rem;
-    background-color: blueviolet;
+    background-color: rgba(135, 135, 135, 0.388);
     width: 100%;
     margin: .5rem;
     border-radius: 10px;
@@ -69,10 +75,10 @@
     cursor: pointer;
 }
 .select{
-    background-color: #ff00c8;
+    background-color: rgb(79, 25, 42);
 }
 .gen{
-    columns: 3;
+    columns: 4;
     break-inside: avoid-column;
     gap: .5rem;
     align-items: flex-start;
@@ -90,7 +96,7 @@
 
 .genrezz{
     cursor: pointer;
-    background-color: rgb(13, 13, 13);
+    background-color: rgb(79, 25, 42);
     border: 1px solid $black;
     padding: 5px 10px;
     border-radius: 5px;
@@ -98,14 +104,14 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    font-size: small;
+    font-size: .7rem;
     gap: .5rem;
     transition: all 0.2s ease-in-out;
     &:hover{
         color: grey;
 }
 @include mobile{
-    font-size: x-small;
+    font-size: .65rem;
 }
 
 }
@@ -117,9 +123,9 @@
     padding: 5px 10px;
     border-radius: 5px;
     
-    font-size: small;
+    font-size: .7rem;
     @include mobile{
-        font-size: x-small;
+        font-size: .65rem;
     }
 }
 
