@@ -202,7 +202,7 @@ const Header = () => {
         </div>
       </div>
       {showModal && (
-        <div className="modal" onClick={() => setShowModal(false)}>
+        <div className="modal">
           <div className="modal_content">
             {showSignup ? <Signup /> : <Login />}
             <Button className="btn" onClick={() => setShowSignup((prev) => !prev)}>
