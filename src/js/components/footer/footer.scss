@@ -5,7 +5,7 @@
 .footer {
     position: relative;
     //bottom: 0;
-    width: 100%;
+    width: 98%;
     height: auto;
     padding: 1rem .5rem;
     //color: $white;
@@ -23,7 +23,7 @@
             font-size: 13px;
 
             @include mobile {
-                width: 100%;
+                width: 98%;
                margin-bottom: 2.5rem;
                 //flex-direction: column;
             }
@@ -36,7 +36,7 @@
             grid-template-columns: repeat(3, 1fr);
 
             @include mobile {
-                width: 100%;
+                width: 97%;
 
                 grid-template-columns: repeat(1, 1fr);
             }
