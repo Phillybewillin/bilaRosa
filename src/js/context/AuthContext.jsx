@@ -31,10 +31,8 @@ export function AuthContextProvider({ children }) {
       }, [user]);
 
     function signUp(email, password) {
-        createUserWithEmailAndPassword(auth, email, password);
-        setDoc(doc(db, "users", email), {
-            savedShows: []
-        })
+       return createUserWithEmailAndPassword(auth, email, password);
+        
     }
 
     function logIn(email, password) {
