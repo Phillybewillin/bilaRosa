@@ -26,12 +26,7 @@ const Home = () => {
   const navigate = useNavigate();
   const listRef = useRef(null);
   const Movieref = useRef(null);
-  const [randomIndex, setRandomIndex] = useState(Math.floor(Math.random() * watchlist.length));
-
-useEffect(() => {
-  setRandomIndex(Math.floor(Math.random() * watchlist.length));
-}, []);
-
+ 
   useEffect(() => {
     if(!user){
       setIsLoading(false)
@@ -237,13 +232,10 @@ useEffect(() => {
       { user && isLoading && (
         <div className="load">loading</div>
       )}
-      {user && !isLoading && watchlist?.length === 0 && (
-        <div className="load">No Favourites</div>
-      )}
       {user && !isLoading && watchlist?.length > 0 && (
         
            <div className="watchlisthome" style={{color : 'white'}}>
-            <div className="favew"><h3 className="fava">From Thy Watchlist</h3></div>
+            <div className="favew"><h3 className="fava">From Your Watchlist</h3></div>
              {
            watchlist.map((item, i) => 
               <div  
