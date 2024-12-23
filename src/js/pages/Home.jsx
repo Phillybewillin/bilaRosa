@@ -228,48 +228,8 @@ const Home = () => {
         </div>
         )
       }
-      
-      { user && isLoading && (
-        <div className="load">loading</div>
-      )}
-      {user && !isLoading && watchlist?.length > 0 && (
-        
-           <div className="watchlisthome" style={{color : 'white'}}>
-            <div className="favew"><h3 className="fava">From Your Watchlist</h3></div>
-             {
-           watchlist.map((item, i) => 
-              <div  
-               key={i}
-               className="watchlistcardhome"  onClick={() => handleCardClick(item.id, item.category, item.title || item.name, item.poster_path)}
-               >
-                  
-                  <div className="watchlistimgcontainer">
-                  {
-                      item ? (<img  className="watchlistimg" 
-                      src={`https://image.tmdb.org/t/p/w200/${item.poster_path}`}
-                      alt=""
-                      
-                      />) : (  <SkeletonTheme color="#000000" highlightColor="#444">
-                        <Skeleton baseColor="#161616d6" variant="rectangular"  className="watchlistimg" />
-                      </SkeletonTheme>
-                      )
-                    }
-              </div>
-              <div className="feature">
-                      <div className="featuretitlewf"> <h4 className="r2">-</h4></div>
-              
-                 </div>
-            
-             </div>  
-              
-           )}
-           </div>
-      )}
 
-      <div className="container">
-      
-     
-      <div className="continue_watchingcontainer">
+<div className="continue_watchingcontainer">
         {
           continueWatching.length > 0 && (
             <div className="divcon">
@@ -308,6 +268,50 @@ const Home = () => {
           ))}
         </div>
       </div>
+      
+      { user && isLoading && (
+        <div className="load">loading</div>
+      )}
+      {user && !isLoading && watchlist?.length > 0 && (
+        
+           <div className="watchlisthome" style={{color : 'white'}}>
+            <div className="favew"><h3 className="fava">From Your Watchlist</h3></div>
+             {
+           watchlist.map((item, i) => 
+              <div  
+               key={i}
+               className="watchlistcardhome"  onClick={() => handleCardClick(item.id, item.category, item.title || item.name, item.poster_path)}
+               >
+                  
+                  <div className="watchlistimgcontainer">
+                  {
+                      item ? (<img  className="watchlistimg" 
+                      src={`https://image.tmdb.org/t/p/w200/${item.poster_path}`}
+                      alt=""
+                      
+                      />) : (  <SkeletonTheme color="#000000" highlightColor="#444">
+                        <Skeleton baseColor="#161616d6" variant="rectangular"  className="watchlistimg" />
+                      </SkeletonTheme>
+                      )
+                    }
+              </div>
+              <div className="feature">
+              
+              <div className="featuretitlezi"> <h4 className="r">{item.title}</h4> </div>
+
+                     
+                 </div>
+            
+             </div>  
+              
+           )}
+           </div>
+      )}
+
+      <div className="container">
+      
+     
+      
 
         {/* Trending Movies Section */}
         <div className="section mb-3">
