@@ -76,8 +76,35 @@ const Spotlight = () => {
           > 
            <SwiperSlide>
               <div className="spotlight-item">
+              <h1 className="spotlight-number">R</h1>
+                <img src={'https://image.tmdb.org/t/p/w1280/4cp40IyTpFfsT2IKpl0YlUkMBIR.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(159, 87, 107 , 0.25))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .1 #Movies</h4>
+                
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/dYVsBFfGLSCAZ9HqwOfkpgWUwTw.png"/></h2>
+                
+                  
+                  <p className="spotlight-genres">
+                    <span className="genre a">Romance</span>
+                    <span className="genre a">Comedy</span>
+                    <span className="genre a">Drama</span>
+                  </p>
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  <p className="spotlight-overview">A young sex worker from Brooklyn gets her chance at a Cinderella story when she meets and impulsively marries the son of an oligarch. Once the news reaches Russia, her fairytale is threatened as his parents set out to get the marriage annulled.</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/movie/1064213')}>  <i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 1064213, "Anora")}>  <i className='bx bx-play'></i> Watch Now </Button>
+                  </div>
+                  </div>
+              </div>
+            </SwiperSlide>
+           <SwiperSlide>
+              <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-14</h1>
-                <img src={'https://image.tmdb.org/t/p/original/7Wd7ZmYve15GjQfCYCkvq7EFU8c.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(43, 137, 150, 0.25))'}}/>
+                <img src={'https://image.tmdb.org/t/p/original/856MRq23grNxpeVl1PdFgmmLiT0.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(211, 95, 12, 0.25))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .1 #TV</h4>
@@ -113,7 +140,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/original/vZG7PrX9HmdgL5qfZRjhJsFYEIA.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(170, 38, 51, 0.25))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .1 #Movies</h4>
+                  <h4 className="spon">#Spotlight .2 #Movies</h4>
                 
                   <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/f2j9DtQXZBYpfUJ6nyON258aHRe.png"/></h2>
                 
@@ -140,7 +167,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/w1280/ag66gJCiZ06q1GSJuQlhGLi3Udx.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(137, 73, 0, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .2 #Movies</h4>
+                  <h4 className="spon">#Spotlight .3 #Movies</h4>
                 
                   <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/l6NDr1BbCBoIzLYLvfP55fCUCrY.png"/></h2>
                 
@@ -167,7 +194,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/original/rOmUuQEZfPXglwFs5ELLLUDKodL.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(143, 143, 143, 0.25))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .1 #Movies</h4>
+                  <h4 className="spon">#Spotlight .4 #Movies</h4>
                 
                   <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/rPftQWhQ7ZINyruA3S6rSeaofE2.png"/></h2>
                 
@@ -229,7 +256,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/original/zO5xURaYgMX6WpXolp83zVk03Yh.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.5rem rgb(151, 68, 84, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .3</h4>
+                  <h4 className="spon">#Spotlight .3 #TV</h4>
                  
                   <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/tg1NueHwd4lCAwAlhUA2I0n2Ci8.png"/></h2>
                 
