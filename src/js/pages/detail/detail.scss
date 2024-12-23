@@ -425,7 +425,8 @@
     gap: 0.2rem;
     padding: 7px 7px;
     width: auto;
-    background: linear-gradient(to right, rgb(255, 105, 180), rgb(255, 215, 0));
+    background: linear-gradient(to right, rgb(0, 0, 0), rgb(255, 255, 255));
+ 
    background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -433,7 +434,7 @@
    
   &:hover{
     transition: all 0.8s ease-in-out;
-    background: linear-gradient(to left, rgb(255, 105, 180), rgb(255, 215, 0));
+    background: linear-gradient(to left, rgb(255, 0, 0), rgb(255, 2, 166));
     background-clip: text;
   -webkit-background-clip: text;
     
@@ -453,14 +454,16 @@
     gap: 0.2rem;
     padding: 7px 7px;
     width: auto;
-    background: linear-gradient(to right, rgb(245, 1, 58), rgb(255, 179, 0));
+    background: linear-gradient(to left, rgb(255, 0, 0), rgb(255, 2, 166));
+  
    background-clip: text;
   -webkit-background-clip: text;
   //scale: 1.1;
   transition: all .3s ease-out;
   -webkit-text-fill-color: transparent;
    &:hover{
-    background: linear-gradient(to left, rgb(245, 1, 58), rgb(255, 179, 0));
+    background: linear-gradient(to right, rgb(0, 0, 0), rgb(255, 255, 255));
+ 
     background-clip: text;
   -webkit-background-clip: text;
     
