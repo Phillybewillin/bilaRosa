@@ -185,7 +185,7 @@ const [activeList, setActiveList] = useState('all');
     <div
       className="featuretitlef"
     >
-      <h4 className="r">Favourites</h4>
+      <h4 className="r">I likey </h4>
       <i className="bx bxs-heart"></i>
     </div>
   ) : (
@@ -245,10 +245,10 @@ const [activeList, setActiveList] = useState('all');
                     }
               </div>
               <div className="featureswa">
-                  <div className="featuretitlewf" > <h4 className="r2"><i class='bx bxs-heart'></i></h4></div>
-                  <div className="featuretitlewf"> <h4 className="r2">~</h4></div>
+                  <div className="featuretitlef" > ── .✦ <h4 className="r"><i class='bx bxs-heart'></i></h4>  </div>
+                  <div className="featuretitlewf"> <h4 className="r2">----</h4></div>
               
-                <div className="featuretitle" onClick={() => {handleRemoveFromFavourites(item)}}> <h4 className="r">{item.title} • {item.release_date.split('-')[0]}</h4> <i className='bx bxs-trash-alt'></i> </div>
+                <div className="featuretitle" onClick={() => {handleRemoveFromFavourites(item)}}> <h4 className="r">{item.title} • {item.release_date.split('-')[0]}</h4> <i className='bx bxs-trash'></i> </div>
                  
               </div>
              </div>  
