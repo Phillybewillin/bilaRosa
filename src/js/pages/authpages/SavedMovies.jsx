@@ -245,7 +245,7 @@ const [activeList, setActiveList] = useState('all');
                     }
               </div>
               <div className="featureswa">
-                  <div className="featuretitlef" > ── .✦ <h4 className="r"><i class='bx bxs-heart'></i></h4>  </div>
+                  <div className="featuretitlefz" >⋆ ── .⋆ <h4 className="r"><i class='bx bxs-heart'></i></h4>  </div>
                   <div className="featuretitlewf"> <h4 className="r2">----</h4></div>
               
                 <div className="featuretitle" onClick={() => {handleRemoveFromFavourites(item)}}> <h4 className="r">{item.title} • {item.release_date.split('-')[0]}</h4> <i className='bx bxs-trash'></i> </div>
