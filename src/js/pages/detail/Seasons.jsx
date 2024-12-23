@@ -38,15 +38,18 @@ const Seasons = ({ id , title}) => {
         }
     }, [selectedSeason, id]);
 
-    useEffect(() => {
-        setSelectedSeason(seasons.length > 0 ? 1 : null);
-        setSelectedEpisode(null);
-    }, [seasons]);
-
     const handleSeasonClick = (season) => {
         setSelectedSeason(season);
+        localStorage.setItem(`lastClickedSeason_${id}`, season);
         setSelectedEpisode(null);
-    };
+      };
+      
+      useEffect(() => {
+        const lastClickedSeason = localStorage.getItem(`lastClickedSeason_${id}`);
+        setSelectedSeason(seasons.length > 0 ? lastClickedSeason || 1 : 1);
+        setSelectedEpisode(null);
+      }, [seasons, id]);
+
     const smoothScroll = (targetOffset) => {
         const startOffset = Seriesref.current.scrollLeft;
         const distance = targetOffset - startOffset;
@@ -84,9 +87,31 @@ const Seasons = ({ id , title}) => {
     
 
     const handleEpisodeClick = (id , title ,selectedSeason, episodeNumber) => {
-     // console.log(selectedSeason , episodeNumber);
-     // console.log(id , title  )
-        //console.log('handlePlayer function called', id, title , selectedSeason , episodeNumber);
+        const watchHistory = localStorage.getItem('watchHistory');
+         localStorage.setItem('lastClickedSeason', selectedSeason);
+      
+        if (watchHistory) {
+          const watchHistoryObj = JSON.parse(watchHistory);
+          if (!watchHistoryObj[id]) {
+            watchHistoryObj[id] = {};
+          }
+          if (!watchHistoryObj[id][selectedSeason]) {
+            watchHistoryObj[id][selectedSeason] = [];
+          }
+          watchHistoryObj[id][selectedSeason].push(episodeNumber);
+          localStorage.setItem('watchHistory', JSON.stringify(watchHistoryObj));
+        } else {
+          const watchHistoryObj = {
+            [id]: {
+              [selectedSeason]: [episodeNumber]
+            }
+          };
+          localStorage.setItem('watchHistory', JSON.stringify(watchHistoryObj));
+        }
+        //const watchHistoryObj = JSON.parse(watchHistory);
+        //const watched = watchHistoryObj[id][selectedSeason].includes(episodeNumber);
+        //console.log(watched);
+   
 
         if (title && id && selectedSeason && episodeNumber) {
             const encodedTitle = encodeURIComponent(title.replace(/ /g, '-').toLowerCase());
@@ -96,6 +121,10 @@ const Seasons = ({ id , title}) => {
         }
     };
 
+    const watchHistory = localStorage.getItem('watchHistory');
+    const watchHistoryObj = watchHistory ? JSON.parse(watchHistory) : {};
+    const watchedEpisodes = selectedSeason !== null && watchHistoryObj[id] && watchHistoryObj[id][selectedSeason] ? watchHistoryObj[id][selectedSeason] : [];
+    //console.log(watchedEpisodes);
 
     return (
         <div className="seasons-episodes">
@@ -106,7 +135,7 @@ const Seasons = ({ id , title}) => {
                         <div className="seasons__list" key={i} onClick={() => handleSeasonClick(item.season_number)}>
                             <div className={`seas ${item.season_number == selectedSeason ? "actively" : ""}`}
                >
-                                <h4 className="seasons__name"> SN • {item.season_number}</h4>
+                                <h4 className="seasons__name"> Season {item.season_number}</h4>
                             </div>
                         </div>
                     ))}
@@ -116,36 +145,33 @@ const Seasons = ({ id , title}) => {
             {selectedSeason !== null && (
                 <div className="episodes">
                     <div className={`buttsz ${episodes.length <= 2 ? "hide" : ""}`}>
-                   <button  className="leftser" onClick={handleScrollLeft}><i className='bx bxs-chevron-left'></i></button>
-                  <button className="rightser" onClick={handleScrollRight}><i className='bx bxs-chevron-right'></i></button>
+                   <button  className="leftser" onClick={handleScrollLeft}><i className='bx bxs-chevron-left' style={{fontSize : '23px'}}></i></button>
+                  <button className="rightser" onClick={handleScrollRight}><i className='bx bxs-chevron-right' style={{fontSize : '23px'}}></i></button>
                         
                     </div>
                          
                        
                         <div className="episodes__list" ref={Seriesref}>
                             
-                            {episodes && episodes
-            .filter(episode => new Date(episode.air_date) <= new Date()) // Filter out unreleased episodes
-            .map((episode) => (
-                              <>
-                              <div className="episodes__cont">
-                               <div className="episodes__item" key={episode.id} onClick={() => handleEpisodeClick( id , title ,selectedSeason, episode.episode_number)}>
-                               <img className="episodes__image" src={`https://image.tmdb.org/t/p/w1280${episode.still_path}`} alt="episodes" />
-                
-                                    
-                                </div>
-                                <div className="episodes__desc">
-                                
-                                <h2 className="episodes__name">E {episode.episode_number} • {episode.name}</h2>
-            
-                                  {episode.overview}
-                                  </div>
-                              </div>
-                            
-                               
-                            
-                              </>
-                                ))}
+                        {episodes && episodes
+  .filter(episode => new Date(episode.air_date) <= new Date()) // Filter out unreleased episodes
+  .map((episode) => (
+    <div className="episodes__cont">
+      <div className={`episodes__item ${watchedEpisodes.includes(episode.episode_number) ? 'watched' : ''}`} key={episode.id} onClick={() => handleEpisodeClick(id, title, selectedSeason, episode.episode_number)}>
+        <img className="episodes__image" src={`https://image.tmdb.org/t/p/w1280${episode.still_path}`} alt="episodes" />
+        {watchedEpisodes.includes(episode.episode_number) && (
+          <div className="watched-badge">
+            <span>Watched</span>
+            <i className='bx bx-check-double'></i>
+          </div>
+        )}
+      </div>
+      <div className="episodes__desc">
+        <h2 className="episodes__name">E {episode.episode_number} • {episode.name}</h2>
+        {episode.overview}
+      </div>
+    </div>
+  ))}
                         </div>
 
                 </div>
