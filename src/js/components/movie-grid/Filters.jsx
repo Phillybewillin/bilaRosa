@@ -5,7 +5,9 @@ import MovieCard from "../movie-card/MovieCard";
 import "./filters.scss";
 import Button,{OutlineButton} from "../button/Button";
 import { ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router";
 const Filters = () => {
+    document.title = "Filters • ZILLA-XR";
     const [genres, setGenres] = useState([]);
     const [countries] = useState([
         { name: 'United States', code: 'US' },
@@ -46,6 +48,7 @@ const Filters = () => {
     const [draftSelectedGenre, setDraftSelectedGenre] = useState([]);
     const [draftSelectedCountry, setDraftSelectedCountry] = useState("");
     const [draftSelectedYear, setDraftSelectedYear] = useState("");
+    const navigate = useNavigate();
     
     useEffect(() => {
         const fetchData = async (url) => {
@@ -64,6 +67,11 @@ const Filters = () => {
                 setGenres(data.genres);
             }
         };
+
+        window.scrollTo({
+            top: 10,
+            behavior: 'smooth'
+        });
 
         fetchGenres();
     }, [ category ]);
@@ -103,6 +111,7 @@ const Filters = () => {
         setCurrentPage(1); // Reset page number
         setIsMinimized(true); // Minimize filters after submit
         // Fetch items with finalized filters
+        navigate(`/filter?page=1`);
         setItems();
     };
 
@@ -117,7 +126,7 @@ const Filters = () => {
 
     const handleLoadMore = () => {
         setCurrentPage(prevPage => prevPage + 1);
-
+        navigate(`/filter?page=${currentPage + 1}`);
         window.scrollTo({
             top: 10,
             behavior: 'smooth'
@@ -238,14 +247,14 @@ const Filters = () => {
                 </div>
                 <br />
                 <div className="cbut">
-                <Button type="submit">Submit</Button>
+                <Button  type="submit">Search</Button>
                 <OutlineButton type="button" onClick={handleClearFilters}>Clear Filters</OutlineButton>
                 </div>
                  </form>
                  </>
             )}
               {
-                     items && items.length > 0 && (category==='movie' ? <div className="righters"> <h3>MOVIES</h3><i className="bx bx-movie" ></i></div> : <div className="righters"> <h3>TV SHOWS</h3><i className="bx bx-tv" ></i></div>) 
+                     items && items.length > 0 && (category==='movie' ? <div className="righters" > <h3>MOVIES</h3><i className="bx bx-movie" ></i></div> : <div className="righters"> <h3>TV SHOWS</h3><i className="bx bx-tv" ></i></div>) 
             }
             <div className="movie-gridk">
             {items && items.length === 0 ? (
