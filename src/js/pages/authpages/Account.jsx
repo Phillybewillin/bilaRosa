@@ -11,7 +11,7 @@ import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router";
 const Account = () => {
   const{ user } = UserAuth();
-  
+  document.title = "My Library | ZILLA-XR";
   const fbg = footerbg;
   const email = user?.email;
   const username = email.split('@')[0];
@@ -135,7 +135,7 @@ const Account = () => {
            
            
             </div>
-            <div className="load">ZILLAXR</div>
+           
 
       
         <ToastContainer theme="dark"/>  
