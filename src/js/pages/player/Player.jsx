@@ -11,21 +11,28 @@ import logo from '../../assets/icons8-alien-monster-emoji-48.png';
 import { ToastContainer , toast } from "react-toastify";
 import Select from 'react-select';
 
+import { UserAuth } from "../../context/AuthContext";
+import { useFirestore } from "../../Firestore";
+import tmdbApi from "../../api/tmdbApi";
 export default function Player() {
   const { title, id, season_number, episode_number } = useParams();
+  const { user } = UserAuth();
+  const { addToWatchlist, checkIfInWatchlist , removeFromWatchlist, addToFavourites , checkIfInFavourites , removeFromFavourites } = useFirestore();
   const testurl = import.meta.env.VITE_FETCH_URL_TEST;
-  const [playerSource, setPlayerSource] = useState(null);
-  const [textTracks, setTextTracks] = useState([]);
+  const [itemData, setItemData] = useState([]);
+ // const [playerSource, setPlayerSource] = useState(null);
+  //const [textTracks, setTextTracks] = useState([]);
   const [episodes, setEpisodeData] = useState([]);
   const [currentEpisode, setCurrentEpisode] = useState(episode_number);
   const [bgChanged, setbgChanged] = useState(null);
   const [seasons, setSeasons] = useState([]);
   const [currentSeason, setCurrentSeason] = useState(season_number);
-  const [header , setHeader] = useState(null);
-  const [quality, setQuality] = useState("auto");
+  //const [header , setHeader] = useState(null);
+  //const [quality, setQuality] = useState("auto");
   const [totalEpisodes , setTotalEpisodes] = useState(0);
-  const lastFetchArgs = useRef(null);
-
+ // const lastFetchArgs = useRef(null);
+ const [ saved ,setSaved] = useState(false);
+  const [like , setLike] = useState(false);
   //const [sources, setSources] = useState([]);
   const [Loading, setLoading] = useState(false);
   //const [errorMessage, setErrorMessage] = useState("");
@@ -33,7 +40,19 @@ export default function Player() {
   
   const navigate = useNavigate();
  // const location = useLocation();
-  
+ const category = season_number ? 'tv' : 'movie';
+ const getDetail = async () => {
+  const response = await tmdbApi.detail(category, id, {params: {}});
+  //const similar = await tmdbApi.similar(category, id )
+  setItemData(response);
+  //setItems(similar)
+ //console.log(response);
+}
+useEffect(() => {
+  getDetail();
+}, []);
+
+
 
   useEffect(() => {
     if (title) {
@@ -43,19 +62,19 @@ export default function Player() {
          .split(' ')
           .map(word => word.charAt(0).toUpperCase() + word.slice(1))
            .join(' ');
-        document.title = ` Currently Watching ${decodedTitle}`;
+        document.title = ` Currently Watching ${decodedTitle} ദ്ദി ༎ຶ‿༎ຶ )`;
 
       if (season_number && episode_number) {
-        document.title = ` Currently Watching ${decodedTitle} • S${currentSeason} • E${currentEpisode}`;
+        document.title = ` Currently Watching ${decodedTitle} • S${currentSeason} • E${currentEpisode} ദ്ദി ༎ຶ‿༎ຶ )`;
       }
   
     }
    
-    if (id) {
+    if (id && currentSeason) {
       
       fetchEpisodes(id, currentSeason);
-    
     }
+     
   }, [title, id, currentSeason ,currentEpisode]);
 
 
@@ -95,12 +114,114 @@ export default function Player() {
       }
     }
   };
+
+  //saved shit 
+  const saveShow = async (item) => {
+    if (!user) {
+      toast.error('Please log in to save a movie');
+      return;
+    }
+
+    const data = {
+      id: itemData?.id,
+      title: itemData?.title || itemData?.name,
+      category: season_number ? "tv" : "movie",
+      poster_path: itemData?.poster_path,
+      release_date: itemData?.release_date || itemData?.first_air_date,
+      vote_average: itemData?.vote_average,
+      //overview: details?.overview,
+    };
+
+    const dataId = itemData?.id?.toString();
+    await addToWatchlist(user?.uid, dataId, data);
+    const isSetToWatchlist = await checkIfInWatchlist(user?.uid, dataId);
+    setSaved(isSetToWatchlist);
+  };
+
+  useEffect(() => {
+    if (!user) {
+      setSaved(false);
+      return;
+    }
+
+    checkIfInWatchlist(user?.uid, itemData?.id).then((data) => {
+      setSaved(data);
+    });
+  }, [itemData, user, checkIfInWatchlist ]);
+
+  const AddfavShow = async() => {
+
+      if (!user) {
+        toast.error('Please log in to save a movie');
+        return;
+      }
   
-  const handleEpisodeClick = (episodeNumber , episodeUrl = null) => {
+      const data = {
+        id: itemData?.id,
+        title: itemData?.title || itemData?.name,
+        category: season_number ? "tv" : "movie",
+        poster_path: itemData?.poster_path,
+        release_date: itemData?.release_date || itemData?.first_air_date,
+        vote_average: itemData?.vote_average,
+        //overview: details?.overview,
+      };
+      //console.log(data)
+  
+      const dataId = itemData?.id?.toString();
+      await addToFavourites(user?.uid, dataId, data);
+      const isSetToWatchlist = await checkIfInFavourites(user?.uid, dataId);
+      setLike(isSetToWatchlist);
+    };
+  
+    useEffect(() => {
+      if (!user) {
+          setLike(false);
+          return;
+        }
+
+      if (itemData) {
+        checkIfInFavourites(user?.uid, itemData?.id).then((data) => {
+          setLike(data);
+        });
+      }
+    }, [user, checkIfInFavourites , AddfavShow , itemData ]);
+
+    const handleRemoveFromWatchlist = async () => {
+      await removeFromWatchlist(user?.uid, itemData.id);
+      setSaved(false);
+    };
+    const handleRemoveFromFavourites = async () => {
+      await removeFromFavourites(user?.uid, itemData.id);
+      setLike(false);
+    };
+  
+  const handleEpisodeClick = (episodeNumber , episodeUrl = null ) => {
     
     const url = new URL(window.location.href);
     url.pathname = url.pathname.replace(/\/\d+$/, `/${episodeNumber}`);
     window.history.pushState({}, '', url.toString());
+
+    const watchHistory = localStorage.getItem('watchHistory');
+    localStorage.setItem('lastClickedSeason', currentSeason);
+ 
+   if (watchHistory) {
+     const watchHistoryObj = JSON.parse(watchHistory);
+     if (!watchHistoryObj[id]) {
+       watchHistoryObj[id] = {};
+     }
+     if (!watchHistoryObj[id][currentSeason]) {
+       watchHistoryObj[id][currentSeason] = [];
+     }
+     watchHistoryObj[id][currentSeason].push(episodeNumber);
+     localStorage.setItem('watchHistory', JSON.stringify(watchHistoryObj));
+   } else {
+     const watchHistoryObj = {
+       [id]: {
+         [currentSeason]: [episodeNumber]
+       }
+     };
+     localStorage.setItem('watchHistory', JSON.stringify(watchHistoryObj));
+   }
     //setPlayerSource('');
     //setHeader("");
     //setLoading(true);
@@ -109,6 +230,10 @@ export default function Player() {
     setbgChanged(apiConfig.w200Image(episodeUrl))
  
   };
+  const watchHistory = localStorage.getItem('watchHistory');
+  const watchHistoryObj = watchHistory ? JSON.parse(watchHistory) : {};
+  const watchedEpisodes = currentSeason !== null && watchHistoryObj[id] && watchHistoryObj[id][currentSeason] ? watchHistoryObj[id][currentSeason] : [];
+ 
  
 const handleSeasonClick = (seasonNumber) => {
   const url = new URL(window.location.href);
@@ -117,6 +242,7 @@ const handleSeasonClick = (seasonNumber) => {
   pathnameParts[pathnameParts.length - 1] = '1';
   url.pathname = pathnameParts.join('/');
   window.history.pushState({}, '', url.toString());
+  localStorage.setItem(`lastClickedSeason_${id}`, seasonNumber);
  // setPlayerSource('');
  // setHeader("");
   setCurrentSeason(seasonNumber);
@@ -124,6 +250,25 @@ const handleSeasonClick = (seasonNumber) => {
   //setLoading(true);
   //fetchEpisodes(id, currentSeason);
   
+};
+const [selectedOption, setSelectedOption] = useState(null);
+
+useEffect(() => {
+  const storedValue = localStorage.getItem('lastSelectedOption');
+  if (storedValue) {
+    const selectedOption = options.find((option) => option.value === storedValue);
+    setSelectedOption(selectedOption);
+    setIframeUrl(selectedOption.value);
+  } else {
+    setSelectedOption(options[0]);
+    setIframeUrl(options[0].value);
+  }
+}, []);
+
+const handleSelect = (selectedOption) => {
+  setSelectedOption(selectedOption);
+  setIframeUrl(selectedOption.value);
+  localStorage.setItem('lastSelectedOption', selectedOption.value);
 };
 
  const handleBack = ( ) => {
@@ -146,15 +291,44 @@ const handleSeasonClick = (seasonNumber) => {
  // const [autoPlay, setAutoPlay] = useState(false);
   const [iframeUrl, setIframeUrl] = useState('https://vidlink.pro/');
  //console.log(iframeUrl);
+ const handleIframeSrc = () => {
+  let src = '';
+  if (iframeUrl === 'https://moviesapi.club/') {
+    src = `https://moviesapi.club/tv/${id}-${currentSeason}-${currentEpisode}`;
+  } else if (iframeUrl === 'https://vidlink.pro/') {
+    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?poster=true&autoplay=false&nextbutton=true&icons=vid`;
+  } else if (iframeUrl === 'https://player.autoembed.cc/embed/') {
+    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+  }  else if (iframeUrl === 'https://vidsrc.cc/v2/embed/') {
+    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+  } else if (iframeUrl === 'https://embed.su/embed/') {
+    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+  } else if (iframeUrl === 'https://vidsrc.me/embed/') {
+    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+  } else if (iframeUrl === 'https://vidsrc.xyz/embed/') {
+    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+  }else if (iframeUrl === 'https://vidbinge.dev/embed/') {
+    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+  }
+  else if (iframeUrl === 'https://flicky.host/embed/') {
+    src = `${iframeUrl}tv/?id=${id}/${currentSeason}/${currentEpisode}`;
+  }
+   else {
+    src = iframeUrl; 
+  }
+  return src;
+};
+
   const options = [
-    { value: 'https://vidlink.pro/', label: 'Apple' },
-    { value: 'https://player.autoembed.cc/embed/', label: 'Strawberry' },
-    { value: 'https://embed.su/embed/', label: 'Grape' },
-    { value: 'https://vidsrc.cc/v2/embed/', label: 'Cherry' },
-    { value: 'https://vidsrc.me/embed/', label: 'Banana' },
-    { value: 'https://vidsrc.xyz/embed/', label: 'Mango' },
-    { value: 'https://vidbinge.dev/embed/', label: 'Blueberry' },
-    { value: 'https://flicky.host/embed/', label: 'Pineapple - Multi Audio' },
+    { value: 'https://vidlink.pro/', label: 'PINEBERRY' },
+    { value: 'https://moviesapi.club/', label: 'GRANADILLA' },
+    { value: 'https://player.autoembed.cc/embed/', label: 'STRAWBERRY' },
+    { value: 'https://vidsrc.cc/v2/embed/', label: 'CHERRY' },
+    { value: 'https://embed.su/embed/', label: 'GRAPE' },
+    { value: 'https://vidsrc.me/embed/', label: 'KIWI' },
+    { value: 'https://vidsrc.xyz/embed/', label: 'BANANA' },
+    { value: 'https://vidbinge.dev/embed/', label: 'HALA' },
+    { value: 'https://flicky.host/embed/', label: 'COCONUT' },
    
   ]
   const handleIframeLoad = () => {
@@ -164,6 +338,8 @@ const handleSeasonClick = (seasonNumber) => {
   return (
     <ErrorBoundary>
         <> 
+        <ToastContainer theme="dark" fontSize="11px" position="top-right" autoClose={8000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} progressStyle={{ backgroundColor: '#00000', color: 'white', borderRadius: '5px' ,fontSize: '11px' }} />
+      
           <div className="player-container" >
            
             
@@ -176,7 +352,8 @@ const handleSeasonClick = (seasonNumber) => {
         season_number && episode_number ? (
           <iframe
             className="episodes__iframe"
-        src={`${iframeUrl === 'https://flicky.host/embed/' ? 'https://flicky.host/embed/tv/?id=' + id + '/' + currentSeason + '/' + currentEpisode : iframeUrl + 'tv/' + id + '/' + currentSeason + '/' + currentEpisode}${iframeUrl === 'https://vidlink.pro/' ? '?poster=true&autoplay=false&nextbutton=true&icons=vid' : ''}`}   width={"100%"}
+            src={handleIframeSrc()}   
+            width={"100%"}  
             height={"100%"}
             frameBorder="0"
             allowFullScreen
@@ -198,8 +375,7 @@ const handleSeasonClick = (seasonNumber) => {
         ))}
        
         </div>
-            <ToastContainer theme="light" fontSize="11px" position="top-right" autoClose={8000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} progressStyle={{ backgroundColor: '#00000', color: 'white', borderRadius: '5px' }} />
-      
+           
           </div>
           {currentEpisode < totalEpisodes ? (
   <div className="rea" onClick={() => handleEpisodeClick(parseInt(currentEpisode) + 1)}>
@@ -216,19 +392,37 @@ const handleSeasonClick = (seasonNumber) => {
               <div className="navih" onClick={handleHome}><i className="bx bx-home" ></i></div>
               <div className="navi" onClick={handleBack}><i className='bx bxs-left-arrow'></i></div>
             </div>
+            <div className="watchlyst">
+                                    {
+                                        saved ? (
+                                            <div className="languagezz"  onClick={() => handleRemoveFromWatchlist()}><i class='bx bxs-add-to-queue' style={{fontSize:'17px'}} ></i> In my Watchlist</div>
+                               
+                                        ):(
+                                            <div className="languagez" onClick={() => saveShow()}><i class='bx bx-add-to-queue' style={{fontSize:'17px'}} ></i> Add To Watchlist</div>
+                              
+                                        )
+                                    }
+                                <div className="languagez">|</div>
+                                {
+                                        like ? (
+                                            <div className="languagezz" onClick={() => handleRemoveFromFavourites()}><i className='bx bxs-heart' style={{fontSize:'17px'}}></i></div>
+                                        ):(
+                                            <div className="languagez" onClick={() => AddfavShow()}><i className='bx bx-heart' style={{fontSize:'17px'}}></i></div>
+                              
+                                        )
+                                    }
+                               
+                                
+                                </div>  
             </div>
             <div className="servers">
-              <h4>Sources :</h4> 
+              <h3 className="servertitle">Sources ⋆</h3> 
               <div className="sources"> 
                 
               <Select
-       defaultValue={options[0]}
+       value={selectedOption}
        options={options}
-       onChange={(selectedOption) => {
-        const baseUrl = selectedOption.value;
-        setIframeUrl(baseUrl);
-        setLoading(false);
-      }}
+       onChange={handleSelect}
        theme={(theme) => ({
       ...theme,
       
@@ -281,16 +475,26 @@ neutral90: '#303030'
               <li
               key={index}
               className={`episodes_itemz ${
-                currentEpisode == episode.episode_number ? "actively" : ""
+                (currentEpisode == episode.episode_number ? "actively" : "") +
+                (watchedEpisodes.includes(episode.episode_number) ? " watchedd" : "")
               }`}
               onClick={() => handleEpisodeClick(episode.episode_number , episode.still_path)}
             >
+              
                  E{episode.episode_number} <div className="s"></div>{episode.name}
+
+                 {watchedEpisodes.includes(episode.episode_number) && (
+            <div className="watchede-badge">
+            
+            <i className='bx bx-check-double'></i>
+            </div>
+            )}
               </li>
             ))}
         </ul>
       </div>
     )}
+
       
         </>
     </ErrorBoundary>
