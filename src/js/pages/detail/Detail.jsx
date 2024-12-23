@@ -24,7 +24,7 @@ const Detail = () => {
     const [items, setItems] = useState([]);
     const [videos , setVideos] = useState([]);
     const {user} = UserAuth();
-    const { addToWatchlist, checkIfInWatchlist , addToFavourites , checkIfInFavourites } = useFirestore();
+    const { addToWatchlist, checkIfInWatchlist , addToFavourites , checkIfInFavourites , removeFromWatchlist , removeFromFavourites } = useFirestore();
     //const [iframeSrc, setIframeSrc] = useState(''); 
     const [ saved ,setSaved] = useState(false);
     const [like , setLike] = useState(false);
@@ -66,7 +66,7 @@ const Detail = () => {
       checkIfInWatchlist(user?.uid, item?.id).then((data) => {
         setSaved(data);
       });
-    }, [item, user, checkIfInWatchlist]);
+    }, [item, user, checkIfInWatchlist ]);
 
     const AddfavShow = async(item) => {
 
@@ -138,7 +138,18 @@ const Detail = () => {
     
     //console.log('items:', items);
   }, [category, id , item]);
+   
+  const handleRemoveFromWatchlist = async (item) => {
+    await removeFromWatchlist(user?.uid, item.id);
+    setSaved(false);
+  };
+  
+  const handleRemoveFromFavourites = async (item) => {
+    await removeFromFavourites(user?.uid, item.id);
+    setLike(false);
+  };
 
+  
   
 
     const getGenreColor = (genre) => {
@@ -319,7 +330,7 @@ const Detail = () => {
                                 <div className="langu">
                                     {
                                         saved ? (
-                                            <div className="languagezz" ><i class='bx bxs-add-to-queue' style={{fontSize:'17px'}} ></i> In thy Watchlist</div>
+                                            <div className="languagezz"  onClick={() => handleRemoveFromWatchlist(item)}><i class='bx bxs-add-to-queue' style={{fontSize:'17px'}} ></i> In my Watchlist</div>
                                
                                         ):(
                                             <div className="languagez" onClick={() => saveShow(item)}><i class='bx bx-add-to-queue' style={{fontSize:'17px'}} ></i> Add To Watchlist</div>
@@ -329,7 +340,7 @@ const Detail = () => {
                                 <div className="languagez">|</div>
                                 {
                                         like ? (
-                                            <div className="languagezz" ><i className='bx bxs-heart' style={{fontSize:'17px'}}></i></div>
+                                            <div className="languagezz" onClick={() => handleRemoveFromFavourites(item)}><i className='bx bxs-heart' style={{fontSize:'17px'}}></i></div>
                                         ):(
                                             <div className="languagez" onClick={() => AddfavShow(item)}><i className='bx bx-heart' style={{fontSize:'17px'}}></i></div>
                               
