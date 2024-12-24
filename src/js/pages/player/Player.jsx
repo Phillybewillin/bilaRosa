@@ -330,6 +330,34 @@ const handleSelect = (selectedOption) => {
   return src;
 };
 
+const handlemovieIframeSrc = () => {
+  let src = '';
+  if (iframeUrl === 'https://moviesapi.club/') {
+    src = `https://moviesapi.club/movie/${id}}`;
+  } else if (iframeUrl === 'https://vidlink.pro/') {
+    src = `${iframeUrl}movie/${id}?poster=true&autoplay=false&nextbutton=true&icons=vid`;
+  } else if (iframeUrl === 'https://player.autoembed.cc/embed/') {
+    src = `${iframeUrl}movie/${id}`;
+  }  else if (iframeUrl === 'https://vidsrc.cc/v2/embed/') {
+    src = `${iframeUrl}movie/${id}`;
+  } else if (iframeUrl === 'https://embed.su/embed/') {
+    src = `${iframeUrl}movie/${id}`;
+  } else if (iframeUrl === 'https://vidsrc.me/embed/') {
+    src = `${iframeUrl}movie/${id}`;
+  } else if (iframeUrl === 'https://vidsrc.xyz/embed/') {
+    src = `${iframeUrl}movie/${id}`;
+  }else if (iframeUrl === 'https://vidbinge.dev/embed/') {
+    src = `${iframeUrl}movie/${id}`;
+  }
+  else if (iframeUrl === 'https://flicky.host/embed/') {
+    src = `${iframeUrl}movie/?id=${id}`;
+  }
+   else {
+    src = iframeUrl; 
+  }
+  return src;
+};
+
   const options = [
     { value: 'https://vidlink.pro/', label: 'PINEBERRY' },
     { value: 'https://moviesapi.club/', label: 'GRANADILLA' },
@@ -374,8 +402,8 @@ const handleSelect = (selectedOption) => {
           />
         ) : (
           <iframe
-          src={`${iframeUrl === 'https://flicky.host/embed/' ? 'https://flicky.host/embed/movie/?id=' + id : iframeUrl + 'movie/' + id}?poster=true&autoplay=false&icons=vid`}
-            className="episodes__iframe"
+          src={handlemovieIframeSrc()}   
+          className="episodes__iframe"
             width={"100%"}
             height={"100%"}
             frameBorder="0"
@@ -389,7 +417,6 @@ const handleSelect = (selectedOption) => {
            
           </div>
           
-        
           <div className="sertop">
           <div className="topbar">
             <div className="logozz" onClick={() => navigate('/')}>
