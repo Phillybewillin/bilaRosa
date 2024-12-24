@@ -211,6 +211,10 @@ i {
         
 }
 }
+.noresult{
+  padding: 1rem;
+  text-align: center;
+}
 
 .szh-menu {
     border: 1px solid rgba(0, 0, 0, 0.144) !important;
@@ -413,7 +417,7 @@ i {
 
 .searchmovie{
   //position: relative;
-  margin-left: -200px;
+  margin-left: -180px;
    display: flex;
    //justify-content: flex-start;
    padding: 0 0.3rem;
