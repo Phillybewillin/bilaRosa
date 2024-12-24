@@ -389,7 +389,7 @@ const handleSelect = (selectedOption) => {
            
           </div>
           
-          <div className="lights"></div>
+        
           <div className="sertop">
           <div className="topbar">
             <div className="logozz" onClick={() => navigate('/')}>
