@@ -377,11 +377,7 @@ const handleSelect = (selectedOption) => {
         </div>
            
           </div>
-          {currentEpisode < totalEpisodes ? (
-  <div className="rea" onClick={() => handleEpisodeClick(parseInt(currentEpisode) + 1)}>
-    Next Episode
-  </div>
-) : null}
+          
           <div className="lights"></div>
           <div className="sertop">
           <div className="topbar">
@@ -392,13 +388,18 @@ const handleSelect = (selectedOption) => {
               <div className="navih" onClick={handleHome}><i className="bx bx-home" ></i></div>
               <div className="navi" onClick={handleBack}><i className='bx bxs-left-arrow'></i></div>
             </div>
+            {currentEpisode < totalEpisodes ? (
+     <div className="rea" onClick={() => handleEpisodeClick(parseInt(currentEpisode) + 1)}>
+   Up Next Ep. {parseInt(currentEpisode) + 1}<i className='bx bx-skip-next'></i>
+      </div>
+) : null}
             <div className="watchlyst">
                                     {
                                         saved ? (
-                                            <div className="languagezz"  onClick={() => handleRemoveFromWatchlist()}><i class='bx bxs-add-to-queue' style={{fontSize:'17px'}} ></i> In my Watchlist</div>
+                                            <div className="languagezz"  onClick={() => handleRemoveFromWatchlist()}><i class='bx bxs-add-to-queue' style={{fontSize:'17px'}} ></i></div>
                                
                                         ):(
-                                            <div className="languagez" onClick={() => saveShow()}><i class='bx bx-add-to-queue' style={{fontSize:'17px'}} ></i> Add To Watchlist</div>
+                                            <div className="languagez" onClick={() => saveShow()}><i class='bx bx-add-to-queue' style={{fontSize:'17px'}} ></i></div>
                               
                                         )
                                     }
@@ -465,6 +466,7 @@ neutral90: '#303030'
             ))}
         </div>
     </div>
+  
 
           {episodes.length > 0 && (
       <div className="episode-selector" style={{backgroundImage: `url(${bgChanged})` , backgroundSize : 'cover'}}>
