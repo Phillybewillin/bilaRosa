@@ -50,7 +50,13 @@ export default function Player() {
 }
 useEffect(() => {
   getDetail();
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+});
 }, []);
+
+
 
 
 
@@ -222,6 +228,11 @@ useEffect(() => {
      };
      localStorage.setItem('watchHistory', JSON.stringify(watchHistoryObj));
    }
+
+   window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+});
     //setPlayerSource('');
     //setHeader("");
     //setLoading(true);
