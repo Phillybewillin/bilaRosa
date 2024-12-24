@@ -14,7 +14,7 @@ export const Footer = () => {
                     <a href="https://discord.gg/MCt2R9gqGb" target="_blank" rel="noreferrer"><i className='bx bxl-discord-alt' style={{color: 'crimson', fontSize: '35px',padding : '5px',borderRadius : '5px' ,marginLeft:"5px"}}></i></a>
                         
                     <a href="https://t.me/+MQUUqEx2WXA0ZmZk" target="_blank" rel="noreferrer"><i className="bx bxl-telegram" style={{color: 'aqua', fontSize: '30px',padding : '5px',borderRadius : '5px' ,marginLeft:"5px"}}></i></a>
-    
+                    <a href="https://reddit.com/r/zillaXRxyz" target="_blank " rel="noreferrer"><i className="bx bxl-reddit"style={{color: 'white',fontSize: '35px',padding : '5px',borderRadius : '5px',marginLeft:"5px"}}></i></a>
                     </div>
                    
                 </div>
@@ -31,9 +31,9 @@ This site does not store any files on our server, we only linked to the media wh
                        <div className="splitter"></div>
                        <Link to="/filter">Filters</Link>
                         <div className="splitter"></div>
-                        <Link to="/movie">Movies</Link>
+                        <Link to="/z/movie">Movies</Link>
                         <div className="splitter"></div>
-                        <Link to="/tv">TV Series</Link>
+                        <Link to="/z/tv">TV Series</Link>
                        </div>
                        
                        
