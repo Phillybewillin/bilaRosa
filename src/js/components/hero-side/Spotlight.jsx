@@ -364,35 +364,7 @@ const Spotlight = () => {
                   </div>
                    </div>
               </div>
-            
-              <div className="spotlight-item">
-              <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/a2fqompEWB2GFp9GOdlqLcfEFfw.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem  rgba(144, 101, 63, 0.4))'}} />
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .6</h4>
-                  
-                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/lB9cFSWjPkM6dIFHczhgMZvytwM.png"/></h2>
-                
-                  
-                  <p className="spotlight-genres">
-                    <span className="genre a">Crime</span>
-                    
-                    <span className="genre a">Drama</span>
-
-
-                  </p>
-                  <div className="spotty">
-                  <h6 className="genre b">HD</h6><h6 className="genre a">SERIES</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  
-                  <p className="spotlight-overview">Witness the The Penguin's rise to power in Gotham's criminal underworld in the aftermath of the Riddler killings.</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('tv/194764')}> <i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(194764, "The Penguin" ,1 ,1)}>  <i className='bx bx-play'></i> Watch Now</Button>
-                  </div>
-                </div>
-              </div>
+       
            
             </SwiperSlide>
             
