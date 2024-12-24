@@ -215,6 +215,7 @@ i {
 .szh-menu {
     border: 1px solid rgba(0, 0, 0, 0.144) !important;
     background-color: rgba(0, 0, 0, 0.804) !important;
+    
    // font-family: sans-serif;
     font-size: 0.7rem !important;
     user-select: none;
@@ -261,10 +262,29 @@ i {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap : 1rem;
+    gap : 2rem;
+    
     //margin-top: 1rem;
     //margin-left: 7rem;
     
+}
+.lozg{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    //gap : .5rem;
+    padding: .5rem;
+    background-color: rgba(26, 26, 26, 0.429);
+    border-radius: 8px;
+
+    
+    //backdrop-filter: blur(10px);
+    //margin-top: 1rem;
+    //margin-left: 7rem;
+}
+.lozg:hover{
+    background-color: rgba(255, 0, 47, 0.468);
 }
 .bur{
     display: flex;
@@ -452,5 +472,13 @@ i {
    }
 
 }
-
+.socialzz{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;   
+}
 
