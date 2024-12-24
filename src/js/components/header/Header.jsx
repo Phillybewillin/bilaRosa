@@ -13,7 +13,7 @@ import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/zoom.css';
 import Avatar from 'react-avatar';
 import apiConfig from '../../api/apiConfig';
-import {DNA} from 'react-loader-spinner'
+//import {DNA} from 'react-loader-spinner'
 const Header = () => {
   const { user, logOut } = UserAuth();
   const navigate = useNavigate();
@@ -133,20 +133,7 @@ const Header = () => {
   
 />
 
-    {
-      izloading && (
-        <div className="loadina">
-         <DNA
-  visible={true}
-  height="80"
-  width="80"
-  ariaLabel="dna-loading"
-  wrapperStyle={{}}
-  wrapperClass="dna-wrapper"
-  />
-        </div>
-      )
-    }
+   
     {
      searchValue && movies.length === 0 && (
         <div className="mds">
