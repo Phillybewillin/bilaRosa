@@ -301,28 +301,30 @@ height: 98vh;
 }
 
 .rea{
-  display: none;
+  display: flex;
   position: absolute;
-  right: .5rem;
+  left: 13rem;
   cursor: pointer;
-  top: 2px;
+  top: 16px;
   z-index: 100;
   //display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  gap: 20px;
-  border-radius: 10px;
-  font-size: smaller;
-  background-color: #16161671;
-  backdrop-filter: blur(10px);
-  padding: 8px;
+  gap: 10px;
+  border-radius: 5px;
+  font-size: .7rem;
+  background-color: #ffffff11;
+  //backdrop-filter: blur(10px);
+  padding: 8px 10px;
+
+  
   @include mobile {
     display: none;
   }
 }
 .rea:hover{
-  background-color: #1d1d1d88;
+  background-color: #3a290188;
 }
 .servers{
   z-index: 999999;
@@ -344,4 +346,5 @@ height: 98vh;
 .servertitle{
   font-weight: 300;
 }
+
 
