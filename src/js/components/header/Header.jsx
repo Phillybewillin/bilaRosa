@@ -13,7 +13,7 @@ import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/zoom.css';
 import Avatar from 'react-avatar';
 import apiConfig from '../../api/apiConfig';
-
+import {DNA} from 'react-loader-spinner'
 const Header = () => {
   const { user, logOut } = UserAuth();
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ const Header = () => {
   const [showModal, setShowModal] = useState(false);
   const [showSignup, setShowSignup] = useState(true);
   const [movies, setMovies] = useState([]);
+  const [izloading , setIzLoading] = useState(true);
   const [hidesearch , setHidesearch] =  useState(true);
   const [searchValue, setSearchValue] = useState('');
 
@@ -84,8 +85,10 @@ const Header = () => {
           if(data.results){
               const filteredMovies = data.results.filter(movie => movie.poster_path && movie.overview);
               setMovies(filteredMovies);
+              setIzLoading(false);
           } else {
               setMovies([]);
+              setIzLoading(false);
           }
       }
   };
@@ -130,11 +133,36 @@ const Header = () => {
   
 />
 
+    {
+      izloading && (
+        <div className="loadina">
+         <DNA
+  visible={true}
+  height="80"
+  width="80"
+  ariaLabel="dna-loading"
+  wrapperStyle={{}}
+  wrapperClass="dna-wrapper"
+  />
+        </div>
+      )
+    }
+    {
+     searchValue && movies.length === 0 && (
+        <div className="mds">
+          <h3 className='noresult'> ¯\_(ツ)_/¯ Not found</h3>
+        </div>
+      )
+    }
+    {
+      !izloading && movies.length > 0 && (
+        <div className="mds">
+          <Mlist movies={movies || []} value={searchValue} />
+        </div>
+      )
+    }
 
-
-      <div className="mds">
-        <Mlist movies={movies || []} value={searchValue} />
-      </div>
+      
     </div>
   </div>
 )}
