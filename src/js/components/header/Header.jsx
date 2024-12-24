@@ -163,7 +163,7 @@ const Header = () => {
                 <MenuButton >
                   <Avatar
                     name={user?.email || ''}
-                    size="42"
+                    size="43"
                     round
                     color="#000000d9"
                   />
@@ -174,23 +174,46 @@ const Header = () => {
             >
               {user?.email ? (
                 <>
-                  <MenuItem onClick={() => navigate('/account')}> <div className="loggz"> Watchlist  <i class='bx bxs-collection'></i></div> </MenuItem>
-                  <MenuDivider  style={{ backgroundColor: '#ffff1165' , borderRadius : '5px'}}/>
-                  <MenuItem onClick={handleLogout}> <div className="loggz"> LogOut <i className='bx bx-log-out'></i></div></MenuItem>
+                  <MenuItem onClick={() => navigate('/account')}> <div className="loggz"> <i class='bx bxs-collection'></i> My Library </div> </MenuItem>
+                  <MenuDivider  style={{ backgroundColor: 'grey' , borderRadius : '5px'}}/>
+                  <MenuItem onClick={handleLogout}> <div className="loggz"> <i className='bx bx-log-out'></i> LogOut </div></MenuItem>
+                  <MenuItem > <div className="loggz"> ---------------------</div></MenuItem>
+                 
+                  <MenuItem>
+                  <div className="socialzz">
+                  <div className="lozg" onClick={() => window.open('https://t.me/+MQUUqEx2WXA0ZmZk')}><i className='bx bxl-telegram'> </i></div>
+                  <div className="lozg" onClick={() => window.open('https://discord.gg/MCt2R9gqGb')}><i className='bx bxl-discord-alt'> </i></div>
+                  <div className="lozg" onClick={() => window.open('https://reddit.com/r/zillaXRxyz')}><i className='bx bxl-reddit'> </i></div>
+
+                  </div>
+                    
+                  </MenuItem>
+
                 </>
               ) : (
                 <>
-                  <MenuItem  style={{ justifyContent: 'flex-start' }} onClick={() => { setShowModal(true); setShowSignup(false); }}> <div className="loggz"> LogIn <i className='bx bxs-user-plus'></i>
+                  <MenuItem  style={{ justifyContent: 'flex-start' }} onClick={() => { setShowModal(true); setShowSignup(false); }}> <div className="loggz"> <i className='bx bxs-user-plus'></i> LogIn 
                     </div></MenuItem>
-                  <MenuItem  style={{ justifyContent: 'flex-start' }} onClick={() => { setShowModal(true); setShowSignup(true); }}> <div className="loggz"> Sign-Up <i className='bx bx-user-plus'></i></div></MenuItem>
+                  <MenuItem  style={{ justifyContent: 'flex-start' }} onClick={() => { setShowModal(true); setShowSignup(true); }}> <div className="loggz">  <i className='bx bx-user-plus'></i> Sign-Up</div></MenuItem>
                   <MenuDivider  style={{ backgroundColor: '#ff001165' , borderRadius : '5px'}}/>
-                  <MenuItem  onClick={() => navigate('/dmca')}> <div className="loggz"> DMCA <i className='bx bxs-bot'></i></div></MenuItem>
-                  <MenuItem  onClick={() => navigate('/privacypolicy')}> <div className="loggz"> Privacy Policy <i className='bx bxs-shield-plus'></i></div></MenuItem>
+                  <MenuItem  onClick={() => navigate('/dmca')}> <div className="loggz"> <i className='bx bxs-bot'></i> DMCA </div></MenuItem>
+                  <MenuItem  onClick={() => navigate('/privacypolicy')}> <div className="loggz"><i className='bx bxs-shield-plus'></i>  Privacy Policy </div></MenuItem>
+                  <MenuItem  onClick={() => navigate('/privacypolicy')}> <div className="loggz">---------------------</div></MenuItem>
+                 
                   <MenuItem onClick={() => window.open('https://discord.gg/MCt2R9gqGb', '_blank')}>
-                    <div className="loggz">Join our DD<i className='bx bxl-discord-alt'></i></div>
+
+                    <div className="loggz"><i className='bx bxl-discord-alt'> </i> Discord</div>
                   </MenuItem>
+                  <MenuItem onClick={() => window.open('https://t.me/+MQUUqEx2WXA0ZmZk', '_blank')}>
+                    <div className="loggz"><i className='bx bxl-telegram'> </i> Telegram</div>
+                  </MenuItem>
+                  <MenuItem onClick={() => window.open('https://reddit.com/r/zillaXRxyz', '_blank')}>
+                    <div className="loggz"><i className='bx bxl-reddit'> </i> Reddit</div>
+                  </MenuItem>
+                  <MenuDivider  style={{ backgroundColor: '#ff001165' , borderRadius : '5px'}}/>
+                  
                   <MenuItem onClick={() => window.open('https://ko-fi.com/zillaxr', '_blank')}>
-                    <div className="loggz"> Donate <i className='bx bx-donate-heart'></i></div>
+                    <div className="loggz"> <i className='bx bx-donate-heart'></i>  Donate </div>
                   </MenuItem>
                    
                 </>
