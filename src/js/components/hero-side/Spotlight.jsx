@@ -42,7 +42,7 @@ const Spotlight = () => {
         
           <Swiper
             ref={sliderRef}
-            spaceBetween={10}
+            spaceBetween={13}
             slidesPerView={4}
             lazy={true}
             preloadImages={false}
@@ -66,14 +66,42 @@ const Spotlight = () => {
             }}
             loop = {true}
             slideToClickedSlide = {true}
-            speed={500}
+            speed={550}
             pagination={{ clickable: true }}
             modules={[Navigation , Autoplay , Pagination]}
             className="swiper"
             //cssMode = {true}
             //pointCursor = {true}
-            autoplay={{ delay: 7000 }}
+            autoplay={{ delay: 6000 }}
           > 
+            <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">PG-13</h1>
+                <img src={'https://image.tmdb.org/t/p/original/xDGbZ0JJ3mYaGKy4Nzd9Kph6M9L.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgb(239, 207, 227, 0.3))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon"> #Spotlight .1 #Movies</h4>
+            
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/oeSUu0CjuohGO6oIiFkxn4xHbrt.png"/></h2>
+                
+              
+                  <p className="spotlight-genres">
+                    <span className="genre a">Music</span>
+                    <span className="genre a">Drama</span>
+                    <span className="genre a">Romance</span>
+                    <span className="genre a">Fantasy </span>
+                  </p>
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  
+                  <p className="spotlight-overview"> In the land of Oz, ostracized and misunderstood green-skinned Elphaba is forced to share a room with the popular aristocrat Glinda at Shiz University, and the two's unlikely friendship is tested as they begin to fulfill their respective destinies as Glinda the Good and the Wicked Witch of the .</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/movie/402431')}> <i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="btn" onClick={() => handlePlayer( 402431 , "wicked")}>  <i className='bx bx-play'></i> Watch Now</Button></div>
+                  </div>
+                 </div>
+            </SwiperSlide>
            <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
