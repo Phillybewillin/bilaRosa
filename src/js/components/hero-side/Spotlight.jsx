@@ -42,7 +42,7 @@ const Spotlight = () => {
         
           <Swiper
             ref={sliderRef}
-            spaceBetween={13}
+            spaceBetween={3}
             slidesPerView={4}
             lazy={true}
             preloadImages={false}
@@ -77,7 +77,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">PG-13</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/xDGbZ0JJ3mYaGKy4Nzd9Kph6M9L.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgb(239, 207, 227, 0.3))'}}/>
+                <img src={'https://image.tmdb.org/t/p/w1280/w22GVYotTIVC1dUd58mRhwPqiS.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgb(34, 121, 20, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon"> #Spotlight .1 #Movies</h4>
