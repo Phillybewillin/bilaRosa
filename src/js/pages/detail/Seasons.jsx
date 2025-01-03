@@ -48,7 +48,7 @@ const Seasons = ({ id , title}) => {
         const lastClickedSeason = localStorage.getItem(`lastClickedSeason_${id}`);
         setSelectedSeason(seasons.length > 0 ? lastClickedSeason || 1 : 1);
         setSelectedEpisode(null);
-      }, [seasons, id]);
+      }, [seasons, id ]);
 
     const smoothScroll = (targetOffset) => {
         const startOffset = Seriesref.current.scrollLeft;
@@ -126,6 +126,8 @@ const Seasons = ({ id , title}) => {
     const watchedEpisodes = selectedSeason !== null && watchHistoryObj[id] && watchHistoryObj[id][selectedSeason] ? watchHistoryObj[id][selectedSeason] : [];
     //console.log(watchedEpisodes);
 
+    const lastClickedEpisode = watchHistoryObj[id] && watchHistoryObj[id][selectedSeason] && watchHistoryObj[id][selectedSeason].slice(-1)[0];
+    
     return (
         <div className="seasons-episodes">
             <div className="seasons">
@@ -160,9 +162,9 @@ const Seasons = ({ id , title}) => {
       <div className={`episodes__item ${watchedEpisodes.includes(episode.episode_number) ? 'watched' : ''}`} key={episode.id} onClick={() => handleEpisodeClick(id, title, selectedSeason, episode.episode_number)}>
         <img className="episodes__image" src={`https://image.tmdb.org/t/p/w1280${episode.still_path}`} alt="episodes" />
         {watchedEpisodes.includes(episode.episode_number) && (
-          <div className="watched-badge">
-            <span>Watched</span>
-            <i className='bx bx-check-double'></i>
+          <div className={`watched-badge ${lastClickedEpisode === episode.episode_number ? 'continue-watching' : ''}`}>
+            <span>{lastClickedEpisode === episode.episode_number ? 'Continue Watching' : 'Watched'}</span>
+            <i className={`bx ${lastClickedEpisode === episode.episode_number ? 'bx-play' : 'bx-check-double'}`}></i>
           </div>
         )}
       </div>
