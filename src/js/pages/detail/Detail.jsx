@@ -37,7 +37,7 @@ const Detail = () => {
   }
   const saveShow = async (item) => {
       if (!user) {
-        toast.error('Please log in to save a movie');
+        toast.error('Access denied. Please logIn to add this to your Watchlist');
         return;
       }
   
@@ -71,7 +71,7 @@ const Detail = () => {
     const AddfavShow = async(item) => {
 
         if (!user) {
-          toast.error('Please log in to save a movie');
+          toast.error('Access denied. Please logIn to add this to your favourites');
           return;
         }
     
@@ -111,6 +111,9 @@ const Detail = () => {
     if (logoi) {
       setTitle(logoi.file_path);
     }
+    else {
+      setTitle('');
+    }
   // console.log(logoi);
 }
   const getVideos = async () => {
@@ -121,7 +124,8 @@ const Detail = () => {
       setVideos(trailer.key);
     } else {
         toast.error('No trailer found')
-       console.log('No trailer found');
+        setVideos(null);
+       //console.log('No trailer found');
     }
 }
   useEffect(() => {
@@ -130,7 +134,7 @@ const Detail = () => {
     getVideos();
     getDetail();
    
-  }, [category, id]);
+  }, [category, id ]);
 
   useEffect(() => {
     document.title =  item ? `${item?.title || item?.name} - Watch it on ZillaXR` : 'Weed With a movie or TV Show - Watch it on ZillaXR';
@@ -265,12 +269,18 @@ const Detail = () => {
     };
     const handlescrolldown = () => {
         window.scrollTo({
-            top: 500,
+            top: 1000,
             behavior: 'smooth'
           });
     }
     const watchTrailer = () => {
+      if(videos !== null){
         setChoice(true);
+      }
+      else{
+        toast.error('No trailer found for this one :(');
+      }
+        
     }
     const cancelwatchTrailer = () => {
         setChoice(false);
@@ -297,7 +307,11 @@ const Detail = () => {
         return () => clearInterval(intervalId);
       }
     }, [item?.release_date]);
-
+    const formatRuntime = (minutes) => {
+      const hours = Math.floor(minutes / 60);
+      const mins = minutes % 60;
+      return `${hours}H ${mins}`;
+    };
       
 
     return (
@@ -308,15 +322,18 @@ const Detail = () => {
                     <>
                     
                        <div className="detail-container">
-                       <>
-                    <div className="banner" style={{backgroundImage: `url(${apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',position: 'fixed', top: '0' , left: '0' , width: '100%' , height: '55vh'}}></div>
-                    </>
+                      
+                    <div className="banner" style={{backgroundImage: `url(${apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',position: 'fixed', top: '0' , left: '0' , width: '100%' , height: '75vh'}}></div>
+                     <div className="trailler">
+                     <Button className='btntrailer' onClick={watchTrailer}> Watch <i class='bx bx-joystick-alt'></i>  Trailer</Button>
+                           
+                     </div>
                         <div className="movie-content">
                            <div className="movie-content__info">
                             <div className="titleholder">
                               
                               {
-                                title ? (<img className="postertitle" src={apiConfig.w500Image(title)} alt="" />) : (<h2 className="title">
+                               title && title !== null &&  title !== '' ? (<img className="postertitle" src={apiConfig.w1280Image(title)} alt="" />) : (<h2 className="title">
                                    {item.title || item.name} 
                                    </h2>)
                               }
@@ -324,7 +341,7 @@ const Detail = () => {
                                <div className="langu">
                                <div className="language"><i className="bx bx-world" style={{fontSize:'11px'}}></i> {item.original_language.toUpperCase()}</div>
                                <div className="language"><i className='bx bxs-calendar' style={{fontSize:'11px'}}></i>{Number.isNaN(year) ? '' : year}</div>
-                                <div className="language"><i className="bx bx-time" style={{fontSize:'11px'}}></i>{item.runtime || item.episode_run_time}MIN</div>
+                                <div className="language"><i className="bx bx-time" style={{fontSize:'11px'}}></i>{ category === 'movie' ? formatRuntime(item.runtime) : item.episode_run_time[0] } MIN</div>
                             
                                 </div>
                                 <div className="langu">
@@ -394,14 +411,12 @@ const Detail = () => {
   </>
 } 
 
+
                                  
                            </div>
-                        </div>
-
-                        <div className="castdiv">
+                           <div className="castdiv">
                             <div className="one">
-                            <Button className='btn' onClick={watchTrailer}><i class='bx bx-joystick-alt'></i>  Trailer</Button>
-                            <h4 className='titledetailz'>Actors</h4>
+                            <h4 className='titledetailz'>THE CAST</h4>
                                       
                             </div>
                        
@@ -416,6 +431,9 @@ const Detail = () => {
                                        </div>
                                        
                         </div>
+                        </div>
+
+                     
                            
                        </div>
                        {
