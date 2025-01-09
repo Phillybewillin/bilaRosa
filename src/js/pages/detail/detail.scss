@@ -6,12 +6,23 @@
   //overflow: hidden;
   position: relative;
 }
+.btnplay{
+  //background-color: red;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
 .banner {
-    height: 70vh;
+    height: 80vh;
     position: fixed;
-    background-position: top;
+    //background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+    width: 100%;
+    //z-index: 1;
 
     &::before {
         content: "";
@@ -34,9 +45,10 @@
         height: 100%;
        background-image: linear-gradient(180deg, rgba(127, 117, 117, 0), rgba(0, 0, 0, 0.936));
      // background-image: linear-gradient(90deg, $black, rgba(127, 117, 117, 0));
-        
-        
+    }
 
+    @include mobile {
+        height: 60vh;
     }
 }
 .postertitle {
@@ -531,18 +543,29 @@
    top: 10px;
    right: 10px;
    font-size: x-small;
-   text-align: center;
-    font-weight: 400;
+   text-align: end;
+   transform: rotate(90deg);
+    font-weight: 700;
     //transform:  rotate(45deg);
     
     padding: 15px 7px;
     //width: 50%;
-    background-color: rgba(255, 255, 255, 0.071);
+    background-color: rgba(20, 20, 20, 0.386);
     //border-radius: 5px;
     border-top-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    transition: all .5s ease-in-out;
+  
+
+    &:hover{
+      cursor: pointer;
+      font-size: small;
+      transform: rotate(0deg);
+      transition: all .5s ease-in-out;
+    }
      
     @include mobile {
+      transform: rotate(0deg);
       padding: 13px 7px;
       font-size: .7rem;
      }
@@ -688,16 +711,20 @@
   padding: 5px;
   break-inside: avoid;
   //margin:  5px;
-  columns: 5;
+  columns: 6;
     
     
     @include tablet {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+   
      columns: 4;
     
   }
 
   @include mobile {
-    
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     columns: 2;
   
   }
@@ -762,11 +789,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: .7rem;
-  font-weight: 300;
-  padding: 10px 40px;
-  background-color: rgba(232, 219, 219, 0.715);
-  color: rgb(10, 10, 10);
+  font-size: .8rem;
+  backdrop-filter: blur(10px);
+  font-weight: 100;
+  padding: 12px 30px;
+  background-color: rgba(0, 0, 0, 0.151);
+  color: white;
   gap: 5px;
 
   @include mobile {
