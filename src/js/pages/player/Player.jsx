@@ -307,8 +307,11 @@ const handleSelect = (selectedOption) => {
   if (iframeUrl === 'https://moviesapi.club/') {
     src = `https://moviesapi.club/tv/${id}-${currentSeason}-${currentEpisode}`;
   } else if (iframeUrl === 'https://vidlink.pro/') {
-    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?poster=true&autoplay=false&nextbutton=true&icons=vid`;
-  } else if (iframeUrl === 'https://player.autoembed.cc/embed/') {
+    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?poster=true&autoplay=false&icons=vid`;
+  } else if (iframeUrl === 'https://autoembed.pro/embed/') {
+    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+  }
+  else if (iframeUrl === 'https://player.autoembed.cc/embed/') {
     src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
   }  else if (iframeUrl === 'https://vidsrc.cc/v2/embed/') {
     src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
@@ -338,7 +341,10 @@ const handlemovieIframeSrc = () => {
     src = `${iframeUrl}movie/${id}?poster=true&autoplay=false&nextbutton=true&icons=vid`;
   } else if (iframeUrl === 'https://player.autoembed.cc/embed/') {
     src = `${iframeUrl}movie/${id}`;
-  }  else if (iframeUrl === 'https://vidsrc.cc/v2/embed/') {
+  }  else if (iframeUrl === 'https://autoembed.pro/embed/') {
+    src = `${iframeUrl}movie/${id}`;
+  }
+   else if (iframeUrl === 'https://vidsrc.cc/v2/embed/') {
     src = `${iframeUrl}movie/${id}`;
   } else if (iframeUrl === 'https://embed.su/embed/') {
     src = `${iframeUrl}movie/${id}`;
@@ -361,13 +367,16 @@ const handlemovieIframeSrc = () => {
   const options = [
     { value: 'https://vidlink.pro/', label: 'PINEBERRY' },
     { value: 'https://moviesapi.club/', label: 'GRANADILLA' },
+     { value: 'https://autoembed.pro/embed/', label: 'LEMON' },
+     
+     { value: 'https://embed.su/embed/', label: 'GRAPE' },
     { value: 'https://player.autoembed.cc/embed/', label: 'STRAWBERRY' },
     { value: 'https://vidsrc.cc/v2/embed/', label: 'CHERRY' },
-    { value: 'https://embed.su/embed/', label: 'GRAPE' },
     { value: 'https://vidsrc.me/embed/', label: 'KIWI' },
     { value: 'https://vidsrc.xyz/embed/', label: 'BANANA' },
-    { value: 'https://vidbinge.dev/embed/', label: 'HALA' },
     { value: 'https://flicky.host/embed/', label: 'COCONUT' },
+    { value: 'https://vidbinge.dev/embed/', label: 'HALA' },
+   
    
   ]
   const handleIframeLoad = () => {
