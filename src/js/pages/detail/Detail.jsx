@@ -323,7 +323,7 @@ const Detail = () => {
                     
                        <div className="detail-container">
                       
-                    <div className="banner" style={{backgroundImage: `url(${apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',position: 'fixed', top: '0' , left: '0' , width: '100%' , height: '75vh'}}></div>
+                    <div className="banner" style={{backgroundImage: `url(${apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)})`}}></div>
                      <div className="trailler">
                      <Button className='btntrailer' onClick={watchTrailer}> Watch <i class='bx bx-joystick-alt'></i>  Trailer</Button>
                            
@@ -404,8 +404,8 @@ const Detail = () => {
       </div>
     ) : (
       <div className="buttonz">
-        <Button className='btn' onClick={handlescrolldown}>Recommendations</Button>
-        <Button className="btn" onClick={() => handlePlayer(item.id, item.name || item.title)}> <i className='bx bx-play-circle'></i> Watch Now</Button> 
+        <Button className='btnprime' onClick={handlescrolldown}>Recommendations</Button>
+        <Button className="btnplay" onClick={() => handlePlayer(item.id, item.name || item.title)}>  Watch Now <i className='bx bx-play-circle'></i></Button> 
       </div>
     )}
   </>
