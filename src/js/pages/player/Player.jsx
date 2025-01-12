@@ -30,6 +30,7 @@ export default function Player() {
   //const [header , setHeader] = useState(null);
   //const [quality, setQuality] = useState("auto");
   const [totalEpisodes , setTotalEpisodes] = useState(0);
+  const [totalseasons , settotalseasons] = useState(0);
  // const lastFetchArgs = useRef(null);
  const [ saved ,setSaved] = useState(false);
   const [like , setLike] = useState(false);
@@ -90,7 +91,8 @@ useEffect(() => {
         const { data } = await axios.get(`${apiConfig.baseUrl}tv/${id}?api_key=${apiConfig.apiKey}`);
         const validSeasons = data.seasons.filter(({ air_date }) => air_date && new Date(air_date) <= new Date());
         setSeasons(validSeasons);
-        //console.log(validSeasons);
+        settotalseasons(validSeasons.filter(season => season.season_number !== 0).length);
+         //console.log(validSeasons.);
         setbgChanged(apiConfig.w200Image(validSeasons[0].poster_path))
    
     };
@@ -124,7 +126,7 @@ useEffect(() => {
   //saved shit 
   const saveShow = async (item) => {
     if (!user) {
-      toast.error('Please log in to save a movie');
+      toast.error('Access denied. Please logIn to add this to your Watchlist');
       return;
     }
 
@@ -158,7 +160,7 @@ useEffect(() => {
   const AddfavShow = async() => {
 
       if (!user) {
-        toast.error('Please log in to save a movie');
+        toast.error('Access denied. Please logIn to add this to your favourites');
         return;
       }
   
@@ -367,10 +369,10 @@ const handlemovieIframeSrc = () => {
   const options = [
     { value: 'https://vidlink.pro/', label: 'PINEBERRY' },
     { value: 'https://moviesapi.club/', label: 'GRANADILLA' },
-     { value: 'https://autoembed.pro/embed/', label: 'LEMON' },
-     
-     { value: 'https://embed.su/embed/', label: 'GRAPE' },
-    { value: 'https://player.autoembed.cc/embed/', label: 'STRAWBERRY' },
+    { value: 'https://autoembed.pro/embed/', label: 'LEMON' },
+    { value: 'https://player.autoembed.cc/embed/', label: 'STRAWBERRY' }, 
+    { value: 'https://embed.su/embed/', label: 'GRAPE' },
+    //{ value: 'https://player.autoembed.cc/embed/', label: 'STRAWBERRY' },
     { value: 'https://vidsrc.cc/v2/embed/', label: 'CHERRY' },
     { value: 'https://vidsrc.me/embed/', label: 'KIWI' },
     { value: 'https://vidsrc.xyz/embed/', label: 'BANANA' },
@@ -405,7 +407,8 @@ const handlemovieIframeSrc = () => {
             height={"100%"}
             frameBorder="0"
             allowFullScreen
-            sandbox
+            //sandbox
+            referrerPolicy="no-referrer"
             onLoad={handleIframeLoad}
          
           />
@@ -417,7 +420,8 @@ const handlemovieIframeSrc = () => {
             height={"100%"}
             frameBorder="0"
             allowFullScreen
-            sandbox
+            referrerPolicy="no-referrer"
+            //sandbox
             onLoad={handleIframeLoad}
           />
         ))}
@@ -432,14 +436,18 @@ const handlemovieIframeSrc = () => {
                <img src={logo} alt="ZillaXR"/>
                <h4 className="logotext">ZILLAXR</h4> </div>
               <div className="menu">
-              <div className="navih" onClick={handleHome}><i className="bx bx-home" ></i></div>
-              <div className="navi" onClick={handleBack}><i className='bx bxs-left-arrow'></i></div>
+              <div className="navih" onClick={handleHome}><i className="bx bx-home-alt-2" ></i></div>
+              <div className="navi" onClick={handleBack}><i className='bx bx-left-arrow'></i></div>
             </div>
             {currentEpisode < totalEpisodes ? (
      <div className="rea" onClick={() => handleEpisodeClick(parseInt(currentEpisode) + 1)}>
-   Up Next Ep. {parseInt(currentEpisode) + 1}<i className='bx bx-skip-next'></i>
+   Up Next Episode {parseInt(currentEpisode) + 1}<i className='bx bx-skip-next'></i>
       </div>
-) : null}
+) :  (totalseasons > 1 && currentSeason < totalseasons ? (
+  <div className="rea" onClick={() => handleSeasonClick(parseInt(currentSeason) + 1)}>
+    Up Next Season {parseInt(currentSeason) + 1}<i className='bx bx-skip-next'></i>
+  </div>
+) : null)}
             <div className="watchlyst">
                                     {
                                         saved ? (
@@ -498,6 +506,17 @@ neutral90: '#303030'
               </div>
             </div>
           </div>
+          <div className="androidnext">
+          {currentEpisode < totalEpisodes ? (
+     <div className="reand" onClick={() => handleEpisodeClick(parseInt(currentEpisode) + 1)}>
+   Up Next Episode {parseInt(currentEpisode) + 1} <h4 className="episodename">{itemData.name}</h4><i className='bx bx-skip-next'></i>
+      </div>
+) :  (totalseasons > 1 && currentSeason < totalseasons ? (
+  <div className="reand" onClick={() => handleSeasonClick(parseInt(currentSeason) + 1)}>
+    Up Next Season {parseInt(currentSeason) + 1}<i className='bx bx-skip-next'></i>
+  </div>
+) : null)}
+          </div>
           <div className="seasons">
             
           
@@ -531,7 +550,11 @@ neutral90: '#303030'
             >
               
                  E{episode.episode_number} <div className="s"></div>{episode.name}
-
+                 {currentEpisode == episode.episode_number && (
+                   <div className="watchnow">
+                     <i className="bx bx-play"></i>
+                   </div>
+                 )}
                  {watchedEpisodes.includes(episode.episode_number) && (
             <div className="watchede-badge">
             
