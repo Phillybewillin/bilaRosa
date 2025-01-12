@@ -14,7 +14,7 @@
   align-items: center;
 }
 .banner {
-    height: 80vh;
+    height: 75vh;
     position: fixed;
     //background-position: center;
     background-size: cover;
@@ -48,7 +48,7 @@
     }
 
     @include mobile {
-        height: 60vh;
+        height: 70vh;
     }
 }
 .postertitle {
