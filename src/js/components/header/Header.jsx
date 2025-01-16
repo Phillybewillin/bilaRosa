@@ -13,7 +13,7 @@ import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/zoom.css';
 import Avatar from 'react-avatar';
 import apiConfig from '../../api/apiConfig';
-//import {DNA} from 'react-loader-spinner'
+import {DNA} from 'react-loader-spinner'
 const Header = () => {
   const { user, logOut } = UserAuth();
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const Header = () => {
   const [izloading , setIzLoading] = useState(true);
   const [hidesearch , setHidesearch] =  useState(true);
   const [searchValue, setSearchValue] = useState('');
-
+  
   const headerNav = [
     {
       display: (
@@ -80,14 +80,16 @@ const Header = () => {
       if (searchValue) {
           const url = `https://api.themoviedb.org/3/search/multi?query=${searchValue}&api_key=${apiConfig.apiKey}`;
           const response = await fetch(url);
+
           const data = await response.json();
+          //console.log(data);
 
           if(data.results){
-              const filteredMovies = data.results.filter(movie => movie.poster_path && movie.overview);
+              const filteredMovies = data.results.filter(movie => movie.poster_path && movie.release_date <= new Date().toISOString().split('T')[0]);
               setMovies(filteredMovies);
               setIzLoading(false);
           } else {
-              setMovies([]);
+              setMovies(-1);
               setIzLoading(false);
           }
       }
@@ -106,13 +108,21 @@ const Header = () => {
     setMovies([]); // Reset movies when user types in the search input
   };
   useEffect(() => {
-    const shrinkHeader = () => {
+    const handleScroll = () => {
       if (headerRef.current) {
-        headerRef.current.classList.toggle('shrink', window.scrollY > 50);
+        const scrolledDown = window.scrollY > 50;
+        const scrolledUp = window.scrollY < window.prevScrollY;
+        headerRef.current.classList.toggle('shrink', scrolledDown);
+        if (scrolledUp ) {
+          headerRef.current.classList.remove('hide');
+        } else if (scrolledDown) {
+          headerRef.current.classList.add('hide');
+        }
       }
+      window.prevScrollY = window.scrollY;
     };
-    window.addEventListener('scroll', shrinkHeader);
-    return () => window.removeEventListener('scroll', shrinkHeader);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -133,9 +143,8 @@ const Header = () => {
   
 />
 
-   
     {
-     searchValue && movies.length === 0 && (
+     searchValue && movies === -1 &&  (
         <div className="mds">
           <h3 className='noresult'> ¯\_(ツ)_/¯ Not found</h3>
         </div>
@@ -192,7 +201,7 @@ const Header = () => {
                   <MenuItem onClick={() => navigate('/account')}> <div className="loggz"> <i class='bx bxs-collection'></i> My Library </div> </MenuItem>
                   <MenuDivider  style={{ backgroundColor: 'grey' , borderRadius : '5px'}}/>
                   <MenuItem onClick={handleLogout}> <div className="loggz"> <i className='bx bx-log-out'></i> LogOut </div></MenuItem>
-                  <MenuItem > <div className="loggz"> ---------------------</div></MenuItem>
+                  <MenuItem > <div className="loggz"> --------     -------</div></MenuItem>
                  
                   <MenuItem>
                   <div className="socialzz">
@@ -210,26 +219,23 @@ const Header = () => {
                   <MenuItem  style={{ justifyContent: 'flex-start' }} onClick={() => { setShowModal(true); setShowSignup(false); }}> <div className="loggz"> <i className='bx bxs-user-plus'></i> LogIn 
                     </div></MenuItem>
                   <MenuItem  style={{ justifyContent: 'flex-start' }} onClick={() => { setShowModal(true); setShowSignup(true); }}> <div className="loggz">  <i className='bx bx-user-plus'></i> Sign-Up</div></MenuItem>
-                  <MenuDivider  style={{ backgroundColor: '#ff001165' , borderRadius : '5px'}}/>
+                  <MenuDivider  style={{ backgroundColor: 'pink' , borderRadius : '5px'}}/>
                   <MenuItem  onClick={() => navigate('/dmca')}> <div className="loggz"> <i className='bx bxs-bot'></i> DMCA </div></MenuItem>
                   <MenuItem  onClick={() => navigate('/privacypolicy')}> <div className="loggz"><i className='bx bxs-shield-plus'></i>  Privacy Policy </div></MenuItem>
-                  <MenuItem  onClick={() => navigate('/privacypolicy')}> <div className="loggz">---------------------</div></MenuItem>
+                  <MenuDivider  style={{ backgroundColor: 'grey' , borderRadius : '5px'}}/>
                  
-                  <MenuItem onClick={() => window.open('https://discord.gg/MCt2R9gqGb', '_blank')}>
+                  <MenuItem>
+                  <div className="socialzz">
+                  <div className="lozg" onClick={() => window.open('https://t.me/+MQUUqEx2WXA0ZmZk')}><i className='bx bxl-telegram'> </i></div>
+                  <div className="lozg" onClick={() => window.open('https://discord.gg/MCt2R9gqGb')}><i className='bx bxl-discord-alt'> </i></div>
+                  <div className="lozg" onClick={() => window.open('https://reddit.com/r/zillaXRxyz')}><i className='bx bxl-reddit'> </i></div>
 
-                    <div className="loggz"><i className='bx bxl-discord-alt'> </i> Discord</div>
+                  </div>
+                    
                   </MenuItem>
-                  <MenuItem onClick={() => window.open('https://t.me/+MQUUqEx2WXA0ZmZk', '_blank')}>
-                    <div className="loggz"><i className='bx bxl-telegram'> </i> Telegram</div>
-                  </MenuItem>
-                  <MenuItem onClick={() => window.open('https://reddit.com/r/zillaXRxyz', '_blank')}>
-                    <div className="loggz"><i className='bx bxl-reddit'> </i> Reddit</div>
-                  </MenuItem>
-                  <MenuDivider  style={{ backgroundColor: '#ff001165' , borderRadius : '5px'}}/>
-                  
-                  <MenuItem onClick={() => window.open('https://ko-fi.com/zillaxr', '_blank')}>
-                    <div className="loggz"> <i className='bx bx-donate-heart'></i>  Donate </div>
-                  </MenuItem>
+                  <MenuDivider  style={{ backgroundColor: 'pink' , borderRadius : '5px'}}/>
+                 
+
                    
                 </>
               )}
@@ -240,7 +246,7 @@ const Header = () => {
         </div>
       </div>
       {showModal && (
-        <div className="modal">
+        <div className="modala">
           <div className="modal_content">
             {showSignup ? <Signup /> : <Login />}
             <Button className="btn" onClick={() => setShowSignup((prev) => !prev)}>
