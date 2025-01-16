@@ -74,10 +74,72 @@ const Spotlight = () => {
             //pointCursor = {true}
             autoplay={{ delay: 6000 }}
           > 
+          <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">TV-MA</h1>
+                <img src={'https://image.tmdb.org/t/p/original/5OsiT39OiZNdD0v2LiAcI2TpSYj.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.9rem rgb(26, 131, 193, 0.25))'}} />
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                <h4 className="spon">#Spotlight .1 #TVSHOWS</h4>
+                
+                <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w1280/yyS1tALk7t3YdTNMOvR5gsnXINA.png"/></h2>
+                
+                
+                  
+                  <p className="spotlight-genres">
+                       <span className="genre a">Sci-Fi & Fantasy</span>
+                        <span className="genre a">Drama</span>
+                        
+
+                  </p>    
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Show</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2022</h6>
+                  </div>
+                  <p className="spotlight-overview">Mark leads a team of office workers whose memories have been surgically divided between their work and personal lives. When a mysterious colleague appears outside of work, it begins a journey to discover the truth about their jobs.</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('tv/95396')}> <i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 95396, "Severance" ,1 ,1)}>  <i className='bx bx-play'></i> Watch Now</Button>
+                  </div>
+                   </div>
+              </div>
+            </SwiperSlide>
+          <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">TV-14</h1>
+                <img src={'https://image.tmdb.org/t/p/original/1swj9HxDkjzsO3yHlSwRA38hMFN.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(132, 248, 255, 0.25))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .2 #TVSHOWS</h4>
+                 
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/g8K4oyyWD5azNd7ij0Ca0Mmj7E9.png"/></h2>
+                
+               
+                
+                  <p className="spotlight-genres">
+                  
+                   
+                    <span className="genre a">Animation</span>
+                    <span className="genre a">Drama</span>
+                    <span className="genre a">Sci-Fi & Fantasy </span>
+                
+
+                  </p>
+                  <div className="spotty">
+                   <h6 className="genre b">HD</h6><h6 className="genre a">Series</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2023</h6>
+                  </div>
+                  
+                  <p className="spotlight-overview">In the thick of the French Revolution, members of the so-called lower classes are rising up to fight inequality. Meanwhile, Richter Belmont senses a far grimmer and greater danger. He's picked up his family's long-held tradition of vampire hunting</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/tv/123548')}> <i className='bx bx-info-circle'></i>  Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 123548, "CastleVania Nocturne" ,1 ,1 )}> <i className='bx bx-play' ></i> Watch Now</Button>
+                  </div>
+                  </div>
+              </div>
+            </SwiperSlide>
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">PG-13</h1>
-                <img src={'https://image.tmdb.org/t/p/original/dfdvUzj4nLZpZ37BoefqvevCMI1.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgb(34, 121, 20, 0.3))'}}/>
+                <img src={'https://image.tmdb.org/t/p/original/qF0Cz2toMzc6JsDxproYuETyElT.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgb(211, 71, 54 , 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon"> #Spotlight .1 #Movies</h4>
@@ -108,7 +170,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/w1280/3xF78MnaTAoX3hkygglbCUEywU.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(195, 121, 56, 0.25))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .1 #TVSHOWS</h4>
+                  <h4 className="spon">#Spotlight .4 #TVSHOWS</h4>
                  
                   <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/oXr4itsh8CCcqQhyeeuW5Xf7bjG.png"/></h2>
                 
@@ -141,7 +203,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/w1280/8mjYwWT50GkRrrRdyHzJorfEfcl.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(155, 112, 80, 0.35))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .1 #Movies</h4>
+                  <h4 className="spon">#Spotlight .2 #Movies</h4>
                 
                   <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/jwXk1c2esVoEzVLplPiQubNVyFC.png"/></h2>
                 
@@ -168,7 +230,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/w1280/4YN6AfYIKyfZ1aB0cYEWROv76nU.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(174, 35, 222, 0.25))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .2 #Movies</h4>
+                  <h4 className="spon">#Spotlight .3 #Movies</h4>
                 
                   <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/axmdOABOzSv28HhAH2ppPuEbG2A.png"/></h2>
                 
@@ -189,46 +251,14 @@ const Spotlight = () => {
                   </div>
               </div>
             </SwiperSlide>
-           <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">TV-14</h1>
-                <img src={'https://image.tmdb.org/t/p/original/MJvg724NPnqxa7pkGFZlrl5t4D.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(255, 255, 255, 0.25))'}}/>
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .2 #TVSHOWS</h4>
-                 
-                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/9FrP9EOEOCq4kWfEQk9zFjEKaRG.png"/></h2>
-                
-               
-                
-                  <p className="spotlight-genres">
-                  
-                   
-                    <span className="genre a">Animation</span>
-                    <span className="genre a">Action</span>
-                    <span className="genre a">Sci-Fi & Fantasy </span>
-                
-
-                  </p>
-                  <div className="spotty">
-                   <h6 className="genre b">HD</h6><h6 className="genre a">Series</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  
-                  <p className="spotlight-overview">Adult animated series of original short stories which are set within the worlds of beloved video games. Each episode serves as a gateway to a new adventure, unlocking exciting worlds from beloved gaming classics and highly anticipated new titles.</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/tv/261579')}> <i className='bx bx-info-circle'></i>  Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 261579, "Secret Level" ,1 ,1 )}> <i className='bx bx-play' ></i> Watch Now</Button>
-                  </div>
-                  </div>
-              </div>
-            </SwiperSlide>
+           
           <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">PG-13</h1>
                 <img src={'https://image.tmdb.org/t/p/original/vZG7PrX9HmdgL5qfZRjhJsFYEIA.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(170, 38, 51, 0.25))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .3 #Movies</h4>
+                  <h4 className="spon">#Spotlight .4 #Movies</h4>
                 
                   <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/f2j9DtQXZBYpfUJ6nyON258aHRe.png"/></h2>
                 
@@ -249,42 +279,14 @@ const Spotlight = () => {
                   </div>
               </div>
             </SwiperSlide>
-            <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/original/my5vBrkapsY131myRoQw0Nw0yQN.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.9rem rgb(88, 60, 23, 0.5))'}} />
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                <h4 className="spon">#Spotlight .3 #TVSHOWS</h4>
-                
-                <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/zvONe1taIlwyuvZwL43CscDZhci.png"/></h2>
-                
-                
-                  
-                  <p className="spotlight-genres">
-                       <span className="genre a">Sci-Fi & Fantasy</span>
-                        <span className="genre a">Drama</span>
-                        
-
-                  </p>    
-                  <div className="spotty">
-                  <h6 className="genre b">HD</h6><h6 className="genre a">Show</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  <p className="spotlight-overview">Ten thousand years before the ascension of Paul Atreides, sisters Valya and Tula Harkonnen establish the fabled sect and female order that would become known as the Bene Gesserit to control the future of humankind.</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('tv/90228')}> <i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 90228, "Dune: Prophecy" ,1 ,1)}>  <i className='bx bx-play'></i> Watch Now</Button>
-                  </div>
-                   </div>
-              </div>
-            </SwiperSlide>
+            
             <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">PG-13</h1>
                 <img src={'https://image.tmdb.org/t/p/original/rOmUuQEZfPXglwFs5ELLLUDKodL.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(143, 143, 143, 0.25))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .3 #Movies</h4>
+                  <h4 className="spon">#Spotlight .5 #Movies</h4>
                 
                   <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/rPftQWhQ7ZINyruA3S6rSeaofE2.png"/></h2>
                 
@@ -311,7 +313,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/w1280/ag66gJCiZ06q1GSJuQlhGLi3Udx.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(137, 73, 0, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .4 #Movies</h4>
+                  <h4 className="spon">#Spotlight .6 #Movies</h4>
                 
                   <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/l6NDr1BbCBoIzLYLvfP55fCUCrY.png"/></h2>
                 
@@ -342,7 +344,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/original/zO5xURaYgMX6WpXolp83zVk03Yh.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.5rem rgb(151, 68, 84, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .4 #TVSHOWS</h4>
+                  <h4 className="spon">#Spotlight .5 #TVSHOWS</h4>
                  
                   <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/tg1NueHwd4lCAwAlhUA2I0n2Ci8.png"/></h2>
                 
@@ -371,7 +373,7 @@ const Spotlight = () => {
                 <img src={'https://image.tmdb.org/t/p/original/fQGrzO0Iwo7CO4b2zVdJLkcnhwK.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.9rem rgb(118, 97, 78 , 0.5))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
-                <h4 className="spon">#Spotlight .5 #TVSHOWS</h4>
+                <h4 className="spon">#Spotlight .6 #TVSHOWS</h4>
                 
                 <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/orJ5TfInOu5CzgFIDs4avqEg0wu.png"/></h2>
                 
@@ -450,7 +452,36 @@ const Spotlight = () => {
                     </div>
               </div>
             </SwiperSlide> 
-         
+          <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">R</h1>
+                <img src={'https://image.tmdb.org/t/p/original/6fHZOiH81U4lyMVKvAQ2wcMMy6W.jpg'} alt='D2' className="spotlight-image" style={{ filter: 'drop-shadow(0 0 2rem rgb(12, 115, 113, 0.4))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .9</h4>
+               
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/cy6WlTXPsAZEIfNK2laJiSETwb1.png"/></h2>
+                  
+              
+                  <p className="spotlight-genres">
+                    
+                    <span className="genre a">Drama</span>
+                    <span className="genre a">Crime</span>
+                    <span className="genre a">Thriller</span>
+
+                  </p>
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Movies</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  
+                  <p className="spotlight-overview">While struggling with his dual identity, Arthur Fleck not only stumbles upon true love, but also finds the music that's always been inside him. </p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/movie/889737')}><i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 889737, "Joker 2")}>  <i className='bx bx-play'></i> Watch Now</Button>
+                  </div>
+                 </div>
+              </div>
+            </SwiperSlide>
            
             <SwiperSlide>
               <div className="spotlight-item">
@@ -570,7 +601,33 @@ const Spotlight = () => {
                  </div>
               </div>
             </SwiperSlide>
-      
+            <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">PG</h1>
+                <img src={'https://image.tmdb.org/t/p/w1280/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgb(170, 161, 176,0.3))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon"> #Spotlight .14</h4>
+            
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/h40hblm8J1if7T2CBMjCD85HwuD.png"/></h2>
+                
+              
+                  <p className="spotlight-genres">
+                    <span className="genre a">Animation</span>
+                    <span className="genre a">Comedy</span>
+                    <span className="genre a">Family</span>
+                  </p>
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  
+                  <p className="spotlight-overview"> Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who’ve long been running a successful....</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/movie/1022789')}> <i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="btn" onClick={() => handlePlayer( 1022789, "Inside Out 2")}>  <i className='bx bx-play'></i> Watch Now</Button></div>
+                  </div>
+                 </div>
+            </SwiperSlide>
            
             <div className="alignerbutts">
               <div className="butts" ref={navigationPrevRef} ><i className='bx bxs-left-arrow'></i></div>
