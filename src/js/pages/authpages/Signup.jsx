@@ -2,13 +2,15 @@ import React from "react";
 
 import './signup.scss';
 
-import bg from '../../assets/footer-bg.jpg';
+import bGL from '../../assets/icons8-alien-monster-emoji-48.png';
+
 
 import { Link , useNavigate} from 'react-router-dom';
 
 import { useState } from 'react';
 import Button from "../../components/button/Button";
 import {UserAuth} from '../../context/AuthContext'
+import { toast } from "react-toastify";
 
 
 const Signup = () => {
@@ -24,7 +26,8 @@ const Signup = () => {
             await signUp(email, password);
             navigate('/account');
         } catch (error) {
-            console.log(error);
+          toast.error('email already in use try logging in' , error)
+           // console.log(error);
         }
     }
      
@@ -34,8 +37,9 @@ const Signup = () => {
         <>
          <div className="signup">
             <div className="signup__contentcontainer">
-                
-                            <h2 className="signuptitle">SignUp ~ ZILLAXR</h2>
+            <div className="logolog"><img src={bGL} alt="logo" /></div>
+        
+                            <h2 className="signuptitle">~ SignUp ~ ZILLAXR</h2>
                             <form onSubmit={handleSubmit}>
   <div className="form-group">
     
