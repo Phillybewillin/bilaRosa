@@ -2,11 +2,14 @@ import React from "react";
 
 import { useState } from 'react';
 
-import bg from '../../assets/footer-bg.jpg';
+import bGL from '../../assets/icons8-alien-monster-emoji-48.png';
 
 import { Link , useNavigate} from 'react-router-dom';
 
 import{UserAuth} from '../../context/AuthContext'
+import { auth } from "../../Firebase";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { toast } from "react-toastify";
 import Button from "../../components/button/Button";
 import './signup.scss';
 
@@ -18,6 +21,19 @@ const Login = () => {
     const [error, setError] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
     const {user , logIn} = UserAuth();
+
+    const handleResetPassword = () => {
+        sendPasswordResetEmail(auth, email)
+        .then(() => {
+          toast.success('Password Reset Email Sent');
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error(error.code , error.message);
+        });
+      };
+
+    
 
     const navigate = useNavigate();
 
@@ -36,6 +52,7 @@ const Login = () => {
         <>
         <div className="signup">
         <div className="signup__contentcontainer">
+          <div className="logolog"><img src={bGL} alt="logo" /></div>
                 
         <h2 className="signuptitle">~ Welcome Back ~ ZILLAXR</h2>
                            {error ? <p>Wrong Chicken Salad</p> : null}
@@ -64,10 +81,12 @@ const Login = () => {
     </div>
     
   </div>
-  <div className="form-actions">
+   <div className="form-actions">
     <Button type="submit">Log In</Button>
   </div>
 </form>
+<div className="fogetpassword"> Forgot Password ? <Button onClick={handleResetPassword}>Reset Password</Button></div>
+ 
                         
                        </div>
        </div>
