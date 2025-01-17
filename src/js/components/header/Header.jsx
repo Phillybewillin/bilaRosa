@@ -85,7 +85,7 @@ const Header = () => {
           //console.log(data);
 
           if(data.results){
-              const filteredMovies = data.results.filter(movie => movie.poster_path && movie.release_date <= new Date().toISOString().split('T')[0]);
+              const filteredMovies = data.results.filter(movie => movie.poster_path && movie.overview);
               setMovies(filteredMovies);
               setIzLoading(false);
           } else {
