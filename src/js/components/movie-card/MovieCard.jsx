@@ -34,7 +34,7 @@ const MovieCard = React.memo((props) => {
       event.stopPropagation();
 
         if (!user) {
-          toast.error('Please log in to save a movie');
+          toast.error('Access denied. Please logIn to add this to your Watchlist');
           return;
         }
     
