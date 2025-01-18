@@ -316,7 +316,7 @@ const Home = () => {
         {/* Trending Movies Section */}
         <div className="section mb-3">
           <div className="section-tit">
-            <p className='villa'>• TRENDING MOVIES <h6 className="catx">#Today's Trending Movies</h6></p>
+            <div className='villa'> <div className="spo"> <i className='bx bx-sun bx-spin'></i></div> TRENDING MOVIES <h6 className="catx">#Today's Trending Movies</h6></div>
             <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.popular)}>view all--+</h5>
           </div>
           <div className="trendMovie">
@@ -328,7 +328,7 @@ const Home = () => {
             <FixedSizeList
               ref={Movieref}
               className="movie-list"
-              height={430} // Adjust height as needed
+              height={400} // Adjust height as needed
               width={window.innerWidth - 20} // Adjust width dynamically
               itemSize={250} // Width of each item
               layout="horizontal"
@@ -342,7 +342,7 @@ const Home = () => {
         {/* Trending TV Shows Section */}
         <div className="section mb-3">
           <div className="section-tit">
-            <h3 className='villa'>• TRENDING TV SHOWS<h6 className="catx"> #Today's Trending TV shows</h6></h3>
+            <div  className='villa'> <div className="spo"> <i className='bx bx-sun bx-spin'></i></div> TRENDING TV SHOWS<h6 className="catx"> #Today's Trending TV shows</h6></div>
             <h5 className="bluez" onClick={(event) => handleClick(event, category.tv, tvType.popular)}>view all--+</h5>
           </div>
           <div className="trendMovie">
