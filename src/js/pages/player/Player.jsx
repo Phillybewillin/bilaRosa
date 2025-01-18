@@ -37,7 +37,7 @@ export default function Player() {
   //const [sources, setSources] = useState([]);
   const [Loading, setLoading] = useState(false);
   //const [errorMessage, setErrorMessage] = useState("");
-
+ 
   
   const navigate = useNavigate();
  // const location = useLocation();
@@ -122,7 +122,7 @@ useEffect(() => {
       }
     }
   };
-
+  
   //saved shit 
   const saveShow = async (item) => {
     if (!user) {
@@ -266,17 +266,39 @@ const handleSeasonClick = (seasonNumber) => {
 };
 const [selectedOption, setSelectedOption] = useState(null);
 
+const options = [
+  { value: 'https://player.autoembed.cc/', label: 'WATERMELON' },
+  { value: 'https://autoembed.pro/embed/', label: 'LEMON' },
+  { value: 'https://vidlink.pro/', label: 'PINEBERRY' },
+  { value: 'https://player.autoembed.cc/embed/', label: 'STRAWBERRY' }, 
+  { value: 'https://embed.su/embed/', label: 'GRAPE' },
+  { value: 'https://vidsrc.cc/v2/embed/', label: 'CHERRY' },
+  { value: 'https://vidsrc.me/embed/', label: 'KIWI' },
+  { value: 'https://vidsrc.xyz/embed/', label: 'BANANA' },
+  { value: 'https://flicky.host/embed/', label: 'COCONUT' },
+  { value: 'https://vidbinge.dev/embed/', label: 'HALA' },
+  { value: 'https://moviesapi.club/', label: ' ⚠️ GRANADILLA - OUT OF ORDER - ⚠️' },
+ 
+ 
+]
+
 useEffect(() => {
   const storedValue = localStorage.getItem('lastSelectedOption');
+  if (!storedValue || !options.find(option => option.value === storedValue)) {
+    toast.info('Defaulting to Pineberry');
+    localStorage.setItem('lastSelectedOption', 'https://autoembed.pro/embed/');
+  }
+  
   if (storedValue) {
     const selectedOption = options.find((option) => option.value === storedValue);
     setSelectedOption(selectedOption);
     setIframeUrl(selectedOption.value);
+
   } else {
     setSelectedOption(options[0]);
     setIframeUrl(options[0].value);
   }
-}, []);
+}, [localStorage]);
 
 const handleSelect = (selectedOption) => {
   setSelectedOption(selectedOption);
@@ -307,7 +329,7 @@ const handleSelect = (selectedOption) => {
  const handleIframeSrc = () => {
   let src = '';
   if (iframeUrl === 'https://moviesapi.club/') {
-    src = `https://moviesapi.club/tv/${id}-${currentSeason}-${currentEpisode}`;
+    src = `${iframeUrl}tv/${id}-${currentSeason}-${currentEpisode}`;
   } else if (iframeUrl === 'https://vidlink.pro/') {
     src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?poster=true&autoplay=false&icons=vid`;
   } else if (iframeUrl === 'https://autoembed.pro/embed/') {
@@ -315,7 +337,10 @@ const handleSelect = (selectedOption) => {
   }
   else if (iframeUrl === 'https://player.autoembed.cc/embed/') {
     src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
-  }  else if (iframeUrl === 'https://vidsrc.cc/v2/embed/') {
+  }else if (iframeUrl === 'https://player.autoembed.cc/') {
+    src = `${iframeUrl}embed/tv/${id}/${currentSeason}/${currentEpisode}?server=6`;
+  }
+    else if (iframeUrl === 'https://vidsrc.cc/v2/embed/') {
     src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
   } else if (iframeUrl === 'https://embed.su/embed/') {
     src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
@@ -338,13 +363,16 @@ const handleSelect = (selectedOption) => {
 const handlemovieIframeSrc = () => {
   let src = '';
   if (iframeUrl === 'https://moviesapi.club/') {
-    src = `https://moviesapi.club/movie/${id}}`;
+    src = `${iframeUrl}movie/${id}`;
   } else if (iframeUrl === 'https://vidlink.pro/') {
     src = `${iframeUrl}movie/${id}?poster=true&autoplay=false&nextbutton=true&icons=vid`;
   } else if (iframeUrl === 'https://player.autoembed.cc/embed/') {
     src = `${iframeUrl}movie/${id}`;
   }  else if (iframeUrl === 'https://autoembed.pro/embed/') {
     src = `${iframeUrl}movie/${id}`;
+  }
+  else if (iframeUrl === 'https://player.autoembed.cc/') {
+    src = `${iframeUrl}embed/movie/${id}?server=6`;
   }
    else if (iframeUrl === 'https://vidsrc.cc/v2/embed/') {
     src = `${iframeUrl}movie/${id}`;
@@ -366,21 +394,7 @@ const handlemovieIframeSrc = () => {
   return src;
 };
 
-  const options = [
-    { value: 'https://vidlink.pro/', label: 'PINEBERRY' },
-    { value: 'https://moviesapi.club/', label: 'GRANADILLA' },
-    { value: 'https://autoembed.pro/embed/', label: 'LEMON' },
-    { value: 'https://player.autoembed.cc/embed/', label: 'STRAWBERRY' }, 
-    { value: 'https://embed.su/embed/', label: 'GRAPE' },
-    //{ value: 'https://player.autoembed.cc/embed/', label: 'STRAWBERRY' },
-    { value: 'https://vidsrc.cc/v2/embed/', label: 'CHERRY' },
-    { value: 'https://vidsrc.me/embed/', label: 'KIWI' },
-    { value: 'https://vidsrc.xyz/embed/', label: 'BANANA' },
-    { value: 'https://flicky.host/embed/', label: 'COCONUT' },
-    { value: 'https://vidbinge.dev/embed/', label: 'HALA' },
-   
-   
-  ]
+  
   const handleIframeLoad = () => {
     setLoading(false);
   };
@@ -441,11 +455,11 @@ const handlemovieIframeSrc = () => {
             </div>
             {currentEpisode < totalEpisodes ? (
      <div className="rea" onClick={() => handleEpisodeClick(parseInt(currentEpisode) + 1)}>
-   Up Next Episode {parseInt(currentEpisode) + 1}<i className='bx bx-skip-next'></i>
+   Up Next  ~ {itemData.name} ~  Episode {parseInt(currentEpisode) + 1}  <i className='bx bx-skip-next'></i>
       </div>
 ) :  (totalseasons > 1 && currentSeason < totalseasons ? (
   <div className="rea" onClick={() => handleSeasonClick(parseInt(currentSeason) + 1)}>
-    Up Next Season {parseInt(currentSeason) + 1}<i className='bx bx-skip-next'></i>
+    Up Next ~ {itemData.name} ~ Season {parseInt(currentSeason) + 1}  Episode {parseInt(currentEpisode) + 1} <i className='bx bx-skip-next'></i>
   </div>
 ) : null)}
             <div className="watchlyst">
@@ -472,7 +486,7 @@ const handlemovieIframeSrc = () => {
                                 </div>  
             </div>
             <div className="servers">
-              <h3 className="servertitle">Sources ⋆</h3> 
+              <h3 className="servertitle">Sources:</h3> 
               <div className="sources"> 
                 
               <Select
@@ -513,9 +527,9 @@ neutral90: '#303030'
       </div>
 ) :  (totalseasons > 1 && currentSeason < totalseasons ? (
   <div className="reand" onClick={() => handleSeasonClick(parseInt(currentSeason) + 1)}>
-    Up Next Season {parseInt(currentSeason) + 1}<i className='bx bx-skip-next'></i>
+    Up Next Season {parseInt(currentSeason) + 1} <h4 className="episodename"> Episode 1</h4><i className='bx bx-skip-next'></i>
   </div>
-) : null)}
+) : null)} 
           </div>
           <div className="seasons">
             
