@@ -85,10 +85,10 @@ const MovieCard = React.memo((props) => {
         const threeWeeksAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate() - (4 * 7));
         if (props.category === 'movie') {
             if (releaseDate < today) {
-                return releaseDate > threeWeeksAgo ? ' • In Cinema' : '';
+                return releaseDate > threeWeeksAgo ? '  In Cinema' : '';
             }
             else{
-                return '.Coming soon';
+                return 'Coming Soon';
             }
         }
         return '';
@@ -131,20 +131,20 @@ const MovieCard = React.memo((props) => {
         <div>
         
         {isLoading ? (
-          <SkeletonTheme color="#141414cc" highlightColor="#141414f3" >
-            <Skeleton baseColor="#141414cc" variant="rect" className="movie-card"/>
+          <SkeletonTheme  highlightColor="#00583881"  >
+            <Skeleton borderRadius={20} baseColor="#003220" variant="rect" className="movie-card"/>
           </SkeletonTheme>
         ) : (
           <div className="bgmov" onClick={() => handlecardClick(item.id,props.category, item.title || item.name, item.poster_path) }>
           <div className="movie-card" onClick={() => navigate(`/${props.category}/${item.id}`) }  style={{backgroundImage : `url(${bg})`, backgroundSize : 'cover' , backgroundPosition : 'center' , backgroundRepeat : 'no-repeat'}}>
             <div className="inCinema">
-              <i className='bx bx-badge-check' style={{fontSize :'13px'}}></i> {cinemaStatus}
+              <i className='bx bx-badge-check' style={{fontSize :'12px'}}></i> { cinemaStatus}
             </div>
             <div className="catz">{props.category }</div> 
             <div className="btnz">
             <i className='bx bx-play-circle'></i>
             </div>
-            <div loading="lazy"  className="infomovie">
+            <div className="infomovie">
             <div className="title">
               <div className="titlename">
                 {item.title || item.name }
