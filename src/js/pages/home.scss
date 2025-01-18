@@ -65,7 +65,9 @@
 
 .section-tit{
     display: flex;
+    //align-items: center;
     //flex-direction: column;
+    margin-bottom: 1rem;
     justify-content: space-between;
     //text-align: start;
 }
@@ -80,6 +82,7 @@
   width: 6rem;
   object-fit: contain;
 }
+
 
 .continue-watching-title{
   position: absolute;
@@ -161,7 +164,7 @@
 
 
 .villa{
-
+  margin-top: 10px;
    //background-color:rgba(39, 39, 39, 0.148);
   border-radius: 5px;
   padding: 5px 10px;
@@ -169,10 +172,10 @@
   font-weight: 600;
   color: white;
   //margin: .6rem  0rem;
-  border-left: 3px solid transparent;
-  border-image:linear-gradient(to top, rgb(0, 0, 0), rgb(248, 248, 249)
+  border-left: 1px solid transparent;
+  border-image:linear-gradient(to top, rgb(3, 3, 3), rgb(228, 181, 247)
   ) 1;
-  width: 50%; 
+  width: 70%; 
   
   display: flex;
   justify-content: flex-start;
@@ -186,6 +189,7 @@
       font-size: small;
   }
 }
+
 .continue_watchingcontainer{
  // background-color: rgba(27, 27, 27, 0.514);
   display: flex;
