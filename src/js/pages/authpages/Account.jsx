@@ -2,7 +2,7 @@ import React from "react";
 import { UserAuth } from "../../context/AuthContext";
 //import { useFirestore } from "../../Firestore";
 import './account.scss';
-import footerbg from '../../assets/footer-bg.jpg'
+import footerbg from '../../assets/footer-bg.webp';
 import SavedShows from "./SavedShows";
 import '../home.scss'
 import Avatar from "react-avatar";
@@ -114,7 +114,7 @@ const Account = () => {
                 onClick={() => handleDelete(item.id)}
                 className="bx bxs-trash"
                 style={{
-                  color: 'pink',
+                  color: 'orange',
                   fontSize: '20px',
                   cursor: 'pointer',
                   position: 'absolute',
@@ -135,7 +135,7 @@ const Account = () => {
            
            
             </div>
-           
+            <div className="load">ZILLAXR</div>
 
       
         <ToastContainer theme="dark"/>  
