@@ -268,8 +268,9 @@ const [selectedOption, setSelectedOption] = useState(null);
 
 const options = [
   { value: 'https://player.autoembed.cc/', label: 'WATERMELON' },
-  { value: 'https://autoembed.pro/embed/', label: 'LEMON' },
+  { value: 'https://moviesapi.club/', label: 'GRANADILLA' },
   { value: 'https://vidlink.pro/', label: 'PINEBERRY' },
+  { value: 'https://autoembed.pro/embed/', label: 'LEMON' },
   { value: 'https://player.autoembed.cc/embed/', label: 'STRAWBERRY' }, 
   { value: 'https://embed.su/embed/', label: 'GRAPE' },
   { value: 'https://vidsrc.cc/v2/embed/', label: 'CHERRY' },
@@ -277,9 +278,7 @@ const options = [
   { value: 'https://vidsrc.xyz/embed/', label: 'BANANA' },
   { value: 'https://flicky.host/embed/', label: 'COCONUT' },
   { value: 'https://vidbinge.dev/embed/', label: 'HALA' },
-  { value: 'https://moviesapi.club/', label: ' ⚠️ GRANADILLA - OUT OF ORDER - ⚠️' },
- 
- 
+  
 ]
 
 useEffect(() => {
@@ -422,7 +421,7 @@ const handlemovieIframeSrc = () => {
             frameBorder="0"
             allowFullScreen
             //sandbox
-            referrerPolicy="no-referrer"
+            referrerPolicy="origin"
             onLoad={handleIframeLoad}
          
           />
@@ -434,7 +433,7 @@ const handlemovieIframeSrc = () => {
             height={"100%"}
             frameBorder="0"
             allowFullScreen
-            referrerPolicy="no-referrer"
+            referrerPolicy="origin"
             //sandbox
             onLoad={handleIframeLoad}
           />
