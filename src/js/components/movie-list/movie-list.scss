@@ -208,7 +208,8 @@
     justify-content: center;
 
     @include mobile {
-        
+        //flex-wrap: nowrap;
+        justify-content: flex-end;
         width: auto;
         overflow: auto;
     }
