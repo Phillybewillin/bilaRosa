@@ -16,7 +16,7 @@
    .swiper-slide {
     width: 100%;
     height: 520px;
-    padding-top: .5rem;
+    padding-top: .1rem;
     object-fit: cover;
   // transition: all .9s ease;
    //transition: font-size 1s ease-out;
@@ -56,7 +56,7 @@
  }
  .swiper-slide.swiper-slide-next {
   cursor: pointer;
-  transition: width .3s ease;
+  transition: width .7s ease;
  //transition-delay: 1s; /* delay the transition by 0.5 seconds */
 }
 
@@ -358,8 +358,8 @@ margin-bottom: 1rem;
   }
   
   .genre.a {
-    background-color: rgba(139, 139, 139, 0.24);
-      color: rgb(231, 205, 215);
+    background-color: rgba(0, 0, 0, 0.591);
+      color: rgb(234, 234, 234);
  
     //background-color: #8f8f8f5f;
   }
