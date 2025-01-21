@@ -107,14 +107,17 @@ const Detail = () => {
   
   const Images = async () => {
     const responsei = await tmdbApi.Images(category, id, {params: {}});
-    const logoi = responsei.logos.find(itemu => itemu.iso_639_1.includes('en'));
+    //console.log(responsei);
+    const logoi = responsei.logos.find(itemu => itemu.iso_639_1 === 'en' );
+    //console.log( 'logoi', logoi);
     if (logoi) {
       setTitle(logoi.file_path);
+     
     }
     else {
       setTitle('');
     }
-  // console.log(logoi);
+   //console.log(logoi);
 }
   const getVideos = async () => {
     const res = await tmdbApi.getVideos(category, id);
