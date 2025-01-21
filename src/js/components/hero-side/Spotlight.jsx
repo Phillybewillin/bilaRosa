@@ -74,6 +74,67 @@ const Spotlight = () => {
             //pointCursor = {true}
             autoplay={{ delay: 6000 }}
           > 
+           <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">R</h1>
+                <img src={'https://image.tmdb.org/t/p/original/uWOJbarUXfVf6B4o0368dh138eR.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(255, 255, 252, 0.2))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .9</h4>
+               
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/bklLnfvDDzwGwyAiCEvg4AN8QCg.png"/></h2>
+                  
+              
+                  <p className="spotlight-genres">
+                    
+                    <span className="genre a">Drama</span>
+                    <span className="genre a">Fantasy</span>
+                    <span className="genre a">Horror</span>
+
+                  </p>
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Movies</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  
+                  <p className="spotlight-overview">A gothic tale of obsession between a haunted young woman and the terrifying vampire infatuated with her, causing untold horror in its wake.</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/movie/426063')}><i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 426063, "Nosferatu")}>  <i className='bx bx-play'></i> Watch Now</Button>
+                  </div>
+                 </div>
+              </div>
+            </SwiperSlide>
+           
+            <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">R</h1>
+                <img src={'https://image.tmdb.org/t/p/original/ukfmKsIeXkKAEoKZ7O4fVDHCiTS.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(255, 255, 252, 0.2))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .10</h4>
+               
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/hituKZkdeiqCpYIfsFRNUbWIVjZ.png"/></h2>
+                  
+              
+                  <p className="spotlight-genres">
+                    
+                    <span className="genre a">Action</span>
+                    <span className="genre a">Family & Comedy</span>
+                    <span className="genre a">SCI-FI</span>
+
+                  </p>
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Movies</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  
+                  <p className="spotlight-overview">Sonic, Knuckles, and Tails reunite against a powerful new adversary, Shadow, a mysterious villain with powers unlike anything they have faced before. With their abilities outmatched in every way, Team Sonic must seek out an  </p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/movie/939243')}><i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 939243, "Sonic 3")}>  <i className='bx bx-play'></i> Watch Now</Button>
+                  </div>
+                 </div>
+              </div>
+            </SwiperSlide> 
           <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
@@ -452,67 +513,7 @@ const Spotlight = () => {
                     </div>
               </div>
             </SwiperSlide> 
-          <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">R</h1>
-                <img src={'https://image.tmdb.org/t/p/original/6fHZOiH81U4lyMVKvAQ2wcMMy6W.jpg'} alt='D2' className="spotlight-image" style={{ filter: 'drop-shadow(0 0 2rem rgb(12, 115, 113, 0.4))'}}/>
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .9</h4>
-               
-                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/cy6WlTXPsAZEIfNK2laJiSETwb1.png"/></h2>
-                  
-              
-                  <p className="spotlight-genres">
-                    
-                    <span className="genre a">Drama</span>
-                    <span className="genre a">Crime</span>
-                    <span className="genre a">Thriller</span>
-
-                  </p>
-                  <div className="spotty">
-                  <h6 className="genre b">HD</h6><h6 className="genre a">Movies</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  
-                  <p className="spotlight-overview">While struggling with his dual identity, Arthur Fleck not only stumbles upon true love, but also finds the music that's always been inside him. </p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/movie/889737')}><i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 889737, "Joker 2")}>  <i className='bx bx-play'></i> Watch Now</Button>
-                  </div>
-                 </div>
-              </div>
-            </SwiperSlide>
-           
-            <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">R</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/iHPIBzrjJHbXeY9y7VVbEVNt7LW.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(255, 255, 252, 0.2))'}}/>
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .10</h4>
-               
-                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/yvAWvXkxoOHY2d27osPSV9WKgXO.png"/></h2>
-                  
-              
-                  <p className="spotlight-genres">
-                    
-                    <span className="genre a">Animation & Action</span>
-                    <span className="genre a">Family</span>
-                    <span className="genre a">SCI-FI</span>
-
-                  </p>
-                  <div className="spotty">
-                  <h6 className="genre b">HD</h6><h6 className="genre a">Movies</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  
-                  <p className="spotlight-overview">The untold origin story of Optimus Prime and Megatron, better known as sworn enemies, but once were friends bonded like brothers who changed the fate of Cybertron forever. </p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/movie/698687')}><i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 698687, "Transformers One")}>  <i className='bx bx-play'></i> Watch Now</Button>
-                  </div>
-                 </div>
-              </div>
-            </SwiperSlide> 
+         
             <SwiperSlide>
             <div className="spotlight-item">
               <h1 className="spotlight-number">R</h1>
