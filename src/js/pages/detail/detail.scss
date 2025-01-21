@@ -14,9 +14,9 @@
   align-items: center;
 }
 .banner {
-    height: 75vh;
+    height: 80vh;
     position: fixed;
-    //background-position: center;
+    background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     top: 0;
@@ -48,7 +48,7 @@
     }
 
     @include mobile {
-        height: 70vh;
+        height: 60vh;
     }
 }
 .postertitle {
@@ -279,7 +279,7 @@
 
      // overflow: auto;
       //line-height: 1;
-      margin: 1rem;
+      margin: .5rem;
       //line-height: 1;
       scrollbar-width: 10px;
       scrollbar-color: #1a1a1a78 #00000000;
@@ -287,7 +287,7 @@
       &__item {
         //border-left: 1px solid grey;
         background-color: #61616117;
-        margin: 4px;
+        margin: 3px;
         border-radius: 10px;
         width: 100px;
         height: 200px;
