@@ -108,7 +108,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">R</h1>
-                <img src={'https://image.tmdb.org/t/p/original/rRLQRYOkAPKqs2mL4IYKdntwUgr.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(255, 0, 0, 0.3))'}}/>
+                <img src={'https://image.tmdb.org/t/p/original/rRLQRYOkAPKqs2mL4IYKdntwUgr.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.5rem rgba(255, 0, 0, 0.2))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .2 #Movies</h4>
