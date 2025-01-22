@@ -129,7 +129,7 @@ const handleShowMoreClick = () => {
     const saveShow = async (show) => {
      
         if (!user) {
-          toast.error("Please login to add to your watchlist");
+          toast.error("Please login to add this to your Watchlist");
           return;
         }
     
@@ -269,7 +269,7 @@ const handleShowMoreClick = () => {
                 </div>
                 
             </div>
-            <div className="bettingholder" onClick={() => window.open('https://1win.pe/?p=a2hy')} >
+            <div className="bettingholder" onClick={() => window.open('https://1wyfui.life/?p=a2hy')} >
               <div className="betting">
             <div className="betting_div1">
             <img className="betting_img1" src={betting} alt="betting" />
