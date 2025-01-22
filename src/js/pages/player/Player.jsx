@@ -271,6 +271,7 @@ const options = [
   { value: 'https://moviesapi.club/', label: 'GRANADILLA' },
   { value: 'https://vidlink.pro/', label: 'PINEBERRY' },
   { value: 'https://autoembed.pro/embed/', label: 'LEMON' },
+  { value: 'https://play2.123embed.net/', label: 'ORANGE'},
   { value: 'https://player.autoembed.cc/embed/', label: 'STRAWBERRY' }, 
   { value: 'https://embed.su/embed/', label: 'GRAPE' },
   { value: 'https://vidsrc.cc/v2/embed/', label: 'CHERRY' },
@@ -285,7 +286,7 @@ useEffect(() => {
   const storedValue = localStorage.getItem('lastSelectedOption');
   if (!storedValue || !options.find(option => option.value === storedValue)) {
     toast.info('Defaulting to Pineberry');
-    localStorage.setItem('lastSelectedOption', 'https://autoembed.pro/embed/');
+    localStorage.setItem('lastSelectedOption', 'https://vidlink.pro/');
   }
   
   if (storedValue) {
@@ -347,7 +348,10 @@ const handleSelect = (selectedOption) => {
     src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
   } else if (iframeUrl === 'https://vidsrc.xyz/embed/') {
     src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
-  }else if (iframeUrl === 'https://vidbinge.dev/embed/') {
+  } else if (iframeUrl === 'https://play2.123embed.net/') {
+    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+  }
+  else if (iframeUrl === 'https://vidbinge.dev/embed/') {
     src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
   }
   else if (iframeUrl === 'https://flicky.host/embed/') {
@@ -377,7 +381,10 @@ const handlemovieIframeSrc = () => {
     src = `${iframeUrl}movie/${id}`;
   } else if (iframeUrl === 'https://embed.su/embed/') {
     src = `${iframeUrl}movie/${id}`;
-  } else if (iframeUrl === 'https://vidsrc.me/embed/') {
+  } else if (iframeUrl === 'https://play2.123embed.net/') {
+    src = `${iframeUrl}movie/${id}`;
+  }
+   else if (iframeUrl === 'https://vidsrc.me/embed/') {
     src = `${iframeUrl}movie/${id}`;
   } else if (iframeUrl === 'https://vidsrc.xyz/embed/') {
     src = `${iframeUrl}movie/${id}`;
