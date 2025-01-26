@@ -2,6 +2,7 @@
 
 .filters {
     margin-top: 3rem;
+    margin-left: 3.4rem;
     min-height: fit-content;
     height: 100%;
     padding: .5rem;
@@ -9,6 +10,15 @@
     border-radius: 10px;
     position: relative;
     gap: 1rem;
+
+    @include mobile {
+        padding: .5rem;
+        margin-left: 0;
+    }
+    @include tablet {
+        padding: .5rem;
+        margin-left: 0;
+    }
 }
 .formtitle{
     padding: .3rem;
@@ -66,12 +76,12 @@
     padding: 1.5rem;
     font-size: 1rem;
     font-weight: 100;
-    backdrop-filter: blur(20px);
-    //background-color: rgb(14, 14, 14);
+//backdrop-filter: blur(20px);
+    background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(14, 14, 14, 0.014));
     color: rgb(255, 255, 255);
     width: 100%;
     margin: .5rem 0;
-    border-radius: 10px;
+   // border-radius: 10px;
     cursor: pointer;
 }
 .select{
@@ -96,7 +106,7 @@
 
 .genrezz{
     cursor: pointer;
-    background-color: rgb(79, 25, 42);
+    background-color: rgb(35, 35, 35);
     border: 1px solid $black;
     padding: 5px 10px;
     border-radius: 5px;
@@ -108,10 +118,12 @@
     gap: .5rem;
     transition: all 0.2s ease-in-out;
     &:hover{
-        color: grey;
+        background-color: rgb(79, 25, 42);
+        border: 1px solid rgb(79, 25, 42);
+       // color: grey;
 }
 @include mobile{
-    font-size: .8rem;
+    font-size: .65rem;
 }
 
 }
@@ -125,13 +137,13 @@
     
     font-size: .7rem;
     @include mobile{
-        font-size: .8rem;
+        font-size: .65rem;
     }
 }
 
 .movie-gridk{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(230px, 100%), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr));
     align-items: center;
     gap: 8px;
     
