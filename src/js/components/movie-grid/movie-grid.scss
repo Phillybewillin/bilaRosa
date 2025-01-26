@@ -7,6 +7,14 @@
     margin: 0 .3rem;
     margin-left: 4rem;
     flex-direction: column;
+
+    @include tablet {
+        margin-left: 0;
+    }
+
+    @include mobile {
+        margin-left: 0;
+    }
 }
 .movie-grid {
     display: grid;
