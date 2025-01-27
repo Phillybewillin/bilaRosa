@@ -12,6 +12,8 @@ import { AuthContextProvider } from './js/context/AuthContext';
 import ContactPage from './js/pages/authpages/Contact';
 import Search from './js/pages/Search';
 import Player from './js/pages/player/Player';
+import Sidebar from './js/components/header/sidebar';
+import {motion} from 'motion/react'
 //const Player = lazyWithPreload(() => import('./js/pages/player/Player'));
 const Filters = lazyWithPreload(() => import('./js/components/movie-grid/Filters'));
 //const Login = lazyWithPreload(() => import('./js/pages/authpages/Login'));
@@ -32,6 +34,8 @@ const App = () => {
     const hideHeaderPaths = [
       "/watch/:title/:id",
       "/watch/:title/:id/:season_number/:episode_number",
+      "/movie/:id", // assuming you only want to hide header for movie details
+      "/tv/:id",
     ];
   
     // Check if the current location matches any of the hideHeaderPaths
@@ -43,16 +47,32 @@ const App = () => {
     <>
       <AuthContextProvider>
       {!hideHeader && <Header />}
-      
+      {!hideHeader && <Sidebar />}
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={
+             <motion.div 
+             initial={{opacity: 0}}
+             animate={{opacity: 1}}
+             exit={{opacity: 0}}
+             transition={{duration : 1.4}}
+             >
+              <Home />
+              </motion.div>
+            } />
           <Route path="/z/:category" element={<Catalog />} />
           <Route path="/filter" element={  
             <Suspense fallback={null}>
               <Filters />
             </Suspense>} />
-          <Route path="/:category/:id" element={<Detail />} />
-          
+           
+            <Route path="/:category/:id" element={ 
+              
+                <Detail />
+              
+              } />
+        
+           
+            
           <Route path="/search/:keyword" element={<Search />} />
           <Route path="/watch/:title/:id" element= {<Player />} />
          <Route path="/watch/:title/:id/:season_number/:episode_number" element={ <Suspense fallback={null}><Player /> </Suspense>} />
