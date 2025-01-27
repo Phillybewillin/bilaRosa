@@ -75,8 +75,8 @@ const Home = () => {
     
     // Fetch movie results
     getMovieresults('day');
-    hasMounted.current = true;
-  }, [hasMounted]);
+    //hasMounted.current = true;
+  }, []);
   
 
   const handleClick = (event, category, type) => {
@@ -130,7 +130,7 @@ const Home = () => {
       <div
         style={style}
         key={item.id}
-        className="wrappwe"
+        className="wrappwezadd"
         //onClick={() => navigate(`/${category}/${item.id}`)}
       >
         <MovieCard key={item.id} item={item} category={category} />
@@ -180,54 +180,7 @@ const Home = () => {
   return (
     <>
       <Spotlight />
-      {
-        isVisible && (
-          <div className="message" onClick={handleClose}>
-          <div className="update3">
-          <h3><i className='bx bx-list-check'></i> ZILLAXR ~ Update 3.0.0</h3>
-            <div className="topper">
-              
-              <p className='txtup'>• Accounts are now fixed <i className='bx bx-check-double'></i></p>
-               <p className='txtup'> - meaning you can create and manage your watchlists 
-               </p>
-               <p className='txtup'> - Have Favourites and Cross platform management 
-               </p>
-               <p className='txtup'> ,but if you had created an account before , you'll need to create one again </p>
-               ----------------------------------------
-               <p className='txtup'><i className='bx bxs-bug'></i> Minor bugs Fixes</p>
-                 <p className='txtup'> <i class='bx bxs-bowl-hot'></i> UI updates</p>
-                 <p className='txtup'><i class='bx bx-bowl-hot'></i> Release Date Counter - for movies , know when they come out  </p>
-               
-               ----------------------------------------
-               <p className='txtup'> -Enjoy ~ disfruta zillaxr ~ JOIN OUR DISCORD -  
-               </p>
-               
-            </div>
-            <div className="bottomer">
-            <a href="https://discord.gg/MCt2R9gqGb" target="_blank">
-             <div className="coccio">
-             <i className='bx bxl-discord-alt'></i>
-            </div>
-             </a>
-             <a href="https://t.me/+MQUUqEx2WXA0ZmZk" target="_blank">
-             <div className="coccio">
-             <i className="bx bxl-telegram"></i>
-            </div>
-             </a> 
-             <a href="https://x.com/ZillaXRxyz" target="_blank">
-             <div className="coccio">
-             <i className='bx bx-x'></i>
-            </div>
-             </a>
-             <div className="coccio" onClick={handleClose}>
-             <p className='txtupz'> Close </p>
-            </div>
-            </div>
-            
-          </div>
-        </div>
-        )
-      }
+
 
 <div className="continue_watchingcontainer">
         {
@@ -316,7 +269,7 @@ const Home = () => {
         {/* Trending Movies Section */}
         <div className="section mb-3">
           <div className="section-tit">
-            <div className='villa'> <div className="spo"> <i className='bx bx-sun bx-spin'></i></div> TRENDING MOVIES <h6 className="catx">#Today's Trending Movies</h6></div>
+            <div className='villa'> <div className="spo">~</div> TRENDING MOVIES <h6 className="catx">#Today's Trending Movies</h6></div>
             <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.popular)}>view all--+</h5>
           </div>
           <div className="trendMovie">
@@ -328,9 +281,10 @@ const Home = () => {
             <FixedSizeList
               ref={Movieref}
               className="movie-list"
-              height={400} // Adjust height as needed
+              margin={10}
+              height={310} // Adjust height as needed
               width={window.innerWidth - 20} // Adjust width dynamically
-              itemSize={250} // Width of each item
+              itemSize={210} // Width of each item
               layout="horizontal"
               itemCount={moviesData.length}
             >
@@ -342,7 +296,7 @@ const Home = () => {
         {/* Trending TV Shows Section */}
         <div className="section mb-3">
           <div className="section-tit">
-            <div  className='villa'> <div className="spo"> <i className='bx bx-sun bx-spin'></i></div> TRENDING TV SHOWS<h6 className="catx"> #Today's Trending TV shows</h6></div>
+            <div  className='villa'> <div className="spo">~</div> TRENDING TV SHOWS<h6 className="catx"> #Today's Trending TV shows</h6></div>
             <h5 className="bluez" onClick={(event) => handleClick(event, category.tv, tvType.popular)}>view all--+</h5>
           </div>
           <div className="trendMovie">
@@ -354,9 +308,9 @@ const Home = () => {
             <FixedSizeList
               ref={listRef}
               className="movie-list"
-              height={420} // Adjust height as needed
+              height={320} // Adjust height as needed
               width={window.innerWidth - 20} // Adjust width dynamically
-              itemSize={250} // Width of each item
+              itemSize={210} // Width of each item
               layout="horizontal"
               itemCount={tv.length}
             >
