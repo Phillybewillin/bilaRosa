@@ -8,6 +8,7 @@
    flex-direction: row;
    overflow: auto;
    margin:10px  2px;
+   //margin-left: 4rem;
    border-bottom: 1px solid rgba(128, 128, 128, 0.21);
    scrollbar-color: rgba(46, 46, 46, 0.279) rgba(48, 31, 42, 0.057);
  }
@@ -202,8 +203,9 @@
   }
 }
 .fave{
-  border-radius: 15px;
-  background-color: #ffffff0f;
+  border-right: 1.5px solid #ffffff42;
+  margin-top: 4rem;
+  background-color: #0808080f;
 }
 .fava{
   margin-top: 2rem;
@@ -262,10 +264,10 @@
   }
 }
 .fav{
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-top: 8.5rem;
-  margin-left: -2.5rem;
-  margin-right: -2.7rem;
+  margin-left: .5rem;
+  margin-right: .7rem;
   border-radius: 10px;
   background: linear-gradient(to right , rgb(255, 1, 103), rgba(250, 0, 0, 0.979));
   background-clip: text;
@@ -273,7 +275,7 @@
  -webkit-text-fill-color: transparent;
   //margin: 10px;
   //text-align: center;
-  transform: rotate(90deg);
+ // transform: rotate(90deg);
   //width: 150px;
   @include mobile{
     margin-left: 0;
@@ -351,10 +353,11 @@
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  justify-content: flex-end;
   margin: .2rem .3rem;
 }
 .toggle-button{
-  background-color: rgba(255, 255, 255, 0.087);
+  background-color: rgba(255, 255, 255, 0.043);
   color: rgb(227, 227, 227);
 }
 
