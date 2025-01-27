@@ -1,12 +1,12 @@
 import React ,{ useState, useEffect, Suspense } from 'react';
-import{  useParams , useNavigate } from 'react-router-dom';
+import{  useParams , useNavigate , useLocation} from 'react-router-dom';
 import tmdbApi from '../../api/tmdbApi';
 import apiConfig from '../../api/apiConfig';
 import Button ,{OutlineButton}  from '../../components/button/Button';
 import {UserAuth} from "../../context/AuthContext";
 import { useFirestore } from '../../Firestore';
-//import {db} from "../../Firebase";
-//import{arrayUnion , doc , updateDoc} from "firebase/firestore";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { motion } from 'motion/react';
 import './detail.scss';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,6 +22,8 @@ const Detail = () => {
     const [title , setTitle ] = useState('');
     const [item, setItem] = useState(null);
     const [items, setItems] = useState([]);
+    const [notLoaded, setNotLoaded] = useState(true);
+
     const [videos , setVideos] = useState([]);
     const {user} = UserAuth();
     const { addToWatchlist, checkIfInWatchlist , addToFavourites , checkIfInFavourites , removeFromWatchlist , removeFromFavourites } = useFirestore();
@@ -33,8 +35,14 @@ const Detail = () => {
       const similar = await tmdbApi.similar(category, id )
       setItem(response);
       setItems(similar)
+      if(response){
+        setNotLoaded(false);
+      }
+      
      //console.log(response);
   }
+
+ 
   const saveShow = async (item) => {
       if (!user) {
         toast.error('Access denied. Please logIn to add this to your Watchlist');
@@ -132,15 +140,13 @@ const Detail = () => {
     }
 }
   useEffect(() => {
-   
+    getDetail();
     Images();
     getVideos();
-    getDetail();
-   
   }, [category, id ]);
 
   useEffect(() => {
-    document.title =  item ? `${item?.title || item?.name} - Watch it on ZillaXR` : 'Weed With a movie or TV Show - Watch it on ZillaXR';
+    document.title = `${item?.title || item?.name} - Watch it on ZillaXR`;
     scrollToTop();
     
     //console.log('items:', items);
@@ -155,6 +161,8 @@ const Detail = () => {
     await removeFromFavourites(user?.uid, item.id);
     setLike(false);
   };
+
+
 
   
   
@@ -265,6 +273,7 @@ const Detail = () => {
     };
 
     const scrollToTop = () => {
+      
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -313,33 +322,79 @@ const Detail = () => {
     const formatRuntime = (minutes) => {
       const hours = Math.floor(minutes / 60);
       const mins = minutes % 60;
-      return `${hours}H ${mins}`;
+      return `${hours} H ${mins}`;
     };
-      
 
-    return (
+    const handleGoBack = () => {
+      navigate('/');
+    };
+
+    return notLoaded ? (
+
+      <motion.div
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 0 }}
+        exit={{ opacity: 1 }}
+        transition={{ duration: 1.5 }}
+      >
+        <SkeletonTheme  baseColor='#ffffff11'  highlightColor="#0d0d0d6c" speed={2} direction='rtl'>
+        <Skeleton height={300}  width={1000}  className='banner' style={{ margin: '5px' }}/>
+       
+        <div className="detail-container">
+          
+        <Skeleton height={60}  style={{ margin: '5px' }} className='postertitle'/>
+        
+          <Skeleton  width={60} style={{ margin: '5px' }} />
+          <Skeleton  height={10} width={900} style={{ margin: '10px' }} />
+          <Skeleton width={60} style={{ margin: '5px ' }} />
+          <div className="slyy"  style={{ margin: '10px'  ,display:'flex' ,flexDirection:'row', gap:'10px'}}>
+          <Skeleton width={60} style={{ margin: '10px 0' }} />
+          <Skeleton width={60} style={{ margin: '10px 0' }} />
+          <Skeleton width={60} style={{ margin: '10px 0' }} />
+          </div>
+          <Skeleton height={30} width={900} style={{ margin: '10px' }} />
+          
+        </div>
+      </SkeletonTheme>
+      </motion.div>
+      
+    ) : (
         <>
-           <div className="bigman">
+        <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1.5 }}
+      >
+        <div className="bigman">
            {
                 item && (
                     <>
                     
                        <div className="detail-container">
                       
+                       <div className="goback">
+                    <button onClick={handleGoBack} className='gobackbtn'><i class='bx bx-arrow-back'></i></button>
+                    </div>
+          
                     <div className="banner" style={{backgroundImage: `url(${apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)})`}}></div>
-                     <div className="trailler">
-                     <Button className='btntrailer' onClick={watchTrailer}> Watch <i class='bx bx-joystick-alt'></i>  Trailer</Button>
+                      <div className="trailler">
+                     <Button className='btntrailer' onClick={watchTrailer}><i class='bx bx-joystick-alt'></i>Trailer</Button>
                            
                      </div>
                         <div className="movie-content">
                            <div className="movie-content__info">
                             <div className="titleholder">
-                              
-                              {
+                              <div className="postertitlett">
+
+                                 {
                                title && title !== null &&  title !== '' ? (<img className="postertitle" src={apiConfig.w1280Image(title)} alt="" />) : (<h2 className="title">
                                    {item.title || item.name} 
                                    </h2>)
                               }
+                                 </div>
+                             
+                             
                                <div className="languandr">
                                <div className="langu">
                                <div className="language"><i className="bx bx-world" style={{fontSize:'11px'}}></i> {item.original_language.toUpperCase()}</div>
@@ -374,12 +429,14 @@ const Detail = () => {
                               
                                
                             </div>
-                              
+                            <h4 className='sammzy'>SUMMARY</h4>
           
                                <div className="overviewz">
                                 
+                                
                                  <p className="overviewz">{item.overview}</p>
                                  </div>
+                                 <h4 className='sammzy'>GENRES</h4>
                                <div className="genres" >
                                 {
                                     item.genres && item.genres.slice(0, 5).map((genre, i) => (
@@ -468,7 +525,7 @@ const Detail = () => {
                               
                        {
   items.results.filter(itemz => itemz.poster_path).map((itemz, ia) => (
-    <div className="wrappwezs" key={ia} onClick={scrollToTop}>
+    <div className="wrappwezs" key={ia} onClick={() => {scrollToTop(); setNotLoaded(true);}}>
         <Suspense fallback={null}>
       <MovieCard item={itemz} category={category} key={itemz.id} />
       </Suspense>
@@ -488,6 +545,8 @@ const Detail = () => {
                 )
             }
            </div>
+      </motion.div>
+           
             
         </>
     );
