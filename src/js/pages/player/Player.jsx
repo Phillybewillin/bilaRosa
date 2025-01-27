@@ -267,16 +267,16 @@ const handleSeasonClick = (seasonNumber) => {
 const [selectedOption, setSelectedOption] = useState(null);
 
 const options = [
-  { value: 'https://player.autoembed.cc/', label: 'WATERMELON' },
   { value: 'https://moviesapi.club/', label: 'GRANADILLA' },
   { value: 'https://vidlink.pro/', label: 'PINEBERRY' },
+  { value: 'https://player.autoembed.cc/', label: 'WATERMELON' },
   { value: 'https://autoembed.pro/embed/', label: 'LEMON' },
-  { value: 'https://play2.123embed.net/', label: 'ORANGE'},
   { value: 'https://player.autoembed.cc/embed/', label: 'STRAWBERRY' }, 
   { value: 'https://embed.su/embed/', label: 'GRAPE' },
-  { value: 'https://vidsrc.cc/v2/embed/', label: 'CHERRY' },
+  { value: 'https://vidsrc.cc/v2/embed/', label: 'CHERRY'},
   { value: 'https://vidsrc.me/embed/', label: 'KIWI' },
   { value: 'https://vidsrc.xyz/embed/', label: 'BANANA' },
+  { value: 'https://play2.123embed.net/', label: 'ORANGE'},
   { value: 'https://flicky.host/embed/', label: 'COCONUT' },
   { value: 'https://vidbinge.dev/embed/', label: 'HALA' },
   
