@@ -73,7 +73,13 @@
 }
 
 .movie-list{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  //background-color: #fff;
+  min-height: auto;
   overflow: hidden;
+  gap: .3rem;
     scrollbar-color: rgba(47, 47, 47, 0.021) rgba(26, 27, 26, 0.062);
     scrollbar-width: thin;
 }
