@@ -34,7 +34,7 @@ const MovieCard = React.memo((props) => {
       event.stopPropagation();
 
         if (!user) {
-          toast.error('Access denied. Please logIn to add this to your Watchlist');
+          toast.error('Please log in to save a movie');
           return;
         }
     
@@ -131,8 +131,8 @@ const MovieCard = React.memo((props) => {
         <div>
         
         {isLoading ? (
-          <SkeletonTheme  highlightColor="#00583881"  >
-            <Skeleton borderRadius={20} baseColor="#003220" variant="rect" className="movie-card"/>
+          <SkeletonTheme  baseColor='#ffffff11' enableAnimation={false} >
+            <Skeleton borderRadius={20} style={{background: 'linear-gradient(120deg, rgba(0, 28, 0, 0.7), rgba(66, 0, 13, 0.7))'}} customHighlightBackground = 'linear-gradient(120deg, rgba(0, 28, 0, 0.7), rgba(66, 0, 13, 0.7))' variant="rect" className="movie-card"/>
           </SkeletonTheme>
         ) : (
           <div className="bgmov" onClick={() => handlecardClick(item.id,props.category, item.title || item.name, item.poster_path) }>
