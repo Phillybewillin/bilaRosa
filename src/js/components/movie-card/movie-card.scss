@@ -1,18 +1,21 @@
 @use '../../scss/' as *;
 
+
 .movie-card {
   cursor: pointer;
   display: inline-block;
-  width: 99%;
+  width: 95%;
+  
     position: relative;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     padding-top: 130%;
     //height: 330px;
-    margin: .2rem;
+    //margin: .2rem;
     border-radius: 20px;
-          
+    transition: all .5s ease-in-out;
+    
     //transition: padding .5s ease-in-out;
     
     .inCinema{
@@ -20,7 +23,7 @@
         align-items: center;
         position: absolute;
         top: 1px;
-        
+       // z-index: 1001;
         right: 1px;
         background-color: rgba(33, 19, 22, 0.662);
         padding:  8px;
@@ -62,7 +65,7 @@
     border-radius: 10px;
     font-weight: 200;
     color: rgba(233, 233, 233, 0.842);
-     @include overlay;
+     //@include overlay;
   
   }
     
@@ -97,8 +100,8 @@
         }
 
         &:hover::before{
-            background-image: linear-gradient(180deg, transparent ,$body-bg 90%);
-            //padding-top: 200%;
+            background-image: linear-gradient(180deg, transparent ,$body-bg 100%);
+            padding-top: 2rem;
             opacity: 1;
             border-radius: 20px;
             //backdrop-filter: blur(10px);
@@ -122,11 +125,12 @@
 
 .infomovie{
     position: absolute;
-    bottom: -40px;
-   // background-color: #0f0f0f8f;
-    //background-image: linear-gradient(180deg, transparent ,$black 90%);
-    //border-radius: 20px;
-    backdrop-filter: blur(10px);
+    top: 0px;
+   // z-index: 100 !important;
+    //background-color: #00000052;
+    background-image: linear-gradient(to top, transparent ,rgba(0, 0, 0, 0.758) );
+    border-radius: 17px;
+    //backdrop-filter: blur(10px);
     text-align: center;
     display: none;
     flex-direction: column;
@@ -136,7 +140,8 @@
     font-size: .65rem;
     font-weight: 400;
     z-index: 1000;
-    //transition: all 1s ease-in-out;
+    transition: all .5s ease-in-out;
+
 
     @include mobile {
         font-size: 8px;
@@ -146,11 +151,12 @@
     .title{
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
         gap: 10px;
+        text-align: center;
         //background-color: #1a1a1a;
         border-radius: 5px;
-        padding: 1px;
+        padding: 10px 0;
         font-size: .70rem;
         font-weight: 300;
 
@@ -169,48 +175,79 @@
 
 .movie-card:hover .infomovie{
     display: flex;
-    //transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
 }
 .year{
-  background-color: #0f0f0f6b;
-  font-weight: 400;
-  padding: 5px 7px;
-  border-radius: 5px;
-  color: #ffffff9c;
+  display: flex;
+  position: absolute;
+  top: 208px;
+  left: 0;
+  //z-index: 100;
+  color: rgb(255, 255, 255);
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(20px);
+  padding: 6px 8px;
+  //border: 1.2px solid rgb(25, 25, 25);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  font-size: 9px;
+  font-weight: 300;
+  border-left: 1px solid rgba(255, 255, 255, 0.858);
+    
 }
 
 .vote{
   position: absolute;
-  bottom: 1px;
- // margin-top: 1rem;
-  right: 2rem;
-  background-color: #0f0f0f6b;
+  display: flex;
+  position: absolute;
+  top: 165px;
+  left: 0;
+  //z-index: 100;
+  //color: rgb(255, 255, 255);
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(20px);
+  padding: 8px;
+  //border: 1.2px solid rgb(25, 25, 25);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  font-size: 9px;
   font-weight: 600;
-  padding: 5px;
-  border-radius: 5px;
+  border-left: 1px solid rgba(121, 121, 121, 0.858);
+    
 
   @include mobile {
-    right: 3rem;
+    //right: 3rem;
   }
 
 }
 
 .titlename{
-  background-color: #0f0f0f6b;
-  //font-weight: 450;
-  padding: 5px;
-  border-radius: 5px;
+  background-color: #02020285;
+  font-weight: 450;
+  backdrop-filter: blur(3px);
+  padding: 5px 10px;
+  border-radius: 10px;
 }
 .savemovie{
+  display: flex;
   position: absolute;
-  bottom: 1px;
-  right: 3px;
-  align-items: center;
-  text-align: center;
-  background-color: #0f0f0f6b;
-  padding: 0 3px;
-  border-radius: 5px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-
+  top: 235px;
+  right: 0;
+  //z-index: 100;
+ // color: rgb(255, 255, 255);
+  background-color: rgba(0, 0, 0, 0.45);
+  //backdrop-filter: blur(20px);
+  padding:  8px;
+  //border: 1.2px solid rgb(25, 25, 25);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  font-size: 9px;
+  font-weight: 300;
+  border-right: 1px solid rgba(255, 3, 32, 0.858);
+  transition: all .3s ease-in-out;
+  &:hover{
+    background-color: rgba(29, 29, 29, 0.45);
+ 
+  }
+    
 }
