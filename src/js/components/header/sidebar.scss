@@ -37,7 +37,7 @@
   
   }
   .headersidebar{
-    margin-top: calc(100vh - 30rem);
+    margin-top: calc(100vh - 32rem);
     //background-color: #3030305b;
     height: 100%;
     width: inherit;
@@ -205,9 +205,7 @@
       color: rgb(255, 255, 255);
   }
   @include tablet {
-   
-    //margin-left: -;
-     width: 310px; 
+  
     
   }
   @include mobile {
@@ -291,7 +289,7 @@
     text-align: center;
 }
 .searchabsolutetitle{
-    background: linear-gradient(to top, rgb(250, 18, 2), rgb(250, 0, 58));
+    background: linear-gradient(to right, rgb(0, 0, 0), rgb(255, 255, 255));
     background-clip: text;
    -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;
@@ -299,7 +297,7 @@
     padding: 10px ;
     font-size: 2rem;
     text-align: center;
-    filter: drop-shadow(0 0 .7rem rgb(0, 0, 0));
+    filter: drop-shadow(0 0 3rem rgb(0, 0, 0));
     //box-shadow: #bc1d1d39 0px 0px 10px 0px;
 }
 
