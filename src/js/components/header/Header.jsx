@@ -85,7 +85,7 @@ const Header = () => {
           //console.log(data);
 
           if(data.results){
-              const filteredMovies = data.results.filter(movie => movie.poster_path && movie.overview);
+              const filteredMovies = data.results.filter(movie => movie.poster_path );
               setMovies(filteredMovies);
               setIzLoading(false);
           } else {
@@ -130,8 +130,7 @@ const Header = () => {
       <div ref={headerRef} className="header">
       <div className="logo" onClick={() => navigate('/')}>
                <img src={logo} alt="ZillaXR"/>
-               <h4 className="logotext">ZILLAXR</h4>
-       </div>
+               </div>
        {!hidesearch && (
   <div className="mlrowa">
     <div className="searchmovie">
@@ -164,8 +163,12 @@ const Header = () => {
 )}
 
         <div className="header__wrap container">
+          <div className="sideber">
+         
+          </div>
           <nav className="header__nav">
-            {headerNav.map((navItem, index) => (
+            
+          {headerNav.map((navItem, index) => (
               <NavLink
                 key={index}
                 to={navItem.path}
@@ -189,6 +192,7 @@ const Header = () => {
                     name={user?.email || ''}
                     size="43"
                     round
+                    src={user?.photoURL}
                     color="#000000d9"
                   />
                   
@@ -242,6 +246,68 @@ const Header = () => {
             </Menu>
           </div>
           </nav>
+          <div className="hosz">
+            <div className="menuzz" >
+            <Menu 
+              menuButton={
+                <MenuButton >
+                  <Avatar
+                    name={user?.email || ''}
+                    size="43"
+                    round
+                    src={user?.photoURL}
+                    color="#000000d9"
+                  />
+                  
+                </MenuButton>
+              }
+              transition
+            >
+              {user?.email ? (
+                <>
+                  <MenuItem onClick={() => navigate('/account')}> <div className="loggz"> <i class='bx bxs-collection'></i> My Library </div> </MenuItem>
+                  <MenuDivider  style={{ backgroundColor: 'grey' , borderRadius : '5px'}}/>
+                  <MenuItem onClick={handleLogout}> <div className="loggz"> <i className='bx bx-log-out'></i> LogOut </div></MenuItem>
+                  <MenuDivider  style={{ backgroundColor: 'grey' , borderRadius : '5px'}}/>
+                  <MenuItem>
+                  <div className="socialzz">
+                  <div className="lozg" onClick={() => window.open('https://t.me/+MQUUqEx2WXA0ZmZk')}><i className='bx bxl-telegram'> </i></div>
+                  <div className="lozg" onClick={() => window.open('https://discord.gg/MCt2R9gqGb')}><i className='bx bxl-discord-alt'> </i></div>
+                  <div className="lozg" onClick={() => window.open('https://reddit.com/r/zillaXRxyz')}><i className='bx bxl-reddit'> </i></div>
+
+                  </div>
+                    
+                  </MenuItem>
+
+                </>
+              ) : (
+                <>
+                  <MenuItem  style={{ justifyContent: 'flex-start' }} onClick={() => { setShowModal(true); setShowSignup(false); }}> <div className="loggz"> <i className='bx bxs-user-plus'></i> LogIn 
+                    </div></MenuItem>
+                  <MenuItem  style={{ justifyContent: 'flex-start' }} onClick={() => { setShowModal(true); setShowSignup(true); }}> <div className="loggz">  <i className='bx bx-user-plus'></i> Sign-Up</div></MenuItem>
+                  <MenuDivider  style={{ backgroundColor: 'pink' , borderRadius : '5px'}}/>
+                  <MenuItem  onClick={() => navigate('/dmca')}> <div className="loggz"> <i className='bx bxs-bot'></i> DMCA </div></MenuItem>
+                  <MenuItem  onClick={() => navigate('/privacypolicy')}> <div className="loggz"><i className='bx bxs-shield-plus'></i>  Privacy Policy </div></MenuItem>
+                  <MenuDivider  style={{ backgroundColor: 'grey' , borderRadius : '5px'}}/>
+                 
+                  <MenuItem>
+                  <div className="socialzz">
+                  <div className="lozg" onClick={() => window.open('https://t.me/+MQUUqEx2WXA0ZmZk')}><i className='bx bxl-telegram'> </i></div>
+                  <div className="lozg" onClick={() => window.open('https://discord.gg/MCt2R9gqGb')}><i className='bx bxl-discord-alt'> </i></div>
+                  <div className="lozg" onClick={() => window.open('https://reddit.com/r/zillaXRxyz')}><i className='bx bxl-reddit'> </i></div>
+
+                  </div>
+                    
+                  </MenuItem>
+                  <MenuDivider  style={{ backgroundColor: 'pink' , borderRadius : '5px'}}/>
+                 
+
+                   
+                </>
+              )}
+            </Menu>
+          </div>
+          </div>
           
         </div>
       </div>
