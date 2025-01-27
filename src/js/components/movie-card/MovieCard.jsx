@@ -140,7 +140,7 @@ const MovieCard = React.memo((props) => {
             <div className="inCinema">
               <i className='bx bx-badge-check' style={{fontSize :'12px'}}></i> { cinemaStatus}
             </div>
-            <div className="catz">{props.category }</div> 
+            <div className="catz">{props.category === 'tv' ? 'Show' : 'Movie'}</div> 
             <div className="btnz">
             <i className='bx bx-play-circle'></i>
             </div>
@@ -152,7 +152,7 @@ const MovieCard = React.memo((props) => {
             </div>
             <div className="cat"> 
             <h4 className='year'>
-            • {Number.isNaN(year) ? '' : year}
+            {Number.isNaN(year) ? '' : year}
            </h4>
                 <div className="vote" style={{color: getColor(votePercentage.toFixed(0))}}>{votePercentage.toFixed(0)}%</div> 
                 <button className="savemovie" onClick={saveShow}>    <p style={{ cursor : 'pointer' , color : isInWatchlist ? 'aqua' : 'rgba(255, 255, 255, 0.549)'}}>
