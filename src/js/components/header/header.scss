@@ -8,23 +8,26 @@ i {
         font-size: 1.3rem;
     }
 }
+
 .logo {
     z-index: 99;
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.272);
+  //background-color: rgba(0, 0, 0, 0.272);
+  filter: drop-shadow(0 0 1rem rgb(0, 0, 0));
     border-radius: 10px;
-    margin-left: 10px;
+    //align-self: center;
+    //margin-left: 10px;
     font-size: 1.3rem;
     font-weight: 300;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(10px);
+    //backdrop-filter: blur(20px);
+    //-webkit-backdrop-filter: blur(10px);
     
     
 
     @include flex(center, flex-start);
 
     img {
-        //margin-right: 20px;
+        margin-left: 10px;
         width: 37px;
 
         @include mobile {
@@ -101,6 +104,29 @@ i {
     //margin-top: 1rem;
     margin-bottom: 3rem;
 }
+.newheader{
+  position: fixed;
+  top: 0;
+  left: 0;
+  //bottom: 0;
+  height: 100vh;
+  z-index: 50;
+  width: 60px;
+  background-color: rgba(14, 14, 14, 0.498);
+
+}
+.headersidebar{
+  margin-top: 10rem;
+  //background-color: #3030305b;
+  height: 100%;
+  width: 60px;
+}
+.sidebar{
+   margin: .3rem;
+  // width: 50px;
+   //height: 100%;
+  // background-color: rgba(0, 0, 0, 0.5);
+}
 
 .header {
     @include flex(center, space-between);
@@ -113,7 +139,8 @@ i {
     left: 0;
     width: 100%;
     z-index: 50;
-    transition: all .6s ease-in-out !important;
+    transition: transform 0.3s ease-in-out;
+ 
     //transition: height 0.5s ease, background-color 0.3s ease;
 
     @include mobile {
@@ -123,8 +150,8 @@ i {
     &.shrink {
         height: $header-shrink-height;
         //background-color: rgba(0, 0, 0, 0.45);
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
+        //backdrop-filter: blur(5px);
+        //-webkit-backdrop-filter: blur(5px);
         //border-bottom: 2px ridge black;
 
         @include mobile {
@@ -142,49 +169,31 @@ i {
         height: 100%;
        // padding: 0 2rem;
         margin: 0;
+        transition: transform 0.3s ease-in-out;
+ 
         @include mobile {
+          
             justify-content: center;
         }
     }
 
   
-
+   
     &__nav {
         @include flex(center,center);
-        
+        display: none;
         & > * ~ * {
+          transition: transform 0.3s ease-in-out;
+ 
          margin: 0 1rem;
             
         }
 
-        li{ 
-
-            
-            padding: 5px;
-            font-weight: 500;
-            position: relative;
-            font-size: 1.2rem;
-
-
-            &::after{
-                content: "";
-                position: absolute;
-                bottom: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 0;
-                transition: width 0.5s ease;
-                height: 2px;
-                background-color: $main-bg;
-            }
-            &.active::after ,&:hover::after{
-                width: 100%;
-                
-            }
-        }
 
    
         @include mobile {
+          
+          display: flex;
             //border-top: 1px solid rgb(57, 57, 57);
             position: fixed;
             bottom: 0;
@@ -217,6 +226,7 @@ i {
 
 .header.hide {
   transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
 
   @include mobile {
      transform: none;
@@ -225,7 +235,8 @@ i {
 }
 .header.hide .header.shrink {
   transform: translateY(-100%);
-
+  transition: transform 0.3s ease-in-out;
+ 
   @include mobile {
      transform: none;
     transition: transform 0.3s ease-in-out;
@@ -233,11 +244,24 @@ i {
 }
 
 .header.hide .header__nav {
+  transition: transform 0.3s ease-in-out;
+  
   @include mobile {
      transform: translateY(100%);
   transition: transform 0.3s ease-in-out;
   }
  
+}
+.hosz{
+  margin-right: 1rem;
+
+  @include mobile {
+    display: none;
+  }
+
+  @include tablet {
+    display: none;
+  }
 }
 
 .noresult{
@@ -340,7 +364,8 @@ i {
    //border: 1px solid rgba(0, 0, 0, 0.144);
    backdrop-filter: blur(5px);
    -webkit-backdrop-filter: blur(5px);
-   padding: 8px 10px;
+   padding:  10px;
+   //margin-bottom: 20rem;
     border-radius: 7px;
     display: flex;
     flex-direction: column;
@@ -368,6 +393,7 @@ i {
       
   }
   @include mobile {
+    margin-bottom: 0;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     background-color: #00000039;
@@ -381,6 +407,7 @@ i {
 }
 .active{
   position: relative;
+
   //color: red;
   &::after{
     content: "";
@@ -433,7 +460,7 @@ i {
         
     }
     @include mobile {
-        background-color: rgba(0, 0, 0, 0.731);
+        background-color: rgba(0, 0, 0, 0.89);
       
         backdrop-filter: none;
         margin-right: 0;
@@ -499,7 +526,7 @@ i {
    }
    @include mobile {
      //margin-top: 5px;
-       margin-left: -2px;
+       margin-left: -3px;
        width: 100vw;
        
    }
