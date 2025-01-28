@@ -86,12 +86,12 @@ const BoxOffice = () => {
         //console.log('response', response.data.results);
         setShows((prevShows) => {
           const newShows = [...prevShows, ...response.data.results.filter((show) => Boolean(show.poster_path) && Boolean(show.vote_average))];
-          console.log('new shows',newShows);
+          //console.log('new shows',newShows);
           return newShows;
         });
         //setShows((prevShows) => [...prevShows, ...response.data.results]);
         //setShowCount((prevShowCount) => prevShowCount + response.data.results.length);// Update showCount to include new results
-        console.log('arr',showCount ,pagecount);
+       // console.log('arr',showCount ,pagecount);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -269,7 +269,7 @@ const handleShowMoreClick = () => {
                 </div>
                 
             </div>
-            <div className="bettingholder" onClick={() => window.open('https://1wyfui.life/?p=a2hy')} >
+            <div className="bettingholder" onClick={() => window.open('https://parasiteoutdoorsmix.com/tiyrxgk0?key=e37457c083710d69b5dbff953b133375')} >
               <div className="betting">
             <div className="betting_div1">
             <img className="betting_img1" src={betting} alt="betting" />
