@@ -12,7 +12,7 @@ import { AuthContextProvider } from './js/context/AuthContext';
 import ContactPage from './js/pages/authpages/Contact';
 import Search from './js/pages/Search';
 import Player from './js/pages/player/Player';
-import Sidebar from './js/components/header/sidebar';
+import Sidebar from './js/components/header/Sidebar';
 import {motion} from 'motion/react'
 //const Player = lazyWithPreload(() => import('./js/pages/player/Player'));
 const Filters = lazyWithPreload(() => import('./js/components/movie-grid/Filters'));
