@@ -457,7 +457,7 @@ const handlemovieIframeSrc = () => {
                <h4 className="logotext">ZILLAXR</h4> </div>
               <div className="menu">
               <div className="navih" onClick={handleHome}><i className="bx bx-home-alt-2" ></i></div>
-              <div className="navi" onClick={handleBack}><i className='bx bx-left-arrow'></i></div>
+              <div className="navi" onClick={handleBack}><i className='bx bx-arrow-back'></i></div>
             </div>
             {currentEpisode < totalEpisodes ? (
      <div className="rea" onClick={() => handleEpisodeClick(parseInt(currentEpisode) + 1)}>
@@ -465,7 +465,7 @@ const handlemovieIframeSrc = () => {
       </div>
 ) :  (totalseasons > 1 && currentSeason < totalseasons ? (
   <div className="rea" onClick={() => handleSeasonClick(parseInt(currentSeason) + 1)}>
-    Up Next ~ {itemData.name} ~ Season {parseInt(currentSeason) + 1}  Episode {parseInt(currentEpisode) + 1} <i className='bx bx-skip-next'></i>
+    Up Next ~ {itemData.name} ~ Season {parseInt(currentSeason) + 1}  Episode 1 <i className='bx bx-left-arrow'></i>
   </div>
 ) : null)}
             <div className="watchlyst">
