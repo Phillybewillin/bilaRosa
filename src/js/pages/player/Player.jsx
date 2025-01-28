@@ -69,10 +69,10 @@ useEffect(() => {
          .split(' ')
           .map(word => word.charAt(0).toUpperCase() + word.slice(1))
            .join(' ');
-        document.title = ` Currently Watching ${decodedTitle} ദ്ദി ༎ຶ‿༎ຶ )`;
+        document.title = ` Currently Watching ${decodedTitle}`;
 
       if (season_number && episode_number) {
-        document.title = ` Currently Watching ${decodedTitle} • S${currentSeason} • E${currentEpisode} ദ്ദി ༎ຶ‿༎ຶ )`;
+        document.title = ` Currently Watching ${decodedTitle} • S${currentSeason} • E${currentEpisode}`;
       }
   
     }
@@ -285,8 +285,8 @@ const options = [
 useEffect(() => {
   const storedValue = localStorage.getItem('lastSelectedOption');
   if (!storedValue || !options.find(option => option.value === storedValue)) {
-    toast.info('Defaulting to Pineberry');
-    localStorage.setItem('lastSelectedOption', 'https://vidlink.pro/');
+    toast.info('Defaulting to Granadilla');
+   // localStorage.setItem('lastSelectedOption', 'https://moviesapi.club/');
   }
   
   if (storedValue) {
