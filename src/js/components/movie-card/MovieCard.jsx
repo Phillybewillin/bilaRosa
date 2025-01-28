@@ -132,7 +132,7 @@ const MovieCard = React.memo((props) => {
         
         {isLoading ? (
           <SkeletonTheme  baseColor='#ffffff11' enableAnimation={false} >
-            <Skeleton borderRadius={20} style={{background: 'linear-gradient(120deg, rgba(0, 28, 0, 0.7), rgba(66, 0, 13, 0.7))'}} customHighlightBackground = 'linear-gradient(120deg, rgba(0, 28, 0, 0.7), rgba(66, 0, 13, 0.7))' variant="rect" className="movie-card"/>
+            <Skeleton borderRadius={20} style={{background: 'linear-gradient(120deg, rgba(0, 28, 0, 0.7), rgba(66, 0, 13, 0.7))' ,margin :'0 5px'}} customHighlightBackground = 'linear-gradient(120deg, rgba(0, 28, 0, 0.7), rgba(66, 0, 13, 0.7))' variant="rect" className="movie-card"/>
           </SkeletonTheme>
         ) : (
           <div className="bgmov" onClick={() => handlecardClick(item.id,props.category, item.title || item.name, item.poster_path) }>
