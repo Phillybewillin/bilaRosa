@@ -374,7 +374,7 @@ const Detail = () => {
                        <div className="detail-container">
                       
                        <div className="goback">
-                    <button onClick={handleGoBack} className='gobackbtn'><i class='bx bx-arrow-back'></i></button>
+                    <button onClick={handleGoBack} className='gobackbtn'><i className='bx bx-arrow-back'></i></button>
                     </div>
           
                     <div className="banner" style={{backgroundImage: `url(${apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)})`}}></div>
