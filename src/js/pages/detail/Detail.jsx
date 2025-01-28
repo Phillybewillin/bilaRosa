@@ -36,7 +36,7 @@ const Detail = () => {
       setItem(response);
       setItems(similar)
       if(response){
-        setNotLoaded(false);
+       setNotLoaded(false);
       }
       
      //console.log(response);
@@ -333,7 +333,7 @@ const Detail = () => {
 
       <motion.div
         initial={{ opacity: 1 }}
-        animate={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         exit={{ opacity: 1 }}
         transition={{ duration: 1.5 }}
       >
@@ -342,7 +342,7 @@ const Detail = () => {
        
         <div className="detail-container">
           
-        <Skeleton height={60}  style={{ margin: '5px' }} className='postertitle'/>
+        <Skeleton height={60}  width={300} style={{ margin: '5px' }} className='postertitle'/>
         
           <Skeleton  width={60} style={{ margin: '5px' }} />
           <Skeleton  height={10} width={900} style={{ margin: '10px' }} />
@@ -374,7 +374,7 @@ const Detail = () => {
                        <div className="detail-container">
                       
                        <div className="goback">
-                    <button onClick={handleGoBack} className='gobackbtn'><i className='bx bx-arrow-back'></i></button>
+                    <button onClick={handleGoBack} className='gobackbtn'><i class='bx bx-arrow-back'></i></button>
                     </div>
           
                     <div className="banner" style={{backgroundImage: `url(${apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)})`}}></div>
