@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, new URL('.', import.meta.url).pathname);
 
   return {
-    base: env.VITE_BASE_URL || '/', 
+    base: 'https://crockozilla.onrender.com/' || '/', 
     plugins: [
       purgeCss({
         content: [
@@ -34,7 +34,7 @@ export default defineConfig(({ mode }) => {
          
         ],
         manifest: {
-          id: "https://zilla-xr.xyz/",
+          id: "https://crockozilla.onrender.com/",
           name: "Zilla-XR",
           short_name: "ZillaXR",
           description: "Stream a wide range of Movies and Series up to 4k for Free, Watch Movies online without interuptions and without ads .",
