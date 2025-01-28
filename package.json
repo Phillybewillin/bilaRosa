@@ -2,7 +2,7 @@
   "name": "zillaxr",
   "version": "2.1.0",
   "private": true,
-  "homepage": "/",
+  "homepage": "https://zilla-xr.xyz",
   "type": "module",
   "scripts": {
     "dev": "vite",
