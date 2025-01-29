@@ -333,12 +333,12 @@ const Detail = () => {
 
       <motion.div
         initial={{ opacity: 1 }}
-        animate={{ opacity: 1 }}
+        animate={{ opacity: 0 }}
         exit={{ opacity: 1 }}
         transition={{ duration: 1.5 }}
       >
         <SkeletonTheme  baseColor='#ffffff11'  highlightColor="#0d0d0d6c" speed={2} direction='rtl'>
-        <Skeleton height={300}  width={1000}  className='banner' style={{ margin: '5px' }}/>
+        <Skeleton height={300}  width={900}  className='banner' style={{ margin: '5px' }}/>
        
         <div className="detail-container">
           
@@ -379,8 +379,22 @@ const Detail = () => {
           
                     <div className="banner" style={{backgroundImage: `url(${apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)})`}}></div>
                       <div className="trailler">
+
                      <Button className='btntrailer' onClick={watchTrailer}><i class='bx bx-joystick-alt'></i>Trailer</Button>
-                           
+                         {category === 'movie' && 
+  <>
+    {item.release_date && new Date(item.release_date) > new Date() ? (
+      <div className="timeleft" >
+        <p>Check back in {timeLeft}</p>
+      </div>
+    ) : (
+      <div className="buttonz">
+        <Button className='btnprime' onClick={handlescrolldown}> <i className='bx bx-directions'></i>Recommendations</Button>
+        <Button className="btnplay" onClick={() => handlePlayer(item.id, item.name || item.title)}><i className='bx bx-play'></i>  Watch </Button> 
+      </div>
+    )}
+  </>
+}    
                      </div>
                         <div className="movie-content">
                            <div className="movie-content__info">
@@ -456,20 +470,7 @@ const Detail = () => {
                                 </Suspense>
                               }
                               
-                              {category === 'movie' && 
-  <>
-    {item.release_date && new Date(item.release_date) > new Date() ? (
-      <div className="timeleft" >
-        <p>Check back in {timeLeft}</p>
-      </div>
-    ) : (
-      <div className="buttonz">
-        <Button className='btnprime' onClick={handlescrolldown}>Recommendations</Button>
-        <Button className="btnplay" onClick={() => handlePlayer(item.id, item.name || item.title)}>  Watch Now <i className='bx bx-play-circle'></i></Button> 
-      </div>
-    )}
-  </>
-} 
+                             
 
 
                                  
