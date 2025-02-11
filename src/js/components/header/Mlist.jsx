@@ -43,6 +43,7 @@ const Mlist = ({ movies , value }) => {
  
   useEffect(() => {
     setShowMovies(true);
+    setSelectedMovie(movies[0]);
   }, [movies]);
 
   const saveShow = async (movies) => {
@@ -164,11 +165,7 @@ const Mlist = ({ movies , value }) => {
             </div>
           ))}
         </div>
-        <div className="search" onClick={handleImageClick}>
-  <Link to={`/search/${value}`} state={{ movies , value }}>
-    view all results
-  </Link>
-</div> </>
+      </>
       )}
       
     </>
