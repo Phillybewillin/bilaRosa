@@ -223,14 +223,14 @@ useEffect(() => {
   // If genres are selected, we use the discover endpoint (with sort and origin country).
   // Otherwise, we use the type endpoint and ignore sort.
   useEffect(() => {
-    
     const BASE_URL = 'https://api.themoviedb.org/3';
     let API_URL = '';
     if (selectedGenre.length > 0) {
+      // When genres are active, use the discover endpoint
       API_URL = `${BASE_URL}/discover/${props.category}?api_key=${apiConfig.apiKey}&sort_by=${sortBy}&with_origin_country=${originCountry}&with_genres=${selectedGenre.join(',')}`;
     } else {
+      // Otherwise, use the type endpoint (ignoring sort)
       API_URL = `${BASE_URL}/${props.category}/${selectedType ? selectedType : getDefaultType()}?api_key=${apiConfig.apiKey}`;
-      // Even though sortBy exists, it is only used when filtering by genre.
     }
     const fetchData = async () => {
       try {
@@ -249,7 +249,8 @@ useEffect(() => {
       }
     };
     fetchData();
-  }, [props.category, selectedGenre, selectedType, sortBy, originCountry ,items]);
+  }, [props.category, selectedGenre, selectedType, sortBy, originCountry]);
+  
 
   // --- Load More Functionality ---
   const loadMore = useCallback(async () => {
@@ -265,16 +266,19 @@ useEffect(() => {
     try {
       const response = await axios.get(API_URL);
       const newResults = response.data.results.filter(item => item.poster_path);
-      const combined = [...items, ...newResults];
-      const uniqueCombined = combined.filter((item, index, self) =>
-        index === self.findIndex((t) => t.id === item.id)
-      );
-      setItems(uniqueCombined);
+      setItems(prevItems => {
+        const combined = [...prevItems, ...newResults];
+        const uniqueCombined = combined.filter((item, index, self) =>
+          index === self.findIndex((t) => t.id === item.id)
+        );
+        return uniqueCombined;
+      });
       setPage(prev => prev + 1);
     } catch (error) {
       console.error(error);
     }
   }, [page, totalPage, selectedGenre, sortBy, props.category, originCountry, selectedType]);
+  
 
   // --- Debounce and Auto-Load on Scroll ---
   const debounce = (func, delay) => {
