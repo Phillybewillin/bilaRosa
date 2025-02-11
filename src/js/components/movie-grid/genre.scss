@@ -1,10 +1,10 @@
 @use '../../scss/' as *;
 
 .tags{
- 
+   position: sticky;
   
-    top: 50px;
-    //z-index: 99;
+   top: 0px;
+   z-index: 29;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -12,10 +12,11 @@
     overflow: auto;
     gap: 5px;
     padding: 5px;
-    border-radius: 10px;
+    border-radius: 1px;
     stroke-width: 1px;
     scrollbar-width: 10px;
-    scrollbar-color: #1a1a1a5f #7a505000;
+    background-color: #000000;
+    scrollbar-color: #1a1a1a00 #7a505000;
  
     @include mobile {
         top: 30px;
@@ -31,16 +32,16 @@
     justify-content: center;
     position: relative;
     color: white;
-    font-size: .7rem;
+    font-size: .72rem;
     padding: 7px 20px;
-    height: 34px;
+    height: 40px;
     min-width: 120px;
     text-align: center;
     //border: 1px solid #4f4f4fb8;
-    background: rgba(255, 255, 255, 0.091);
-    border-radius: 10px;
+    background: rgba(70, 65, 65, 0.384);
+    border-radius: 20px;
     cursor: pointer;
-    font-weight: 200;
+    font-weight: 500;
     //transition: all 0.5s ease-in-out;
     &:hover{
         opacity: 0.9;
@@ -55,7 +56,7 @@
 .tagOutline{
     position: relative;
     padding: 2.5px;
-    border-radius: 10px;
+    border-radius: 20px;
     background: #15151500;
     transition: all 0.5s ease-in-out;
 
@@ -66,9 +67,10 @@
 }
 
 .tag.selected {
-    border-radius: 8px;
-    color: rgb(26, 26, 26);
-    background: rgba(255, 255, 255, 0.826);
+    border-radius: 18px;
+    color: rgb(254, 254, 254);
+    backdrop-filter: blur(10px);
+    background: rgba(17, 17, 17, 0.438);
     transition: all 0.5s ease-in-out;
 }
 .tagOutline.selected::before{
@@ -78,7 +80,7 @@
   left: 1;
   bottom: 0;
   right: 0;
-  border-radius: 10px;
+  border-radius: 20px;
   background: linear-gradient(
     45deg,
     #ff0008,
@@ -99,7 +101,7 @@
   left: 0;
   bottom: 0;
   right: 0;
-  border-radius: 10px;
+  border-radius: 20px;
   background: linear-gradient(
     45deg,
     #ff0008,
@@ -118,7 +120,7 @@
 .tagOutline.selected::after {
     filter: blur(25px);
     transform: translate3d(0, 0, 0);
-    border-radius: 10px;
+    border-radius: 20px;
   }
 @keyframes glow {
     0% {
