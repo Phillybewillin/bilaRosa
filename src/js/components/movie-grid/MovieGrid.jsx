@@ -274,7 +274,7 @@ useEffect(() => {
     } catch (error) {
       console.error(error);
     }
-  }, [page, totalPage, selectedGenre, sortBy, props.category, originCountry, selectedType, items]);
+  }, [page, totalPage, selectedGenre, sortBy, props.category, originCountry, selectedType]);
 
   // --- Debounce and Auto-Load on Scroll ---
   const debounce = (func, delay) => {
