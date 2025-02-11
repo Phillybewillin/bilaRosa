@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, use } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Select from 'react-select';
 import './movie-grid.scss';
@@ -100,9 +100,9 @@ const MovieGrid = props => {
   document.title = `${props.category === category.movie ? 'Movies • ZillaXR' : 'TV Shows • ZillaXR'}`;
   // Selected genres (array of numbers)
   const [selectedGenre, setSelectedGenre] = useState([]);
-  // Selected type (for legacy/other UI purposes)
+  // Selected type (if set, we ignore genres)
   const [selectedType, setSelectedType] = useState('');
-  // New state for sort option (default is popularity.desc)
+  // New state for sort option (only applicable when genres are selected)
   const [sortBy, setSortBy] = useState("popularity.desc");
   // Always use origin country = US
   const originCountry = "US";
@@ -151,7 +151,7 @@ const MovieGrid = props => {
     }
     const internalType = typeParam === "trending" ? getDefaultType() : typeParam;
     setSelectedType(internalType);
-
+    updateQueryParams({ type: internalType });
     // Parse sort option if provided.
     const sortParam = searchParams.get("sort_by");
     if (sortParam) {
@@ -159,7 +159,6 @@ const MovieGrid = props => {
     } else {
       updateQueryParams({ sort_by: sortBy });
     }
-
     const genresParam = searchParams.get("with_genres");
     if (genresParam) {
       setSelectedGenre(genresParam.split(',').map(Number));
@@ -167,19 +166,37 @@ const MovieGrid = props => {
   }, [location.search, navigate, location.pathname, props.category, sortBy]);
 
   // --- Clear selected genres when category changes ---
-  useEffect(() => {
-    setSelectedGenre([]);
-    updateQueryParams({ with_genres: [] });
-  }, [props.category]);
+ // --- Clear filters when category changes ---
+useEffect(() => {
+  // Clear any previously selected genres...
+  setSelectedGenre([]);
+  // Set the selected type to the default for the new category.
+  const defaultType = getDefaultType();
+  setSelectedType(defaultType);
+  // Update the URL so that "with_genres" is cleared and "type" is set to default.
+  updateQueryParams({ with_genres: [], type: defaultType });
+  // Update the tags based on category.
+  setTags(props.category === category.movie ? genresConst : tvgenres);
+}, [tags, props.category]);
+
 
   // --- Handler for Type Selection (legacy UI) ---
+  // When a type is selected, clear any genre selections.
   const handleTypeSelect = (value) => {
     setSelectedType(value);
-    updateQueryParams({ type: value });
+    // Clear genres because type takes precedence.
+    setSelectedGenre([]);
+    updateQueryParams({ type: value, with_genres: [] });
   };
 
   // --- Handler for Genre Click ---
+  // When a genre is selected, clear any type selection.
   const handleGenreClick = (genreId) => {
+    // If a type is currently selected, clear it.
+    if (selectedType) {
+      setSelectedType('');
+      updateQueryParams({ type: '' });
+    }
     setSelectedGenre(prev => {
       let newSelected;
       if (prev.includes(genreId)) {
@@ -193,6 +210,7 @@ const MovieGrid = props => {
   };
 
   // --- Handler for Sort Option Change (using react-select) ---
+  // The sort option only applies when genres are used.
   const handleSortChange = (selectedOption) => {
     setSortBy(selectedOption.value);
     updateQueryParams({ sort_by: selectedOption.value });
@@ -201,19 +219,25 @@ const MovieGrid = props => {
   // --- Choose appropriate sort options based on category ---
   const sortOptions = props.category === category.movie ? movieSortOptions : tvSortOptions;
 
-  // --- Data Fetching Effect ---  
-  // Always use the discover endpoint so we can combine sort_by, with_origin_country, and with_genres.
+  // --- Data Fetching Effect ---
+  // If genres are selected, we use the discover endpoint (with sort and origin country).
+  // Otherwise, we use the type endpoint and ignore sort.
   useEffect(() => {
+    
     const BASE_URL = 'https://api.themoviedb.org/3';
-    let API_URL = `${BASE_URL}/discover/${props.category}?api_key=${apiConfig.apiKey}&sort_by=${sortBy}&with_origin_country=${originCountry}`;
+    let API_URL = '';
     if (selectedGenre.length > 0) {
-      API_URL += `&with_genres=${selectedGenre.join(',')}`;
+      API_URL = `${BASE_URL}/discover/${props.category}?api_key=${apiConfig.apiKey}&sort_by=${sortBy}&with_origin_country=${originCountry}&with_genres=${selectedGenre.join(',')}`;
+    } else {
+      API_URL = `${BASE_URL}/${props.category}/${selectedType ? selectedType : getDefaultType()}?api_key=${apiConfig.apiKey}`;
+      // Even though sortBy exists, it is only used when filtering by genre.
     }
     const fetchData = async () => {
       try {
         const response = await axios.get(API_URL);
-        // Filter out duplicates and remove items with no poster_path.
+        // Filter out items without a poster.
         const filteredResults = response.data.results.filter(item => item.poster_path);
+        // Remove duplicates based on id.
         const uniqueItems = filteredResults.filter((item, index, self) =>
           index === self.findIndex((t) => t.id === item.id)
         );
@@ -224,22 +248,19 @@ const MovieGrid = props => {
         console.error(error);
       }
     };
-    // Set tags based on category.
-    if (props.category === 'tv') {
-      setTags(tvgenres);
-    } else {
-      setTags(genresConst);
-    }
     fetchData();
-  }, [selectedGenre, sortBy, props.category, originCountry]);
+  }, [props.category, selectedGenre, selectedType, sortBy, originCountry ,items]);
 
   // --- Load More Functionality ---
   const loadMore = useCallback(async () => {
     if (page >= totalPage) return;
     const BASE_URL = 'https://api.themoviedb.org/3';
-    let API_URL = `${BASE_URL}/discover/${props.category}?api_key=${apiConfig.apiKey}&sort_by=${sortBy}&with_origin_country=${originCountry}&page=${page + 1}`;
+    let API_URL = '';
     if (selectedGenre.length > 0) {
+      API_URL = `${BASE_URL}/discover/${props.category}?api_key=${apiConfig.apiKey}&sort_by=${sortBy}&with_origin_country=${originCountry}&page=${page + 1}`;
       API_URL += `&with_genres=${selectedGenre.join(',')}`;
+    } else {
+      API_URL = `${BASE_URL}/${props.category}/${selectedType ? selectedType : getDefaultType()}?api_key=${apiConfig.apiKey}&page=${page + 1}`;
     }
     try {
       const response = await axios.get(API_URL);
@@ -253,7 +274,7 @@ const MovieGrid = props => {
     } catch (error) {
       console.error(error);
     }
-  }, [page, totalPage, selectedGenre, sortBy, props.category, originCountry, items]);
+  }, [page, totalPage, selectedGenre, sortBy, props.category, originCountry, selectedType, items]);
 
   // --- Debounce and Auto-Load on Scroll ---
   const debounce = (func, delay) => {
@@ -281,11 +302,13 @@ const MovieGrid = props => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+
+
   const handleFilter = () => {
     navigate(`/filter`);
   };
 
-  // Remove duplicates (as a precaution) before mapping.
+  // Remove duplicates as a precaution.
   const uniqueItems = items.filter((item, index, self) =>
     index === self.findIndex((t) => t.id === item.id)
   );
@@ -298,7 +321,7 @@ const MovieGrid = props => {
             {props.category === category.movie && (
               <div className="label">
                 <div className="mb2x">
-                  MOVIES <i className="bx bx-movie"></i>
+                  MOVIES <i className="bx bx-movie" style={{ fontSize: '25px' }}></i>
                 </div>
                 <div className="select-container">
                   {Object.entries(movieType).map(([value, label]) => (
@@ -316,7 +339,7 @@ const MovieGrid = props => {
             {props.category === category.tv && (
               <div className="label">
                 <div className="mb2x">
-                  TV SHOWS <i className="bx bx-tv"></i>
+                  TV SHOWS <i className="bx bx-tv" style={{ fontSize: '25px' }}></i>
                 </div>
                 <div className="select-container">
                   {Object.entries(tvType).map(([value, label]) => (
@@ -331,39 +354,37 @@ const MovieGrid = props => {
                 </div>
               </div>
             )}
-            {/* --- Sort Dropdown using react-select --- */}
-            <div className="sort-container" style={{ marginTop: '.5rem', maxWidth: '250px' , fontSize: '13px', cursor: 'pointer' }}>
-              <Select 
-                options={sortOptions}
-                value={sortOptions.find(option => option.value === sortBy)}
-                onChange={handleSortChange}
-                placeholder="Sort by..."
-                theme={(theme) => ({
-                  ...theme,
-                
-                 // fontSize: '10px',
-                // backdropFilter: 'blur(10px)',
-                  borderRadius: 10,
-                  colors: {
-                    ...theme.colors,
-                    primary25: '#afafaf54',
-                    primary: '#38383879',
-                    neutral0 : '#000000c9',
-            
-                   neutral5: 'grey',
-                   neutral10: '#38383879',
-                    neutral20: '#38383879',
-               neutral30: 'red',
-                neutral40: 'pink',
-               neutral50: '#a9a9a9',
-               neutral60: '#38383879',
-                neutral70: '#696969',
-               neutral80: '#505050',
-                neutral90: '#303030'
-                  },
-                })}
-              />
-            </div>
+            {/* --- Sort Dropdown using react-select (only applicable when genres are used) --- */}
+            {selectedGenre.length > 0 && (
+              <div className="sort-container" style={{ marginTop: '.5rem', maxWidth: '250px', fontSize: '13px', cursor: 'pointer' }}>
+                <Select 
+                  options={sortOptions}
+                  value={sortOptions.find(option => option.value === sortBy)}
+                  onChange={handleSortChange}
+                  placeholder="Sort by..."
+                  theme={(theme) => ({
+                    ...theme,
+                    borderRadius: 10,
+                    colors: {
+                      ...theme.colors,
+                      primary25: '#afafaf54',
+                      primary: '#38383879',
+                      neutral0 : '#000000c9',
+                      neutral5: 'grey',
+                      neutral10: '#38383879',
+                      neutral20: '#38383879',
+                      neutral30: 'red',
+                      neutral40: 'pink',
+                      neutral50: '#a9a9a9',
+                      neutral60: '#38383879',
+                      neutral70: '#696969',
+                      neutral80: '#505050',
+                      neutral90: '#303030'
+                    },
+                  })}
+                />
+              </div>
+            )}
           </div>
         </div>
         <div className="tags">
