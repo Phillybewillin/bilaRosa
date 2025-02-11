@@ -1,235 +1,138 @@
 @use '../../scss/' as *;
 
-.filters {
-    margin-top: 3rem;
-    margin-left: 3.4rem;
-    min-height: fit-content;
-    height: 100%;
-    padding: .5rem;
-    //background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    position: relative;
-    gap: 1rem;
-
-    @include mobile {
-        padding: .5rem;
-        margin-left: 0;
-    }
-    @include tablet {
-        padding: .5rem;
-        margin-left: 0;
-    }
-}
-.formtitle{
-    padding: .3rem;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.37);
-    //background-color: #101010;
-    color: rgb(255, 255, 255);
-    font-size: smaller;
-    text-align: end;
-    //border-radius: 5px;
-}
-.bigmovie{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-
-    @include mobile{
-        flex-direction: column;
-    }
-}
-.lefter{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 2rem;
-    background-color: rgba(135, 135, 135, 0.388);
+.tags{
+  // position: sticky;
   
-    width: 100%;
-    margin: .5rem;
-    border-radius: 10px;
-    cursor: pointer;
-}
-.righter{
+   top: 50px;
+   //z-index: 99999;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    padding: 2rem;
-    background-color: rgba(135, 135, 135, 0.388);
-    width: 100%;
-    margin: .5rem;
-    border-radius: 10px;
-    cursor: pointer;
-}
-.righters{
-    position: sticky;
-    top: 0rem;
-    z-index: 99;
-    display: flex;
+    text-align: center;
+    overflow: auto;
+    gap: 5px;
+    padding: 5px;
+    border-radius: 1px;
+    stroke-width: 1px;
+    scrollbar-width: 10px;
+    background-color: #000000;
+    scrollbar-color: #1a1a1a00 #7a505000;
+ 
+    @include mobile {
+        top: 30px;
 
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.5rem;
-    font-size: 1rem;
-    font-weight: 100;
-//backdrop-filter: blur(20px);
-    background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(14, 14, 14, 0.014));
-    color: rgb(255, 255, 255);
-    width: 100%;
-    margin: .5rem 0;
-   // border-radius: 10px;
-    cursor: pointer;
-}
-.select{
-    background-color: rgb(79, 25, 42);
-}
-.gen{
-    columns: 4;
-    break-inside: avoid-column;
-    gap: .5rem;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: .5rem;
-   @include mobile {
-     columns: 1;
-   }
-}
-.cbut{
-    display: flex;
-    margin-bottom: 1rem;
-    gap: .5rem;
-}
+    }
+    
 
-.genrezz{
-    cursor: pointer;
-    background-color: rgb(35, 35, 35);
-    border: 1px solid $black;
-    padding: 5px 10px;
-    border-radius: 5px;
+  
+}
+.tag{
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    font-size: .7rem;
-    gap: .5rem;
-    transition: all 0.2s ease-in-out;
+    justify-content: center;
+    position: relative;
+    color: white;
+    font-size: .72rem;
+    padding: 7px 20px;
+    height: 40px;
+    min-width: 120px;
+    text-align: center;
+    //border: 1px solid #4f4f4fb8;
+    background: rgba(70, 65, 65, 0.384);
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    //transition: all 0.5s ease-in-out;
     &:hover{
-        background-color: rgb(79, 25, 42);
-        border: 1px solid rgb(79, 25, 42);
-       // color: grey;
-}
-@include mobile{
-    font-size: .65rem;
-}
-
-}
-
-.genrezzx{
-    cursor: pointer;
-    background-color: rgb(14, 14, 14);
-    border: 1px solid $black;
-    padding: 5px 10px;
-    border-radius: 5px;
+        opacity: 0.9;
+       // transition: all 0.5s ease-in-out;
+    }
     
-    font-size: .7rem;
-    @include mobile{
-        font-size: .65rem;
+    @include mobile {
+        font-size: 1rem;
+        
     }
 }
-
-.movie-gridk{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr));
-    align-items: center;
-    gap: 8px;
-    
-    
-
-    @include tablet {
-        grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr));
-        left: 0;
-    }
+.tagOutline{
+    position: relative;
+    padding: 2.5px;
+    border-radius: 20px;
+    background: #15151500;
+    transition: all 0.5s ease-in-out;
 
     @include mobile {
-        grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
-    
+        padding: 2px;
     }
+
+}
+
+.tag.selected {
+    border-radius: 18px;
+    color: rgb(254, 254, 254);
+    backdrop-filter: blur(10px);
+    background: rgba(17, 17, 17, 0.438);
+    transition: all 0.5s ease-in-out;
+}
+.tagOutline.selected::before{
+    content: "";
+  position: absolute;
+  top: 0;
+  left: 1;
+  bottom: 0;
+  right: 0;
+  border-radius: 20px;
+  background: linear-gradient(
+    45deg,
+    #ff0008,
+    #ffca3a,
+    #8ac926,
+    #13ece8,
+    #4c00b7,
+    #ff6700
+  );
+  background-size: 450%;
+  z-index: -1;
+  animation: glow 20s linear infinite;
+  width: 100%;
+}.tagOutline.selected::after{
+    content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 20px;
+  background: linear-gradient(
+    45deg,
+    #ff0008,
+    #ffca3a,
+    #8ac926,
+    #13ece8,
+    #4c00b7,
+    #ff6700
+  );
+  background-size: 400%;
+   z-index: -1;
+  animation: glow 20s linear infinite;
+  width: 100%;
     
 }
+.tagOutline.selected::after {
+    filter: blur(25px);
+    transform: translate3d(0, 0, 0);
+    border-radius: 20px;
+  }
+@keyframes glow {
+    0% {
+      background-position: 0 0;
+    }
+  
+    50% {
+      background-position: 100% 0;
+    }
+  
+    100% {
+      background-position: 0 0;
+    }
+  }
 
-.lod{
-    display: flex;
-    justify-content: flex-end;
-    text-align: center;
-    padding: .4rem;
-
-}
-
-.checkbox-custom {
-    display: inline-block;
-    width: 30px; /* Adjust size as needed */
-    height: 10px; /* Adjust size as needed */
-    //border: 1px solid #d900ff; /* Red border */
-    background-color: #202020; /* Grey background */
-    position: relative;
-    cursor: pointer;
-    border-radius: 10px;
-    margin-right: 10px; /* Space between checkbox and text */
-}
-
-.checkbox-custom::after {
-    content: '\2713'; /* Unicode checkmark character */
-    font-size: 16px; /* Adjust size as needed */
-    color: #fff; /* White color */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0); /* Initially hidden */
-    transition: transform 0.2s ease;
-}
-
-input[type="checkbox"] {
-    opacity: 0; /* Hide the default checkbox */
-    position: absolute;
-    left: -9999px; /* Move off screen */
-}
-
-.checkbox-custom input[type="checkbox"]:checked + .checkbox-custom::after {
-    transform: translate(-50%, -50%) scale(1); /* Show checkmark */
-}
-
-.checkbox-text {
-    transition: color 0.3s ease;
-}
-
-.checkbox-label:hover .checkbox-custom {
-    background-color: #7f7f7f; /* Grey background on hover */
-}
-
-.checkbox-label:hover .checkbox-text {
-    color: grey; /* Red text color on hover */
-}
-
-.checkbox-label.checked .checkbox-custom {
-    background-color: $main-bg; /* Red background when checked */
-    border-color: rgba(255, 255, 255, 0.587); /* Red border when checked */
-}
-
-.checkbox-label.checked .checkbox-text {
-    color: rgb(192, 192, 192);
-    border-bottom: 2px solid $main-bg;
-   // text-decoration: underline;
-     /* Red text color when checked */
-}
-.radio-text:hover{
-   color: #7f7f7f;
-}
-input[type="radio"] {
-    accent-color: $main-bg;
-    width: 20px;
-
-}
