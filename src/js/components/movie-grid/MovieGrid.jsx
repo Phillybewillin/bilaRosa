@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import Select from 'react-select';
 import './movie-grid.scss';
 import './genre.scss';
 import Button, { OutlineButton } from '../button/Button';
@@ -66,6 +67,30 @@ const tvgenres = [
   { id: 37, name: "Western" }
 ];
 
+// --- Sort Options ---
+// For movies, sort by original_title; for TV shows, sort by name.
+const movieSortOptions = [
+  { value: "popularity.desc", label: "Popularity Descending" },
+  { value: "popularity.asc", label: "Popularity Ascending" },
+  { value: "release_date.desc", label: "Release Date Descending" },
+  { value: "release_date.asc", label: "Release Date Ascending" },
+  { value: "vote_average.desc", label: "Vote Average Descending" },
+  { value: "vote_average.asc", label: "Vote Average Ascending" },
+  { value: "original_title.asc", label: "Title A-Z" },
+  { value: "original_title.desc", label: "Title Z-A" }
+];
+
+const tvSortOptions = [
+  { value: "popularity.desc", label: "Popularity Descending" },
+  { value: "popularity.asc", label: "Popularity Ascending" },
+  { value: "first_air_date.desc", label: "First Air Date Descending" },
+  { value: "first_air_date.asc", label: "First Air Date Ascending" },
+  { value: "vote_average.desc", label: "Vote Average Descending" },
+  { value: "vote_average.asc", label: "Vote Average Ascending" },
+  { value: "name.asc", label: "Name A-Z" },
+  { value: "name.desc", label: "Name Z-A" }
+];
+
 const MovieGrid = props => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -73,10 +98,14 @@ const MovieGrid = props => {
   // --- State declarations ---
   const [items, setItems] = useState([]);
   document.title = `${props.category === category.movie ? 'Movies • ZillaXR' : 'TV Shows • ZillaXR'}`;
-  // Store selected genres as an array of numbers.
+  // Selected genres (array of numbers)
   const [selectedGenre, setSelectedGenre] = useState([]);
-  // Store the internal selected type (string). If none is provided, we’ll default it.
+  // Selected type (for legacy/other UI purposes)
   const [selectedType, setSelectedType] = useState('');
+  // New state for sort option (default is popularity.desc)
+  const [sortBy, setSortBy] = useState("popularity.desc");
+  // Always use origin country = US
+  const originCountry = "US";
   const [tags, setTags] = useState([]);
   // Pagination
   const [page, setPage] = useState(1);
@@ -96,7 +125,6 @@ const MovieGrid = props => {
         value !== '' &&
         !(Array.isArray(value) && value.length === 0)
       ) {
-        // For the type parameter, if the internal value equals the default, store "trending" in the URL.
         if (key === "type") {
           const defaultKey = getDefaultType();
           searchParams.set(key, value === defaultKey ? "trending" : value);
@@ -112,41 +140,45 @@ const MovieGrid = props => {
     navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
   };
 
-  useEffect(() => {
-    // Clear selected genres when the category changes.
-    setSelectedGenre([]);
-
-    // Optionally, update the URL to remove the with_genres parameter.
-   // updateQueryParams({ with_genres: [] });
-  }, [props.category]);
-  
-
   // --- On Mount: Parse URL Query Parameters ---
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     let typeParam = searchParams.get("type");
-    // If no type param, default to "trending"
     if (!typeParam) {
       typeParam = "trending";
       searchParams.set("type", typeParam);
       navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
     }
-    // Convert "trending" to our internal default key.
     const internalType = typeParam === "trending" ? getDefaultType() : typeParam;
     setSelectedType(internalType);
+
+    // Parse sort option if provided.
+    const sortParam = searchParams.get("sort_by");
+    if (sortParam) {
+      setSortBy(sortParam);
+    } else {
+      updateQueryParams({ sort_by: sortBy });
+    }
+
     const genresParam = searchParams.get("with_genres");
     if (genresParam) {
       setSelectedGenre(genresParam.split(',').map(Number));
     }
-  }, [location.search, navigate, location.pathname, props.category , selectedGenre ]);
+  }, [location.search, navigate, location.pathname, props.category, sortBy]);
 
-  // --- Handler for Type Selection ---
+  // --- Clear selected genres when category changes ---
+  useEffect(() => {
+    setSelectedGenre([]);
+    updateQueryParams({ with_genres: [] });
+  }, [props.category]);
+
+  // --- Handler for Type Selection (legacy UI) ---
   const handleTypeSelect = (value) => {
     setSelectedType(value);
     updateQueryParams({ type: value });
   };
 
-  // --- Handler for Genre Click (toggle selection) ---
+  // --- Handler for Genre Click ---
   const handleGenreClick = (genreId) => {
     setSelectedGenre(prev => {
       let newSelected;
@@ -160,28 +192,29 @@ const MovieGrid = props => {
     });
   };
 
-  // --- Data Fetching Effect ---
+  // --- Handler for Sort Option Change (using react-select) ---
+  const handleSortChange = (selectedOption) => {
+    setSortBy(selectedOption.value);
+    updateQueryParams({ sort_by: selectedOption.value });
+  };
+
+  // --- Choose appropriate sort options based on category ---
+  const sortOptions = props.category === category.movie ? movieSortOptions : tvSortOptions;
+
+  // --- Data Fetching Effect ---  
+  // Always use the discover endpoint so we can combine sort_by, with_origin_country, and with_genres.
   useEffect(() => {
     const BASE_URL = 'https://api.themoviedb.org/3';
-    let API_URL = '';
-    // If there are any genres selected, we always use the discover endpoint.
+    let API_URL = `${BASE_URL}/discover/${props.category}?api_key=${apiConfig.apiKey}&sort_by=${sortBy}&with_origin_country=${originCountry}`;
     if (selectedGenre.length > 0) {
-      API_URL = `${BASE_URL}/discover/${props.category}?api_key=${apiConfig.apiKey}&sort_by=popularity.desc&with_genres=${selectedGenre.join(',')}&with_origin_country=US`;
-    } else {
-      // Otherwise, use the endpoint for the selected type.
-      API_URL = `${BASE_URL}/${props.category}/${selectedType ? selectedType : getDefaultType()}?api_key=${apiConfig.apiKey}&with_origin_country=US`;
-    }
-    // Set the correct tags for filtering.
-    if (props.category === 'tv') {
-      setTags(tvgenres);
-    } else {
-      setTags(genresConst);
+      API_URL += `&with_genres=${selectedGenre.join(',')}`;
     }
     const fetchData = async () => {
       try {
         const response = await axios.get(API_URL);
-        // Avoid duplicates by filtering items based on their ID.
-        const uniqueItems = response.data.results.filter((item, index, self) =>
+        // Filter out duplicates and remove items with no poster_path.
+        const filteredResults = response.data.results.filter(item => item.poster_path);
+        const uniqueItems = filteredResults.filter((item, index, self) =>
           index === self.findIndex((t) => t.id === item.id)
         );
         setItems(uniqueItems);
@@ -191,23 +224,27 @@ const MovieGrid = props => {
         console.error(error);
       }
     };
+    // Set tags based on category.
+    if (props.category === 'tv') {
+      setTags(tvgenres);
+    } else {
+      setTags(genresConst);
+    }
     fetchData();
-  }, [selectedType, selectedGenre, props.category]);
+  }, [selectedGenre, sortBy, props.category, originCountry]);
 
   // --- Load More Functionality ---
   const loadMore = useCallback(async () => {
     if (page >= totalPage) return;
     const BASE_URL = 'https://api.themoviedb.org/3';
-    let API_URL = '';
+    let API_URL = `${BASE_URL}/discover/${props.category}?api_key=${apiConfig.apiKey}&sort_by=${sortBy}&with_origin_country=${originCountry}&page=${page + 1}`;
     if (selectedGenre.length > 0) {
-      API_URL = `${BASE_URL}/discover/${props.category}?api_key=${apiConfig.apiKey}&sort_by=popularity.desc&with_genres=${selectedGenre.join(',')}&page=${page + 1}&with_origin_country=US`;
-    } else {
-      API_URL = `${BASE_URL}/${props.category}/${selectedType ? selectedType : getDefaultType()}?api_key=${apiConfig.apiKey}&page=${page + 1}&with_origin_country=US`;
+      API_URL += `&with_genres=${selectedGenre.join(',')}`;
     }
     try {
       const response = await axios.get(API_URL);
-      // Merge new items with previous items and avoid duplicates.
-      const combined = [...items, ...response.data.results];
+      const newResults = response.data.results.filter(item => item.poster_path);
+      const combined = [...items, ...newResults];
       const uniqueCombined = combined.filter((item, index, self) =>
         index === self.findIndex((t) => t.id === item.id)
       );
@@ -216,9 +253,9 @@ const MovieGrid = props => {
     } catch (error) {
       console.error(error);
     }
-  }, [page, totalPage, selectedType, selectedGenre, props.category, items]);
+  }, [page, totalPage, selectedGenre, sortBy, props.category, originCountry, items]);
 
-  // --- Debounce and Scroll for Auto–Loading More ---
+  // --- Debounce and Auto-Load on Scroll ---
   const debounce = (func, delay) => {
     let timer;
     return (...args) => {
@@ -232,7 +269,7 @@ const MovieGrid = props => {
       const scrollHeight = document.documentElement.scrollHeight;
       const clientHeight = window.innerHeight;
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      if (scrollTop > 0 && scrollTop + clientHeight >= scrollHeight * 0.75){
+      if (scrollTop > 0 && scrollTop + clientHeight >= scrollHeight * 0.75) {
         loadMore();
       }
     }, 500);
@@ -248,7 +285,7 @@ const MovieGrid = props => {
     navigate(`/filter`);
   };
 
-  // --- Rendering: Remove duplicates again when mapping (just in case) ---
+  // Remove duplicates (as a precaution) before mapping.
   const uniqueItems = items.filter((item, index, self) =>
     index === self.findIndex((t) => t.id === item.id)
   );
@@ -294,6 +331,39 @@ const MovieGrid = props => {
                 </div>
               </div>
             )}
+            {/* --- Sort Dropdown using react-select --- */}
+            <div className="sort-container" style={{ marginTop: '.5rem', maxWidth: '250px' , fontSize: '13px', cursor: 'pointer' }}>
+              <Select 
+                options={sortOptions}
+                value={sortOptions.find(option => option.value === sortBy)}
+                onChange={handleSortChange}
+                placeholder="Sort by..."
+                theme={(theme) => ({
+                  ...theme,
+                
+                 // fontSize: '10px',
+                // backdropFilter: 'blur(10px)',
+                  borderRadius: 10,
+                  colors: {
+                    ...theme.colors,
+                    primary25: '#afafaf54',
+                    primary: '#38383879',
+                    neutral0 : '#000000c9',
+            
+                   neutral5: 'grey',
+                   neutral10: '#38383879',
+                    neutral20: '#38383879',
+               neutral30: 'red',
+                neutral40: 'pink',
+               neutral50: '#a9a9a9',
+               neutral60: '#38383879',
+                neutral70: '#696969',
+               neutral80: '#505050',
+                neutral90: '#303030'
+                  },
+                })}
+              />
+            </div>
           </div>
         </div>
         <div className="tags">
@@ -317,7 +387,7 @@ const MovieGrid = props => {
         </div>
         {page < totalPage && (
           <div className="movie-grid__loadmore">
-            <OutlineButton className="small" onClick={loadMore}> more +</OutlineButton>
+            <OutlineButton className="small" onClick={loadMore}>+</OutlineButton>
           </div>
         )}
         <div
@@ -329,14 +399,14 @@ const MovieGrid = props => {
             right: '30px',
             cursor: 'pointer',
             fontSize: '20px',
-            backgroundColor: 'black',
+            backgroundColor: 'white',
             borderRadius: '10px',
             width: '40px',
             height: '40px',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            color: 'pink',
+            color: 'black',
             opacity: ".6"
           }}
         >
