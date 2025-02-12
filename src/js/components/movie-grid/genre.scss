@@ -15,11 +15,12 @@
     border-radius: 1px;
     stroke-width: 1px;
     scrollbar-width: 10px;
-    background-color: #000000;
+    background-color: #000000be;
+    backdrop-filter: blur(20px);
     scrollbar-color: #1a1a1a00 #7a505000;
  
     @include mobile {
-        top: 30px;
+        top: 0px;
 
     }
     
