@@ -191,7 +191,7 @@
 .year{
   display: flex;
   position: absolute;
-  top: 208px;
+  top: calc(40vh - 45px);
   left: 0;
   //z-index: 100;
   color: rgb(255, 255, 255);
@@ -237,12 +237,12 @@
   font-weight: 450;
   backdrop-filter: blur(3px);
   padding: 5px 10px;
-  border-radius: 10px;
+  border-radius: 15px;
 }
 .savemovie{
   display: flex;
   position: absolute;
-  top: 235px;
+  top: calc(40vh - 30px);
   right: 0;
   //z-index: 100;
  // color: rgb(255, 255, 255);
