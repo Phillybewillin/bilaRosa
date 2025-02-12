@@ -23,7 +23,7 @@
         align-items: center;
         position: absolute;
         top: 1px;
-       // z-index: 1001;
+       z-index: 1;
         right: 1px;
         background-color: rgba(33, 19, 22, 0.662);
         padding:  8px;
@@ -37,11 +37,11 @@
       position: absolute;
       bottom: 20px;
       left: 0;
-      //z-index: 100;
+      z-index: 10;
       color: rgb(255, 255, 255);
       background-color: rgba(0, 0, 0, 0.45);
       //backdrop-filter: blur(20px);
-      padding: 4px 8px;
+      padding: 5px 8px;
       //border: 1.2px solid rgb(25, 25, 25);
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px;
@@ -102,10 +102,11 @@
         &:hover::before{
             background-image: linear-gradient(180deg, transparent ,$body-bg 100%);
             padding-top: 2rem;
+            z-index: 3;
             opacity: 1;
             border-radius: 20px;
-            //backdrop-filter: blur(10px);
-            transition: all .3s ease-in-out;
+            backdrop-filter: blur(20px);
+            transition: all .2s ease-in-out;
         }
 
         &:hover .btnz {
