@@ -270,16 +270,18 @@ const options = [
   { value: 'https://moviesapi.club/', label: 'GRANADILLA' },
   { value: 'https://vidlink.pro/', label: 'PINEBERRY' },
   { value: 'https://player.autoembed.cc/', label: 'WATERMELON' },
-  { value: 'https://autoembed.pro/embed/', label: 'LEMON' },
+  { value: 'https://player.videasy.net/', label: 'APPLE 4K' },
   { value: 'https://player.autoembed.cc/embed/', label: 'STRAWBERRY' }, 
-  { value: 'https://embed.su/embed/', label: 'GRAPE' },
+  { value: 'https://embed.su/embed/', label: 'GRAPE' }, 
+  { value: 'https://autoembed.pro/embed/', label: 'LEMON' },
   { value: 'https://vidsrc.cc/v2/embed/', label: 'CHERRY'},
   { value: 'https://vidsrc.me/embed/', label: 'KIWI' },
+  { value: 'https://vidbinge.dev/embed/', label: 'PAPAYA 4K' },
   { value: 'https://vidsrc.xyz/embed/', label: 'BANANA' },
-  { value: 'https://play2.123embed.net/', label: 'ORANGE'},
   { value: 'https://flicky.host/embed/', label: 'COCONUT' },
-  { value: 'https://vidbinge.dev/embed/', label: 'HALA' },
+  { value: 'https://play2.123embed.net/', label: 'ORANGE'},
   
+ 
 ]
 
 useEffect(() => {
@@ -298,7 +300,7 @@ useEffect(() => {
     setSelectedOption(options[0]);
     setIframeUrl(options[0].value);
   }
-}, [localStorage]);
+}, []);
 
 const handleSelect = (selectedOption) => {
   setSelectedOption(selectedOption);
@@ -314,6 +316,34 @@ const handleSelect = (selectedOption) => {
     }
     
   };
+
+  const [triedSources, setTriedSources] = useState([]);
+
+const handleIframeError = () => {
+  // Mark the current source as tried
+  setTriedSources(prev => [...prev, iframeUrl]);
+
+  // Get the index of the current server
+  const currentIndex = options.findIndex(option => option.value === iframeUrl);
+  // Find the next source that hasn’t been tried yet
+  let nextOption = null;
+  for (let i = 1; i <= options.length; i++) {
+    const candidate = options[(currentIndex + i) % options.length];
+    if (!triedSources.includes(candidate.value)) {
+      nextOption = candidate;
+      break;
+    }
+  }
+  
+  if (nextOption) {
+    toast.info(`Error detected. Switching server to ${nextOption.label}`);
+    setSelectedOption(nextOption);
+    setIframeUrl(nextOption.value);
+  } else {
+    toast.error("All sources failed. Please try again later.");
+  }
+};
+
 
   const handleHome = () => {
     navigate('/');
@@ -333,6 +363,8 @@ const handleSelect = (selectedOption) => {
   } else if (iframeUrl === 'https://vidlink.pro/') {
     src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?poster=true&autoplay=false&icons=vid`;
   } else if (iframeUrl === 'https://autoembed.pro/embed/') {
+    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+  }else if (iframeUrl === 'https://player.videasy.net/') {
     src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
   }
   else if (iframeUrl === 'https://player.autoembed.cc/embed/') {
@@ -372,6 +404,9 @@ const handlemovieIframeSrc = () => {
   } else if (iframeUrl === 'https://player.autoembed.cc/embed/') {
     src = `${iframeUrl}movie/${id}`;
   }  else if (iframeUrl === 'https://autoembed.pro/embed/') {
+    src = `${iframeUrl}movie/${id}`;
+  }
+  else if (iframeUrl === 'https://player.videasy.net/') {
     src = `${iframeUrl}movie/${id}`;
   }
   else if (iframeUrl === 'https://player.autoembed.cc/') {
@@ -430,6 +465,7 @@ const handlemovieIframeSrc = () => {
             //sandbox
             referrerPolicy="origin"
             onLoad={handleIframeLoad}
+            onError={handleIframeError}
          
           />
         ) : (
@@ -443,6 +479,7 @@ const handlemovieIframeSrc = () => {
             referrerPolicy="origin"
             //sandbox
             onLoad={handleIframeLoad}
+            onError={handleIframeError}
           />
         ))}
        
@@ -508,7 +545,7 @@ const handlemovieIframeSrc = () => {
         ...theme.colors,
         primary25: '#afafaf54',
         primary: '#38383879',
-        neutral0 : '#00000a2',
+        neutral0 : '#00000e2',
 
        neutral5: 'grey',
        neutral10: '#38383879',
