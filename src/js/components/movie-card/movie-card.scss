@@ -6,7 +6,7 @@
   display: inline-block;
   width: 98%;
   margin-left:3px;
-    position: relative;
+    position: relative !important;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -50,6 +50,50 @@
       border-left: 1px solid rgba(255, 3, 32, 0.858);
         
     }
+    .year{
+      display: flex;
+      position: absolute;
+      bottom: -165px;
+      left: 0;
+      //z-index: 100;
+      color: rgb(255, 255, 255);
+      background-color: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(20px);
+      padding: 6px 8px;
+      //border: 1.2px solid rgb(25, 25, 25);
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      font-size: 9px;
+      font-weight: 300;
+      border-left: 1px solid rgba(255, 255, 255, 0.858);
+        
+    }
+    
+    .vote{
+      position: absolute;
+      display: flex;
+      //position: absolute;
+      bottom: -120px;
+      left: 0;
+      //z-index: 100;
+      //color: rgb(255, 255, 255);
+      background-color: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(20px);
+      padding: 8px;
+      //border: 1.2px solid rgb(25, 25, 25);
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      font-size: 9px;
+      font-weight: 600;
+      border-left: 1px solid rgba(121, 121, 121, 0.858);
+        
+    
+      @include mobile {
+        //right: 3rem;
+      }
+    
+    }
+    
     &::before {
       content: "";
       position: absolute;
@@ -68,6 +112,7 @@
      //@include overlay;
   
   }
+  
     
     @media (hover:hover) {
 
@@ -188,49 +233,6 @@
     display: flex;
     transition: all .5s ease-in-out;
 }
-.year{
-  display: flex;
-  position: absolute;
-  top: calc(40vh - 45px);
-  left: 0;
-  //z-index: 100;
-  color: rgb(255, 255, 255);
-  background-color: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(20px);
-  padding: 6px 8px;
-  //border: 1.2px solid rgb(25, 25, 25);
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  font-size: 9px;
-  font-weight: 300;
-  border-left: 1px solid rgba(255, 255, 255, 0.858);
-    
-}
-
-.vote{
-  position: absolute;
-  display: flex;
-  position: absolute;
-  top: 165px;
-  left: 0;
-  //z-index: 100;
-  //color: rgb(255, 255, 255);
-  background-color: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(20px);
-  padding: 8px;
-  //border: 1.2px solid rgb(25, 25, 25);
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  font-size: 9px;
-  font-weight: 600;
-  border-left: 1px solid rgba(121, 121, 121, 0.858);
-    
-
-  @include mobile {
-    //right: 3rem;
-  }
-
-}
 
 .titlename{
   background-color: #02020285;
@@ -242,7 +244,7 @@
 .savemovie{
   display: flex;
   position: absolute;
-  top: calc(40vh - 30px);
+  bottom: -195px;
   right: 0;
   //z-index: 100;
  // color: rgb(255, 255, 255);
