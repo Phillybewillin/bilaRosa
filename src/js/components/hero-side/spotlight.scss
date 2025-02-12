@@ -132,8 +132,8 @@ margin-bottom: 1rem;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  padding: 0 20px;
-  gap: 1rem;
+  padding: 0 10px;
+  gap: .3rem;
   margin-top: .5rem;
   z-index: 1;
  
@@ -291,14 +291,21 @@ margin-bottom: 1rem;
  }
 }
 .butts{
+  border: 1px solid rgba(255, 255, 255, 0.089);
+  padding: 7px;
+  border-radius: 7px;
+  font-size: small;
+  font-weight: 300;
   color: white;
   transition: all .3s ease-in-out;
 }
 .butts:hover{
+  scale: .9;
+  border: 1px solid $main-bg;
   //transform: scale(1.1);
   transition: all .3s ease-in-out;
   cursor: pointer;
-  color: rgb(238, 49, 49);
+  //color: rgb(238, 49, 49);
 }
 .spon {
   margin:  .2rem  ;
