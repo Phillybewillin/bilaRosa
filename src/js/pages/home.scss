@@ -45,6 +45,35 @@
   font-size: .8rem;
 
 }
+.divconw{
+  background-color: #131313d2;
+  display: flex;
+  min-height: 130px;
+  border-radius:  10px;
+  
+  min-width: 200px;
+  justify-content: center;
+  align-items: center;
+  //flex-direction: column;
+}
+.favaziwwr{
+  background: linear-gradient(to right, rgb(39, 39, 39), rgb(255, 255, 255));
+  background-clip: text;
+ -webkit-background-clip: text;
+ font-size: larger;
+ -webkit-text-fill-color: transparent;
+}
+.dfavaziwatchlist{
+  background-color: #131313d2;
+  display: flex;
+  min-height: 130px;
+  border-radius:  20px;
+  
+  min-width: 200px;
+  justify-content: center;
+  align-items: center;
+  //flex-direction: column;
+}
 .txtupz{
   font-size: .8rem;
   cursor: pointer;
@@ -202,7 +231,8 @@
 .continue_watchingcontainer{
  // background-color: rgba(27, 27, 27, 0.514);
   display: flex;
-  margin: 1rem;
+  align-items: center;
+ // margin: 1rem;
   border-radius: 10px;
   flex-direction: row;
   overflow: auto;
@@ -220,7 +250,9 @@
 }
 .movieimage{
   cursor: pointer;
-  border-radius: 7px;
+  border-radius: 10px 0 0 10px;
+  transition: all 0.2s ease-in-out;
+
  // margin-left: .4rem;
 }
 .continuewatching{
@@ -243,22 +275,25 @@
       width: 80px;
       height: 100px;
       object-fit: cover;
+      transition: all 0.2s ease-in-out;
+
+      &:hover{
+      filter: blur(20px) !important;
+      }
     }
 }
+.bx.bx-trash:hover{
+  color: red !important;
+}
 .movietitle{
-  //display: none;
+  position: absolute;
+  left: 2px;
+  bottom: 2px;
   font-size: x-small;
   font-weight: 200;
-  color: rgba(151, 151, 151, 0.842);
-  //text-align: start;
-  max-width: 12%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  line-clamp: 1;
-  box-orient: vertical;
+  background-color: #ffffff0f;
+  padding: 5px 10px;
+  border-radius: 0 10px 10px 0px;
   @include mobile {
     font-size: x-small;
   }
@@ -266,12 +301,13 @@
   //transform: rotate(90deg);
 }
 
-.continuewatching:hover{
-  color: white;
-  background-color: rgba(246, 246, 246, 0.233);
+.movieimage:hover{
+ // color: white;
+  backdrop-filter: blur(20px) !important;
+  //background-color: rgba(30, 30, 30, 0.269);
   //border: 1.5px solid $main-bg;
  // transform: scale(1);
- // transition: all 0.2s ease-in-out;
+ transition: all 0.2s ease-in-out;
  
 }
 .catx{
