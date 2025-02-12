@@ -54,6 +54,13 @@
    
 }
 
+.sort-container{
+    position: relative;
+    //backdrop-filter: blur(10px);
+   // cursor: pointer !important;
+    z-index: 39 !important;
+}
+
 
 
 .label{
