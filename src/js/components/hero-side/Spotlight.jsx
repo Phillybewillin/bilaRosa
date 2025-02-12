@@ -39,13 +39,16 @@ const Spotlight = () => {
     return (
       <>
         <div className="spotlight">
+          <div className="modalhome">
+            <h1 className="homenama">~HOME~</h1>
+          </div>
         
           <Swiper
             ref={sliderRef}
             spaceBetween={3}
             slidesPerView={4}
            // lazy={true}
-            preloadImages={false}
+           // preloadImages={false}
             navigation={{
               // Both prevEl & nextEl are null at render so this does not work
               prevEl: navigationPrevRef.current,
@@ -102,6 +105,65 @@ const Spotlight = () => {
                   </div>
                  </div>
             </SwiperSlide> 
+            <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">TV-MA</h1>
+                <img src={'https://image.tmdb.org/t/p/original/fOetFgvvZxMgH2TC0ULlIrpgosH.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.5rem rgb(151, 68, 84, 0.3))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .1 #TVSHOWS</h4>
+                 
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/u02n5UaGbsryj5krKDch54XakgA.png"/></h2>
+                
+                
+                  <p className="spotlight-genres">
+                    <span className="genre a">Comedy & Drama</span>
+                    <span className="genre a">Sci-Fi & Fantasy</span>
+                    <span className="genre a">Action & Adventure</span>
+                  </p>
+                  <div className="spotty">
+                   <h6 className="genre b">HD</h6><h6 className="genre a">TV</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2025</h6>
+                  </div>
+                  
+                  <p className="spotlight-overview">Jae-yoon, a late military enlistee, and his girlfriend, Young-joo, break up over the phone over growing misunderstandings. But a zombie outbreak rocks the world. A national emergency is declared, a plane crashes in the city center, and Jae-yoon and his unit get trapped on top of a Seoul skyscraper. Young-joo risks the zombie-filled streets to find him. Can their love survive the apocalypse?
+
+..</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/tv/233742')}>  <i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(233742, "Newtopia" ,1 ,1 )}>  <i className='bx bx-play'></i> Watch Now</Button>
+                  </div>
+                  </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">TV-MA</h1>
+                <img src={'https://image.tmdb.org/t/p/original/dfmPbyeZZSz3bekeESvMJaH91gS.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.5rem rgb(151, 68, 84, 0.3))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .2 #TVSHOWS</h4>
+                 
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/kYtNJOwCs7jcGRxLH9IUklAVAXc.svg"/></h2>
+                
+                
+                  <p className="spotlight-genres">
+                    <span className="genre a">Animation</span>
+                    <span className="genre a">Sci-Fi & Fantasy</span>
+                    <span className="genre a">Action & Adventure</span>
+                  </p>
+                  <div className="spotty">
+                   <h6 className="genre b">HD</h6><h6 className="genre a">TV</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2021</h6>
+                  </div>
+                  
+                  <p className="spotlight-overview">Mark Grayson is a normal teenager except for the fact that his father is the most powerful superhero on the planet. Shortly after his seventeenth birthday, Mark begins to develop powers ..</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/tv/95557')}>  <i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(95557, "INVINCIBLE" ,1 ,1 )}>  <i className='bx bx-play'></i> Watch Now</Button>
+                  </div>
+                  </div>
+              </div>
+            </SwiperSlide>
+         
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-14</h1>
@@ -552,42 +614,7 @@ Big Nick is back on the hunt in Europe and closing in on Donnie, who is embroile
                   </div>
               </div>
             </SwiperSlide>
-            
-           
-         
-           
-            
-          <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/original/zO5xURaYgMX6WpXolp83zVk03Yh.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.5rem rgb(151, 68, 84, 0.3))'}}/>
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .6 #TVSHOWS</h4>
-                 
-                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/tg1NueHwd4lCAwAlhUA2I0n2Ci8.png"/></h2>
-                
-                
-                  <p className="spotlight-genres">
-                    <span className="genre a">Animation</span>
-                    <span className="genre a">Sci-Fi & Fantasy</span>
-                    <span className="genre a">Action & Adventure</span>
-                  </p>
-                  <div className="spotty">
-                   <h6 className="genre b">HD</h6><h6 className="genre a">TV</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2021</h6>
-                  </div>
-                  
-                  <p className="spotlight-overview">Amid the stark discord of twin cities Piltover and Zaun, two sisters fight on rival sides of a war between magic technologies and clashing convictions...</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/tv/94605')}>  <i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(94605, "Arcane" ,1 ,1 )}>  <i className='bx bx-play'></i> Watch Now</Button>
-                  </div>
-                  </div>
-              </div>
-            </SwiperSlide>
-         
-           
-            
+
             <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">R</h1>

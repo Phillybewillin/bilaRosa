@@ -5,9 +5,9 @@
     //justify-content: center;
     break-inside: avoid;
     //display: inline;
-    columns: 4;
-    width: 60vw;
-    margin-left: 1rem;
+    columns: 6;
+    width: 65vw;
+    //margin-left: 1rem;
     //flex-direction: column;
     gap: .1rem; 
     transition: all .3s ease-in-out;
@@ -15,15 +15,16 @@
     @include tablet {
        // display: flex;
        // justify-content: center;
+       width: 50vw;
        margin-left: 0;
-    columns: 3;
+        columns: 3;
       //flex-direction: column;
     }
 
     @include mobile { 
       margin-left: 0;
       width: 100%;
-      margin-top: 30rem;
+      margin-top: 29rem;
        //gap: 14rem;
         columns: 3;
     }
@@ -60,11 +61,11 @@
   position: absolute;
   top: 0rem;
   right: 0rem;
-  left: 8rem;
-  border-radius: 0px 0px 0px 30px;
+  //left: 5rem;
+  border-radius: 10px 10px 30px 30px;
   padding:   1rem 1.2rem;
   //margin-top: 1rem;
-  font-size: 2rem;
+  font-size: 1.7rem;
   text-align: center;
   font-weight: 700;
   //clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, 20px 20px);
@@ -107,8 +108,9 @@
   margin-bottom: 1rem;
   font-size: .75rem;
   font-weight: 500;
-  border-left: 1px solid $main-bg;
-  color: rgba(255, 255, 255, 0.836);
+  
+  border-left: 2px solid $main-bg;
+  color: rgba(228, 228, 228, 0.836);
   padding: 5px;
  // margin-right: .5rem;
   overflow: auto;
@@ -118,6 +120,14 @@
   -webkit-box-orient: vertical;
   line-clamp: 7;
   box-orient: vertical;
+
+  @include mobile {
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    line-clamp: 5;
+    margin-bottom: .5rem;
+   font-size: 1rem;
+  }
 }
 .containermodz{
   position: relative;
@@ -125,16 +135,18 @@
 
 .modalsearchcontent{
   position: fixed;
-  top: 9rem;
-  right: 9rem;
+  top: 4rem;
+  right: 4.6rem;
   display: flex;
   flex-direction: column;
   width: 350px;
-  height: 75.5vh;
+  height: 90.5vh;
   z-index: 99 ! important;
  background-repeat: no-repeat;
  background-size: cover;
-  //padding: 1rem;
+ background-color: #0000009a;
+  padding: .5rem;
+  border-radius: 15px;
   //border: 1px solid grey;
   filter: drop-shadow(0 0 1rem rgb(0, 0, 0));
   
@@ -149,7 +161,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 30vh;
+    max-height: 30vh;
     z-index: 98 ! important;
 
   }
@@ -261,13 +273,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   
 }
 .shobuttn{
   background-color: #000000;
   color: #ffffff;
-  border-radius: 20px;
+  border-radius: 10px;
   border: none;
   padding: 12px 20px;
   gap: 5px;
@@ -284,10 +296,10 @@
 .shobuttn2{
   background-color: #000000;
   color: #5b5858;
-  border-radius: 50px;
+  border-radius: 10px;
   border: none;
   padding: 10px;
-  padding-left: 12px;
+  padding-left: 14px;
   //gap: 5px;
  // margin-left: 1px;
    scale: 1.2;
@@ -302,9 +314,16 @@
 }
 .szz{
   background-color: #000000;
-  padding: 7px;
-  border-radius: 25px;
-  margin-left: .6rem;
+  padding: 5.94px;
+  border-radius: 10px;
+  margin-left: .9rem;
+
+  @include mobile{
+    background-color: #000000;
+  padding: 5px;
+  border-radius: 10px;
+  margin-left: .9rem;
+  }
 
   &:hover{
     background-color: rgba(0, 0, 0, 0.87);

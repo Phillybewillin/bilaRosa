@@ -78,7 +78,7 @@ const MovieCard = React.memo((props) => {
             localStorage.setItem('ContinueWatching' , JSON.stringify(continueWatching));
             //console.log(continueWatching);
         }
-        //navigate(`/${category}/${id}`);
+        navigate(`/${category}/${id}`);
     }
     const inCinema = (releaseDate) => {
         const today = new Date();
@@ -135,8 +135,8 @@ const MovieCard = React.memo((props) => {
             <Skeleton borderRadius={20} style={{background: 'linear-gradient(120deg, rgba(0, 28, 0, 0.7), rgba(66, 0, 13, 0.7))' ,margin :'0 5px'}} customHighlightBackground = 'linear-gradient(120deg, rgba(0, 28, 0, 0.7), rgba(66, 0, 13, 0.7))' variant="rect" className="movie-card"/>
           </SkeletonTheme>
         ) : (
-          <div className="bgmov" onClick={() => handlecardClick(item.id,props.category, item.title || item.name, item.poster_path) }>
-          <div className="movie-card" onClick={() => navigate(`/${props.category}/${item.id}`) }  style={{backgroundImage : `url(${bg})`, backgroundSize : 'cover' , backgroundPosition : 'center' , backgroundRepeat : 'no-repeat'}}>
+         
+          <div className="movie-card" onClick={() => handlecardClick(item.id,props.category, item.title || item.name, item.poster_path)}  style={{backgroundImage : `url(${bg})`, backgroundSize : 'cover' , backgroundPosition : 'center' , backgroundRepeat : 'no-repeat'}}>
             <div className="inCinema">
               <i className='bx bx-badge-check' style={{fontSize :'12px'}}></i> { cinemaStatus}
             </div>
@@ -162,7 +162,7 @@ const MovieCard = React.memo((props) => {
                 </div>
           </div>
           </div> 
-          </div>
+         
           
         )}
     

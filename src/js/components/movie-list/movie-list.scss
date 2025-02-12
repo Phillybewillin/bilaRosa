@@ -16,7 +16,7 @@
    //background-color: rgba(18, 18, 18, 0.724);
    color: white;
    padding: 7px;
-   //border-left: 1px solid rgba(233, 233, 233, 0.644);
+   border: 1px solid rgba(226, 226, 226, 0.199);
    font-size: smaller;
    background-color: $black;
    border-top-right-radius: 5px;
@@ -34,10 +34,11 @@
    
     position: absolute;
     z-index: 10;
-    right: 45px;
+    right: 46px;
    padding: 7px;
    color:white;
-  //border-right: 1px solid rgba(233, 233, 233, 0.644);
+   border: 1px solid rgba(226, 226, 226, 0.199);
+   
    font-size: smaller;
    background-color: $black;
    border-top-left-radius: 5px;
@@ -55,14 +56,14 @@
     scale: .9;
     transition: all .3s ease-in-out;
     cursor: pointer;
-    color: rgb(240, 11, 61);
+    border: 1px solid $main-bg;
     
 }
 .left:hover{
     scale: .9;
     transition: all .3s ease-in-out;
     cursor: pointer;
-    color: rgb(237, 31, 16);
+    border: 1px solid $main-bg;
 }
 .mainbox{
     width: 99%;

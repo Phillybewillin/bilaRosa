@@ -4,9 +4,9 @@
 .movie-card {
   cursor: pointer;
   display: inline-block;
-  width: 95%;
-  
-    position: relative;
+  width: 98%;
+  margin-left:3px;
+    position: relative !important;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -23,7 +23,7 @@
         align-items: center;
         position: absolute;
         top: 1px;
-       // z-index: 1001;
+        z-index: 0;
         right: 1px;
         background-color: rgba(33, 19, 22, 0.662);
         padding:  8px;
@@ -37,11 +37,11 @@
       position: absolute;
       bottom: 20px;
       left: 0;
-      //z-index: 100;
+      z-index: 10;
       color: rgb(255, 255, 255);
       background-color: rgba(0, 0, 0, 0.45);
       //backdrop-filter: blur(20px);
-      padding: 4px 8px;
+      padding: 5px 8px;
       //border: 1.2px solid rgb(25, 25, 25);
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px;
@@ -50,6 +50,50 @@
       border-left: 1px solid rgba(255, 3, 32, 0.858);
         
     }
+    .year{
+      display: flex;
+      position: absolute;
+      bottom: -165px;
+      left: 0;
+      //z-index: 100;
+      color: rgb(255, 255, 255);
+      background-color: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(20px);
+      padding: 6px 8px;
+      //border: 1.2px solid rgb(25, 25, 25);
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      font-size: 9px;
+      font-weight: 300;
+      border-left: 1px solid rgba(255, 255, 255, 0.858);
+        
+    }
+    
+    .vote{
+      position: absolute;
+      display: flex;
+      //position: absolute;
+      bottom: -120px;
+      left: 0;
+      //z-index: 100;
+      //color: rgb(255, 255, 255);
+      background-color: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(20px);
+      padding: 8px;
+      //border: 1.2px solid rgb(25, 25, 25);
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      font-size: 9px;
+      font-weight: 600;
+      border-left: 1px solid rgba(121, 121, 121, 0.858);
+        
+    
+      @include mobile {
+        //right: 3rem;
+      }
+    
+    }
+    
     &::before {
       content: "";
       position: absolute;
@@ -68,6 +112,7 @@
      //@include overlay;
   
   }
+  
     
     @media (hover:hover) {
 
@@ -90,6 +135,7 @@
             display: flex;
             align-items: center;
            width: 50%;
+           z-index: 73 !important;
             justify-content: center;
             height: 50%;
             scale: 1.4;
@@ -102,15 +148,17 @@
         &:hover::before{
             background-image: linear-gradient(180deg, transparent ,$body-bg 100%);
             padding-top: 2rem;
+            z-index: inherit;
             opacity: 1;
             border-radius: 20px;
-            //backdrop-filter: blur(10px);
-            transition: all .3s ease-in-out;
+            backdrop-filter: blur(20px);
+            transition: all .2s ease-in-out;
         }
 
         &:hover .btnz {
            // background-color: #2928280d;
-           color: rgb(255, 0, 43);
+            color: rgb(255, 205, 213);
+            z-index: inherit;
             //padding: 10px;
             //width: 25%;
             //scale: 1.1;
@@ -119,6 +167,14 @@
             transition: all .3s ease-in-out;
         
         }
+        &:hover .inCinema {
+          // background-color: #2928280d;
+           color: rgb(255, 205, 213);
+           z-index: -1;
+          
+           transition: all .1s ease-in-out;
+       
+       }
 
     }
 }
@@ -177,61 +233,18 @@
     display: flex;
     transition: all .5s ease-in-out;
 }
-.year{
-  display: flex;
-  position: absolute;
-  top: 208px;
-  left: 0;
-  //z-index: 100;
-  color: rgb(255, 255, 255);
-  background-color: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(20px);
-  padding: 6px 8px;
-  //border: 1.2px solid rgb(25, 25, 25);
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  font-size: 9px;
-  font-weight: 300;
-  border-left: 1px solid rgba(255, 255, 255, 0.858);
-    
-}
-
-.vote{
-  position: absolute;
-  display: flex;
-  position: absolute;
-  top: 165px;
-  left: 0;
-  //z-index: 100;
-  //color: rgb(255, 255, 255);
-  background-color: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(20px);
-  padding: 8px;
-  //border: 1.2px solid rgb(25, 25, 25);
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  font-size: 9px;
-  font-weight: 600;
-  border-left: 1px solid rgba(121, 121, 121, 0.858);
-    
-
-  @include mobile {
-    //right: 3rem;
-  }
-
-}
 
 .titlename{
   background-color: #02020285;
   font-weight: 450;
   backdrop-filter: blur(3px);
   padding: 5px 10px;
-  border-radius: 10px;
+  border-radius: 15px;
 }
 .savemovie{
   display: flex;
   position: absolute;
-  top: 235px;
+  bottom: -195px;
   right: 0;
   //z-index: 100;
  // color: rgb(255, 255, 255);

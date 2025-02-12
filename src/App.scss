@@ -10,13 +10,13 @@
 
 html {
   font-size: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.11);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.31);
   @include tablet {
-    font-size: 80%;
+    font-size: 75%;
   }
 
   @include mobile {
-    font-size: 60%;
+    font-size: 64%;
   }
 }
 
@@ -34,7 +34,7 @@ a {
 }
 button,
 input {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.11);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.31);
   outline: 0;
   border: 0;
 }

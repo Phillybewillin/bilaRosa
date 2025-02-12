@@ -13,8 +13,9 @@
   gap: 10px;
   align-items: center;
 }
+
 .banner {
-    height: 84vh;
+    height: 100vh;
     position: fixed;
     background-position: center;
     background-size: cover;
@@ -22,16 +23,19 @@
     top: 0;
     left: 0;
     width: 100%;
+    
     //z-index: 1;
 
     &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: linear-gradient(180deg, rgba(127, 117, 117, 0), rgba(0, 0, 0, 0.498));
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 25%; /* adjust this value to control the amount of blur */
+      background-image: inherit;
+      filter: blur(25px);
+        //background-image: linear-gradient(180deg, rgba(127, 117, 117, 0), rgba(0, 0, 0, 0.498));
     
        @include overlay();
     }
@@ -43,12 +47,13 @@
         left: 0;
         width: 100%;
         height: 100%;
-       background-image: linear-gradient(180deg, rgba(127, 117, 117, 0), rgba(0, 0, 0, 0.936));
+       background-image: linear-gradient(180deg, rgba(127, 117, 117, 0), rgba(0, 0, 0, 0.865));
      // background-image: linear-gradient(90deg, $black, rgba(127, 117, 117, 0));
     }
 
     @include mobile {
-        height: 63vh;
+      
+        height: 100vh;
     }
 }
 .postertitlett{
@@ -114,7 +119,7 @@
 
   @include mobile {
     position: absolute;
-    top: -31rem ;
+    top: -30.5rem ;
     right: 3px;
   }
 }
