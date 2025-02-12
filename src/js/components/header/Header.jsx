@@ -187,7 +187,7 @@ const Header = () => {
                 </div>
               ) : (
                 <div className="clearsearch" onClick={() => setHidesearch(!hidesearch)}>
-                  Close Search
+                  Close
                 </div>
               )}
             </div>
