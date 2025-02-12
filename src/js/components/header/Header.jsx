@@ -13,7 +13,6 @@ import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/zoom.css';
 import Avatar from 'react-avatar';
 import apiConfig from '../../api/apiConfig';
-import { DNA } from 'react-loader-spinner';
 
 const Header = () => {
   const { user, logOut } = UserAuth();
@@ -217,11 +216,13 @@ const Header = () => {
                 menuButton={
                   <MenuButton>
                     <Avatar
+                     style={{cursor : 'pointer' ,borderRadius : '5px'}}
                       name={user?.email || ''}
                       size="43"
-                      round
+                     // borderRadius="5px"
+                      round='5px'
                       src={user?.photoURL}
-                      color="#000000d9"
+                      color="#000000a9"
                     />
                   </MenuButton>
                 }
@@ -293,9 +294,9 @@ const Header = () => {
                     <Avatar
                       name={user?.email || ''}
                       size="43"
-                      round
+                      round='5px'
                       src={user?.photoURL}
-                      color="#000000d9"
+                      color="#000000a9"
                     />
                   </MenuButton>
                 }
