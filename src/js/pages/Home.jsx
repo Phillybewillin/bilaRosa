@@ -185,8 +185,9 @@ const Home = () => {
 <div className="continue_watchingcontainer">
         {
           continueWatching.length > 0 && (
-            <div className="divcon">
-                <h4 className="favazi">Recently Viewed</h4>
+            <div className="divconw">
+                <h4 className="favaziwwr">Recently Viewed</h4>
+                <i class='bx bx-cross'></i>
             </div>
             
           )
@@ -203,18 +204,17 @@ const Home = () => {
                 alt={item.title}
               />
               <p className="movietitle"  onClick={() => handleCardClick(item.id, item.category, item.title || item.name, item.poster_path)}
-               >{item.title || item.name}</p>
+               >{item.category==='tv' ? 'Show' : 'Movie'}</p>
               <i
                 onClick={() => handleDelete(item.id)}
-                className="bx bxs-trash"
+                className="bx bx-trash"
                 style={{
-                  color: 'rgba(255, 245, 245, 0.354)',
+                  color: 'rgba(83, 83, 83, 0.54)',
                   fontSize: '20px',
                   cursor: 'pointer',
                   position: 'absolute',
-                  bottom: '7px',
+                  bottom: '5px',
                   right: '1px'
-                  
                 }}
               ></i>
             </div>
@@ -228,8 +228,11 @@ const Home = () => {
       {user && !isLoading && watchlist?.length > 0 && (
         
            <div className="watchlisthome" style={{color : 'white'}}>
-            <div className="favew"><h3 className="fava">From Your Watchlist</h3></div>
-             {
+            <div className="dfavaziwatchlist">
+                <h4 className="favaziwwr">My Watchlist</h4>
+                
+                <i class='bx bx-library'></i>
+            </div>  {
            watchlist.map((item, i) => 
               <div  
                key={i}
