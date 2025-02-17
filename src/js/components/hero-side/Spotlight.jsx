@@ -77,11 +77,72 @@ const Spotlight = () => {
             //pointCursor = {true}
             autoplay={{ delay: 4500 }}
           > 
+           <SwiperSlide>
+              <div className="spotlight-item">
+              <h1 className="spotlight-number">PG</h1>
+                <img src={'https://image.tmdb.org/t/p/original/cVh8Af7a9JMOJl75ML3Dg2QVEuq.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(141, 50, 11, 0.25))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .8 #Movies</h4>
+                
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/hPBv7wPNhtDDmWJzReybVPqfkzt.png"/></h2>
+                
+                  
+                  <p className="spotlight-genres">
+                    <span className="genre a">Animation</span>
+                    <span className="genre a">Adventure</span>
+                    <span className="genre a">Family</span>
+                  </p>
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  <p className="spotlight-overview">
+
+Mufasa, a cub lost and alone, meets a sympathetic lion named Taka, the heir to a royal bloodline. The chance meeting sets in motion an expansive journey of a group of misfits searching for their destiny.
+
+</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/movie/762509')}>  <i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 762509, "Mufasa The Lion King")}>  <i className='bx bx-play'></i> Watch Now </Button>
+                  </div>
+                  </div>
+              </div>
+            </SwiperSlide> 
+           <SwiperSlide>
+              <div className="spotlight-item">
+              <h1 className="spotlight-number">PG-13</h1>
+                <img src={'https://image.tmdb.org/t/p/original/AdGdjsogmPLZMrY3YfpPw7dhaCQ.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(33, 27, 71, 0.25))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .10 #Movies</h4>
+                
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w1280/iuCgpPWt4TZF1rwWyhHBK0XRycV.png"/></h2>
+                
+                  
+                  <p className="spotlight-genres">
+                    <span className="genre a">Horror</span>
+                    <span className="genre a">Action</span>
+                    <span className="genre a">Fantasy</span>
+                    <span className="genre a">Romance</span>
+                    <span className="genre a">Sci-Fi</span>
+                  </p>
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2025</h6>
+                  </div>
+                  <p className="spotlight-overview">Two highly trained operatives grow close from a distance after being sent to guard opposite sides of a mysterious gorge. When </p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/movie/950396')}>  <i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 950396, " the gorge")}>  <i className='bx bx-play'></i> Watch Now </Button>
+                  </div>
+                  </div>
+              </div>
+            </SwiperSlide>
+
           
              <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">R</h1>
-                <img src={'https://image.tmdb.org/t/p/original/wwARk7hRIfHfh2n2ubN6N7lvTne.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgb(170, 161, 176,0.3))'}}/>
+                <img src={'https://image.tmdb.org/t/p/original/wwARk7hRIfHfh2n2ubN6N7lvTne.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgba(9, 35, 18, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon"> #Spotlight .1 #MOVIES</h4>
@@ -105,6 +166,35 @@ const Spotlight = () => {
                   </div>
                  </div>
             </SwiperSlide> 
+            <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">TV-MA</h1>
+                <img src={'https://image.tmdb.org/t/p/original/5OsiT39OiZNdD0v2LiAcI2TpSYj.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.9rem rgba(26, 131, 193, 0.25))'}} />
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                <h4 className="spon">#Spotlight .1.5 #TVSHOWS</h4>
+                
+                <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w1280/yyS1tALk7t3YdTNMOvR5gsnXINA.png"/></h2>
+                
+                
+                  
+                  <p className="spotlight-genres">
+                       <span className="genre a">Sci-Fi & Fantasy</span>
+                        <span className="genre a">Drama</span>
+                        
+
+                  </p>    
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Show</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2022</h6>
+                  </div>
+                  <p className="spotlight-overview">Mark leads a team of office workers whose memories have been surgically divided between their work and personal lives. When a mysterious colleague appears outside of work, it begins a journey to discover the truth about their jobs.</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('tv/95396')}> <i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 95396, "Severance" ,1 ,1)}>  <i className='bx bx-play'></i> Watch Now</Button>
+                  </div>
+                   </div>
+              </div>
+            </SwiperSlide>
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
@@ -138,7 +228,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/original/dfmPbyeZZSz3bekeESvMJaH91gS.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.5rem rgb(151, 68, 84, 0.3))'}}/>
+                <img src={'https://image.tmdb.org/t/p/original/dfmPbyeZZSz3bekeESvMJaH91gS.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.5rem rgba(41, 14, 14, 0.3))'}}/>
                 <div className="fuck"></div>
                 <div className="spotlight-content">
                   <h4 className="spon">#Spotlight .2 #TVSHOWS</h4>
@@ -163,6 +253,38 @@ const Spotlight = () => {
                   </div>
               </div>
             </SwiperSlide>
+            <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">TV-MA</h1>
+                <img src={'https://image.tmdb.org/t/p/original/rCTLaPwuApDx8vLGjYZ9pRl7zRB.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.9rem rgba(8, 46, 11, 0.5))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                <h4 className="spon">#Spotlight .4 #TVSHOWS</h4>
+                
+                <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/2SwIOcXZ4you4EjPCAw7IucCsgX.png"/></h2>
+                
+                
+                  
+                  <p className="spotlight-genres">
+                       <span className="genre a">Comedy</span>
+                       <span className="genre a">Mystery</span>
+                        <span className="genre a">Drama</span>
+                        
+
+                  </p>    
+                  <div className="spotty">
+                  <h6 className="genre b">HD</h6><h6 className="genre a">Show</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2021</h6>
+                  </div>
+                  <p className="spotlight-overview">Follow the exploits of various guests and employees at an exclusive tropical resort over the span of a week as with each passing day, a darker complexity emerges in these picture-perfect travelers, the hotel’s cheerful employees and the idyllic locale itself..</p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('tv/111803')}> <i className='bx bx-info-circle'></i> Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 111803, "the white lotus" ,1 ,1)}>  <i className='bx bx-play'></i> Watch Now</Button>
+                  </div>
+                   </div>
+              </div>
+       
+           
+            </SwiperSlide>
          
             <SwiperSlide>
               <div className="spotlight-item">
@@ -172,7 +294,7 @@ const Spotlight = () => {
                 <div className="spotlight-content">
                 <h4 className="spon">#Spotlight .1 #TVSHOWS</h4>
                 
-                <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/xrjNrgA00XvvHf0oIr0MZ1PLX09.png"/></h2>
+                <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/9REjxZW5p1ORYXEIY1tpfzm1GmM.png"/></h2>
                 
                 
                   
@@ -256,6 +378,39 @@ Big Nick is back on the hunt in Europe and closing in on Donnie, who is embroile
               </div>
             </SwiperSlide>
           
+            <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">TV-MA</h1>
+                <img src={'https://image.tmdb.org/t/p/original/jmcRdwSOb1Bo1snMtxTSWOqbvgR.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(195, 121, 56, 0.25))'}}/>
+                <div className="fuck"></div>
+                <div className="spotlight-content">
+                  <h4 className="spon">#Spotlight .5 #TVSHOWS</h4>
+                 
+                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/dfqnNvicjlul2LAZzet1AePHIAg.png"/></h2>
+                
+               
+                
+                  <p className="spotlight-genres">
+                  
+                   
+                    <span className="genre a">Drama</span>
+                    <span className="genre a">Action & Adventure</span>
+                    <span className="genre a">Mystery</span>
+                
+
+                  </p>
+                  <div className="spotty">
+                   <h6 className="genre b">HD</h6><h6 className="genre a">Series</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
+                  </div>
+                  
+                  <p className="spotlight-overview">In 1991 Miami, Dexter Morgan transitions from student to avenging serial killer. When his bloodthirsty urges can't be ignored any longer, Dexter must learn to channel his inner darkness. With the guidance of his father, Harry, he adopts a Code designed to help him find and kill people who deserve to be eliminated from society without getting on law enforcements' radar. This is </p>
+                  <div className="spotty">
+                  <Button className="btnprime" onClick={() => navigate('/tv/219937')}> <i className='bx bx-info-circle'></i>  Details</Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 219937, "Dexter original sin" ,1 ,1 )}> <i className='bx bx-play' ></i> Watch Now</Button>
+                  </div>
+                  </div>
+              </div>
+           </SwiperSlide>
           
           
            <SwiperSlide>
@@ -349,35 +504,7 @@ Big Nick is back on the hunt in Europe and closing in on Donnie, who is embroile
                  </div>
               </div>
             </SwiperSlide>
-          <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/original/5OsiT39OiZNdD0v2LiAcI2TpSYj.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.9rem rgb(26, 131, 193, 0.25))'}} />
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                <h4 className="spon">#Spotlight .1.5 #TVSHOWS</h4>
-                
-                <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w1280/yyS1tALk7t3YdTNMOvR5gsnXINA.png"/></h2>
-                
-                
-                  
-                  <p className="spotlight-genres">
-                       <span className="genre a">Sci-Fi & Fantasy</span>
-                        <span className="genre a">Drama</span>
-                        
-
-                  </p>    
-                  <div className="spotty">
-                  <h6 className="genre b">HD</h6><h6 className="genre a">Show</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2022</h6>
-                  </div>
-                  <p className="spotlight-overview">Mark leads a team of office workers whose memories have been surgically divided between their work and personal lives. When a mysterious colleague appears outside of work, it begins a journey to discover the truth about their jobs.</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('tv/95396')}> <i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 95396, "Severance" ,1 ,1)}>  <i className='bx bx-play'></i> Watch Now</Button>
-                  </div>
-                   </div>
-              </div>
-            </SwiperSlide>
+        
             
           <SwiperSlide>
               <div className="spotlight-item">
@@ -440,37 +567,7 @@ Big Nick is back on the hunt in Europe and closing in on Donnie, who is embroile
                   </div>
                  </div>
             </SwiperSlide>
-            <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">TV-MA</h1>
-                <img src={'https://image.tmdb.org/t/p/original/fQGrzO0Iwo7CO4b2zVdJLkcnhwK.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.9rem rgb(118, 97, 78 , 0.5))'}}/>
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                <h4 className="spon">#Spotlight .4 #TVSHOWS</h4>
-                
-                <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/orJ5TfInOu5CzgFIDs4avqEg0wu.png"/></h2>
-                
-                
-                  
-                  <p className="spotlight-genres">
-                       <span className="genre a">Sci-Fi & Fantasy</span>
-                        <span className="genre a">Drama</span>
-                        
-
-                  </p>    
-                  <div className="spotty">
-                  <h6 className="genre b">HD</h6><h6 className="genre a">Show</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2023</h6>
-                  </div>
-                  <p className="spotlight-overview">In a ruined and toxic future, a community exists in a giant underground silo that plunges hundreds of stories deep. There, men and women live in a society full of regulations they believe are meant to protect them.</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('tv/125988')}> <i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 125988, "Silo" ,1 ,1)}>  <i className='bx bx-play'></i> Watch Now</Button>
-                  </div>
-                   </div>
-              </div>
-       
            
-            </SwiperSlide>
            <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
@@ -531,34 +628,7 @@ Big Nick is back on the hunt in Europe and closing in on Donnie, who is embroile
                   </div>
               </div>
             </SwiperSlide>
-           <SwiperSlide>
-              <div className="spotlight-item">
-              <h1 className="spotlight-number">R</h1>
-                <img src={'https://image.tmdb.org/t/p/w1280/4YN6AfYIKyfZ1aB0cYEWROv76nU.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(174, 35, 222, 0.25))'}}/>
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .8 #Movies</h4>
-                
-                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/original/axmdOABOzSv28HhAH2ppPuEbG2A.png"/></h2>
-                
-                  
-                  <p className="spotlight-genres">
-                    <span className="genre a">Romance</span>
-                    <span className="genre a">Comedy</span>
-                    <span className="genre a">Drama</span>
-                  </p>
-                  <div className="spotty">
-                  <h6 className="genre b">HD</h6><h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  <p className="spotlight-overview">A young sex worker from Brooklyn gets her chance at a Cinderella story when she meets and impulsively marries the son of an oligarch. Once the news reaches Russia, her fairytale is threatened as his parents set out to get the marriage annulled.</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/movie/1064213')}>  <i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 1064213, "Anora")}>  <i className='bx bx-play'></i> Watch Now </Button>
-                  </div>
-                  </div>
-              </div>
-            </SwiperSlide>
-           
+          
           <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">PG-13</h1>
@@ -587,34 +657,7 @@ Big Nick is back on the hunt in Europe and closing in on Donnie, who is embroile
               </div>
             </SwiperSlide>
             
-            <SwiperSlide>
-              <div className="spotlight-item">
-              <h1 className="spotlight-number">PG-13</h1>
-                <img src={'https://image.tmdb.org/t/p/original/rOmUuQEZfPXglwFs5ELLLUDKodL.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(143, 143, 143, 0.25))'}}/>
-                <div className="fuck"></div>
-                <div className="spotlight-content">
-                  <h4 className="spon">#Spotlight .10 #Movies</h4>
-                
-                  <h2 className="spotlight-name"><img className="spotim" src="https://image.tmdb.org/t/p/w500/rPftQWhQ7ZINyruA3S6rSeaofE2.png"/></h2>
-                
-                  
-                  <p className="spotlight-genres">
-                    <span className="genre a">Comedy</span>
-                    <span className="genre a">Action</span>
-                    <span className="genre a">Fantasy</span>
-                  </p>
-                  <div className="spotty">
-                  <h6 className="genre b">HD</h6><h6 className="genre a">Movie</h6><h5 className="genre a">Overview</h5><h6 className="genre a">2024</h6>
-                  </div>
-                  <p className="spotlight-overview">After Santa Claus (codename: Red One) is kidnapped, the North Pole's Head of Security must team up with the world's most infamous tracker in a globe-trotting, action-packed mission to save Christmas.</p>
-                  <div className="spotty">
-                  <Button className="btnprime" onClick={() => navigate('/movie/845781')}>  <i className='bx bx-info-circle'></i> Details</Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 845781, " Red One")}>  <i className='bx bx-play'></i> Watch Now </Button>
-                  </div>
-                  </div>
-              </div>
-            </SwiperSlide>
-
+           
             <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">R</h1>
