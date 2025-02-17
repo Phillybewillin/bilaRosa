@@ -16,7 +16,7 @@
    //background-color: rgba(18, 18, 18, 0.724);
    color: white;
    padding: 7px;
-   border: 1px solid rgba(226, 226, 226, 0.199);
+   //border-left: 1px solid rgba(233, 233, 233, 0.644);
    font-size: smaller;
    background-color: $black;
    border-top-right-radius: 5px;
@@ -34,11 +34,10 @@
    
     position: absolute;
     z-index: 10;
-    right: 46px;
+    right: 45px;
    padding: 7px;
    color:white;
-   border: 1px solid rgba(226, 226, 226, 0.199);
-   
+  //border-right: 1px solid rgba(233, 233, 233, 0.644);
    font-size: smaller;
    background-color: $black;
    border-top-left-radius: 5px;
@@ -56,24 +55,24 @@
     scale: .9;
     transition: all .3s ease-in-out;
     cursor: pointer;
-    border: 1px solid $main-bg;
+    color: rgb(240, 11, 61);
     
 }
 .left:hover{
     scale: .9;
     transition: all .3s ease-in-out;
     cursor: pointer;
-    border: 1px solid $main-bg;
+    color: rgb(237, 31, 16);
 }
 .mainbox{
     width: 99%;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    //flex-direction: row;
+   // justify-content: space-between;
     //gap: 1rem;
     position: relative;
     margin: .3rem;
-    overflow: hidden;
+    overflow: auto;
     @include mobile {
         flex-direction: column;
         width: 99%;
@@ -93,8 +92,8 @@
 .boxoffice{
     background-color: rgb(0, 0, 0);
     color: rgba(255, 255, 255, 0.92);
-    border-radius: 30px;
-    width: 99%;
+    border-radius: 10px;
+    width: 100%;
     height: 100%;
     overflow: hidden;
     margin: .5rem 0 ;
@@ -103,6 +102,7 @@
     //border-left: 1px solid rgba(233, 233, 233, 0.644);
    // padding: .5rem;
     @include mobile {
+       // overflow: auto;
      font-size: 1rem;
     }
 }
@@ -135,11 +135,11 @@
 }
 .boxofficer{
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     gap: .5rem;
     padding: 7px;
     border: 1px solid  $main-bg;
-   // background-color: rgb(186, 0, 93);
+   //background-color: rgb(186, 0, 93);
     color: rgba(199, 199, 199, 0.692);
     font-weight: 300;
     border-radius: 6px;
@@ -158,8 +158,7 @@
     border-radius: 6px;
     //width: 100%;
 }
-.posterpp{
-    width: 100px;
+.posterpp{ max-width: 100px;
     height: 120px;
     border-radius: 5px;
 }
@@ -184,15 +183,15 @@
     height: 100%;
     padding: .5rem;
 }
-.boxoffice__poster{
-    width: 100px;
+.boxoffice__poster{ max-width: 100px;
     height: 150px;
     //border-radius: 10px;
 }
 .boxoffice__list{
     display: flex;
     position: relative;
-    flex-wrap: nowrap;
+    flex-direction: row;
+    //flex-wrap:;
     justify-content: space-between;
     gap: 1rem;
     padding: .5rem;
@@ -203,14 +202,19 @@
 .watchprov{
     padding: 10px 0;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    
-    justify-content: center;
+    //flex-direction: column;
+  //  flex-wrap: wrap;
+    overflow: auto;
+   //justify-content: end;
+   -ms-overflow-style: none;  /* IE and Edge */
+   scrollbar-width: none;  /* Firefox */
+   &::-webkit-scrollbar {
+   display: none;
+ }
 
     @include mobile {
-        //flex-wrap: nowrap;
-        justify-content: flex-end;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
         width: auto;
         overflow: auto;
     }
@@ -226,7 +230,7 @@
     }
 }
 .backdropstream{
-    width: 97%;
+    width: 99%;
     height: 100%;
     background-position: center;
     object-fit: contain;
@@ -235,8 +239,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 50px;
+     min-width: 100px;
+    height: 70px;
     margin: 5px;
     cursor: pointer;
     //color: red;
@@ -248,9 +252,8 @@
 .max{
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 80px;
-    height: 50px;
+    align-items: center; min-width: 100px;
+    height: 70px;
     margin: 5px;
     cursor: pointer;
     //color: rgb(255, 255, 255);
@@ -268,9 +271,8 @@
 .apple{
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 60px;
-    height: 50px;
+    align-items: center; min-width: 100px;
+    height: 70px;
     margin: 5px;
     cursor: pointer;
     background-image: linear-gradient(to bottom, #000000, #202020);
@@ -280,9 +282,8 @@
 .hbo{
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 60px;
-    height: 50px;
+    align-items: center; min-width: 100px;
+    height: 70px;
     cursor: pointer;
     margin: 5px;
     background-color: rgb(0, 0, 0);
@@ -293,9 +294,8 @@
 .hulu{
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 80px;
-    height: 50px;
+    align-items: center; min-width: 100px;
+    height: 70px;
     margin: 5px;
     cursor: pointer;
     //color: #08EF87;
@@ -307,9 +307,8 @@
 .showtime{
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 70px;
-    height: 50px;
+    align-items: center; min-width: 100px;
+    height: 70px;
     margin: 5px;
     cursor: pointer;
     //color: rgb(0, 0, 0);
@@ -321,9 +320,8 @@
 .prime{
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 80px;
-    height: 50px;
+    align-items: center; min-width: 100px;
+    height: 70px;
     margin: 5px;
     cursor: pointer;
     //color: rgb(255, 255, 255);
@@ -335,9 +333,8 @@
 .disney{
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 70px;
-    height: 50px;
+    align-items: center; min-width: 100px;
+    height: 70px;
     margin: 5px;
     cursor: pointer;
     //color: #e3e9f6;
@@ -349,9 +346,8 @@
 .comedyc{
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 80px;
-    height: 50px;
+    align-items: center; min-width: 100px;
+    height: 70px;
     margin: 5px;
     cursor: pointer;
     //filter: invert(1);
@@ -360,12 +356,25 @@
     padding: 10px 5px;
     border-radius: 10px;
 }
+.fox{
+    display: flex;
+    justify-content: center;
+    align-items: center; min-width: 100px;
+    height: 70px;
+    margin: 5px;
+    cursor: pointer;
+    filter: invert(1);
+    //color: rgb(0, 0, 0);
+    background-color: rgba(255, 255, 255, 0.858);
+    padding: 10px 5px;
+    border-radius: 10px;
+   
+}
 .fx{
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 60px;
-    height: 50px;
+    align-items: center; min-width: 100px;
+    height: 70px;
     margin: 5px;
     cursor: pointer;
     filter: invert(1);
@@ -378,15 +387,14 @@
 .paramount{
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 70px;
-    height: 50px;
+    align-items: center; min-width: 100px;
+    height: 70px;
     margin: 5px;
     cursor: pointer;
     //color: rgb(0, 0, 0);
     background-color: rgba(255, 255, 255, 0.858);
     padding: 10px 5px;
-    border-radius: 5px;
+    border-radius: 10px;
     
 }
 
