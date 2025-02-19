@@ -103,7 +103,7 @@ const Mlist = ({ movies , value }) => {
        
         <div className="detaizza">
         <div className="background-image" style={{
-    backgroundImage: `url(${apiConfig.w200Image(selectedMovie.poster_path)})`,
+    backgroundImage: `url(${apiConfig.w500Image(selectedMovie.poster_path)})`,
     
   }} />  
         <h2 className="movietitleza">{selectedMovie.title || selectedMovie.name}</h2>
@@ -122,11 +122,8 @@ const Mlist = ({ movies , value }) => {
                  {selectedMovie.original_language.toUpperCase()}
                 </p>
           </div>
-          <h3 className="movietitlesum">~ SUMMARY</h3>
-          <p className="overviewseries">"{selectedMovie.overview}"</p>
            <div className="showwet">
-             <button className="shobuttn2" onClick={() => handlecardClick(selectedMovie.id,selectedMovie.category || selectedMovie.media_type, selectedMovie.title || selectedMovie.name, selectedMovie.poster_path,)}><i className='bx bx-info-circle'></i></button>
-            <div className="szz">
+             <div className="szz">
             {
                                         saved ? (
                                             <div className="languagezz" onClick={() => setSaved(false)}><i class='bx bxs-add-to-queue' style={{fontSize:'17px'}} ></i> Added To Watchlist</div>
@@ -136,7 +133,10 @@ const Mlist = ({ movies , value }) => {
                               
                                         )
                }
-              </div>   
+              </div> 
+              
+              <button className="shobuttn2" onClick={() => handlecardClick(selectedMovie.id,selectedMovie.category || selectedMovie.media_type, selectedMovie.title || selectedMovie.name, selectedMovie.poster_path,)}><i className='bx bx-info-circle'></i></button>
+           
               <button className="shobuttn" onClick={() => handleClickza(selectedMovie)}>
               <i className='bx bx-play'></i> Watch
             </button>
@@ -161,6 +161,7 @@ const Mlist = ({ movies , value }) => {
                  src={movie?.poster_path ? `https://image.tmdb.org/t/p/w200/${movie.poster_path}` : ""}
                  alt={movie.title || movie.name}
               />
+              <p className="movititlesearch">{movie.title || movie.name}</p>
               
             </div>
           ))}
