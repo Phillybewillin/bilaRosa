@@ -40,7 +40,7 @@ const Sidebar = () => {
       searchParams.delete("query");
     }
     navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
-  }, [searchValue, navigate, location.pathname]);
+  }, [navigate, searchValue]);
 
   const headerNav = [
     {
@@ -159,15 +159,16 @@ const Sidebar = () => {
         {/* Search modal */}
         {!hidesearch && (
           <div className="searchabsolute">
+           
+            <div className="searchmovieabsolute">
             <div className="searchios" onClick={() => setHidesearch(!hidesearch)}>
               <h2 className="searchabsolutetitle">
                 {searchValue ? ` Showing Results for '${searchValue}'` : 'Search'}
               </h2>
-              <h2 className="searchabsolutetitle">
+              <h2 className="searchabsolutetitleicon">
                 <i className='bx bx-search-alt'></i>
-              </h2>
+            </h2>
             </div>
-            <div className="searchmovieabsolute">
               <Input
                 type="text"
                 placeholder="Search anything 🍿"
