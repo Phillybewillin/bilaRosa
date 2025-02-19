@@ -6,7 +6,7 @@
     left: 0;
     //bottom: 0;
     height: 100vh;
-    z-index: 40;
+    z-index: 11 !important;
     width: 60px;
     //backdrop-filter: blur(10px);
     background: linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0));
@@ -19,7 +19,7 @@
         opacity: .3; 
        // backdrop-filter: none;
         background: linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0));
-   
+        z-index: 99;
         transition: all .5s ease-in-out;
 
         &:hover{
@@ -37,8 +37,9 @@
   
   }
   .headersidebar{
-    margin-top: calc(100vh - 31rem);
+    margin-top: 4rem;
     //background-color: #3030305b;
+    z-index: 1000 !important;
     height: 100%;
     width: inherit;
   }
@@ -129,18 +130,21 @@
   font-size: .7rem;
 }
 .searchabsolute{
-    position: absolute;
+    position: fixed;
+    display: flex;
+    justify-content: center;
     top: 0;
-    left: 60px;
+    left: 0;
     right: 0;
     bottom: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 20;
+    z-index: 0;
     //width: 100%;
     background-image: radial-gradient(transparent 2px, #000 0);
     background-size: 4px 4px;
-    backdrop-filter: brightness(1.1) blur(14px) !important;
+    backdrop-filter: brightness(.3) blur(14px) !important;
+    backdrop-filter: blur(10px);
 }
 .searchmovieabsolute{
     //background-color: ;
@@ -150,28 +154,28 @@
   //justify-content: flex-start;
   padding: 0 0.3rem;
   position: absolute;
-  top: 4rem;
+  top: 5rem;
   left: 0;
-  right: 6.5rem;
+  right: 0;
   bottom: 0;
   z-index: 19;
   flex-direction: column;
   align-items: center;
   
  // width: 400px;
-  input {
-      background-color: rgba(0, 0, 0, 0.575);
-     
-      margin-top: .5rem;
-      border-radius: 20px;
-      text-align: center;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-     color: rgb(255, 255, 255);
-     padding: .8rem 1.3rem;
-     margin-bottom: 1rem;
-     width: 500px;
-     border: 2px solid rgba(250, 6, 71, 0.468);
+ input {
+    background-color: rgba(0, 0, 0, 0.575);
+   
+    //margin-top: .1rem;
+    border-radius: 10px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+   color: rgb(255, 255, 255);
+   padding: .7rem 1.3rem;
+   margin-bottom: .4rem;
+   width: 450px;
+   border: 2px solid rgba(104, 104, 104, 0.203);
      
      &:focus {
        outline: none;
@@ -185,10 +189,11 @@
     
      @include mobile {
        border: none;
-       border-radius: 20px;
+       border-radius: 10px;
       // margin-top: 4px;
-       backdrop-filter: none;
-       -webkit-backdrop-filter: none;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+   
        padding: 1rem 1.5rem;
        background-color: rgba(0, 0, 0, 0.826);
        width: 100%;
@@ -268,7 +273,7 @@
     width: 320px;
     max-height: 114px;
    // min-height: 50px;
-    display: flex;
+    display: none;
    flex-direction: column;
    //flex-wrap: wrap;
     padding:    .5rem;
@@ -309,7 +314,7 @@
     }
 }
 .suggy{
-    display: flex;
+    display: none;
     align-items: center;
     border-radius: 10px;
     color: $main-bg;
@@ -325,13 +330,13 @@
     }
 }
 .searchabsolutetitle{
-    background: linear-gradient(to right, rgb(160, 160, 160), rgb(255, 255, 255));
+    background: linear-gradient(to right, rgb(234, 234, 234), rgb(255, 255, 255));
     background-clip: text;
    -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;
-    margin-left: -6rem;
-    padding: 10px ;
-    font-size: 2rem;
+    //margin-left: -6rem;
+   // padding: 10px ;
+    font-size: 1.3rem;
     text-align: center;
     filter: drop-shadow(0 0 3rem rgb(0, 0, 0));
     //box-shadow: #bc1d1d39 0px 0px 10px 0px;
@@ -339,11 +344,13 @@
 
 .searchios{
     display: flex;
-    width: 95%;
-    justify-content: space-around;
+
+    width: 70vh;
+    justify-content: space-between;
+    padding-right: .5rem;
     align-items: center;
     z-index: 70 !important;
-    border-radius: 0 0 10px 10px;
-    background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(2, 2, 2, 0.553));
+    //border-radius: 0 0 10px 10px;
+    //background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(2, 2, 2, 0.553));
   
 }
