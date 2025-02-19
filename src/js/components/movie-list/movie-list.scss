@@ -81,10 +81,10 @@
 }
 .boxoffice__title{
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.5rem;
     padding: 10px;
     border-bottom: .5px solid transparent;
-    //border-image: linear-gradient(to left, rgb(0, 211, 248), rgb(206, 60, 133)) 1;
+    border-image: linear-gradient(to left, rgb(0, 211, 248), rgb(206, 60, 133)) 1;
     color: rgba(255, 255, 255, 0.92);
     font-weight: 200;
 
@@ -106,18 +106,27 @@
      font-size: 1rem;
     }
 }
-
+.zest{
+    display: flex;
+    justify-content: space-between;
+}
 .boxoffice__movie{
     cursor: pointer;
     display: flex;
     flex-direction: row;
     width: 100%;
-    gap: .3rem;
+   // gap: .3rem;
     padding: 7px;
+    margin-bottom: 1rem;
     //background-color: rgba(15, 15, 15, 0.08);
-    color: rgb(255, 255, 255);
+    color: rgb(168, 168, 168);
     border-radius: 5px;
-    font-weight: 300;
+    font-size: 3rem;
+    font-weight: 700;
+
+    @include mobile {
+        font-size: 2.5rem;
+      }
 
 
 }
@@ -160,7 +169,11 @@
 }
 .posterpp{ max-width: 100px;
     height: 120px;
-    border-radius: 5px;
+    border-radius: 10px;
+
+    &:hover{
+        filter: grayscale(20)
+    }
 }
 .boxofficerz{
     display: flex;
@@ -249,6 +262,7 @@
     border-radius: 10px ;
 
 }
+
 .max{
     display: flex;
     justify-content: center;
@@ -398,6 +412,22 @@
     
 }
 
+.boxoffice__titlecat{
+    background-color: #000000bf;
+    padding: 10px 26px;
+    border-radius: 7px;
+    font-size: small;
+    cursor: pointer;
+    font-weight: 300;
+    transition: all .3s ease-in-out;
+}
+.boxoffice__titlecat:hover{
+    background-color: white;
+    color: #000000;
+    ///scale: 1.5;
+    
+}
+
 .boxoffice__button{
     padding: 10px;
     border-radius: 10px;
@@ -427,13 +457,22 @@
 }
 .settitle{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+
+    @include mobile {
+        justify-content: space-between;
+   
+    }
 }
 .boxoffice__titlez{
     color: rgba(255, 255, 255, 0.831);
     font-weight: 600;
     font-size: 1.2rem;
+
+    @include mobile {
+        font-size: 1rem;
+    }
 }
 .bettingholder{
     position: sticky;
@@ -516,14 +555,14 @@
 }
 .overviewboxoff{
     position: absolute;
-    top: 2.4rem;
-    left: 8.5rem;
-    color: rgba(255, 255, 255, 0.386);
+    bottom: -1rem;
+    right: 7.5rem;
+    color: rgba(255, 255, 255, 0.632);
     font-weight: 200;
-    font-size: 0.74rem;
+    font-size: 0.75rem;
     height: 67px;
     z-index: -2;
-    max-width: 50%;
+    max-width: 70%;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -532,8 +571,9 @@
     -webkit-box-orient: vertical;
 
     @include tablet {
+        font-size: 0.8rem;
         max-width: 50%;
-        top: 3.3rem;
+        top: 6.3rem;
         left: 11rem;
     }
 }
