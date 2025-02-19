@@ -28,7 +28,7 @@
       justify-content: center;
       margin-left: 0;
       width: 100%;
-      margin-top: 32rem;
+      margin-top: 31.2rem;
      //margin-top: calc(100vh - 69rem);
        //gap: 14rem;
        //columns: 3;
@@ -189,7 +189,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-height: 31vh;
+    max-height: 34vh;
     z-index: 98 ! important;
 
   }
@@ -215,6 +215,7 @@
   
   @include mobile{
     //right: 0px;
+    top: 2rem;
   display: flex;
   flex-direction: column;
   width: 40%;
