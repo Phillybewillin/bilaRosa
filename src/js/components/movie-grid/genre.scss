@@ -2,16 +2,16 @@
 
 .tags{
    position: sticky;
-  
+   
    top: 0px;
-   z-index: 29;
+    z-index: 59;
     display: flex;
     flex-direction: row;
     align-items: center;
     text-align: center;
     overflow: auto;
     gap: 5px;
-    padding: 5px;
+    padding: 1px;
     border-radius: 1px;
     stroke-width: 1px;
     scrollbar-width: 10px;
@@ -33,19 +33,22 @@
     justify-content: center;
     position: relative;
     color: white;
-    font-size: .72rem;
-    padding: 7px 20px;
+    font-size: .7rem;
+    padding: 7px 40px;
     height: 40px;
     min-width: 120px;
     text-align: center;
-    //border: 1px solid #4f4f4fb8;
-    background: rgba(70, 65, 65, 0.384);
-    border-radius: 20px;
+    border: 1.3px solid #4f4f4fb8;
+    //background: rgba(50, 46, 46, 0.384);
+    border-radius: 10px;
     cursor: pointer;
-    font-weight: 500;
-    //transition: all 0.5s ease-in-out;
+    font-weight: 300;
+    //border: 1px solid #4f4f4f00;
+     
+    transition: all 0.5s ease-in-out;
     &:hover{
-        opacity: 0.9;
+        opacity: 0.5;
+        border: 1px solid pink;
        // transition: all 0.5s ease-in-out;
     }
     
@@ -57,7 +60,7 @@
 .tagOutline{
     position: relative;
     padding: 2.5px;
-    border-radius: 20px;
+    border-radius: 10px;
     background: #15151500;
     transition: all 0.5s ease-in-out;
 
@@ -68,10 +71,11 @@
 }
 
 .tag.selected {
-    border-radius: 18px;
+    border-radius: 10px;
+    border: none;
     color: rgb(254, 254, 254);
     backdrop-filter: blur(10px);
-    background: rgba(17, 17, 17, 0.438);
+    background: rgba(0, 0, 0, 0.393);
     transition: all 0.5s ease-in-out;
 }
 .tagOutline.selected::before{
@@ -81,7 +85,7 @@
   left: 1;
   bottom: 0;
   right: 0;
-  border-radius: 20px;
+  border-radius: 10px;
   background: linear-gradient(
     45deg,
     #ff0008,
@@ -102,7 +106,7 @@
   left: 0;
   bottom: 0;
   right: 0;
-  border-radius: 20px;
+  border-radius: 10px;
   background: linear-gradient(
     45deg,
     #ff0008,
@@ -121,7 +125,7 @@
 .tagOutline.selected::after {
     filter: blur(25px);
     transform: translate3d(0, 0, 0);
-    border-radius: 20px;
+    border-radius: 10px;
   }
 @keyframes glow {
     0% {
