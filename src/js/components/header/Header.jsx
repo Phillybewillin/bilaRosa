@@ -27,7 +27,9 @@ const Header = () => {
   const [hidesearch, setHidesearch] = useState(true);
   const [searchValue, setSearchValue] = useState('');
   const [noResults, setNoResults] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  const [showrandom , setShowRandom] = useState(false);
+ 
   // --- Persist search query from URL on mount ---
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -121,7 +123,7 @@ const Header = () => {
       }
     }
   };
-
+ 
   // --- Trigger search when searchValue changes ---
   useEffect(() => {
     if (searchValue && searchValue.trim() !== "") {
@@ -130,6 +132,27 @@ const Header = () => {
     setNoResults(false);
     setShowModal(false);
   }, [searchValue, user]);
+
+  const fetchRandomId = async (type) => {
+    setLoading(true);
+    try {
+      const totalPages = 500; // Max TMDB pages
+      const randomPage = Math.floor(Math.random() * totalPages) + 1;
+      const response = await fetch(
+        `https://api.themoviedb.org/3/discover/${type}?api_key=${apiConfig.apiKey}&page=${randomPage}`
+      );
+      const data = await response.json();
+      if (data.results.length > 0) {
+        const randomIndex = Math.floor(Math.random() * data.results.length);
+        const randomId = data.results[randomIndex].id;
+        navigate(`/${type}/${randomId}`);
+      }
+    } catch (error) {
+      console.error("Error fetching random ID:", error);
+    } finally {
+     setLoading(false);
+    }
+  };
 
   const handleInputChange = (e) => {
     setSearchValue(e.target.value);
@@ -187,7 +210,7 @@ const Header = () => {
                 </div>
               ) : (
                 <div className="clearsearch" onClick={() => setHidesearch(!hidesearch)}>
-                  Close
+                  Close 
                 </div>
               )}
             </div>
@@ -286,6 +309,24 @@ const Header = () => {
               </Menu>
             </div>
           </nav>
+          <div className="drccbtn" onClick={() => setShowRandom(!showrandom)}>RANDOM <i className='bx bx-shuffle'></i></div>
+          {showrandom && (
+            <div className="dracco" onClick={() => setShowRandom(!showrandom)}>
+               <h2 className="draccotext">Do you want to watch a random Movie or TV Show?</h2>
+               <div className="draccocont">
+                 <button className="randombtn" onClick={() => fetchRandomId("movie")} disabled={loading}>
+        {loading ? "a Random Movie " : " a Random Movie"} 
+        <p className='randompic'><i className='bx bx-movie'></i></p>
+          </button>
+      <button className='randombtn' onClick={() => fetchRandomId("tv")} disabled={loading}>
+        {loading ? "a Random Show" : " a Random Show"}
+        <p className='randompic'><i className='bx bx-tv'></i></p>
+      </button>
+             </div>
+            </div>
+            
+          )}
+          
           <div className="hosz">
             <div className="menuzz">
               <Menu 
