@@ -357,6 +357,107 @@ i {
 
     
 }
+.drccbtn{
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  border-radius: 5px;
+  padding: .7rem 1rem;
+  background-color: rgba(255, 255, 255, 0.068);
+  border: none;
+  color: #fff;
+  font-size: .9rem;
+  transition: all 0.5s ease-in-out;
+  &:hover{
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.676);
+    text-decoration: underline;
+  }
+  @include mobile {
+    //position: relative;
+    margin-left: -.5rem;
+  }
+}
+.dracco{
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  //align-items: center;
+  margin-top: 25rem;
+  margin-right: 13rem;
+  padding: 1rem .2rem;
+  width: 30%;
+  background-color: rgba(0, 0, 0, 0.813);
+  backdrop-filter: blur(30px);
+  height: 300px;
+  border-radius: 20px;
+  z-index: 100;
+ // overflow: auto;
+  @include mobile {
+    top: 0;
+    left: 0;
+    //margin-top: ;
+    width: 100%;
+    margin: 10rem .1rem;
+   // height: 35%;
+  }
+}
+.draccotext{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+ // gap : .5rem;
+  padding: .5rem 1rem;
+  color: blanchedalmond;
+  margin: 1rem;
+  background-color: rgba(255, 255, 255, 0.068);
+  border-radius: 10px;
+  text-align: start;
+  //font-size: .9rem;
+  @include mobile {
+    margin: 2rem ;
+    padding: 3rem;
+    //display: none;
+    font-size: 2.5rem;
+  }
+}
+
+.randombtn{
+  display: flex;
+  z-index: 100;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap : .5rem;
+  padding: .7rem 1.2rem;
+  color: blanchedalmond;
+  margin: 1rem;
+  background-color: rgba(255, 255, 255, 0.068);
+  border-radius: 10px;
+  text-align: end;
+  font-size: .9rem;
+  transition: all 0.5s ease-in-out;
+  &:hover{
+    background-color: rgba(96, 96, 96, 0.468);
+    text-decoration: underline;
+  }
+  @include mobile {
+    margin: 2rem ;
+    padding: 3rem;
+    //display: none;
+  }
+}
+.randompic{
+  position: absolute;
+  top: 5px;
+  font-weight: 600;
+  color: rgb(122, 122, 122);
+  left: 5px;
+}
 
 .iconbox{
    color: rgb(255, 255, 255);
