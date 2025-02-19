@@ -28,7 +28,7 @@
       justify-content: center;
       margin-left: 0;
       width: 100%;
-      margin-top: 31.2rem;
+      margin-top: 35rem;
      //margin-top: calc(100vh - 69rem);
        //gap: 14rem;
        //columns: 3;
@@ -182,9 +182,10 @@
     
 
   }
+  
   @include mobile{
     position: absolute;
-    top: 0;
+    top: 20px;
     right: 0px;
     display: flex;
     flex-direction: column;
@@ -194,6 +195,7 @@
 
   }
 }
+
 .background-image{
   position: absolute;
   top: 0;
@@ -235,6 +237,7 @@
   //margin-bottom: 1rem;
   z-index: 99 !important;
   padding: .5rem .7rem;
+  padding-top: 2rem !important;
   height: 100%;
   width: 100%;
   background: rgb(0, 0, 0);
