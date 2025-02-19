@@ -95,7 +95,7 @@
     position: sticky;
    font-size: 25px;
    top: 0px ;
-   z-index: 100;
+   z-index: 5;
    display: flex;
    justify-content: space-between;
    flex-direction: row;
@@ -210,7 +210,7 @@
     @include tablet {
         border: 1.5px solid rgba(255, 192, 203, 0.096);
    
-        padding:  1.3rem 3rem;
+        padding:  1rem 2rem;
         width: auto;
         //background-color: #00000034;
         //color: rgba(255, 255, 255, 0.34);
