@@ -27,9 +27,9 @@
       justify-content: center;
       margin-left: 0;
       width: 100%;
-      margin-top: calc(100vh - 69rem);
+      margin-top: calc(100vh - 65rem);
        //gap: 14rem;
-       // columns: 3;
+       //columns: 3;
     }
 }
 .movieimg{
@@ -46,6 +46,10 @@
   border-radius: 15px;
   width: 120px;
   transition: all .4 ease-in-out;
+   @include mobile{
+    height: 150px;
+    width: 110px;
+   }
 }
 .movieimg:hover .moviezabs{
   filter: grayscale(20) blur(2px);
@@ -87,7 +91,7 @@
   @include mobile {
     top: 10px;
     right: 0px;
-   font-size: 2rem;
+   font-size: 1.4rem;
    // left: 10px;
   }
 }
@@ -303,6 +307,11 @@
   //flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+  @include mobile{
+    width: 70%;
+  }
+
+
   
 }
 .shobuttn{
