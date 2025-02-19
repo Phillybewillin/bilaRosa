@@ -1,3 +1,4 @@
+
 @use '../../scss/' as *;
 
 .moviez{
@@ -8,7 +9,7 @@
     justify-content: inherit;
     flex-wrap: wrap;
     //columns: 6;
-   width: 75vw;
+   width: 65vw;
     margin-left: 2.5rem;
     //flex-direction: column;
     gap: .1rem; 
@@ -16,10 +17,10 @@
 
     @include tablet {
        // display: flex;
-       // justify-content: center;
+       justify-content: flex-end;
        width: 50vw;
        margin-left: 0;
-        columns: 3;
+       // columns: 5;
       //flex-direction: column;
     }
 
@@ -176,7 +177,11 @@
   //border-radius: 18px;
   font-size: normal;
   //backdrop-filter: blur(7px);
+  @include tablet{
+    width: 360px;
+    
 
+  }
   @include mobile{
     position: absolute;
     top: 0;
@@ -313,6 +318,7 @@
   //flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+
   @include mobile{
     width: 70%;
   }
@@ -375,4 +381,3 @@
     //opacity: 0.8;
   }
 }
-
