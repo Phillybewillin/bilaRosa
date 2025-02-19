@@ -559,12 +559,12 @@ i {
         
     }
     @include mobile {
-        background-color: rgba(0, 0, 0, 0.89);
-      
+        background-color: rgb(0, 0, 0);
+       z-index: -10;
         backdrop-filter: none;
         margin-right: 0;
       margin-top: calc(100vh - 3rem);
-      max-height: 90vh;
+      max-height: 99vh;
        width: 100vw;
         
     }
@@ -640,4 +640,3 @@ i {
     margin-bottom: .5rem;
     margin-top: .5rem;   
 }
-
