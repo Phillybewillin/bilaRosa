@@ -205,12 +205,13 @@ const Header = () => {
                 </div>
               )}
               {searchValue ? (
-                <div className="clearsearch" onClick={() => setSearchValue('')}>
-                  <i className='bx bx-x'></i>
+                <div className="clearsearchan" onClick={() => setSearchValue('')}>
+                  <i  style={{fontSize:'20px'}}className='bx bx-x'></i>
                 </div>
               ) : (
-                <div className="clearsearch" onClick={() => setHidesearch(!hidesearch)}>
-                  Close 
+                <div className="clearsearchan" onClick={() => setHidesearch(!hidesearch)}>
+                    <i  style={{fontSize:'20px'}}className='bx bx-x'></i>
+               
                 </div>
               )}
             </div>
