@@ -46,7 +46,7 @@ const Sidebar = () => {
     {
       display: (
         <span className="iconsidebox">
-          <i className='bx bx-home-alt-2'></i>
+          <i className='bx bx-home-alt-2' style={{fontWeight:'400' , fontSize:'20px'}}></i>
           <h5 className="iconvz">Home</h5>
         </span>
       ),
@@ -55,7 +55,7 @@ const Sidebar = () => {
     {
       display: (
         <span className="iconsidebox">
-          <i className='bx bx-equalizer'></i>
+          <i className='bx bx-equalizer' style={{fontWeight:'400' , fontSize:'20px'}}></i>
           <h5 className="iconvz">Filters</h5>
         </span>
       ),
@@ -64,7 +64,7 @@ const Sidebar = () => {
     {
       display: (
         <span className="iconsidebox">
-          <i className="bx bx-movie"></i>
+          <i className="bx bx-movie"  style={{fontWeight:'400' , fontSize:'20px'}}></i>
           <h5 className="iconvz">Movies</h5>
         </span>
       ),
@@ -73,7 +73,7 @@ const Sidebar = () => {
     {
       display: (
         <span className="iconsidebox">
-          <i className="bx bx-tv"></i>
+          <i className="bx bx-tv" style={{fontWeight:'400' , fontSize:'20px'}}></i>
           <h5 className="iconvz">Shows</h5>
         </span>
       ),
@@ -213,8 +213,8 @@ const Sidebar = () => {
         <div className="headersidebar">
           <nav className="sidebar">
             <div className="icserch">
-              <span className="iconsidebox" onClick={() => setHidesearch(!hidesearch)}>
-                <i className='bx bx-search-alt'></i>
+              <span className={`iconsidebox ${!hidesearch ? 'active' : ''}`} onClick={() => setHidesearch(!hidesearch)}>
+                <i className='bx bx-search-alt' style={{fontWeight:'400' , fontSize:'20px'}}></i>
                 <h5 className='iconvz'>Search</h5>
               </span>
             </div>
@@ -229,8 +229,8 @@ const Sidebar = () => {
             ))}
             {user && (
               <div className="icserch">
-                <span className="iconsidebox" onClick={() => navigate('/account')}>
-                  <i className='bx bx-library'></i>
+                <span className={`iconsidebox ${!hidesearch ? 'active' : ''}`} onClick={() => navigate('/account')}>
+                  <i className='bx bx-library' style={{fontWeight:'400' , fontSize:'20px'}}></i>
                   <h5 className='iconvz'>My Library</h5>
                 </span>
               </div>
