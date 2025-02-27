@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { UserAuth } from '../../context/AuthContext';
 import Button, { OutlineButton } from '../button/Button';
 import './sidebar.scss';
@@ -20,9 +20,10 @@ const Sidebar = () => {
   const [izloading, setIzLoading] = useState(true);
   const [hidesearch, setHidesearch] = useState(true);
   const [searchValue, setSearchValue] = useState('');
+  const [debouncedSearchValue, setDebouncedSearchValue] = useState(searchValue);
   const [noResults, setNoResults] = useState(false);
 
-  // When the component mounts, parse the "query" parameter from the URL
+  // Parse the "query" parameter from the URL on mount.
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const queryParam = searchParams.get("query");
@@ -31,64 +32,70 @@ const Sidebar = () => {
     }
   }, [location.search]);
 
-  // Whenever searchValue changes, update the URL so that the query persists.
+  // Debounce the search input to avoid rapid URL updates.
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchValue(searchValue);
+    }, 500);
+    return () => clearTimeout(handler);
+  }, [searchValue]);
+
+  // Whenever the debounced search value changes, update the URL and trigger search.
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    if (searchValue && searchValue.trim() !== "") {
-      searchParams.set("query", searchValue);
+    if (debouncedSearchValue && debouncedSearchValue.trim() !== "") {
+      searchParams.set("query", debouncedSearchValue);
     } else {
       searchParams.delete("query");
     }
     navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
-  }, [navigate, searchValue]);
+    
+    if (debouncedSearchValue && debouncedSearchValue.trim() !== "") {
+      getMoviesResult(debouncedSearchValue);
+    }
+    setNoResults(false);
+    setShowModal(false);
+  }, [debouncedSearchValue, user]);
 
+  // Header navigation items with active/inactive icons.
   const headerNav = [
     {
-      display: (
-        <span className="iconsidebox">
-          <i className='bx bx-home-alt-2' style={{fontWeight:'400' , fontSize:'20px'}}></i>
-          <h5 className="iconvz">Home</h5>
-        </span>
-      ),
+      inactiveIcon: 'bx bx-home-alt-2',
+      activeIcon: 'bx bxs-home-alt-2',
+      text: 'Home',
       path: '/',
     },
     {
-      display: (
-        <span className="iconsidebox">
-          <i className='bx bx-equalizer' style={{fontWeight:'400' , fontSize:'20px'}}></i>
-          <h5 className="iconvz">Filters</h5>
-        </span>
-      ),
+      inactiveIcon: 'bx bx-carousel',
+      activeIcon: 'bx bxs-carousel',
+      text: 'Filters',
       path: '/filter',
     },
     {
-      display: (
-        <span className="iconsidebox">
-          <i className="bx bx-movie"  style={{fontWeight:'400' , fontSize:'20px'}}></i>
-          <h5 className="iconvz">Movies</h5>
-        </span>
-      ),
+      inactiveIcon: 'bx bx-movie',
+      activeIcon: 'bx bxs-movie',
+      text: 'Movies',
       path: '/z/movie',
     },
     {
-      display: (
-        <span className="iconsidebox">
-          <i className="bx bx-tv" style={{fontWeight:'400' , fontSize:'20px'}}></i>
-          <h5 className="iconvz">Shows</h5>
-        </span>
-      ),
+      inactiveIcon: 'bx bx-tv',
+      activeIcon: 'bx bxs-tv',
+      text: 'Shows',
       path: '/z/tv',
     },
   ];
 
-  const handleLogout = async () => {
-    try {
-      await logOut();
-      navigate('/');
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
-  };
+  // Conditionally add "My Library" if there is a user.
+  if(user) {
+    headerNav.push({
+      inactiveIcon: 'bx bx-library',
+      activeIcon: 'bx bxs-library', // Change if you have an alternate active icon.
+      text: 'My Library',
+      path: '/account',
+    });
+  }
+
+
 
   // Search function: Fetch movies/TV based on the search value.
   const getMoviesResult = async (query) => {
@@ -121,15 +128,6 @@ const Sidebar = () => {
     }
   };
 
-  // Trigger search when searchValue changes.
-  useEffect(() => {
-    if (searchValue && searchValue.trim() !== "") {
-      getMoviesResult(searchValue);
-    }
-    setNoResults(false);
-    setShowModal(false);
-  }, [searchValue, user]);
-
   const handleInputChange = (e) => {
     setSearchValue(e.target.value);
   };
@@ -159,22 +157,38 @@ const Sidebar = () => {
         {/* Search modal */}
         {!hidesearch && (
           <div className="searchabsolute">
-           
             <div className="searchmovieabsolute">
-            <div className="searchios" onClick={() => setHidesearch(!hidesearch)}>
-              <h2 className="searchabsolutetitle">
-                {searchValue ? ` Showing Results for '${searchValue}'` : 'Search'}
-              </h2>
-              <h2 className="searchabsolutetitleicon">
-                <i className='bx bx-search-alt'></i>
-            </h2>
-            </div>
-              <Input
-                type="text"
-                placeholder="Search anything 🍿"
-                value={searchValue}
-                onChange={handleInputChange}
-              />
+              <div className="searchios" onClick={() => setHidesearch(!hidesearch)}>
+                <h2 className="searchabsolutetitle">
+                  {searchValue ? ` Showing Results for '${searchValue}'` : 'Search'}
+                </h2>
+                <div className="searchabsolutetitleicon">
+                  <i className='bx bx-search-alt'></i>
+                </div>
+              </div>
+              <div className="searchbar-container">
+                <Input
+                  type="text"
+                  placeholder="Search anything 🍿"
+                  value={searchValue}
+                  onChange={handleInputChange}
+                />
+                <button 
+                  onClick={() => {navigate('/filter') ; setHidesearch(!hidesearch)}} 
+                  className="filter-button"
+                >
+                  <i className="bx bx-filter" style={{fontWeight:'400', fontSize:'20px'}}></i>
+                </button>
+                {searchValue ? (
+                <div className="clearsearch" onClick={() => setSearchValue('')}>
+                  <i className='bx bx-x'></i>
+                </div>
+              ) : (
+                <div className="clearsearch" onClick={() => setHidesearch(!hidesearch)}>
+                 <i className='bx bx-x'></i>
+                </div>
+              )}
+              </div>
               <div className="aisuddestiondiv">
                 {searchValue !== '' ? (
                   <h4 className='suggy'>Suggestions :</h4>
@@ -187,15 +201,7 @@ const Sidebar = () => {
                   </div>
                 ))}
               </div>
-              {searchValue ? (
-                <div className="clearsearch" onClick={() => setSearchValue('')}>
-                  <i className='bx bx-x'></i>
-                </div>
-              ) : (
-                <div className="clearsearch" onClick={() => setHidesearch(!hidesearch)}>
-                  Close Search
-                </div>
-              )}
+             
               {!izloading && noResults && (
                 <div className="mdsa" onClick={() => setHidesearch(!hidesearch)}>
                   <h3 className='noresult'> ¯\_(ツ)_/¯</h3>
@@ -212,30 +218,50 @@ const Sidebar = () => {
         )}
         <div className="headersidebar">
           <nav className="sidebar">
+            {/* Search icon with dynamic active icon */}
             <div className="icserch">
-              <span className={`iconsidebox ${!hidesearch ? 'active' : ''}`} onClick={() => setHidesearch(!hidesearch)}>
-                <i className='bx bx-search-alt' style={{fontWeight:'400' , fontSize:'20px'}}></i>
+              <span 
+                className={`iconsidebox ${!hidesearch ? 'active' : ''}`} 
+                onClick={() => setHidesearch(!hidesearch)}
+              >
+                <i 
+                  className={!hidesearch ? 'bx bx-search-alt' : 'bx bx-search'} 
+                  style={{fontWeight:'400', fontSize:'20px'}}
+                ></i>
                 <h5 className='iconvz'>Search</h5>
               </span>
             </div>
+            {/* Render header navigation items */}
             {headerNav.map((navItem, index) => (
               <NavLink
                 key={index}
                 to={navItem.path}
                 className={({ isActive }) => `iconsideboxitem ${isActive ? 'active' : ''}`}
               >
-                {navItem.display}
+                {({ isActive }) => (
+                  <span className="iconsidebox">
+                    <i 
+                      className={isActive ? navItem.activeIcon : navItem.inactiveIcon} 
+                      style={{fontWeight:'400', fontSize:'20px'}}
+                    ></i>
+                    <h5 className="iconvz">{navItem.text}</h5>
+                  </span>
+                )}
               </NavLink>
             ))}
-            {user && (
-              <div className="icserch">
-                <span className={`iconsidebox ${!hidesearch ? 'active' : ''}`} onClick={() => navigate('/account')}>
-                  <i className='bx bx-library' style={{fontWeight:'400' , fontSize:'20px'}}></i>
-                  <h5 className='iconvz'>My Library</h5>
-                </span>
-              </div>
-            )}
           </nav>
+          {/* Discord Icon below header nav */}
+          <div className="discord-container">
+            <a 
+              href="https://discord.gg/MCt2R9gqGb" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="iconsidebox"
+            >
+              <i className="bx bxl-discord-alt" style={{fontWeight:'400', fontSize:'20px'}}></i>
+              <h5 className="iconvz">Discord</h5>
+            </a>
+          </div>
         </div>
       </div>
     </>
