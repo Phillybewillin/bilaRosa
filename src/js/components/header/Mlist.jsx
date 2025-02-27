@@ -98,15 +98,20 @@ const Mlist = ({ movies , value }) => {
 
   return (
     <>
+    <div className="bzbaner" style={{
+    backgroundImage: `url(${apiConfig.w200Image(selectedMovie.poster_path)})`,
+  }}></div>
+  
     <div className="containermodz">
-        <div className="modalsearchcontent">
+          <div className="modalsearchcontent">
        
-        <div className="detaizza">
+        <div className="detaizza" >
         <div className="background-image" style={{
     backgroundImage: `url(${apiConfig.w500Image(selectedMovie.poster_path)})`,
     
   }} />  
         <h2 className="movietitleza">{selectedMovie.title || selectedMovie.name}</h2>
+        <p className="overviewseries">{selectedMovie.overview}</p>
         <div className="date">
                 <p className="ratingz">
                   {selectedMovie.media_type === "tv" ? "Show" : "Movie"}
