@@ -23,13 +23,12 @@ const Sidebar = () => {
   const [debouncedSearchValue, setDebouncedSearchValue] = useState(searchValue);
   const [noResults, setNoResults] = useState(false);
 
-  // Parse the "query" parameter from the URL on mount.
+  // Parse the "query" parameter from the URL on mount or update.
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    const queryParam = searchParams.get("query");
-    if (queryParam) {
-      setSearchValue(queryParam);
-    }
+    // Fix: Always update searchValue—even if query is null.
+    const queryParam = searchParams.get("query") || '';
+    setSearchValue(queryParam);
   }, [location.search]);
 
   // Debounce the search input to avoid rapid URL updates.
@@ -55,7 +54,7 @@ const Sidebar = () => {
     }
     setNoResults(false);
     setShowModal(false);
-  }, [debouncedSearchValue, user]);
+  }, [debouncedSearchValue,location.pathname, navigate, location.search]);
 
   // Header navigation items with active/inactive icons.
   const headerNav = [
@@ -86,16 +85,14 @@ const Sidebar = () => {
   ];
 
   // Conditionally add "My Library" if there is a user.
-  if(user) {
+  if (user) {
     headerNav.push({
       inactiveIcon: 'bx bx-library',
-      activeIcon: 'bx bxs-library', // Change if you have an alternate active icon.
+      activeIcon: 'bx bxs-library',
       text: 'My Library',
       path: '/account',
     });
   }
-
-
 
   // Search function: Fetch movies/TV based on the search value.
   const getMoviesResult = async (query) => {
@@ -174,20 +171,20 @@ const Sidebar = () => {
                   onChange={handleInputChange}
                 />
                 <button 
-                  onClick={() => {navigate('/filter') ; setHidesearch(!hidesearch)}} 
+                  onClick={() => {navigate('/filter'); setHidesearch(!hidesearch);}} 
                   className="filter-button"
                 >
                   <i className="bx bx-filter" style={{fontWeight:'400', fontSize:'20px'}}></i>
                 </button>
                 {searchValue ? (
-                <div className="clearsearch" onClick={() => setSearchValue('')}>
-                  <i className='bx bx-x'></i>
-                </div>
-              ) : (
-                <div className="clearsearch" onClick={() => setHidesearch(!hidesearch)}>
-                 <i className='bx bx-x'></i>
-                </div>
-              )}
+                  <div className="clearsearch" onClick={() => setSearchValue('')}>
+                    <i className='bx bx-x'></i>
+                  </div>
+                ) : (
+                  <div className="clearsearch" onClick={() => setHidesearch(!hidesearch)}>
+                    <i className='bx bx-x'></i>
+                  </div>
+                )}
               </div>
               <div className="aisuddestiondiv">
                 {searchValue !== '' ? (
