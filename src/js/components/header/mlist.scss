@@ -1,46 +1,87 @@
+
 @use '../../scss/' as *;
 
 .moviez{
     //display: flex;
     //justify-content: center;
     break-inside: avoid;
-    //display: inline;
-    columns: 6;
-    width: 65vw;
-    //margin-left: 1rem;
+    display: inline-flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    //columns: 6;
+   width: 65vw;
+    margin-left: 2.5rem;
+    margin-top: .2rem;
     //flex-direction: column;
     gap: .1rem; 
     transition: all .3s ease-in-out;
 
     @include tablet {
        // display: flex;
-       // justify-content: center;
+       justify-content: flex-end;
        width: 50vw;
        margin-left: 0;
-        columns: 3;
+       // columns: 5;
       //flex-direction: column;
     }
 
     @include mobile { 
+      justify-content: center;
       margin-left: 0;
       width: 100%;
-      margin-top: 29rem;
+      margin-top: 3rem;
+     //margin-top: calc(100vh - 69rem);
        //gap: 14rem;
-        columns: 3;
+       //columns: 3;
     }
 }
-
+.movieimg{
+   padding: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    object-fit: cover;
+    transition: all .4s ease-in-out;
+  
+}
+.bzbaner{
+  position: absolute;
+  bottom: 0;
+  left: 0px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 70%;
+  z-index: -10 ! important;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  //padding: 1rem;
+  //margin: 10px;
+  filter: blur(2.6rem) brightness(25%) ;
+  border-radius: 15px;
+  font-size: normal;
+  transition: all .4s ease-in-out;
+}
 .moviezabs{
   height: 180px;
   object-fit: cover;
   border-radius: 15px;
-  max-width: 130px;
+  width: 120px;
+  overflow: hidden;
+  transition: all .4s ease-in-out !important;
+   @include mobile{
+    height: 150px;
+    width: 110px;
+   }
 }
-.movieimg:hover .moviezabs{
-  scale: 1.1;
+.movieimg:hover{
+ // filter: blur(20px);
   cursor: pointer;
+  //scale: 1.1;
   border-radius: 20px;
-  background-color: #e6e6e617;
+  background-color: #e6e6e610;
+  transition: all .2s ease-in-out;
 }
 .titledettss{
   display: flex;
@@ -60,33 +101,40 @@
 .movietitleza{
   position: absolute;
   top: 0rem;
-  right: 0rem;
+  right: .2rem;
   //left: 5rem;
-  border-radius: 10px 10px 30px 30px;
+  border-radius: 15px ;
   padding:   1rem 1.2rem;
+  max-width: 45%;
   //margin-top: 1rem;
-  font-size: 1.7rem;
+  font-size: 1.2rem;
   text-align: center;
   font-weight: 700;
   //clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, 20px 20px);
-  background-color: #00000083;
+  background-color: #18181883;
   color: #ffffff;
 
   @include mobile {
     top: 10px;
-    right: 10px;
- 
-    left: 10px;
+    right: 0px;
+    max-width: 70%;
+   font-size: 1.4rem;
+   // left: 10px;
   }
 }
 .date{
   display: flex;
   //width: 10%;
+  position: absolute;
+  right: 0;
+  bottom: 6.5rem;
   margin-top: auto;
-  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   padding: 5px 0px;
- // background-color: #00000023;
-  gap: .1rem;
+  width: 50%;
+ //background-color: #79686823;
+  //gap: .1rem;
   font-size: .65rem;
   font-weight: 400;
   color: rgb(255, 255, 255);
@@ -105,22 +153,31 @@
 }
 .overviewseries{
   //display: none;
-  margin-bottom: 1rem;
+  margin-top: 2rem;
   font-size: .75rem;
   font-weight: 500;
+  width: 48%;
+ // display: flex;
+  //justify-content: right;
+  position: absolute;
+  right: 0;
+  bottom: 12rem;
   
-  border-left: 2px solid $main-bg;
+  //border-left: 2px solid $main-bg;
   color: rgba(228, 228, 228, 0.836);
   padding: 5px;
+  text-align: end;
  // margin-right: .5rem;
   overflow: auto;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 7;
+  -webkit-line-clamp: 10;
   -webkit-box-orient: vertical;
-  line-clamp: 7;
+  line-clamp: 10;
   box-orient: vertical;
-
+  background-color: #6c676723;
+ border-radius: 10px;
+ margin: 5px;
   @include mobile {
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
@@ -135,62 +192,60 @@
 
 .modalsearchcontent{
   position: fixed;
-  top: 4rem;
-  right: 4.6rem;
+  bottom: 0rem;
+  right: .4rem;
   display: flex;
   flex-direction: column;
-  width: 350px;
-  height: 90.5vh;
+  width: 400px;
+  height: 77vh;
   z-index: 99 ! important;
  background-repeat: no-repeat;
  background-size: cover;
- background-color: #0000009a;
+ background-color: #00000021;
+ ///background-image: inherit;
   padding: .5rem;
   border-radius: 15px;
   //border: 1px solid grey;
-  filter: drop-shadow(0 0 1rem rgb(0, 0, 0));
+  filter: drop-shadow(0 0 1rem rgba(0, 0, 0, 0.473));
   
   //border-radius: 18px;
   font-size: normal;
   //backdrop-filter: blur(7px);
-
-  @include mobile{
-    position: absolute;
-    top: 0;
-    right: 0px;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-height: 30vh;
-    z-index: 98 ! important;
+  @include tablet{
+    width: 360px;
+    
 
   }
+  
+  @include mobile{
+    display: none;
+    
+  }
 }
+
 .background-image{
   position: absolute;
   top: 0;
   left: 0px;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 50%;
   height: 100%;
   z-index: -1 ! important;
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   //padding: 1rem;
   //margin: 10px;
-  filter: brightness(40%) blur(2px);
+  filter: brightness(70%);
   border-radius: 15px;
   font-size: normal;
+ 
  // backdrop-filter: blur(7px);
-
+  
   @include mobile{
     //right: 0px;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 30vh;
-  z-index: -1 ! important;
+   display: none;
 
   }
 }
@@ -205,9 +260,10 @@
   //margin-bottom: 1rem;
   z-index: 99 !important;
   padding: .5rem .7rem;
+  padding-top: 2rem !important;
   height: 100%;
   width: 100%;
-  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.37);
   font-size: .85rem;
   //border: 2px solid rgb(0, 0, 0);
   //border-right: 2px solid white;
@@ -247,13 +303,13 @@
   font-size: .7rem;
   text-align: center;
   font-weight: 400;
-  margin: 0 5px;
+  margin: 2px;
    //border: 1px solid rgba(255, 255, 255, 0.121);
    padding: 8px 20px;
    //width: 70%;
    //backdrop-filter: blur(5px);
-   background-color: rgba(5, 5, 5, 0.578);
-   border-radius: 15px;
+   background-color: rgba(32, 31, 31, 0.578);
+   border-radius: 5px;
 
    @include tablet {
     width: 50%;
@@ -262,29 +318,53 @@
     
 
 }
-.movieimg{
-   padding: 10px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    object-fit: cover;
+.movititlesearch{
+  font-size: .7rem;
+  padding: .5rem 2rem;
+  text-align: center;
+  margin-top: .5rem;
+  border-radius: 10px;
+  background: #ffffff11;
+  max-width: 120px;
+  max-height: 41px;
+  //overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include mobile{
+    max-width: 100px;
+  }
 }
+
 .showwet{
+  position: absolute;
+  bottom: 1rem;
+  gap: 5px;
+  right: 2px;
+  width: 50%;
+  flex-wrap: wrap;
   display: flex;
-  flex-direction: row;
+  //flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+
+  @include mobile{
+    width: 70%;
+  }
+
+
   
 }
 .shobuttn{
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #0b0b0b;
   border-radius: 10px;
   border: none;
-  padding: 12px 20px;
+  padding: 12px 15px;
   gap: 5px;
   font-size: .9rem;
-  margin-left: 1rem;
+ margin-left: 3px;
   cursor: pointer;
     opacity: 0.7;
 
@@ -294,14 +374,15 @@
   }
 }
 .shobuttn2{
-  background-color: #000000;
-  color: #5b5858;
+  background-color: #131313;
+ // backdrop-filter: blur(10px) !important;
+  color: #c6bebe;
   border-radius: 10px;
   border: none;
   padding: 10px;
   padding-left: 14px;
   //gap: 5px;
- // margin-left: 1px;
+ margin-left: 10px;
    scale: 1.2;
   font-size: .9rem;
   cursor: pointer;
@@ -313,13 +394,13 @@
     }
 }
 .szz{
-  background-color: #000000;
+  background-color: #171616;
   padding: 5.94px;
   border-radius: 10px;
   margin-left: .9rem;
 
   @include mobile{
-    background-color: #000000;
+    //background-color: #000000;
   padding: 5px;
   border-radius: 10px;
   margin-left: .9rem;
@@ -330,4 +411,3 @@
     //opacity: 0.8;
   }
 }
-

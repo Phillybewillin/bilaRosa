@@ -26,9 +26,12 @@ const Header = () => {
   const [izloading, setIzLoading] = useState(true);
   const [hidesearch, setHidesearch] = useState(true);
   const [searchValue, setSearchValue] = useState('');
+  const [debouncedSearchValue, setDebouncedSearchValue] = useState(searchValue);
   const [noResults, setNoResults] = useState(false);
-
-  // --- Persist search query from URL on mount ---
+  const [loading, setLoading] = useState(false);
+  const [showrandom, setShowRandom] = useState(false);
+ 
+  // Persist search query from URL on mount
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const queryParam = searchParams.get("query");
@@ -37,52 +40,58 @@ const Header = () => {
     }
   }, [location.search]);
 
-  // --- Update the URL query parameter when searchValue changes ---
+  // Debounce the searchValue to prevent flickering
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchValue(searchValue);
+    }, 500);
+    return () => clearTimeout(handler);
+  }, [searchValue]);
+
+  // Update the URL query parameter when debouncedSearchValue changes
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    if (searchValue && searchValue.trim() !== "") {
-      searchParams.set("query", searchValue);
+    if (debouncedSearchValue && debouncedSearchValue.trim() !== "") {
+      searchParams.set("query", debouncedSearchValue);
     } else {
       searchParams.delete("query");
     }
     navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
-  }, [searchValue, navigate, location.pathname]);
+  }, [debouncedSearchValue, navigate, location.pathname, location.search]);
 
+  // Trigger search when debouncedSearchValue changes
+  useEffect(() => {
+    if (debouncedSearchValue && debouncedSearchValue.trim() !== "") {
+      getMoviesResult(debouncedSearchValue);
+    }
+    setNoResults(false);
+    setShowModal(false);
+  }, [debouncedSearchValue, user]);
+
+  // Updated headerNav with active and inactive icons
   const headerNav = [
     {
-      display: (
-        <span className="iconbox">
-          <i className='bx bx-home-alt-2'></i>
-          <h5 className="iconv">Home</h5>
-        </span>
-      ),
+      inactiveIcon: 'bx bx-home-alt-2',
+      activeIcon: 'bx bxs-home-alt-2',
+      text: 'Home',
       path: '/',
     },
     {
-      display: (
-        <span className="iconbox">
-          <i className='bx bx-equalizer'></i>
-          <h5 className="iconv">Filters</h5>
-        </span>
-      ),
+      inactiveIcon: 'bx bx-carousel',
+      activeIcon: 'bx bxs-carousel',
+      text: 'Filters',
       path: '/filter',
     },
     {
-      display: (
-        <span className="iconbox">
-          <i className="bx bx-movie"></i>
-          <h5 className="iconv">Movies</h5>
-        </span>
-      ),
+      inactiveIcon: 'bx bx-movie',
+      activeIcon: 'bx bxs-movie',
+      text: 'Movies',
       path: '/z/movie',
     },
     {
-      display: (
-        <span className="iconbox">
-          <i className="bx bx-tv"></i>
-          <h5 className="iconv">Shows</h5>
-        </span>
-      ),
+      inactiveIcon: 'bx bx-tv',
+      activeIcon: 'bx bxs-tv',
+      text: 'Shows',
       path: '/z/tv',
     },
   ];
@@ -96,7 +105,7 @@ const Header = () => {
     }
   }, [logOut, navigate]);
 
-  // --- Search function ---
+  // Search function
   const getMoviesResult = async (query) => {
     if (query && query.trim() !== "") {
       const url = `https://api.themoviedb.org/3/search/multi?query=${encodeURIComponent(query)}&api_key=${apiConfig.apiKey}`;
@@ -122,22 +131,11 @@ const Header = () => {
     }
   };
 
-  // --- Trigger search when searchValue changes ---
-  useEffect(() => {
-    if (searchValue && searchValue.trim() !== "") {
-      getMoviesResult(searchValue);
-    }
-    setNoResults(false);
-    setShowModal(false);
-  }, [searchValue, user]);
-
   const handleInputChange = (e) => {
     setSearchValue(e.target.value);
-    // Optionally, reset movies as user types:
-    //setMovies([]);
   };
 
-  // --- Header shrink/hide effect on scroll ---
+  // Header shrink/hide effect on scroll
   useEffect(() => {
     const handleScroll = () => {
       if (headerRef.current) {
@@ -160,7 +158,7 @@ const Header = () => {
     <>
       <div ref={headerRef} className="header">
         <div className="logo" onClick={() => navigate('/')}>
-          <img src={logo} alt="ZillaXR"/>
+          <img src={logo} alt="ZillaXR" />
         </div>
         {!hidesearch && (
           <div className="mlrowa">
@@ -176,18 +174,18 @@ const Header = () => {
                   <h3 className='noresult'> ¯\_(ツ)_/¯ Not found</h3>
                 </div>
               )}
-              { !izloading && movies.length > 0 && (
+              {!izloading && movies.length > 0 && (
                 <div className="mds">
                   <Mlist movies={movies || []} value={searchValue} />
                 </div>
               )}
               {searchValue ? (
-                <div className="clearsearch" onClick={() => setSearchValue('')}>
-                  <i className='bx bx-x'></i>
+                <div className="clearsearchan" onClick={() => setSearchValue('')}>
+                  <i style={{ fontSize: '20px' }} className='bx bx-x'></i>
                 </div>
               ) : (
-                <div className="clearsearch" onClick={() => setHidesearch(!hidesearch)}>
-                  Close
+                <div className="clearsearchan" onClick={() => setHidesearch(!hidesearch)}>
+                  <i style={{ fontSize: '20px' }} className='bx bx-x'></i>
                 </div>
               )}
             </div>
@@ -202,12 +200,20 @@ const Header = () => {
                 to={navItem.path}
                 className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
               >
-                {navItem.display}
+                {({ isActive }) => (
+                  <span className="iconbox">
+                    <i className={isActive ? navItem.activeIcon : navItem.inactiveIcon}></i>
+                    <h5 className="iconv">{navItem.text}</h5>
+                  </span>
+                )}
               </NavLink>
             ))}
             <div className="icserch">
               <span className="iconbox" onClick={() => setHidesearch(!hidesearch)}>
-                <i className='bx bx-search-alt'></i>
+                <i 
+                  className={!hidesearch ? 'bx bx-search-alt' : 'bx bx-search'} 
+                 
+                ></i>
                 <h5 className='iconv'>Search</h5>
               </span>
             </div>
@@ -216,10 +222,8 @@ const Header = () => {
                 menuButton={
                   <MenuButton>
                     <Avatar
-                     style={{cursor : 'pointer' ,borderRadius : '5px'}}
                       name={user?.email || ''}
                       size="43"
-                     // borderRadius="5px"
                       round='5px'
                       src={user?.photoURL}
                       color="#000000a9"
@@ -237,6 +241,7 @@ const Header = () => {
                     <MenuItem onClick={handleLogout}>
                       <div className="loggz"><i className='bx bx-log-out'></i> LogOut</div>
                     </MenuItem>
+                    <MenuDivider style={{ backgroundColor: 'grey', borderRadius: '5px' }}/>
                     <MenuItem>
                       <div className="socialzz">
                         <div className="lozg" onClick={() => window.open('https://t.me/+MQUUqEx2WXA0ZmZk')}>
@@ -286,6 +291,24 @@ const Header = () => {
               </Menu>
             </div>
           </nav>
+          <div className="drccbtn" onClick={() => setShowRandom(!showrandom)}>
+            RANDOM <i className='bx bx-shuffle'></i>
+          </div>
+          {showrandom && (
+            <div className="dracco" onClick={() => setShowRandom(!showrandom)}>
+              <h2 className="draccotext">Do you want to watch a random Movie or TV Show?</h2>
+              <div className="draccocont">
+                <button className="randombtn" onClick={() => fetchRandomId("movie")} disabled={loading}>
+                  {loading ? "a Random Movie " : " a Random Movie"} 
+                  <p className='randompic'><i className='bx bx-movie'></i></p>
+                </button>
+                <button className='randombtn' onClick={() => fetchRandomId("tv")} disabled={loading}>
+                  {loading ? "a Random Show" : " a Random Show"}
+                  <p className='randompic'><i className='bx bx-tv'></i></p>
+                </button>
+              </div>
+            </div>
+          )}
           <div className="hosz">
             <div className="menuzz">
               <Menu 

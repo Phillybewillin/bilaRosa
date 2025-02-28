@@ -32,9 +32,9 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 25%; /* adjust this value to control the amount of blur */
+      height: 15%; /* adjust this value to control the amount of blur */
       background-image: inherit;
-      filter: blur(25px);
+      filter: blur(55px);
         //background-image: linear-gradient(180deg, rgba(127, 117, 117, 0), rgba(0, 0, 0, 0.498));
     
        @include overlay();
@@ -165,10 +165,14 @@
   }
 }
 .movie-content {
-    backdrop-filter: blur(7px);
-   // background-color: rgba(0, 0, 0, 0.082);
-    //background-image:linear-gradient(to top, rgba(0, 0, 0, 0.822), rgba(0, 0, 0, 0));
-   
+  position: relative;
+  padding: 2rem;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.281); // adjust tint as needed
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(0, 0, 0, 0.101);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37); 
    border-radius: 5px;
     @include flex(flex-start, flex-start);
     flex-direction: column;
@@ -276,6 +280,9 @@
                 font-size: .62rem;
                 font-weight: 300;
                 //backdrop-filter: blur(10px);
+                @include mobile {
+                  font-size: .83rem;
+              }
             }
 
             @include mobile {
@@ -651,12 +658,15 @@
   display: flex;
   justify-content: flex-start;
   //background-color: #060606ac;
-  font-size: .7rem;
+  font-size: .75rem;
   font-weight: 100;
   padding: 5px;
  color: #ffffff6c;
   margin-top:0;
   text-align: start;
+  @include mobile {
+    font-size: .9rem;
+}
 }
 .overviewx{
   //background-color: #060606ac;
@@ -803,21 +813,25 @@
   position: fixed;
   height: 100vh;
   width: 100%;
-  //background-color: rgba(184, 182, 182, 0);
+  background-color: rgba(0, 0, 0, 0.156);
   top: 0;
   left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 70;
+  background-image: radial-gradient(transparent 2px, #0000008d 0);
+  background-size: 4px 4px;
+  backdrop-filter: brightness(.5) blur(14px) !important;
   backdrop-filter: blur(10px);
+  
   -webkit-backdrop-filter: blur(10px);
 }
 .videoframe {
-  width: 70%;
+  width: 65%;
   height: 70%;
   z-index: 75;
-  border-radius: 20px;
+  border-radius: 15px;
   border: none;
 
 

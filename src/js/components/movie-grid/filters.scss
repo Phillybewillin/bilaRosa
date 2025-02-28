@@ -123,7 +123,7 @@
        // color: grey;
 }
 @include mobile{
-    font-size: .65rem;
+    font-size: .85rem;
 }
 
 }
@@ -134,10 +134,12 @@
     border: 1px solid $black;
     padding: 5px 10px;
     border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
     
     font-size: .7rem;
     @include mobile{
-        font-size: .65rem;
+        font-size: .85rem;
     }
 }
 
