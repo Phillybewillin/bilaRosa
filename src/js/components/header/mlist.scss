@@ -101,17 +101,17 @@
 .movietitleza{
   position: absolute;
   top: 0rem;
-  right: 0rem;
+  right: .2rem;
   //left: 5rem;
-  border-radius: 10px ;
+  border-radius: 15px ;
   padding:   1rem 1.2rem;
-  max-width: 40%;
+  max-width: 45%;
   //margin-top: 1rem;
-  font-size: 1rem;
-  text-align: end;
+  font-size: 1.2rem;
+  text-align: center;
   font-weight: 700;
   //clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, 20px 20px);
-  background-color: #1f1f1f83;
+  background-color: #18181883;
   color: #ffffff;
 
   @include mobile {
@@ -156,12 +156,13 @@
   margin-top: 2rem;
   font-size: .75rem;
   font-weight: 500;
-  width: 50%;
+  width: 48%;
  // display: flex;
   //justify-content: right;
   position: absolute;
   right: 0;
   bottom: 12rem;
+  
   //border-left: 2px solid $main-bg;
   color: rgba(228, 228, 228, 0.836);
   padding: 5px;
@@ -170,11 +171,13 @@
   overflow: auto;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 7;
+  -webkit-line-clamp: 10;
   -webkit-box-orient: vertical;
-  line-clamp: 7;
+  line-clamp: 10;
   box-orient: vertical;
-
+  background-color: #6c676723;
+ border-radius: 10px;
+ margin: 5px;
   @include mobile {
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
@@ -190,7 +193,7 @@
 .modalsearchcontent{
   position: fixed;
   bottom: 0rem;
-  right: 1.6rem;
+  right: .4rem;
   display: flex;
   flex-direction: column;
   width: 400px;
@@ -199,10 +202,11 @@
  background-repeat: no-repeat;
  background-size: cover;
  background-color: #00000021;
+ ///background-image: inherit;
   padding: .5rem;
   border-radius: 15px;
   //border: 1px solid grey;
-  filter: drop-shadow(0 0 1rem rgb(0, 0, 0));
+  filter: drop-shadow(0 0 1rem rgba(0, 0, 0, 0.473));
   
   //border-radius: 18px;
   font-size: normal;
@@ -233,9 +237,10 @@
   background-position: center;
   //padding: 1rem;
   //margin: 10px;
-  //filter: brightness(70%) ;
+  filter: brightness(70%);
   border-radius: 15px;
   font-size: normal;
+ 
  // backdrop-filter: blur(7px);
   
   @include mobile{
@@ -337,7 +342,7 @@
   bottom: 1rem;
   gap: 5px;
   right: 2px;
-  width: 60%;
+  width: 50%;
   flex-wrap: wrap;
   display: flex;
   //flex-direction: row;
@@ -352,8 +357,8 @@
   
 }
 .shobuttn{
-  background-color: #151515;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #0b0b0b;
   border-radius: 10px;
   border: none;
   padding: 12px 15px;
@@ -369,7 +374,7 @@
   }
 }
 .shobuttn2{
-  background-color: #000000;
+  background-color: #131313;
  // backdrop-filter: blur(10px) !important;
   color: #c6bebe;
   border-radius: 10px;
@@ -377,7 +382,7 @@
   padding: 10px;
   padding-left: 14px;
   //gap: 5px;
- // margin-left: 1px;
+ margin-left: 10px;
    scale: 1.2;
   font-size: .9rem;
   cursor: pointer;
