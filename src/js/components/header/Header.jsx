@@ -135,6 +135,35 @@ const Header = () => {
     setSearchValue(e.target.value);
   };
 
+    useEffect(() => {
+    if (searchValue && searchValue.trim() !== "") {
+      getMoviesResult(searchValue);
+    }
+    setNoResults(false);
+    setShowModal(false);
+  }, [searchValue, user]);
+
+  const fetchRandomId = async (type) => {
+    setLoading(true);
+    try {
+      const totalPages = 500; // Max TMDB pages
+      const randomPage = Math.floor(Math.random() * totalPages) + 1;
+      const response = await fetch(
+        `https://api.themoviedb.org/3/discover/${type}?api_key=${apiConfig.apiKey}&page=${randomPage}`
+      );
+      const data = await response.json();
+      if (data.results.length > 0) {
+        const randomIndex = Math.floor(Math.random() * data.results.length);
+        const randomId = data.results[randomIndex].id;
+        navigate(`/${type}/${randomId}`);
+      }
+    } catch (error) {
+      console.error("Error fetching random ID:", error);
+    } finally {
+     setLoading(false);
+    }
+  };
+
   // Header shrink/hide effect on scroll
   useEffect(() => {
     const handleScroll = () => {
