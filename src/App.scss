@@ -67,7 +67,10 @@ ul {
 }
 
 ::-webkit-scrollbar {
-  width: 7px;
+   width: 1px;
+   display: none;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;
 
   @include mobile {
     display: none;
@@ -82,8 +85,9 @@ ul {
   background: #1a1a1a;
   border-radius: 4px;
   transition: background-color 0.2s ease-in-out;
-
- 
+  display: none;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;
 
 }
 
