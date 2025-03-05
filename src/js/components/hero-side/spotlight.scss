@@ -49,7 +49,7 @@
     padding-top: .1rem;
     object-fit: cover;
   // transition: all .9s ease;
-   //transition: font-size 1s ease-out;
+   transition: font-size 1s ease-out;
   // transition: transform 0.5s ease-out;
   // will-change: transform;
     
@@ -60,6 +60,8 @@
       height: 530px;
     } 
     @include mobile {
+      transition: font-size .3s ease-out;
+  
       padding-top: 0rem;
         font-size: 1rem;
         height: 590px;
@@ -72,24 +74,37 @@
  .swiper-slide.swiper-slide-active {
   //padding-left: .5rem;
   font-size: 1.5rem;
-  //transition: width .7s ease, font-size .9s ease-out;
+  transition: width .7s ease, font-size .9s ease-out;
    will-change: width;
-  //width: 800px !important;
+  width: 800px !important;
    object-fit: cover;
 
    @include mobile {
+    transition: width .2s ease, font-size .2s ease-out;
+ 
     width: 100% !important;
    }
   
  }
  .swiper-slide.swiper-slide-prev{
   cursor: pointer;
- // transition: width .7s ease , font-size 1s ease-out;
+ transition: width .7s ease , font-size 1s ease-out;
+ @include mobile {
+  transition: width .2s ease, font-size .2s ease-out;
+
+  }
+
  }
  .swiper-slide.swiper-slide-next {
   cursor: pointer;
   //transition: width .7s ease;
- //transition-delay: 1s; /* delay the transition by 0.5 seconds */
+  transition-delay: 1s; /* delay the transition by 0.5 seconds */
+  @include mobile {
+    transition: width .2s ease, font-size .2s ease-out;
+ 
+  ///  width: 100% !important;
+   }
+  
 }
 
 }
