@@ -36,7 +36,7 @@
     //z-index: 55;
     padding: .1rem;
     border-radius: 10px;
-    transition: all 1s ease-in;
+   // transition: all 1s ease-in;
 
     @include mobile {
         padding: 0;
@@ -50,8 +50,8 @@
     object-fit: cover;
   // transition: all .9s ease;
    //transition: font-size 1s ease-out;
-   transition: transform 0.5s ease-out;
-   will-change: transform;
+  // transition: transform 0.5s ease-out;
+  // will-change: transform;
     
     font-size: small;
     left: 4rem;   
@@ -72,9 +72,9 @@
  .swiper-slide.swiper-slide-active {
   //padding-left: .5rem;
   font-size: 1.5rem;
-  transition: width .7s ease, font-size .9s ease-out;
+  //transition: width .7s ease, font-size .9s ease-out;
    will-change: width;
-   width: 800px !important;
+  //width: 800px !important;
    object-fit: cover;
 
    @include mobile {
@@ -84,11 +84,11 @@
  }
  .swiper-slide.swiper-slide-prev{
   cursor: pointer;
-  transition: width .7s ease , font-size 1s ease-out;
+ // transition: width .7s ease , font-size 1s ease-out;
  }
  .swiper-slide.swiper-slide-next {
   cursor: pointer;
-  transition: width .7s ease;
+  //transition: width .7s ease;
  //transition-delay: 1s; /* delay the transition by 0.5 seconds */
 }
 
@@ -168,13 +168,13 @@ margin-bottom: 1rem;
     }
 }
 .spotim{
-  max-width: 38%;
+  max-width: 35%;
   height: 80px;
   object-fit: contain;
   padding: 4px;
 
   @include mobile {
-    max-width: 100%;
+    max-width: 50%;
     height: 80px;
   }
 }
@@ -389,6 +389,7 @@ margin-bottom: 1rem;
 .spotty{
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   padding-left: .5rem;
   //justify-content: center;
   font-size: x-small;
