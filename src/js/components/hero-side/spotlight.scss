@@ -175,7 +175,7 @@ margin-bottom: 1rem;
 
   @include mobile {
     max-width: 50%;
-    height: 80px;
+    height: auto;
   }
 }
 .spotlight-name{
