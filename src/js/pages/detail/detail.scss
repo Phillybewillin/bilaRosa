@@ -3,7 +3,7 @@
 .bigman{
   min-height: 100vh;
   transition: all .3s ease-in-out;
-  //overflow: hidden;
+  overflow: hidden;
   position: relative;
 }
 .btnplay{
@@ -12,6 +12,15 @@
   justify-content: center;
   gap: 10px;
   align-items: center;
+}
+.btntext{
+  display: none;
+  transition: all 1s ease-in-out;
+ 
+}
+.btnprime:hover .btntext{
+  
+  display: flex;
 }
 
 .banner {
@@ -32,7 +41,7 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 15%; /* adjust this value to control the amount of blur */
+      height: 25%; /* adjust this value to control the amount of blur */
       background-image: inherit;
       filter: blur(55px);
         //background-image: linear-gradient(180deg, rgba(127, 117, 117, 0), rgba(0, 0, 0, 0.498));
@@ -52,7 +61,7 @@
     }
 
     @include mobile {
-      
+        
         height: 100vh;
     }
 }
@@ -110,22 +119,35 @@
 }
 .trailler{
   position: absolute;
-  top: -4rem ;
+  top: -7rem ;
   right: 5px;
   display: flex;
  // width: 50%;
-  flex-direction: row;
+  flex-direction: column;
+  z-index: 2;
  // align-items: center;
-
+  //transition: all .3s ease-in-out;
   @include mobile {
     position: absolute;
-    top: -30.5rem ;
+    top: -35.5rem ;
+    right: 3px;
+  }
+}
+.ratingpos{
+  position: absolute;
+  top: 0rem ;
+  right: 1.5rem;
+  display: flex;
+  //transition: all .3s ease-in-out;
+  @include mobile {
+    position: absolute;
+    top: 0.5rem ;
     right: 3px;
   }
 }
 .sammzy{
   font-size: small;
-  color: #ffffff2d;
+  color: #ffffff5a;
 
   @include mobile {
     font-size: x-small;
@@ -226,7 +248,9 @@
           align-items: center;
 
           @include mobile {
+            align-items: start;
             flex-direction: column;
+           // justify-content: s;
           }
           
         }
@@ -236,11 +260,32 @@
           margin-left: 1rem;
           display: flex;
           flex-direction: row;
-          background-color: #2020202d;
-          border-radius: 5px;
+          background-color: #ffffff0b;
+          border-radius: 10px;
           @include mobile {
             margin-top: .6rem;
             padding: .4rem ;
+            display: flex;
+            flex-direction: row;
+            
+            align-items: center;
+          }
+          
+
+         
+
+        }
+        .langu2{
+          padding: .5rem;
+          margin-left: 1rem;
+          display: flex;
+          flex-direction: row;
+          //background-color: #ffffff0b;
+          border-radius: 10px;
+          @include mobile {
+            margin-top: .6rem;
+            padding: .4rem ;
+            flex-wrap: wrap;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -527,20 +572,23 @@
    
     
 }
+
 .language{
     text-align: center;
     display: flex;
     justify-content: flex-start;
     font-size: x-small;
-    font-weight: 400;
+    font-weight: 300;
     align-items: center;
     gap: 0.2rem;
-    padding: 7px 7px;
+    padding: 15px 10px;
     width: auto;
-    
+    background-color: #ffffff10;
+    margin: .2rem;
+    border-radius: 10px;
   
     @include mobile {
-     font-size: .7rem;
+     font-size: .83rem;
     }
 }
 .languagez{
@@ -609,62 +657,123 @@
   @include mobile {
     display: flex;
     flex-direction: row;
+    justify-content: start;
    }
 }
-
-.rating{
-   position: absolute;
-   top: 10px;
-   right: 10px;
-   font-size: x-small;
-   text-align: end;
-   transform: rotate(90deg);
-    font-weight: 700;
-    //transform:  rotate(45deg);
-    
-    padding: 15px 7px;
-    //width: 50%;
-    background-color: rgba(20, 20, 20, 0.386);
-    //border-radius: 5px;
-    border-top-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    transition: all .5s ease-in-out;
-  
-
-    &:hover{
-      cursor: pointer;
-      font-size: small;
-      transform: rotate(0deg);
-      transition: all .5s ease-in-out;
-    }
-     
-    @include mobile {
-      transform: rotate(0deg);
-      padding: 13px 7px;
-      font-size: .7rem;
-     }
+.persus{
+  font-size: .6rem;
+  margin-bottom: .4rem;
+  @include mobile {
+    font-size: .7rem;
+   }
 }
+.rating-wrapper {
+  display: inline-block;
+  position: relative;
+  width: 5rem;  // Overall ring size
+  height: 5rem;
+}
+
+.rating-ring {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Rotate the ring so that the conic gradient starts at the top */
+  //transform: rotate(-90deg);
+}
+
+.rating-content {
+  width: 4rem;  // Inner circle (smaller than ring to reveal the border)
+  height: 4rem;
+  border-radius: 50%;
+  background: #000000a1;
+  backdrop-filter: blur(20px);
+
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  position: relative;
+  z-index: 2;
+  /* Undo the parent's rotation for proper text alignment */
+ // transform: rotate(90deg);
+}
+
+.bubbles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  filter: url("#blob");
+}
+
+.bubble {
+  position: absolute;
+  /* Position each bubble at the ring edge using computed offsets */
+  left: calc(50% + var(--startX));
+  top: calc(50% + var(--startY));
+  width: var(--size);
+  height: var(--size);
+  transform: translate(-50%, -50%);
+  animation: bubble-move var(--time) ease-in infinite var(--delay),
+             bubble-size var(--time) ease-in infinite var(--delay);
+}
+
+@keyframes bubble-move {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    /* Move outward by the computed offsets */
+    transform: translate(calc(-50% + var(--moveX)), calc(-50% + var(--moveY)));
+  }
+}
+
+@keyframes bubble-size {
+  0%, 75% {
+    width: var(--size);
+    height: var(--size);
+  }
+  100% {
+    width: 0rem;
+    height: 0rem;
+  }
+}
+
+
+
 .overview{
-    background-color: #060606ac;
+    background-color: #ffffff0c;
     font-size: .7rem;
     font-weight: 100;
     padding: 10px;
     //line-height: 1;
     margin-top:0;
     text-align: start;
-      
+    border-radius: 10px; 
 }
 .overviewz{
   display: flex;
   justify-content: flex-start;
   //background-color: #060606ac;
   font-size: .75rem;
+  width: 65%;
   font-weight: 100;
+ 
   padding: 5px;
  color: #ffffff6c;
   margin-top:0;
   text-align: start;
   @include mobile {
+    width: 100%;
     font-size: .9rem;
 }
 }
@@ -873,11 +982,11 @@
   justify-content: space-between;
   align-items: center;
   font-size: .8rem;
-  margin-right: 10px;
-  backdrop-filter: blur(10px);
+  //margin-right: 10px;
+  backdrop-filter: blur(10px) saturate(180%);
   font-weight: 100;
   padding: 12px 30px;
-  background-color: rgba(10, 10, 10, 0.422);
+  background-color: rgba(16, 16, 16, 0.322);
    color: white;
   gap: 10px;
 
@@ -888,5 +997,42 @@
 }
 .bx.bx-directions{
   margin-right: 10px;
+}
+.prodcomp{
+  position: absolute;
+  top: 5rem;
+  right: 0;
+  width: 15%;
+  height: auto;
+  background-color: rgba(255, 255, 255, 0.062);
+  backdrop-filter: blur(20px);
+
+  -webkit-backdrop-filter: blur(20px);
+ padding: 1rem;
+ border-radius: 15px;
+ z-index: 1;
+ @include mobile {
+  display: none;
+ }
+}
+.prodcontainer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: end;
+  border-bottom: 1px solid rgba(172, 172, 172, 0.231);
+}
+.prodcomp__img{
+  width: 45px;
+  padding: .2rem;
+  height: auto;
+}
+.prodcomp__name{
+  font-size: .73rem;
+  color: rgba(255, 255, 255, 0.68);
+  margin: .5rem;
+  text-align: end;
+  font-weight: 100;
+  line-height: 1;
 }
 
