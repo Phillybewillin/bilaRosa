@@ -63,8 +63,9 @@ const Spotlight = () => {
       
     <Swiper
       ref={sliderRef}
+       spaceBetween={4}
       slidesPerView={4}
-      initialSlide={1} // Start with slide index 1 as active.
+      initialSlide={0} // Start with slide index 1 as active.
       navigation={{
         prevEl: navigationPrevRef.current,
         nextEl: navigationNextRef.current,
