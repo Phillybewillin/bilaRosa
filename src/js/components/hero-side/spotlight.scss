@@ -71,6 +71,9 @@
       pointer-events: none;
       border-radius: 17px;
       z-index: 1; // Make sure it sits above the image
+       @include tablet {
+      bottom:0;
+      } 
     }
     @include tablet {
       padding-top: .3rem;
