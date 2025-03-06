@@ -12,13 +12,17 @@ import { EffectCoverflow } from "swiper/modules";
 
 import "swiper/scss/effect-coverflow";
 const Spotlight = () => {
+  
+             const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 1024;
+
+
   const sliderRef = useRef(null);
-  const navigationPrevRef = useRef(null)
-  const navigationNextRef = useRef(null)
+  const navigationPrevRef = useRef(null);
+  const navigationNextRef = useRef(null);
+  const touchStartTimeRef = useRef(null);
+  const touchStartXRef = useRef(null);
     const navigate = useNavigate();
-    const activeWidth = 800;    // Width for the centered (active) slide
-    const inactiveWidth = 300;  // Width for fully inactive slides
-    const ACTIVE_WIDTH = 800;    // Active slide width when fully active.
+      const ACTIVE_WIDTH = 800;    // Active slide width when fully active.
     const INACTIVE_WIDTH = 300;  // All other slides width.
     const WIDTH_DIFF = ACTIVE_WIDTH - INACTIVE_WIDTH; // 500 px.
     const MAX_DURATION = 500;    // Duration (ms) for a full transition (t=1).
@@ -57,18 +61,16 @@ const Spotlight = () => {
           </div>
         
       
-   
-          <Swiper
+    <Swiper
       ref={sliderRef}
-      spaceBetween={4}
       slidesPerView={4}
-      initialSlide={0} // Start with slide index 1 as active.
+      initialSlide={1} // Start with slide index 1 as active.
       navigation={{
         prevEl: navigationPrevRef.current,
         nextEl: navigationNextRef.current,
       }}
       onSwiper={(swiper) => {
-        // Delay navigation element setup so refs are defined.
+        // Delay navigation setup so refs are defined.
         setTimeout(() => {
           swiper.params.navigation.prevEl = navigationPrevRef.current;
           swiper.params.navigation.nextEl = navigationNextRef.current;
@@ -84,89 +86,73 @@ const Spotlight = () => {
       autoplay={{ delay: 4500 }}
       modules={[Navigation, Autoplay, Pagination, Mousewheel, FreeMode]}
       mousewheel={{ forceToAxis: true, sensitivity: 0.5, releaseOnEdges: true }}
-      // Disable free mode so Swiper handles active index normally.
       freeMode={false}
-      watchSlidesProgress={true}
-      // Record touch start info.
-      onTouchStart={(swiper, event) => {
-        touchStartTimeRef.current = Date.now();
-        touchStartXRef.current = swiper.touches.startX;
-      }}
-      // As the user swipes, compute a factor (t) from the duration and update widths.
-      onTouchMove={(swiper, event) => {
-        const currentTime = Date.now();
-        const duration = currentTime - touchStartTimeRef.current;
-        let t = duration / MAX_DURATION; // t goes from 0 to 1.
-        if (t > 1) t = 1;
-
-        // Determine swipe direction using the X difference.
-        const deltaX = swiper.touches.currentX - touchStartXRef.current;
-        const swipeDirection = deltaX < 0 ? 'next' : 'prev';
-
-        const activeIndex = swiper.activeIndex;
-        const activeSlide = swiper.slides[activeIndex];
-        if (!activeSlide) return;
-
-        // Identify the neighbor slide based on swipe direction.
-        let neighborSlide = null;
-        if (swipeDirection === 'next' && swiper.slides[activeIndex + 1]) {
-          neighborSlide = swiper.slides[activeIndex + 1];
-          activeSlide.style.transformOrigin = 'right center';
-          neighborSlide.style.transformOrigin = 'left center';
-        } else if (swipeDirection === 'prev' && swiper.slides[activeIndex - 1]) {
-          neighborSlide = swiper.slides[activeIndex - 1];
-          activeSlide.style.transformOrigin = 'left center';
-          neighborSlide.style.transformOrigin = 'right center';
-        }
-
-        // Gradually interpolate widths:
-        // Active slide: decreases from 800px to 300px.
-        const newActiveWidth = ACTIVE_WIDTH - WIDTH_DIFF * t;
-        activeSlide.style.width = `${newActiveWidth}px`;
-        // Neighbor slide: increases from 300px to 800px.
-        if (neighborSlide) {
-          const newNeighborWidth = INACTIVE_WIDTH + WIDTH_DIFF * t;
-          neighborSlide.style.width = `${newNeighborWidth}px`;
-        }
-
-        // Make sure other slides remain at the inactive width.
-        swiper.slides.forEach((slide, idx) => {
-          if (idx !== activeIndex && slide !== neighborSlide) {
-            slide.style.width = `${INACTIVE_WIDTH}px`;
-          }
-        });
-      }}
-      // When the swipe ends, commit or revert the slide change.
-      onTouchEnd={(swiper, event) => {
-        const currentTime = Date.now();
-        const duration = currentTime - touchStartTimeRef.current;
-        let t = duration / MAX_DURATION;
-        if (t > 1) t = 1;
-
-        const activeIndex = swiper.activeIndex;
-        const deltaX = swiper.touches.currentX - touchStartXRef.current;
-        const swipeDirection = deltaX < 0 ? 'next' : 'prev';
-
-        // If the factor t meets the threshold, commit to changing slides.
-        if (t >= COMMIT_THRESHOLD) {
+      watchSlidesProgress={isDesktop} // Enable custom progress handling only on desktop.
+      {...(isDesktop && {
+        // These custom event handlers are only added on desktop.
+        onTouchStart: (swiper, event) => {
+          touchStartTimeRef.current = Date.now();
+          touchStartXRef.current = swiper.touches.startX;
+        },
+        onTouchMove: (swiper, event) => {
+          const currentTime = Date.now();
+          const duration = currentTime - touchStartTimeRef.current;
+          let t = duration / MAX_DURATION;
+          if (t > 1) t = 1;
+          const deltaX = swiper.touches.currentX - touchStartXRef.current;
+          const swipeDirection = deltaX < 0 ? 'next' : 'prev';
+          const activeIndex = swiper.activeIndex;
+          const activeSlide = swiper.slides[activeIndex];
+          if (!activeSlide) return;
+          let neighborSlide = null;
           if (swipeDirection === 'next' && swiper.slides[activeIndex + 1]) {
-            swiper.slideNext(TRANSITION_SPEED);
+            neighborSlide = swiper.slides[activeIndex + 1];
+            activeSlide.style.transformOrigin = 'right center';
+            neighborSlide.style.transformOrigin = 'left center';
           } else if (swipeDirection === 'prev' && swiper.slides[activeIndex - 1]) {
-            swiper.slidePrev(TRANSITION_SPEED);
+            neighborSlide = swiper.slides[activeIndex - 1];
+            activeSlide.style.transformOrigin = 'left center';
+            neighborSlide.style.transformOrigin = 'right center';
+          }
+          const newActiveWidth = ACTIVE_WIDTH - WIDTH_DIFF * t;
+          activeSlide.style.width = `${newActiveWidth}px`;
+          if (neighborSlide) {
+            const newNeighborWidth = INACTIVE_WIDTH + WIDTH_DIFF * t;
+            neighborSlide.style.width = `${newNeighborWidth}px`;
+          }
+          // Ensure all other slides are set to the inactive width.
+          swiper.slides.forEach((slide, idx) => {
+            if (idx !== activeIndex && slide !== neighborSlide) {
+              slide.style.width = `${INACTIVE_WIDTH}px`;
+            }
+          });
+        },
+        onTouchEnd: (swiper, event) => {
+          const currentTime = Date.now();
+          const duration = currentTime - touchStartTimeRef.current;
+          let t = duration / MAX_DURATION;
+          if (t > 1) t = 1;
+          const activeIndex = swiper.activeIndex;
+          const deltaX = swiper.touches.currentX - touchStartXRef.current;
+          const swipeDirection = deltaX < 0 ? 'next' : 'prev';
+          if (t >= COMMIT_THRESHOLD) {
+            if (swipeDirection === 'next' && swiper.slides[activeIndex + 1]) {
+              swiper.slideNext(TRANSITION_SPEED);
+            } else if (swipeDirection === 'prev' && swiper.slides[activeIndex - 1]) {
+              swiper.slidePrev(TRANSITION_SPEED);
+            } else {
+              swiper.slideTo(activeIndex, TRANSITION_SPEED);
+            }
           } else {
             swiper.slideTo(activeIndex, TRANSITION_SPEED);
           }
-        } else {
-          // Otherwise, revert.
-          swiper.slideTo(activeIndex, TRANSITION_SPEED);
-        }
-      }}
-      // Apply uniform transition durations to each slide.
-      onSetTransition={(swiper, speed) => {
-        swiper.slides.forEach((slide) => {
-          slide.style.transitionDuration = `${speed}ms`;
-        });
-      }}
+        },
+        onSetTransition: (swiper, speed) => {
+          swiper.slides.forEach((slide) => {
+            slide.style.transitionDuration = `${speed}ms`;
+          });
+        },
+      })}
       className="swiper"
     >
           <SwiperSlide>
