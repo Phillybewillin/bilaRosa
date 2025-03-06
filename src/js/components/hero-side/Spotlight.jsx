@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from "../button/Button";
 import './spotlight.scss';
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay , Pagination} from "swiper/modules";
+import { Navigation, Autoplay , Pagination ,Mousewheel , FreeMode ,} from "swiper/modules";
 import 'swiper/scss';
 import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
@@ -16,7 +16,17 @@ const Spotlight = () => {
   const navigationPrevRef = useRef(null)
   const navigationNextRef = useRef(null)
     const navigate = useNavigate();
-    const handleEpisodeClick = (id , title ,selectedSeason, episodeNumber) => {
+    const activeWidth = 800;    // Width for the centered (active) slide
+    const inactiveWidth = 300;  // Width for fully inactive slides
+    const ACTIVE_WIDTH = 800;    // Active slide width when fully active.
+    const INACTIVE_WIDTH = 300;  // All other slides width.
+    const WIDTH_DIFF = ACTIVE_WIDTH - INACTIVE_WIDTH; // 500 px.
+    const MAX_DURATION = 500;    // Duration (ms) for a full transition (t=1).
+    const COMMIT_THRESHOLD = 0.5; // If computed factor ≥ 0.5, commit to the neighbor.
+    const TRANSITION_SPEED = 1000; // ms for a slow, gradual transition.
+  
+  
+      const handleEpisodeClick = (id , title ,selectedSeason, episodeNumber) => {
       //console.log(selectedSeason , episodeNumber);
       //console.log(id , title  )
         //console.log('handlePlayer function called', id, title , selectedSeason , episodeNumber);
@@ -43,47 +53,126 @@ const Spotlight = () => {
       <>
         <div className="spotlight">
           <div className="modalhome">
-            <h1 className="homenama">~HOME~</h1>
+            <h1 className="homenama">HOME</h1>
           </div>
         
-          <Swiper
-            ref={sliderRef}
-            spaceBetween={3}
-            slidesPerView={4}
-           // lazy={true}
-           // preloadImages={false}
-            navigation={{
-              // Both prevEl & nextEl are null at render so this does not work
-              prevEl: navigationPrevRef.current,
-              nextEl: navigationNextRef.current,
-            }}
-            onSwiper={(swiper) => {
-              // Delay execution for the refs to be defined
-              setTimeout(() => {
-                // Override prevEl & nextEl now that refs are defined
-                swiper.params.navigation.prevEl = navigationPrevRef.current
-                swiper.params.navigation.nextEl = navigationNextRef.current
       
-                // Re-init navigation
-                swiper.navigation.destroy()
-                swiper.navigation.init()
-                swiper.navigation.update()
-              })
-            }}
-            loop = {true}
-            slideToClickedSlide = {true}
-            speed={550}
-            pagination={{ clickable: true }}
-            modules={[Navigation , Autoplay , Pagination]}
-            className="swiper"
-            //cssMode = {true}
-            //pointCursor = {true}
-            autoplay={{ delay: 4500 }}
-          > 
+   
+          <Swiper
+      ref={sliderRef}
+      spaceBetween={4}
+      slidesPerView={4}
+      initialSlide={0} // Start with slide index 1 as active.
+      navigation={{
+        prevEl: navigationPrevRef.current,
+        nextEl: navigationNextRef.current,
+      }}
+      onSwiper={(swiper) => {
+        // Delay navigation element setup so refs are defined.
+        setTimeout(() => {
+          swiper.params.navigation.prevEl = navigationPrevRef.current;
+          swiper.params.navigation.nextEl = navigationNextRef.current;
+          swiper.navigation.destroy();
+          swiper.navigation.init();
+          swiper.navigation.update();
+        }, 0);
+      }}
+      loop={true}
+      slideToClickedSlide={true}
+      speed={TRANSITION_SPEED}
+      pagination={{ clickable: true }}
+      autoplay={{ delay: 4500 }}
+      modules={[Navigation, Autoplay, Pagination, Mousewheel, FreeMode]}
+      mousewheel={{ forceToAxis: true, sensitivity: 0.5, releaseOnEdges: true }}
+      // Disable free mode so Swiper handles active index normally.
+      freeMode={false}
+      watchSlidesProgress={true}
+      // Record touch start info.
+      onTouchStart={(swiper, event) => {
+        touchStartTimeRef.current = Date.now();
+        touchStartXRef.current = swiper.touches.startX;
+      }}
+      // As the user swipes, compute a factor (t) from the duration and update widths.
+      onTouchMove={(swiper, event) => {
+        const currentTime = Date.now();
+        const duration = currentTime - touchStartTimeRef.current;
+        let t = duration / MAX_DURATION; // t goes from 0 to 1.
+        if (t > 1) t = 1;
+
+        // Determine swipe direction using the X difference.
+        const deltaX = swiper.touches.currentX - touchStartXRef.current;
+        const swipeDirection = deltaX < 0 ? 'next' : 'prev';
+
+        const activeIndex = swiper.activeIndex;
+        const activeSlide = swiper.slides[activeIndex];
+        if (!activeSlide) return;
+
+        // Identify the neighbor slide based on swipe direction.
+        let neighborSlide = null;
+        if (swipeDirection === 'next' && swiper.slides[activeIndex + 1]) {
+          neighborSlide = swiper.slides[activeIndex + 1];
+          activeSlide.style.transformOrigin = 'right center';
+          neighborSlide.style.transformOrigin = 'left center';
+        } else if (swipeDirection === 'prev' && swiper.slides[activeIndex - 1]) {
+          neighborSlide = swiper.slides[activeIndex - 1];
+          activeSlide.style.transformOrigin = 'left center';
+          neighborSlide.style.transformOrigin = 'right center';
+        }
+
+        // Gradually interpolate widths:
+        // Active slide: decreases from 800px to 300px.
+        const newActiveWidth = ACTIVE_WIDTH - WIDTH_DIFF * t;
+        activeSlide.style.width = `${newActiveWidth}px`;
+        // Neighbor slide: increases from 300px to 800px.
+        if (neighborSlide) {
+          const newNeighborWidth = INACTIVE_WIDTH + WIDTH_DIFF * t;
+          neighborSlide.style.width = `${newNeighborWidth}px`;
+        }
+
+        // Make sure other slides remain at the inactive width.
+        swiper.slides.forEach((slide, idx) => {
+          if (idx !== activeIndex && slide !== neighborSlide) {
+            slide.style.width = `${INACTIVE_WIDTH}px`;
+          }
+        });
+      }}
+      // When the swipe ends, commit or revert the slide change.
+      onTouchEnd={(swiper, event) => {
+        const currentTime = Date.now();
+        const duration = currentTime - touchStartTimeRef.current;
+        let t = duration / MAX_DURATION;
+        if (t > 1) t = 1;
+
+        const activeIndex = swiper.activeIndex;
+        const deltaX = swiper.touches.currentX - touchStartXRef.current;
+        const swipeDirection = deltaX < 0 ? 'next' : 'prev';
+
+        // If the factor t meets the threshold, commit to changing slides.
+        if (t >= COMMIT_THRESHOLD) {
+          if (swipeDirection === 'next' && swiper.slides[activeIndex + 1]) {
+            swiper.slideNext(TRANSITION_SPEED);
+          } else if (swipeDirection === 'prev' && swiper.slides[activeIndex - 1]) {
+            swiper.slidePrev(TRANSITION_SPEED);
+          } else {
+            swiper.slideTo(activeIndex, TRANSITION_SPEED);
+          }
+        } else {
+          // Otherwise, revert.
+          swiper.slideTo(activeIndex, TRANSITION_SPEED);
+        }
+      }}
+      // Apply uniform transition durations to each slide.
+      onSetTransition={(swiper, speed) => {
+        swiper.slides.forEach((slide) => {
+          slide.style.transitionDuration = `${speed}ms`;
+        });
+      }}
+      className="swiper"
+    >
           <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">R</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/w1280/dxn31fdmRBtbCLKIYSWMij9o0Rn.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0rem 1rem 2rem rgba(214, 7, 7, 0.26))'}}/>
+                <img loading='lazy' src={'https://image.tmdb.org/t/p/w1280/vh5FIqfosYaLWxCmZfSPjgUWWfn.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0rem 1rem 2rem rgba(214, 7, 7, 0.26))'}}/>
                 
                 <div className="spotlight-content">
                                 
@@ -112,7 +201,7 @@ const Spotlight = () => {
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-14</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/w1280/saGrvQwsMXswz3e4GjU91KpOt5V.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0rem 1rem 2rem rgba(255, 0, 0, 0.25))'}}/>
+                <img loading='lazy' src={'https://image.tmdb.org/t/p/w1280/7bNw4yfFQOWXZKKMFxFWIbFmsys.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0rem 1rem 2rem rgba(236, 236, 236, 0.25))'}}/>
                 
                 <div className="spotlight-content">
                 
