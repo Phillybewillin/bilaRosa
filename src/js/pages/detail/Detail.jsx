@@ -23,7 +23,7 @@ const Detail = () => {
     const [item, setItem] = useState(null);
     const [items, setItems] = useState([]);
     const [notLoaded, setNotLoaded] = useState(true);
-
+   // const [productions , setProductions] = useState([]);
     const [videos , setVideos] = useState([]);
     const {user} = UserAuth();
     const { addToWatchlist, checkIfInWatchlist , addToFavourites , checkIfInFavourites , removeFromWatchlist , removeFromFavourites } = useFirestore();
@@ -39,7 +39,7 @@ const Detail = () => {
        setNotLoaded(false);
       }
       
-     //console.log(response);
+     console.log(response);
   }
 
  
@@ -188,7 +188,7 @@ const Detail = () => {
             case 'Comedy':
                 return 'yellow';
             case 'Crime':
-                return 'darkgrey';
+                return 'olive';
             case 'Thriller':
                 return 'grey';
             case 'Family':
@@ -231,6 +231,8 @@ const Detail = () => {
                 return 'black';
             case 'War & Politics':
                 return 'rgb(98, 65, 0)';
+            case 'Science Fiction':
+              return 'purple';
 
             default:
                 return 'white';
@@ -255,22 +257,31 @@ const Detail = () => {
           }
       };
       const releaseYear = item?.release_date || item?.first_air_date;
+      const absolutereleaseYear = new Date(releaseYear);
+      
+      console.log(absolutereleaseYear.toLocaleString('en-US', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+      }));
       const year = (new Date(releaseYear)).getFullYear();
     
       const voteAverage = item?.vote_average;
       const votePercentage = voteAverage * 10; // convert to percentage
-    const getColor = (votePercentage) => {
-      if (votePercentage >= 86) {
-          return 'magenta';
-      } else if (votePercentage >= 70) {
-          return 'rgb(9, 255, 0)';
-      } 
-      else if (votePercentage >= 55) {
-          return 'yellow';
-      } else {
-        return 'red';
-      }
-    };
+      const getColor = (votePercentage) => {
+        if (votePercentage >= 86) {
+          return '#9b59b6'; // Royal Purple for the best of the best
+        } else if (votePercentage >= 70) {
+          return '#2ecc71'; // Emerald Green for 70 and above
+        } else if (votePercentage >= 60) {
+          return '#f1c40f'; // Sunflower Yellow for 60 and above
+        } else if (votePercentage >= 55) {
+          return '#e67e22'; // Carrot Orange for 55 and above
+        } else {
+          return '#e74c3c'; // Red for lower ratings
+        }
+      };
+      
 
     const scrollToTop = () => {
       
@@ -322,12 +333,74 @@ const Detail = () => {
     const formatRuntime = (minutes) => {
       const hours = Math.floor(minutes / 60);
       const mins = minutes % 60;
-      return `${hours} H ${mins}`;
+      return `${hours}H ${mins}`;
     };
 
     const handleGoBack = () => {
       navigate('/');
     };
+
+// Overall ring dimensions (in rem)
+const ringSize = 5; // Overall diameter in rem
+const ringRadius = ringSize / 2; // 3rem radius
+const bubbleCount = 10; // Number of bubbles
+
+// Use -90 so that the filled part starts at the top
+const baseAngle = -90;
+// Convert vote percentage into degrees (100% → 360°)
+const gradientAngle = votePercentage * 3.6;
+
+let bubbles = [];
+for (let i = 0; i < bubbleCount; i++) {
+  // Generate a random angle only on the filled arc (from baseAngle to baseAngle + gradientAngle)
+  const angle = baseAngle + Math.random() * gradientAngle;
+  const rad = angle * (Math.PI / 180);
+  
+  // Compute starting position exactly at the ring's edge
+  const startX = (ringRadius * Math.cos(rad)).toFixed(2) + 'rem';
+  const startY = (ringRadius * Math.sin(rad)).toFixed(2) + 'rem';
+  
+  // Bubble size using CodePen logic (2 + random*4 rem) – you can adjust as needed.
+  const sizeNum = 1 + Math.random() * 4;
+  const size = sizeNum.toFixed(2) + 'rem';
+  
+  // Movement: bubbles "disintegrate" by moving further out.
+  // Distance to move outward: 6 + random*4 rem.
+  const distanceNum = 1 + Math.random() * 4;
+  const moveX = (Math.cos(rad) * distanceNum).toFixed(2) + 'rem';
+  const moveY = (Math.sin(rad) * distanceNum).toFixed(2) + 'rem';
+  
+  // Animation timing similar to CodePen: duration 2 + random*2 s; negative delay for continuous flow.
+  const time = (2 + Math.random() * 2).toFixed(2) + 's';
+  const delay = (-1 * (2 + Math.random() * 2)).toFixed(2) + 's';
+  
+  // Randomize the shape for organic blobs (borderRadius between 30% and 100%)
+  const borderRadius = (30 + Math.random() * 70).toFixed(0) + '%';
+  
+  bubbles.push(
+    <div
+      key={i}
+      className="bubble"
+      style={{
+        '--startX': startX,
+        '--startY': startY,
+        '--moveX': moveX,
+        '--moveY': moveY,
+        '--size': size,
+        '--time': time,
+        '--delay': delay,
+        background: getColor(votePercentage.toFixed(0)),
+        borderRadius: borderRadius,
+      }}
+    />
+  );
+}
+
+// Create the ring fill using a conic gradient.
+const color = getColor(votePercentage.toFixed(0));
+const ringStyle = {
+  background: `conic-gradient(${color} ${gradientAngle}deg, transparent ${gradientAngle}deg)`,
+};
 
     return notLoaded ? (
 
@@ -378,6 +451,7 @@ const Detail = () => {
                     </div>
           
                     <div className="banner" style={{backgroundImage: `url(${apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)})`}}></div>
+                  
                       <div className="trailler">
 
                      <Button className='btntrailer' onClick={watchTrailer}><i class='bx bx-joystick-alt'></i>Trailer</Button>
@@ -389,7 +463,7 @@ const Detail = () => {
       </div>
     ) : (
       <div className="buttonz">
-        <Button className='btnprime' onClick={handlescrolldown}> <i className='bx bx-directions'></i>Recommendations</Button>
+        <Button className='btnprime' onClick={handlescrolldown}> <i className='bx bx-directions'></i><p className='btntext' ></p></Button>
         <Button className="btnplay" onClick={() => handlePlayer(item.id, item.name || item.title)}><i className='bx bx-play'></i>  Watch </Button> 
       </div>
     )}
@@ -410,10 +484,14 @@ const Detail = () => {
                              
                              
                                <div className="languandr">
-                               <div className="langu">
-                               <div className="language"><i className="bx bx-world" style={{fontSize:'11px'}}></i> {item.original_language.toUpperCase()}</div>
-                               <div className="language"><i className='bx bxs-calendar' style={{fontSize:'11px'}}></i>{Number.isNaN(year) ? '' : year}</div>
-                                <div className="language"><i className="bx bx-time" style={{fontSize:'11px'}}></i>{ category === 'movie' ? formatRuntime(item.runtime) : item.episode_run_time[0] } MIN</div>
+                               <div className="langu2">
+                               <div className="language"><i className="bx bx-world" style={{fontSize:'11px'}}></i>LANG | {item.original_language.toUpperCase()}</div>
+                               <div className="language"> AIRED ON | {absolutereleaseYear.toLocaleString('en-US', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric'
+          })}</div>
+                                <div className="language"><i className="bx bx-time" style={{fontSize:'11px'}}></i> RUNTIME | { category === 'movie' ? formatRuntime(item.runtime) : item.last_episode_to_air.runtime }MIN</div>
                             
                                 </div>
                                 <div className="langu">
@@ -448,7 +526,7 @@ const Detail = () => {
                                <div className="overviewz">
                                 
                                 
-                                 <p className="overviewz">{item.overview}</p>
+                                 <p className="overview">{item.overview}</p>
                                  </div>
                                  <h4 className='sammzy'>GENRES</h4>
                                <div className="genres" >
@@ -458,8 +536,46 @@ const Detail = () => {
                                     ))
                                 }
                                </div>
-                               <div className="rating" style={{color: getColor(votePercentage.toFixed(0))}}>{votePercentage.toFixed(0)}%</div>
-                               
+                                 <div className="ratingpos">
+                    <div className="rating-wrapper">
+      <div className="rating-ring" style={ringStyle}>
+        <div className="rating-content">
+          {votePercentage.toFixed(0)} <div className="persus">%</div>
+        </div>
+        <div className="bubbles">
+          {bubbles}
+        </div>
+      </div>
+      {/* Hidden SVG filter to achieve the blob effect similar to the CodePen example */}
+      <svg width="0" height="0">
+        <defs>
+          <filter id="blob">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+            <feColorMatrix
+              in="blur"
+              mode="matrix"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+              result="blob"
+            />
+          </filter>
+        </defs>
+      </svg>
+    </div>
+                    </div>
+         
+     <div className="prodcomp">
+     <h4 className='sammzy'>PRODUCTION COMPANIES</h4>
+                                {
+                                    item.production_companies && item.production_companies.map((company, i) => (
+                                      <div className="prodcontainer"key={i}>
+                                          <img src={`https://image.tmdb.org/t/p/w45` + company.logo_path} className="prodcomp__img" alt="" />
+                                     < p className="prodcomp__name">{company.name}</p>
+                             
+                                      </div>
+                                       ))
+                                }
+                              
+                               </div>
                             
                                
                               {category === 'tv' && <Suspense fallback={null}>
