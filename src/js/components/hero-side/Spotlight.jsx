@@ -180,8 +180,8 @@ const Spotlight = () => {
                   
                   <p className="spotlight-overview">After meeting with newly elected U.S. President Thaddeus Ross, Sam finds himself in the middle of an international incident. He must discover the reason behind a nefarious global plot before the true mastermind has the entire world seeing red.</p>
                   <div className="spotty">
-                  <Button className="spotlight-watch-btn" onClick={() => navigate('/movie/822199')}> <i className='bx bx-info-circle'></i> </Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 822199 , "CAPTAIN AMERICA BRAVE NEW WORLD")}>  <i className='bx bx-play'></i> Watch Now</Button></div>
+                  <Button className="spotlight-watch-btn" onClick={() => navigate('/movie/822119')}> <i className='bx bx-info-circle'></i> </Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 822119 , "CAPTAIN AMERICA BRAVE NEW WORLD")}>  <i className='bx bx-play'></i> Watch Now</Button></div>
                   </div>
                  </div>
             </SwiperSlide>
