@@ -180,15 +180,15 @@ const Detail = () => {
             case 'Animation':
                 return 'aquamarine';
             case 'Fantasy':
-                return ' #f505a1';
+                return 'rgb(255, 0, 170)';
             case 'Science Fiction':
-                return 'silver';
+                return 'rgb(206, 152, 102)';
             case 'Romance':
                 return 'red';
             case 'Comedy':
                 return 'yellow';
             case 'Crime':
-                return 'olive';
+                return 'brown';
             case 'Thriller':
                 return 'grey';
             case 'Family':
@@ -341,12 +341,12 @@ const Detail = () => {
     };
 
 // Overall ring dimensions (in rem)
-const ringSize = 5; // Overall diameter in rem
+const ringSize = 2; // Overall diameter in rem
 const ringRadius = ringSize / 2; // 3rem radius
-const bubbleCount = 10; // Number of bubbles
+const bubbleCount = 14; // Number of bubbles
 
 // Use -90 so that the filled part starts at the top
-const baseAngle = -90;
+const baseAngle = -70;
 // Convert vote percentage into degrees (100% → 360°)
 const gradientAngle = votePercentage * 3.6;
 
@@ -361,7 +361,7 @@ for (let i = 0; i < bubbleCount; i++) {
   const startY = (ringRadius * Math.sin(rad)).toFixed(2) + 'rem';
   
   // Bubble size using CodePen logic (2 + random*4 rem) – you can adjust as needed.
-  const sizeNum = 1 + Math.random() * 4;
+  const sizeNum = .1 + Math.random() * 4;
   const size = sizeNum.toFixed(2) + 'rem';
   
   // Movement: bubbles "disintegrate" by moving further out.
@@ -371,11 +371,11 @@ for (let i = 0; i < bubbleCount; i++) {
   const moveY = (Math.sin(rad) * distanceNum).toFixed(2) + 'rem';
   
   // Animation timing similar to CodePen: duration 2 + random*2 s; negative delay for continuous flow.
-  const time = (2 + Math.random() * 2).toFixed(2) + 's';
-  const delay = (-1 * (2 + Math.random() * 2)).toFixed(2) + 's';
+  const time = (2 + Math.random() * 4).toFixed(2) + 's';
+  const delay = (-1 * (2 + Math.random() * 5)).toFixed(2) + 's';
   
   // Randomize the shape for organic blobs (borderRadius between 30% and 100%)
-  const borderRadius = (30 + Math.random() * 70).toFixed(0) + '%';
+  const borderRadius = (10 + Math.random() * 40).toFixed(0) + '%';
   
   bubbles.push(
     <div
@@ -635,7 +635,7 @@ const ringStyle = {
                        {
                         items.results.length > 0 && (
                           <>
-                           <div className="overviewz">
+                           <div className="overviewx">
                                    <h3 className='titledetails'>Recommendations based on {item.title || item.name}</h3>
                       </div>
                        <div className="wrappwez">
@@ -646,7 +646,7 @@ const ringStyle = {
         <Suspense fallback={null}>
       <MovieCard item={itemz} category={category} key={itemz.id} />
       </Suspense>
-      {itemz.overview && <p className="overviewz">{itemz.overview}</p>}
+      {itemz.overview && <p className="overviewx">{itemz.overview}</p>}
     </div>
   ))
 }
