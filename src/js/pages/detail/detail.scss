@@ -322,8 +322,8 @@
                 background-color: #0000001b;
                 padding: .5rem 1.2rem;
                 border: 2px solid;
-                border-radius: 20px;
-                font-size: .62rem;
+                border-radius: 15px;
+                font-size: .7rem;
                 font-weight: 300;
                 //backdrop-filter: blur(10px);
                 @include mobile {
@@ -379,6 +379,7 @@
 .castdiv{
   display: flex;
   flex-direction: column;
+  z-index: 2;
   overflow: auto;
   align-items: center;
   justify-content: center;
@@ -396,6 +397,7 @@
     .casts {
       display: flex;
       flex-direction: row;
+      justify-content: center;
       align-items: center;
       flex-wrap: wrap;
 
@@ -755,7 +757,7 @@
 
 .overview{
     background-color: #ffffff0c;
-    font-size: .7rem;
+    //font-size: .7rem;
     font-weight: 100;
     padding: 10px;
     //line-height: 1;
@@ -769,10 +771,10 @@
   //background-color: #060606ac;
   font-size: .75rem;
   width: 65%;
-  font-weight: 100;
+  font-weight: 300;
  
   padding: 5px;
- color: #ffffff6c;
+ color: #ffffffd4;
   margin-top:0;
   text-align: start;
   @include mobile {
@@ -789,11 +791,12 @@
   margin-top:0;
   text-align: start;
   
+  
 }
 .titleoverview{
   display: flex;
   justify-content: start;
-  background-color: #1818186d;
+  background-color: #d63e3e6d;
   font-size: .8rem;
   font-weight: 400;
   padding: 5px 10px;
@@ -868,12 +871,18 @@
 }
 .titledetails{
   position: relative;
-  font-size: .7rem;
-  font-weight: 200;
+  font-size: .8rem;
+ justify-content: end;
+  font-weight: 500;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  text-align: center;
   padding: 10px;
-  background-color: rgba(6, 6, 6, 0.822);
-  border-radius: 15px;
-  color: rgb(189, 189, 189);
+  background-color: rgba(255, 255, 255, 0.046);
+  border-radius: 5px;
+  color: rgb(210, 210, 210);
+  
+
 }
 .titledetailz{
   //width: 100%;
@@ -893,10 +902,10 @@
 }
 .wrappwez{
   position: relative;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   height: auto;
-  background-color: #000000a6;
+  background-color: #00000070;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 5px;
