@@ -156,6 +156,35 @@ const Spotlight = () => {
       })}
       className="swiper"
     >
+        <SwiperSlide>
+              <div className="spotlight-item">
+              <h1 className="spotlight-number">PG</h1>
+                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/2n7lYEeIbucsEQCswRcVB6ZYmMP.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0rem 1rem 2rem rgba(14, 165, 165, 0.26))'}}/>
+                
+                <div className="spotlight-content">
+                                
+                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/w500/3ytYkpRKXPdUO90Jom4QOkVTRLY.png"/></h2>
+                
+                  
+                 
+                  <div className="spotty">
+                  <p className="spotlight-genres">
+                    <span className="genre a">SCIENCE FICTION</span>
+                    <span className="genre a">DRAMA</span>
+                    <span className="genre a">ADVENTURE</span>
+                  </p>
+                  <h5 className="genre a"> MOVIE | 14 MAR 2025 </h5> <h5 className="genre a"> 69%</h5>
+                  </div>
+                  <p className="spotlight-overview">
+                  An orphaned teen hits the road with a mysterious robot to find her long-lost brother, teaming up with a smuggler and his wisecracking sidekick.
+</p>
+                  <div className="spotty">
+                  <Button className="spotlight-watch-btn" onClick={() => navigate('/movie/777443')}>  <i className='bx bx-info-circle'></i></Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 777443, "THE ELECTRIC STATE")}>  <i className='bx bx-play'></i> Watch Now </Button>
+                  </div>
+                  </div>
+              </div>
+            </SwiperSlide> 
       <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">PG-13</h1>
@@ -215,35 +244,7 @@ const Spotlight = () => {
                   </div>
               </div>
             </SwiperSlide> 
-            <SwiperSlide>
-              <div className="spotlight-item">
-              <h1 className="spotlight-number">PG</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/864XHE8HbkeNiegmMQCmsjHcMBm.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0rem 1rem 2rem rgba(14, 165, 165, 0.26))'}}/>
-                
-                <div className="spotlight-content">
-                                
-                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/w500/xYo2LM6iYg1lsxWImV9IWewa0oz.png"/></h2>
-                
-                  
-                 
-                  <div className="spotty">
-                  <p className="spotlight-genres">
-                    <span className="genre a">ANIMATION</span>
-                    <span className="genre a">COMEDY</span>
-                    <span className="genre a">FAMILY</span>
-                  </p>
-                  <h5 className="genre a"> MOVIE | 03 MAR 2025 </h5> <h5 className="genre a"> 71%</h5>
-                  </div>
-                  <p className="spotlight-overview">
-                  Plankton's tangled love story with his sentient computer wife goes sideways when she takes a stand — and decides to destroy the world without him.
-</p>
-                  <div className="spotty">
-                  <Button className="spotlight-watch-btn" onClick={() => navigate('/movie/1104845')}>  <i className='bx bx-info-circle'></i></Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 1104845, "PLANKTON the movie")}>  <i className='bx bx-play'></i> Watch Now </Button>
-                  </div>
-                  </div>
-              </div>
-            </SwiperSlide> 
+          
             
             <SwiperSlide>
               <div className="spotlight-item">
@@ -310,6 +311,40 @@ const Spotlight = () => {
                    </div>
               </div>
             </SwiperSlide>
+            <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">TV-MA</h1>
+                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/ihzMEmq7Yc6ZfgEhagdDKnhGBgX.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(195, 121, 56, 0.25))'}}/>
+                
+                <div className="spotlight-content">
+                
+                 
+                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/original/rNTY34G4jfaT7YUiSRFw8vtSOjG.png"/></h2>
+                
+               
+                
+                 
+                  <div className="spotty">
+                  <p className="spotlight-genres">
+                  
+                   
+                  <span className="genre a">DRAMA</span>
+                  <span className="genre a">THRILLER</span>
+                  <span className="genre a">MYSTERY</span>
+              
+
+                </p>
+                  <h5 className="genre a"> SHOW | 01 JAN 2021 </h5> <h5 className="genre a"> 71%</h5>
+               </div>
+                  
+                  <p className="spotlight-overview">This equal parts survival epic, psychological horror story and coming-of-age drama tells the saga of a team of wildly talented high school girls soccer players who become the (un)lucky survivors of a plane crash deep in the remote northern wilderness. The series chronicles their descent from a complicated but thriving team to savage clans, while also tracking the lives they’ve  </p>
+                  <div className="spotty">
+                  <Button className="spotlight-watch-btn" onClick={() => navigate('/tv/117488')}> <i className='bx bx-info-circle'></i>  </Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 117488, "yellow jackets" ,1 ,1 )}> <i className='bx bx-play' ></i> Watch Now</Button>
+                  </div>
+                  </div>
+              </div>
+           </SwiperSlide>
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
@@ -641,40 +676,7 @@ Big Nick is back on the hunt in Europe and closing in on Donnie, who is embroile
               </div>
             </SwiperSlide>
           
-            <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">TV-MA</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/jmcRdwSOb1Bo1snMtxTSWOqbvgR.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgb(195, 121, 56, 0.25))'}}/>
-                
-                <div className="spotlight-content">
-                
-                 
-                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/w500/dfqnNvicjlul2LAZzet1AePHIAg.png"/></h2>
-                
-               
-                
-                 
-                  <div className="spotty">
-                  <p className="spotlight-genres">
-                  
-                   
-                  <span className="genre a">DRAMA</span>
-                  <span className="genre a">ACTION</span>
-                  <span className="genre a">MYSTERY</span>
-              
-
-                </p>
-                  <h5 className="genre a"> SHOW | 01 JAN 2025 </h5> <h5 className="genre a"> 86%</h5>
-               </div>
-                  
-                  <p className="spotlight-overview">In 1991 Miami, Dexter Morgan transitions from student to avenging serial killer. When his bloodthirsty urges can't be ignored any longer, Dexter must learn to channel his inner darkness. With the guidance of his father, Harry, he adopts a Code designed to help him find and kill people who deserve to be eliminated from society without getting on law enforcements' radar. This is </p>
-                  <div className="spotty">
-                  <Button className="spotlight-watch-btn" onClick={() => navigate('/tv/219937')}> <i className='bx bx-info-circle'></i>  </Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 219937, "Dexter original sin" ,1 ,1 )}> <i className='bx bx-play' ></i> Watch Now</Button>
-                  </div>
-                  </div>
-              </div>
-           </SwiperSlide>
+         
           
           
            <SwiperSlide>
