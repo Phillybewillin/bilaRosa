@@ -14,6 +14,7 @@ import Search from './js/pages/Search';
 import Player from './js/pages/player/Player';
 import Sidebar from './js/components/header/Sidebar';
 import {motion} from 'motion/react'
+import { ToastContainer } from 'react-toastify';
 //const Player = lazyWithPreload(() => import('./js/pages/player/Player'));
 const Filters = lazyWithPreload(() => import('./js/components/movie-grid/Filters'));
 //const Login = lazyWithPreload(() => import('./js/pages/authpages/Login'));
@@ -45,6 +46,8 @@ const App = () => {
 
   return (
     <>
+     <ToastContainer theme="dark" position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#1eff00', color: 'white', borderRadius: '10px' }} />
+   
       <AuthContextProvider>
       {!hideHeader && <Header />}
       {!hideHeader && <Sidebar />}
@@ -89,7 +92,7 @@ const App = () => {
         <Route path="*" element={<h1> You got lost somehow , Damn  a 404  </h1>} />
         </Routes>
         {!hideHeader && <Footer />}
-     </AuthContextProvider>
+               </AuthContextProvider>
     </>
   );
 };
