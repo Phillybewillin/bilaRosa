@@ -4,8 +4,8 @@
 .movie-card {
   cursor: pointer;
   display: inline-block;
-  width: 98%;
-  margin-left:3px;
+  width: 190px;
+  //margin-left:3px;
     position: relative !important;
     background-position: center;
     background-size: cover;
@@ -147,7 +147,7 @@
 
         &:hover::before{
             background-image: linear-gradient(180deg, transparent ,$body-bg 100%);
-            padding-top: 2rem;
+           // padding-top: 2rem;
             z-index: inherit;
             opacity: 1;
             border-radius: 20px;
@@ -169,7 +169,7 @@
         }
         &:hover .inCinema {
           // background-color: #2928280d;
-           color: rgb(255, 205, 213);
+           color: rgb(142, 237, 250);
            z-index: -1;
           
            transition: all .1s ease-in-out;
