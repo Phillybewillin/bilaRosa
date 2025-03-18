@@ -32,13 +32,15 @@
     height: 100%;
     width: 100%;
     //background-color: #fff;
-    //overflow:visible;
+    //overflow-x: hidden;
     //z-index: 55;
     padding: .1rem;
     border-radius: 10px;
+    margin-bottom: 2rem;
    // transition: all 1s ease-in;
 
     @include mobile {
+      margin-bottom: 0rem;
         padding: 0;
     }
      
@@ -71,9 +73,6 @@
       pointer-events: none;
       border-radius: 17px;
       z-index: 1; // Make sure it sits above the image
-       @include tablet {
-      bottom:0;
-      } 
     }
     @include tablet {
       padding-top: .3rem;
@@ -133,12 +132,13 @@
 }
 /* Move the pagination bullets up by 10px */
 .swiper-pagination.swiper-pagination-bullets.swiper-pagination-horizontal{
-margin-bottom: 1rem;
+margin-bottom: -.4rem;
 
 @include mobile {
-    margin-bottom: 2.5rem;
+  
+    margin-left: 95%;
     width: 18px;
-    height: 95%;
+    //height: 95%;
 }
 
 /* Change the size and color of all bullets */
@@ -174,7 +174,23 @@ margin-bottom: 1rem;
   justify-content: flex-end;
   padding: 0 10px;
   gap: .3rem;
-  margin-top: .5rem;
+  margin: .2rem;
+  z-index: 1;
+ 
+  @include mobile {
+      display: none;
+  }
+}
+
+.alignerbutts2{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 10px;
+  gap: .3rem;
+  margin: .2rem;
   z-index: 1;
  
   @include mobile {
@@ -331,22 +347,58 @@ margin-bottom: 1rem;
     }
  }
 }
-.butts{
-  border: 1px solid rgba(255, 255, 255, 0.089);
-  padding: 7px;
-  border-radius: 7px;
+.buttsl{
+  position: absolute;
+  z-index: 30;
+right: 5px;
+  bottom: 2rem;
+  //background-color: rgba(18, 18, 18, 0.724);
+  color: white;
+  padding: 6px;
+  //border-left: 1px solid rgba(233, 233, 233, 0.644);
+  font-size: smaller;
+  background-color: rgba(255, 255, 255, 0.105);
+ // backdrop-filter: blur(10px);
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
   font-size: small;
   font-weight: 300;
   color: white;
   transition: all .3s ease-in-out;
 }
-.butts:hover{
+.buttsr{
+  position: absolute;
+  z-index: 50 !important;
+
+  right: 35px;
+  bottom: 2rem;
+  //background-color: rgba(18, 18, 18, 0.724);
+  color: white;
+  padding: 6px;
+  //border-left: 1px solid rgba(233, 233, 233, 0.644);
+  font-size: smaller;
+  background-color: rgba(255, 255, 255, 0.105);
+  //backdrop-filter: blur(10px);
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+
+  font-size: small;
+  font-weight: 300;
+  color: white;
+  transition: all .3s ease-in-out;
+}
+.buttsr:hover{
   scale: .9;
-  border: 1px solid $main-bg;
-  //transform: scale(1.1);
   transition: all .3s ease-in-out;
   cursor: pointer;
-  //color: rgb(238, 49, 49);
+  color: rgb(240, 11, 61);
+  
+}
+.buttsl:hover{
+  scale: .9;
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+  color: rgb(237, 31, 16);
 }
 .spotlight-watch-btn{
   background-color: #ffffff0e;
