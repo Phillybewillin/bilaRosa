@@ -64,7 +64,7 @@ const Spotlight = () => {
     <Swiper
       ref={sliderRef}
       spaceBetween={4}
-      slidesPerView={4}
+      slidesPerView={isDesktop ? 4 : 2}
       initialSlide={0} // Start with slide index 1 as active.
       navigation={{
         prevEl: navigationPrevRef.current,
@@ -713,7 +713,7 @@ Big Nick is back on the hunt in Europe and closing in on Donnie, who is embroile
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">PG</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/w1280/rRLQRYOkAPKqs2mL4IYKdntwUgr.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.5rem rgba(255, 0, 0, 0.14))'}}/>
+                <img loading='lazy' src={'https://image.tmdb.org/t/p/w1280/rRLQRYOkAPKqs2mL4IYKdntwUgr.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.5rem rgba(255, 0, 0, 0.12))'}}/>
                 
                 <div className="spotlight-content">
                                
@@ -742,9 +742,9 @@ Big Nick is back on the hunt in Europe and closing in on Donnie, who is embroile
             </SwiperSlide> 
           
             
-            <div className="alignerbutts">
-            <div className="butts" ref={navigationPrevRef} ><i className='bx bxs-left-arrow'></i></div>
-            <div className="butts" ref={navigationNextRef} ><i className='bx bxs-right-arrow'></i></div>
+            <div className="alignerbutts2">
+            <div className="buttsr" ref={navigationPrevRef} > <i className="bx bx-left-arrow-alt"></i></div>
+            <div className="buttsl" ref={navigationNextRef} > <i className="bx bx-right-arrow-alt"></i></div>
           
             </div>
             </Swiper>
