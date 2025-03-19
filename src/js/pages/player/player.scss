@@ -9,7 +9,9 @@
   align-items: center;
   height: 100vh;
   width: 100%;
-  background-color: rgba(0, 0, 0);
+  //background: linear-gradient(to top, rgba(245, 0, 0, 0), rgba(230, 1, 1, 0.5)) !important;
+
+  //background-color: rgba(0, 0, 0);
   position: relative;
 }
 
@@ -21,7 +23,7 @@
   font-size: 12px;
  // filter: drop-shadow(0 0 1rem rgba(210, 210, 210, 0.128));
   position: absolute;
-  top: 7px;
+  top: 3px;
   left: 5px;
   //padding:  .2rem;
   //background-color: #1414145f;
@@ -36,19 +38,20 @@
   }
 }
 .logozz{
+  cursor: pointer;
   //border: .5px solid rgba(255, 0, 0, 0.201);
-  background-color: rgba(0, 0, 0, 0.495);
+  background-color: rgba(255, 255, 255, 0.039);
  // filter: drop-shadow(0 0 1.5rem rgba(107, 107, 107, 0.342));
     //border-radius: 10px;
    //margin-left: 20px;
    position: absolute;
    right: calc(50% - 50px);
-   top: 8px;
+   top: 7px;
    //backdrop-filter: blur(10px);
     font-size: 1rem;
     font-weight: 500;
     color: white;
-    //border-radius: 20px ;
+    border-radius: 20px ;
 
     @include flex(center, flex-start);
 
@@ -147,23 +150,26 @@
     font-size: 12px;
   }
 }
+.episode_listimg,
 .episode_list{
-  background-image: linear-gradient(to bottom, $black , #00000097);
-  backdrop-filter: blur(100px);
+ // background-image: linear-gradient(to top, #000000a3 , #00000046);
+ // backdrop-filter: blur(100px);
+ // -webkit-backdrop-filter: blur(100px);
   @include over2lay;
   columns: 3;
   column-gap: 10px;
-  
+  margin-top: .5rem;
   gap: 5px;
   overflow: auto;
   padding: 8px;
   //border-radius: 10px;
   gap: 5px;
+  transition: all .3s ease-in-out;
   
   @include mobile {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+   // justify-content: ;
   }
   
 }
@@ -183,6 +189,7 @@
   color: white;
   font-size: 12px;
   text-align: center;
+  transition: all .3s ease-in-out;
   @include mobile {
     width: 100%;
     font-size: 11px;
@@ -192,31 +199,110 @@
   display: flex;
   flex-direction: row;
   position: absolute;
-  left: 7rem;
-  top: 14px;
+  background-color: #ffffff0c;
+  padding: 3px 10px;
+  border-radius: 15px;
+  left: 6rem;
+  top: 7px;
   @include mobile {
-    top: 10px;
-    left: 8rem; ;
+    top: 5px;
+    left: 9rem; ;
   }
 }
 .watchnow{
   position: absolute;
   right: 1px;
-  z-index: 100;
+  
+  z-index: 1 !important;
+  cursor: pointer;
+  width: 100px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 7px 10px ;
   border-radius: 7px;
   //background-color: #00fffb;
   backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
   color: rgb(255, 255, 255);
+
+ 
   
 }
+.watchnow.left{
+  position: absolute;
+  left: 0px;
+  top: 3rem;
+  z-index: 1 !important;
+  cursor: pointer;
+  max-width: inherit;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 110px ;
+  border-radius: 10px 0px 0px 10px;
+  background-color: #0000009d;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  color: rgb(255, 255, 255);
+
+ 
+  
+}
+.watchnowblur{
+  position: absolute;
+  right: 0px;
+  
+  z-index: 1;
+  cursor: pointer;
+  width: 100%;
+  height: 140px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 10px ;
+  border-radius: 10px;
+  //background-color: #00fffb;
+  backdrop-filter: blur(7px) brightness(0.4);
+  -webkit-backdrop-filter: blur(7px) brightness(0.4);
+  color: rgb(255, 255, 255);
+  font-size: l;
+  
+}
+.watchede-badge2,
 .watchede-badge{
   position: absolute;
-  right: 10px;
+  right: 1px;
+  color: white;
+  }
+.watchede-badge.left{
+  position: absolute;
+  bottom: 2.6rem;
+  width: 100%;
+  height: 100%;
+  left: 0rem;
+  border-radius: 10px;
+  backdrop-filter: grayscale(1) brightness(0.5) ;
   color: white;
 }
+
+.watchede-badgeimg{
+  position: absolute;
+  right: 0px;
+  //bottom: 2px;
+  color: white;
+  z-index: 1;
+  width: 100%;
+  border-radius: 10px;
+  height: 141px;
+  backdrop-filter: grayscale(1) brightness(0.5) ;
+  -webkit-backdrop-filter: grayscale(1);
+}
 .watchedd{
-  color: #9c9c9c7d;
+  color: #bababa7d;
 }
 .actively{
   
@@ -225,7 +311,7 @@
 }
 
 .episodes_itemz:hover{
-  background-color: rgba(69, 69, 69, 0.377);
+  background-color: rgba(255, 255, 255, 0.126);
   color: rgba(160, 160, 160, 0.541);
 }
 .fallbackshow{
@@ -234,123 +320,107 @@
   left: 0;
   width: 100%;
   height: 97vh;
-  background-color: rgba(0, 0, 0, 0.603);
+  background-color: rgba(0, 0, 0, 0.379);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 100;
   backdrop-filter: blur(10px);
 }
-.lights::before{
-  content: "";
-position: absolute;
-top: 0;
-left: 1;
-bottom: 0;
-right: 0;
-border-radius: 10px;
-background: linear-gradient(
-  95deg,
-  #ff0008,
-  #ffbb00,
-  #22ff00,
-  #00fffb,
-  #6a00ff,
-  #8c00ff
-);
-background-size: 450%;
-z-index: -1;
-animation: glow 20s linear infinite;
-width: 100%;
-height: 90vh;
-}
-.lights::after{
-  content: "";
-position: absolute;
-top: 0;
-left: 0;
-bottom: 0;
-right: 0;
-border-radius: 10px;
-background: linear-gradient(
-  95deg,
-  #ff0008,
-  #3cff00,
-  #fc00c1,
-  #00fffb,
-  #6a00ff,
-  #d400ff
-);
-background-size: 400%;
- z-index: -1;
-animation: glow 20s linear infinite;
-width: 100%;
-height: 98vh;
-  
-}
-.lights::after {
-  filter: blur(100);
-  transform: translate3d(0, 0, 0);
-  border-radius: 20px;
-  width: 100%;
-  height: 98vh;
-}
-@keyframes glow {
-  0% {
-    background-position: 0 0;
-  }
-
-  50% {
-    background-position: 100% 0;
-  }
-
-  100% {
-    background-position: 0 0;
-  }
-}
 
 .rea{
   display: flex;
   position: absolute;
-  left: 13rem;
+  right: .2rem;
   cursor: pointer;
-  top: 14px;
+  top: 4.5px;
   z-index: 100;
   //display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  width: 300px;
   flex-direction: row;
   gap: 10px;
-  border-radius: 7px;
-  font-size: .7rem;
+  border-radius: 10px;
+  font-size: .73rem;
   font-weight: 400;
-  background-color: #1c1c1c65;
+  background-color: #ffffff0e;
   //backdrop-filter: blur(10px);
-  padding: 8px 10px;
-
+ // padding: 10px 15px;
+ padding-right: 10px;
+ transition: all .4s ease-in-out;
   
   @include mobile {
     display: none;
   }
 }
+.dd{
+  position: relative;
+}
+
+.savo{
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
 .rea:hover{
+  scale: 0.97;
   background-color: #3a290188;
 }
+.reaimg{
+  width: auto;
+  height: 50px;
+  border-radius: 10px 0 0 10px;
+}
 .servers{
+  position: relative;
   z-index: 999999;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   flex-direction: row;
   gap: 10px;
-  border-radius: 10px;
+  margin-top: 3rem;
   font-size: .8rem;
   //background-color: #16161671;
   //backdrop-filter: blur(10px);
   padding: 8px;
   @include mobile {
     z-index: 999999;
-    font-size: .7rem;
+    font-size: .89rem;
+  }
+}
+
+.hanoxi{
+  font-size: 4rem;
+  font-weight: 700;
+  color: #fafafae1;
+}
+.haxnoiholder{
+  display: flex;
+  align-items: first baseline;
+  gap: .5rem;
+}
+.haxnoiep{
+  font-weight: 500;
+  color: #ffffffcd;
+}
+.css-eueb69-menu{
+  backdrop-filter: blur(15px);
+  background-color: rgba(0, 0, 0, 0.438);
+  -webkit-backdrop-filter: blur(15px);
+  //text-align: end;
+ // cursor: pointer !important;
+}
+.selectco{
+  z-index: 100 ! important;
+  position: relative;
+  min-width: 200px;
+  
+  @include mobile {
+    width: 100px;
   }
 }
 .androidnext{
@@ -365,11 +435,712 @@ height: 98vh;
   justify-content: space-between;
   padding: 10px;
   border-radius: 10px;
-  background-color: #2b2b2b6f;
+  background-color: #2b2b2b41;
   width: 100%;
   margin: 5px;
 }
 .servertitle{
   font-weight: 300;
 }
+// NEW STYLES FOR DISPLAY MODE TOGGLE
+.layout-toggles {
+  display: flex;
+  justify-content: flex-start;
+  gap: .5rem;
+  padding: 5px 0px;
+  //background-color: rgba(0, 0, 0, 0.5);
+  button {
+    background-color: #ffffff1e;
+    border: none;
+    padding: 9px 14px;
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: background-color 0.3s ease;
+      &:hover {
+        background-color: #c3000067;
+      }
+      
+  }
+}
+.layout-toggle{
+  @include mobile {
+    display: none;
+  }
+}
+.episode-selector.current-layout {
+  background-image: none !important;
+  background-color: transparent !important;
 
+
+  .episode_list{
+    background-image: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: transparent !important;
+  }
+
+  .episodes_itemz{
+    background-color: rgba(255, 255, 255, 0.084);
+  }
+    
+}
+
+.episode-selector.image-layout {
+  position: relative;
+  background-image: none !important;
+  background-color: transparent !important;
+  .episode_list{
+    background-image: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: transparent !important;
+  }
+  .episodes_itemz{
+    background-color: rgba(255, 255, 255, 0.084);
+  }
+  .episode_listimg{
+      
+    background-image: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: transparent !important;
+  }
+}
+
+// -----------------
+// YOUTUBE MODE LAYOUT
+// -----------------
+.youtube-mode-layout {
+  display: flex;
+  //gap: 10px;
+ max-width: 100vw;
+ //overflow: hidden;
+ overflow: hidden;
+ // padding: 10px;
+  // Left side: player with modified dimensions
+  .youtube-player {
+    //flex: 1;
+    min-height: 100vh;
+    min-width: 64.06%;
+    padding: 4px 10px ;
+    backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(100px);
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.587) 0%, rgb(0, 0, 0) 100%);
+  
+    .player-container {
+      height: auto;
+     
+      // Remove the full viewport height in YouTube mode
+      .episodes__iframe-container {
+        margin-top: .4rem;
+        width: 100%;
+        height: auto;
+        // The iframe itself uses the new dimensions set via inline props
+      }
+      .episodes__iframe {
+        min-width: 790px;
+        height: 450px;
+        border-radius: 15px;
+      }
+    }
+  }
+  // Right side: sidebar with controls and info
+  .youtube-sidebar {
+    //position: fixed;
+    right: 0;
+   // flex: 0 0 350px;
+   min-height: 100vh;
+    min-width: 35.94%;
+    max-width: 35.94%;
+    overflow: hidden;
+    display: flex;
+   // backdrop-filter: blur(100px);
+    flex-direction: column;
+    gap: 15px;
+    backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(100px);
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.689) 0%, rgba(0, 0, 0, 0.995) 100%);
+  
+    padding: 5px 0;
+    padding-right: 2px;
+    //border-radius: 5px;
+    // You can adjust typography, spacing etc. here
+    .episode_list {
+      columns: 1 !important;
+      margin-top: 0;
+      background-image: linear-gradient(to bottom, #1f1c1c0f , #ffffff10);
+      padding: 3px;
+      border-radius: 15px;
+      backdrop-filter: none;
+      //background-color: #7e7e7e15 !important;
+      overflow: hidden;
+      transition: all .3s ease-in-out;
+    }
+    
+    .episode_listimg{
+      display: flex;
+      overflow: auto;
+      scrollbar-width: none;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+      
+     // border-radius: 10px;
+    }
+   
+    .holderlay2{
+      position: relative;
+      display: flex;
+      flex-direction: row !important;
+      gap: 20px !important;
+      overflow: hidden;
+      text-align: end !important;
+      //margin-bottom: 2rem;
+    }
+    .sertop{
+      margin-bottom: 2rem !important;
+    }
+    .watchede-badge{
+      position: absolute;
+      right: 0;
+      left: 0px;
+      //bottom: 2px;
+      color: white;
+      z-index: 1;
+      width:100%;
+      text-align: start;
+      border-radius: 15px;
+      height: 169px;
+      backdrop-filter: grayscale(1) brightness(0.5) ;
+      -webkit-backdrop-filter: grayscale(1);
+    }
+    .watchede-badgeimg{
+      position: absolute;
+      top: 0;
+      left: 0;
+      //bottom: 2px;
+      color: white;
+      z-index: 1;
+      width: auto;
+      text-align: end;
+
+      border-radius: 15px;
+      height: 141px;
+      backdrop-filter: grayscale(1) brightness(0.5) ;
+      -webkit-backdrop-filter: grayscale(1);
+    }
+    .watchnowblur{
+      position: absolute;
+      top: 0;
+      left: 0;
+      //bottom: 2px;
+      color: white;
+      z-index: 1;
+      width: 101%;
+      
+      z-index: 1;
+      cursor: pointer;
+      //width: 141px;
+      height: 140px;
+    
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 10px ;
+      border-radius: 15px;
+      //background-color: #00fffb;
+      backdrop-filter: blur(7px) brightness(0.4);
+      -webkit-backdrop-filter: blur(7px) brightness(0.4);
+      color: rgb(255, 255, 255);
+     
+      
+      
+    }
+  
+    .servers,
+    .seasons-container,
+    .recommendations {
+      //width: 25%;
+      margin-bottom: 1px;
+    }
+  }
+  .servers{
+    margin-top: 0;
+    z-index: 2;
+  }
+  .episode_listimg{
+    position: relative;
+    display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  grid-gap: 5px;
+    overflow: auto;
+    background-image: none;
+   // background-color: #be1a1a8a !important; 
+    backdrop-filter: none;
+    scrollbar-width: none;
+   
+    gap: 5px;
+    //padding: 3px;
+    
+   border-radius: 10px;
+  }
+
+  .episodes_itemzimg{
+    position: relative;
+    width: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    &:hover{
+      .episode_nameabo{
+        z-index: 30;
+        opacity: 1;
+      }
+      color: white;
+      opacity: .7;
+    }
+  }
+  .hose{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 140px;
+    //gap: 10px;
+    //padding: 10px
+  }
+  .episode_posterimg{
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 15px !important;
+    
+  }
+  .layout-toggles {
+    display: flex;
+    justify-content: right !important;
+    gap: .5rem;
+    padding: 5px 0px;
+    //background-color: rgba(0, 0, 0, 0.5);
+    button {
+      background-color: #ffffff11 !important;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      font-size: 0.75rem;
+      transition: background-color 0.3s ease;
+      &:hover {
+        background-color: #c3000067 ! important;
+      }
+
+    }
+  }
+
+  .episode-selector{
+    background-image: none !important;
+    background-color: transparent !important;
+  }
+  .episode_numberabo{
+    position: absolute;
+    bottom: 5px;
+    right: 0px;
+    background-color: #0000006f;
+    //backdrop-filter: blur(10px);
+    font-weight: 300;
+    padding: 4px 10px;
+    border-radius: 7px 4px 10px 7px;
+    font-size: .7rem;
+  }
+}
+
+.rearo{
+  display: flex;
+  margin: .2rem;
+  //display: flex;
+  z-index: 1000 ! important;
+  position: absolute;
+  top: 5px;
+  right: 0;
+  align-items:  center;
+  justify-content: space-between;
+  flex-direction: row;
+ gap: 20px;
+ text-align: end;
+ text-wrap: wrap;
+  border-radius: 15px;
+  width: 50%;
+  font-size: .8rem ;
+  font-weight: 300;
+  background-color: #ffffff11;
+  //backdrop-filter: blur(10px);
+  padding: 0px;
+  cursor: pointer;
+  padding-right: .5rem;
+ transition: all .4s ease-in-out;
+
+}
+
+.rearoimg{
+  width: auto;
+  height: 60px;
+  object-fit: cover;
+  
+  border-radius: 15px 0 0 15px;
+}
+.rearo:hover{
+  scale: .95;
+  background-color: #3a290188;
+}
+.episodes_itemzimg{
+  position: relative;
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  &:hover{
+    .episode_nameabo{
+      opacity: 1;
+      //color: white;
+    }
+    color: white;
+    opacity: .9;
+  }
+}
+.episode_numberabo{
+  position: absolute;
+  z-index: 30;
+  bottom: 5px;
+  right: 2px;
+  background-color: #ffffff13;
+  //backdrop-filter: blur(10px);
+  font-weight: 300;
+  padding: 4px 8px;
+  border-radius: 7px;
+  font-size: .74rem;
+}
+.episode_nameabo{
+  z-index: 30;
+  position: absolute;
+  top: 5px;
+  left: 1px;
+  text-align: center;
+  color: white;
+  background-color: #0000008a;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: .74rem;
+  opacity: 0;
+}
+.episode_listimg{
+  display: flex;
+  overflow: auto;
+  scrollbar-width: none;
+  flex-direction: row;
+  gap: 10px;
+  padding: 10px;
+  
+ // border-radius: 10px;
+}
+.episode_posterimg{
+  width: 250px;
+  
+}
+// Example of the episode selector with backdrop image (normal mode)
+.episode-selector.descriptive-layout {
+  .episode_list {
+    columns: 2;
+   background: transparent;
+    padding: 3px;
+    overflow: hidden;
+  }
+  .holderlay2{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    overflow: hidden;
+  }
+  .episode_posterablur{
+    width: 66%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    filter: brightness(.34) blur(40px);
+  }
+  .episode_posterabos{
+    min-width: 270px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .episodes_itemz {
+    position: relative;
+    padding: 0px;
+    padding-right: .5rem;
+    text-align: start;
+    background-color: #c9c9c915;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    &:hover{
+      color: white;
+      opacity: .7;
+    }
+    .episode_nameaboz {
+      z-index: 51;
+       text-align: end;
+      color: white;
+      //background-color: #00000015;
+      padding: 4px 0px;
+      border-radius: 5px;
+      font-size: .94rem;
+      font-weight: 500;
+      opacity: 1;
+    }
+    .episode_overviewabo{
+      color: grey;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      line-clamp: 5;
+      box-orient: vertical;
+    
+  }
+}
+
+}
+.butaboss{
+  position: absolute;
+  //left: 0px;
+  display: flex;
+  width: 100%;
+  height: 0px;
+  align-items: center;
+  justify-content: space-between;
+ // background-color: red;
+ z-index: 1;
+}
+.leftpal{
+  position: absolute;
+  left: 0px;
+  bottom: -15px;
+  z-index: 3 !important;
+  padding: 10px;
+  background: linear-gradient(to right, #000000, #00000008);
+  color: white;
+  font-size: 2rem;
+  font-weight: 500;
+  &:hover{
+    background: linear-gradient(to right, #1c1c1c, #00000008);
+  }
+}
+.rightpal{
+  position: absolute;
+  right: 0px;
+  bottom: -15px;
+  z-index: 3 !important;
+  padding: 10px;
+  background: linear-gradient(to left, #000000, #00000008);
+  color: white;
+  font-size: 2rem;
+  font-weight: 500;
+
+  &:hover{
+    background: linear-gradient(to left, #1c1c1c, #00000008);
+  }
+}
+.episode_posterabos {
+  max-width: auto;
+  height: 150px;
+  //background-position: contain;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+}
+
+.imdsdi{
+  flex: 1;
+  position: absolute;
+  width: 60px;
+  ///filter: blur(10px);
+  opacity: .6;
+  height: 40px;
+  top: 0rem;
+  right: 0;
+  
+  cursor: pointer;
+ 
+}
+.recoholder{
+  display: flex;
+  overflow: auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 800px;
+  gap: 10px;
+}
+.recoholderfull{
+  display: flex;
+  overflow: auto;
+  padding: 0 5px;
+  flex-direction: row;
+  scrollbar-width: none;
+  //flex-wrap: wrap;
+ // max-width: 800px;
+  gap: 10px;
+}
+.recohead{
+  padding: 1rem .2rem;
+  text-align: start;
+  color: rgb(164, 164, 164);
+  font-size: 4rem;
+  font-weight: 900;
+  //sborder-radius: 10px;
+  border-top: 1px solid #fffdfd20;
+}
+.recoheadtube{
+  padding: .3rem .6rem;
+  text-align: end;
+  color: rgb(206, 206, 206);
+  font-size: 2.4rem;
+  font-weight: 900;
+  border-radius: 15px;
+ // max-width: inherit;
+  background-color: #ffffff07;
+  margin-bottom: 10px;
+  //border: 1px solid #fffdfd20;
+}
+
+.recoimg{
+  max-width: 145px;
+  @include overlay;
+  height: auto;
+  object-fit: cover;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  &:hover{
+    scale: .95;
+  }
+}
+.blurimgback{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+  
+  filter: blur(100px) brightness(.4);
+  
+}
+.zsa{
+  margin-top: calc(100% - 21rem);
+}
+.persistent-iframe-container.youtube{
+  position: absolute;
+  top: 3.5rem;
+  left: .5rem;
+  border-radius: 15px;
+  padding: 0 .5rem;
+  //background-color: red;
+  width: 800px !important;
+  height: auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000 !important;
+  
+  
+}
+.persistent-iframe-container.normal{
+  position: absolute;
+  top: 0rem;
+  left: 0rem;
+  border-radius: 15px;
+  //padding: 0 .5rem;
+  //background-color: red;
+  width: 100% !important;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000 !important;
+  
+  
+}
+.scroll-arrow.left{
+  position: absolute;
+  left: 0px;
+  bottom: -40px;
+  background: linear-gradient(to right, #1a1a1a, #00000008);
+  padding: 7px;
+  font-size: 1.5rem;
+  width: 30px;
+}
+
+.scroll-arrow.right{
+  position: absolute;
+  right: 0px;
+  bottom: -40px;
+  background: linear-gradient(to left, #161616, #00000008);
+  padding: 7px;
+  font-size: 1.5rem;
+  width: 30px;
+}
+.arrow.left-arrow{
+  position: absolute;
+  left: 0px;
+  top: 0;
+  cursor: pointer;
+  background: linear-gradient(to right, #1a1a1a, #00000008);
+  padding: 7px;
+  font-size: 1.5rem;
+  width: 30px;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover{
+    background: linear-gradient(to right, #242424, #00000008);
+    backdrop-filter: grayscale(1);
+  }
+}
+
+.arrow.right-arrow{
+  position: absolute;
+  right: 0px;
+  top: 0;
+  cursor: pointer;
+  background: linear-gradient(to left, #161616, #00000008);
+  padding: 7px;
+  font-size: 1.5rem;
+  width: 30px;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover{
+    background: linear-gradient(to left, #242424, #00000008);
+    backdrop-filter: grayscale(1);
+  }
+}
