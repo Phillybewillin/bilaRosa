@@ -1,135 +1,322 @@
-import {useRef , useState, useEffect} from "react";
-import { useNavigate, useParams} from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import axios from "axios";
 import "./player.scss";
-import '../detail/seasons.scss';
+import "../detail/seasons.scss";
 import apiConfig from "../../api/apiConfig";
-import ErrorBoundary from "../../pages/Errorboundary"; // Import the ErrorBoundary component
-//import {Bars } from "react-loader-spinner";
-import logo from '../../assets/icons8-alien-monster-emoji-48.png';
-import { ToastContainer , toast } from "react-toastify";
-import Select from 'react-select';
+import ErrorBoundary from "../../pages/Errorboundary";
+import logo from "../../assets/icons8-alien-monster-emoji-48.png";
+import { ToastContainer, toast } from "react-toastify";
+import Select from "react-select";
 
 import { UserAuth } from "../../context/AuthContext";
 import { useFirestore } from "../../Firestore";
 import tmdbApi from "../../api/tmdbApi";
+
 export default function Player() {
   const { title, id, season_number, episode_number } = useParams();
   const { user } = UserAuth();
-  const { addToWatchlist, checkIfInWatchlist , removeFromWatchlist, addToFavourites , checkIfInFavourites , removeFromFavourites } = useFirestore();
-  const testurl = import.meta.env.VITE_FETCH_URL_TEST;
+  const {
+    addToWatchlist,
+    checkIfInWatchlist,
+    removeFromWatchlist,
+    addToFavourites,
+    checkIfInFavourites,
+    removeFromFavourites,
+  } = useFirestore();
+  const navigate = useNavigate();
+  const category = season_number ? "tv" : "movie";
+
   const [itemData, setItemData] = useState([]);
- // const [playerSource, setPlayerSource] = useState(null);
-  //const [textTracks, setTextTracks] = useState([]);
   const [episodes, setEpisodeData] = useState([]);
   const [currentEpisode, setCurrentEpisode] = useState(episode_number);
   const [bgChanged, setbgChanged] = useState(null);
   const [seasons, setSeasons] = useState([]);
   const [currentSeason, setCurrentSeason] = useState(season_number);
-  //const [header , setHeader] = useState(null);
-  //const [quality, setQuality] = useState("auto");
-  const [totalEpisodes , setTotalEpisodes] = useState(0);
-  const [totalseasons , settotalseasons] = useState(0);
- // const lastFetchArgs = useRef(null);
- const [ saved ,setSaved] = useState(false);
-  const [like , setLike] = useState(false);
-  //const [sources, setSources] = useState([]);
+  const [totalEpisodes, setTotalEpisodes] = useState(0);
+  const [totalseasons, settotalseasons] = useState(0);
+  const [saved, setSaved] = useState(false);
+  const [like, setLike] = useState(false);
+  const [reco, setReco] = useState([]);
   const [Loading, setLoading] = useState(false);
-  //const [errorMessage, setErrorMessage] = useState("");
- 
+  const [iframeUrl, setIframeUrl] = useState("");
+  const [triedSources, setTriedSources] = useState([]);
   
-  const navigate = useNavigate();
- // const location = useLocation();
- const category = season_number ? 'tv' : 'movie';
- const getDetail = async () => {
-  const response = await tmdbApi.detail(category, id, {params: {}});
-  //const similar = await tmdbApi.similar(category, id )
-  setItemData(response);
-  //setItems(similar)
- //console.log(response);
-}
-useEffect(() => {
-  getDetail();
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-});
-}, []);
+  // -------------------------------
+  // LOCAL STORAGE & TIMING
+  // -------------------------------
+  const startTimeRef = useRef(Date.now());
 
+  
+  // -------------------------------
+  // DISPLAY MODE TOGGLE (Normal / YouTube)
+  // -------------------------------
+  const EPISODE_LAYOUT_STORAGE_KEY = 'episodeLayoutMode';
+  const DISPLAY_MODE_STORAGE_KEY = 'displayMode';
+  
+  const [episodeLayoutMode, setEpisodeLayoutMode] = useState(
+    parseInt(localStorage.getItem(EPISODE_LAYOUT_STORAGE_KEY)) || 3
+  );
+  const [displayMode, setDisplayMode] = useState(
+    localStorage.getItem(DISPLAY_MODE_STORAGE_KEY) || 'normal'
+  );
+  
+  useEffect(() => {
+    localStorage.setItem(EPISODE_LAYOUT_STORAGE_KEY, episodeLayoutMode.toString());
+  }, [episodeLayoutMode]);
+  
+  useEffect(() => {
+    localStorage.setItem(DISPLAY_MODE_STORAGE_KEY, displayMode);
+  }, [displayMode]);
+  
+  const toggleEpisodeLayout = () => {
+    setEpisodeLayoutMode((prev) => (prev + 1) % 3);
+  };
+  
+  const toggleDisplayMode = () => {
+    setDisplayMode((prev) => (prev === 'normal' ? 'youtube' : 'normal'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  // -------------------------------
+  // SEASONS OVERFLOW ARROWS
+  // -------------------------------
+  const seasonsContainerRef = useRef(null);
+  const episodesContainerRef = useRef(null);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(false);
+  
+  const [showLeftArrowEpisodes, setShowLeftArrowEpisodes] = useState(false);
+  const [showRightArrowEpisodes, setShowRightArrowEpisodes] = useState(false);
 
+  const updateArrowVisibility = () => {
+    if (seasonsContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = seasonsContainerRef.current;
+      setShowLeftArrow(scrollLeft > 0);
+      setShowRightArrow(scrollLeft + clientWidth < scrollWidth);
+    }
 
+    if (episodesContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = episodesContainerRef.current;
+      setShowLeftArrowEpisodes(scrollLeft > 0);
+      setShowRightArrowEpisodes(scrollLeft + clientWidth < scrollWidth);
+    }
+  };
 
+  useEffect(() => {
+    updateArrowVisibility();
+    const container = seasonsContainerRef.current;
+    if (container) {
+      container.addEventListener("scroll", updateArrowVisibility);
+    }
+    window.addEventListener("resize", updateArrowVisibility);
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", updateArrowVisibility);
+      }
+      window.removeEventListener("resize", updateArrowVisibility);
+    };
+  }, [seasons , currentSeason , currentEpisode , season_number , episode_number ,displayMode]);
+
+  useEffect(() => {
+    updateArrowVisibility();
+    const container = episodesContainerRef.current;
+    if (container) {
+      container.addEventListener("scroll", updateArrowVisibility);
+    }
+    window.addEventListener("resize", updateArrowVisibility);
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", updateArrowVisibility);
+      }
+      window.removeEventListener("resize", updateArrowVisibility);
+    };
+  }, [episodes , currentSeason , currentEpisode , season_number , episode_number ]);
+
+  const scrollLeft = () => {
+    if (seasonsContainerRef.current) {
+      seasonsContainerRef.current.scrollBy({
+        left: -500,
+        behavior: "smooth",
+      });
+    }
+  };
+  const scrollLeftep = () => {
+    if (episodesContainerRef.current) {
+      episodesContainerRef.current.scrollBy({
+        left: -500,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const scrollRight = () => {
+    if (seasonsContainerRef.current) {
+      seasonsContainerRef.current.scrollBy({
+        left: 500,
+        behavior: "smooth",
+      });
+    }
+  };
+  const scrollRightep = () => {
+    if (episodesContainerRef.current) {
+      episodesContainerRef.current.scrollBy({
+        left: 500,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const getDetail = async () => {
+    const response = await tmdbApi.detail(category, id, { params: {} });
+    const similar = await tmdbApi.similar(category, id);
+    setItemData(response);
+    setReco(similar.results);
+    if (category === "movie") {
+      setbgChanged(response.backdrop_path);
+    }
+  };
+
+  useEffect(() => {
+    getDetail();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [id]);
 
   useEffect(() => {
     if (title) {
       const decodedTitles = decodeURIComponent(title);
-      const  decodedTitle = decodedTitles
-        .replace(/-/g, ' ')
-         .split(' ')
-          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-           .join(' ');
-        document.title = ` Currently Watching ${decodedTitle}`;
-
+      const decodedTitle = decodedTitles
+        .replace(/-/g, " ")
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+      document.title = `Currently Watching ${decodedTitle}`;
       if (season_number && episode_number) {
-        document.title = ` Currently Watching ${decodedTitle} • S${currentSeason} • E${currentEpisode}`;
+        document.title = `Currently Watching ${decodedTitle} • S${currentSeason} • E${currentEpisode}`;
       }
-  
     }
-   
     if (id && currentSeason) {
-      
       fetchEpisodes(id, currentSeason);
     }
-     
-  }, [title, id, currentSeason ,currentEpisode]);
-
+  }, [title, id, currentSeason, currentEpisode]);
 
   useEffect(() => {
     if (id && season_number && episode_number) {
       const getseasons = async () => {
-        const { data } = await axios.get(`${apiConfig.baseUrl}tv/${id}?api_key=${apiConfig.apiKey}`);
-        const validSeasons = data.seasons.filter(({ air_date }) => air_date && new Date(air_date) <= new Date());
+        const { data } = await axios.get(
+          `${apiConfig.baseUrl}tv/${id}?api_key=${apiConfig.apiKey}`
+        );
+        const validSeasons = data.seasons.filter(
+          ({ air_date }) => air_date && new Date(air_date) <= new Date()
+        );
         setSeasons(validSeasons);
-        settotalseasons(validSeasons.filter(season => season.season_number !== 0).length);
-         //console.log(validSeasons.);
-        setbgChanged(apiConfig.w200Image(validSeasons[0].poster_path))
-   
-    };
-
-    getseasons();
+        settotalseasons(
+          validSeasons.filter((season) => season.season_number !== 0).length
+        );
+        setbgChanged(
+          apiConfig.w200Image(validSeasons[0].poster_path) ||
+            apiConfig.w200Image(itemData.backdrop_path)
+        );
+      };
+      getseasons();
     }
-}, [id]);
-  const fetchEpisodes = async (id , selectedSeason) => {
+  }, [id]);
+
+  const fetchEpisodes = async (id, selectedSeason) => {
     if (id && selectedSeason) {
       try {
         const response = await axios.get(
           `${apiConfig.baseUrl}tv/${id}/season/${selectedSeason}?api_key=${apiConfig.apiKey}&append_to_response=episodes`
         );
-        //console.log(response.data.episodes);
         if (response.status === 404) {
           throw new Error("Episodes not found. Please check the season number.");
         }
-
         setEpisodeData(response.data.episodes);
-        const releasedEpisodes = response.data.episodes.filter((episode) => episode.air_date && new Date(episode.air_date) <= new Date());
-
+        const releasedEpisodes = response.data.episodes.filter(
+          (episode) =>
+            episode.air_date && new Date(episode.air_date) <= new Date()
+        );
         setTotalEpisodes(releasedEpisodes.length);
-        //console.log(releasedEpisodes.length);
       } catch (error) {
-        //console.error("Failed to fetch episodes:", error);
-        //setErrorMessage(error.message || "An unexpected error occurred.");
+        // Handle error appropriately
       }
     }
   };
-  
-  //saved shit 
-  const saveShow = async (item) => {
+
+  // -------------------------------
+  // WATCHLIST & FAVOURITES FUNCTIONS (unchanged)
+  // -------------------------------
+  const saveShow = async (
+    recodataid,
+    recodataname,
+    recodataposter,
+    recodatadate,
+    recodatavote
+  ) => {
     if (!user) {
-      toast.error('Access denied. Please logIn to add this to your Watchlist');
+      toast.error("Access denied. Please logIn to add this to your Watchlist");
       return;
     }
+    toast.info("Adding to your Watchlist" + recodataname);
+    const data = {
+      id: itemData?.id || recodataid,
+      title: itemData?.title || itemData?.name || recodataname,
+      category: season_number ? "tv" : "movie",
+      poster_path: itemData?.poster_path || recodataposter,
+      release_date: itemData?.release_date || itemData?.first_air_date || recodatadate,
+      vote_average: itemData?.vote_average || recodatavote,
+    };
 
+    const dataId = itemData?.id?.toString() || recodataid?.toString();
+    await addToWatchlist(user?.uid, dataId, data);
+    const isSetToWatchlist = await checkIfInWatchlist(user?.uid, dataId);
+    setSaved(isSetToWatchlist);
+    console.log(isSetToWatchlist, dataId, data);
+  };
+
+  const saveShow2 = async (
+    recodataid,
+    recodataname,
+    recodataposter,
+    recodatadate,
+    recodatavote
+  ) => {
+    if (!user) {
+      toast.error("Access denied. Please logIn to add this to your Watchlist");
+      return;
+    }
+    toast.info("Adding to your Watchlist" + recodataname);
+    const data = {
+      id: recodataid,
+      title: recodataname,
+      category: season_number ? "tv" : "movie",
+      poster_path: recodataposter,
+      release_date: itemData?.first_air_date || recodatadate,
+      vote_average: recodatavote,
+    };
+
+    const dataId = recodataid?.toString();
+    await addToWatchlist(user?.uid, dataId, data);
+    const isSetToWatchlist = await checkIfInWatchlist(user?.uid, dataId);
+    setSaved(isSetToWatchlist);
+    console.log(isSetToWatchlist, dataId, data);
+  };
+
+  useEffect(() => {
+    if (!user) {
+      setSaved(false);
+      return;
+    }
+    checkIfInWatchlist(user?.uid, itemData?.id).then((data) => {
+      setSaved(data);
+    });
+  }, [itemData, user, checkIfInWatchlist]);
+
+  const AddfavShow = async () => {
+    if (!user) {
+      toast.error("Access denied. Please logIn to add this to your favourites");
+      return;
+    }
     const data = {
       id: itemData?.id,
       title: itemData?.title || itemData?.name,
@@ -137,495 +324,1147 @@ useEffect(() => {
       poster_path: itemData?.poster_path,
       release_date: itemData?.release_date || itemData?.first_air_date,
       vote_average: itemData?.vote_average,
-      //overview: details?.overview,
     };
-
     const dataId = itemData?.id?.toString();
-    await addToWatchlist(user?.uid, dataId, data);
-    const isSetToWatchlist = await checkIfInWatchlist(user?.uid, dataId);
-    setSaved(isSetToWatchlist);
+    await addToFavourites(user?.uid, dataId, data);
+    const isSetToFav = await checkIfInFavourites(user?.uid, dataId);
+    setLike(isSetToFav);
   };
 
   useEffect(() => {
     if (!user) {
-      setSaved(false);
+      setLike(false);
       return;
     }
+    if (itemData) {
+      checkIfInFavourites(user?.uid, itemData?.id).then((data) => {
+        setLike(data);
+      });
+    }
+  }, [user, checkIfInFavourites, itemData]);
 
-    checkIfInWatchlist(user?.uid, itemData?.id).then((data) => {
-      setSaved(data);
-    });
-  }, [itemData, user, checkIfInWatchlist ]);
+  const handleRemoveFromWatchlist = async () => {
+    await removeFromWatchlist(user?.uid, itemData.id);
+    setSaved(false);
+  };
 
-  const AddfavShow = async() => {
+  const handleRemoveFromFavourites = async () => {
+    await removeFromFavourites(user?.uid, itemData.id);
+    setLike(false);
+  };
 
-      if (!user) {
-        toast.error('Access denied. Please logIn to add this to your favourites');
-        return;
-      }
-  
-      const data = {
-        id: itemData?.id,
-        title: itemData?.title || itemData?.name,
-        category: season_number ? "tv" : "movie",
-        poster_path: itemData?.poster_path,
-        release_date: itemData?.release_date || itemData?.first_air_date,
-        vote_average: itemData?.vote_average,
-        //overview: details?.overview,
-      };
-      //console.log(data)
-  
-      const dataId = itemData?.id?.toString();
-      await addToFavourites(user?.uid, dataId, data);
-      const isSetToWatchlist = await checkIfInFavourites(user?.uid, dataId);
-      setLike(isSetToWatchlist);
-    };
-  
-    useEffect(() => {
-      if (!user) {
-          setLike(false);
-          return;
-        }
-
-      if (itemData) {
-        checkIfInFavourites(user?.uid, itemData?.id).then((data) => {
-          setLike(data);
-        });
-      }
-    }, [user, checkIfInFavourites , AddfavShow , itemData ]);
-
-    const handleRemoveFromWatchlist = async () => {
-      await removeFromWatchlist(user?.uid, itemData.id);
-      setSaved(false);
-    };
-    const handleRemoveFromFavourites = async () => {
-      await removeFromFavourites(user?.uid, itemData.id);
-      setLike(false);
-    };
-  
-  const handleEpisodeClick = (episodeNumber , episodeUrl = null ) => {
-    
+  // -------------------------------
+  // EPISODE & SEASON HANDLERS
+  // -------------------------------
+  const handleEpisodeClick = (episodeNumber, episodeUrl = null) => {
     const url = new URL(window.location.href);
     url.pathname = url.pathname.replace(/\/\d+$/, `/${episodeNumber}`);
-    window.history.pushState({}, '', url.toString());
+    window.history.pushState({}, "", url.toString());
 
-    const watchHistory = localStorage.getItem('watchHistory');
-    localStorage.setItem('lastClickedSeason', currentSeason);
- 
-   if (watchHistory) {
-     const watchHistoryObj = JSON.parse(watchHistory);
-     if (!watchHistoryObj[id]) {
-       watchHistoryObj[id] = {};
-     }
-     if (!watchHistoryObj[id][currentSeason]) {
-       watchHistoryObj[id][currentSeason] = [];
-     }
-     watchHistoryObj[id][currentSeason].push(episodeNumber);
-     localStorage.setItem('watchHistory', JSON.stringify(watchHistoryObj));
-   } else {
-     const watchHistoryObj = {
-       [id]: {
-         [currentSeason]: [episodeNumber]
-       }
-     };
-     localStorage.setItem('watchHistory', JSON.stringify(watchHistoryObj));
-   }
-
-   window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-});
-    //setPlayerSource('');
-    //setHeader("");
-    //setLoading(true);
-    //console.log(episodes.length);
+    const watchHistory = localStorage.getItem("watchHistory");
+    localStorage.setItem("lastClickedSeason", currentSeason);
+    if (watchHistory) {
+      const watchHistoryObj = JSON.parse(watchHistory);
+      if (!watchHistoryObj[id]) {
+        watchHistoryObj[id] = {};
+      }
+      if (!watchHistoryObj[id][currentSeason]) {
+        watchHistoryObj[id][currentSeason] = [];
+      }
+      watchHistoryObj[id][currentSeason].push(episodeNumber);
+      localStorage.setItem("watchHistory", JSON.stringify(watchHistoryObj));
+    } else {
+      const watchHistoryObj = {
+        [id]: {
+          [currentSeason]: [episodeNumber],
+        },
+      };
+      localStorage.setItem("watchHistory", JSON.stringify(watchHistoryObj));
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setCurrentEpisode(episodeNumber);
-    setbgChanged(apiConfig.w200Image(episodeUrl))
- 
+    setbgChanged(apiConfig.w200Image(episodeUrl) || apiConfig.w200Image(itemData.backdrop_path));
   };
-  const watchHistory = localStorage.getItem('watchHistory');
+
+  const watchHistory = localStorage.getItem("watchHistory");
   const watchHistoryObj = watchHistory ? JSON.parse(watchHistory) : {};
-  const watchedEpisodes = currentSeason !== null && watchHistoryObj[id] && watchHistoryObj[id][currentSeason] ? watchHistoryObj[id][currentSeason] : [];
- 
- 
-const handleSeasonClick = (seasonNumber) => {
-  const url = new URL(window.location.href);
-  const pathnameParts = url.pathname.split('/');
-  pathnameParts[pathnameParts.length - 2] = seasonNumber;
-  pathnameParts[pathnameParts.length - 1] = '1';
-  url.pathname = pathnameParts.join('/');
-  window.history.pushState({}, '', url.toString());
-  localStorage.setItem(`lastClickedSeason_${id}`, seasonNumber);
- // setPlayerSource('');
- // setHeader("");
-  setCurrentSeason(seasonNumber);
-  setCurrentEpisode(1);
-  //setLoading(true);
-  //fetchEpisodes(id, currentSeason);
-  
-};
-const [selectedOption, setSelectedOption] = useState(null);
+  const watchedEpisodes =
+    currentSeason !== null &&
+    watchHistoryObj[id] &&
+    watchHistoryObj[id][currentSeason]
+      ? watchHistoryObj[id][currentSeason]
+      : [];
 
-const options = [
-  { value: 'https://moviesapi.club/', label: 'GRANADILLA' },
-  { value: 'https://vidlink.pro/', label: 'PINEBERRY' },
-  { value: 'https://player.autoembed.cc/', label: 'WATERMELON' },
-  { value: 'https://player.videasy.net/', label: 'APPLE 4K' },
-  { value: 'https://player.autoembed.cc/embed/', label: 'STRAWBERRY' }, 
-  { value: 'https://embed.su/embed/', label: 'GRAPE' }, 
-  { value: 'https://autoembed.pro/embed/', label: 'LEMON' },
-  { value: 'https://vidsrc.cc/v2/embed/', label: 'CHERRY'},
-  { value: 'https://vidsrc.me/embed/', label: 'KIWI' },
-  { value: 'https://vidbinge.dev/embed/', label: 'PAPAYA 4K' },
-  { value: 'https://vidsrc.xyz/embed/', label: 'BANANA' },
-  { value: 'https://flicky.host/embed/', label: 'COCONUT' },
-  { value: 'https://play2.123embed.net/', label: 'ORANGE'},
-  
- 
-]
+  const handleSeasonClick = (seasonNumber) => {
+    const url = new URL(window.location.href);
+    const pathnameParts = url.pathname.split("/");
+    pathnameParts[pathnameParts.length - 2] = seasonNumber;
+    pathnameParts[pathnameParts.length - 1] = "1";
+    url.pathname = pathnameParts.join("/");
+    window.history.pushState({}, "", url.toString());
+    localStorage.setItem(`lastClickedSeason_${id}`, seasonNumber);
+    setCurrentSeason(seasonNumber);
+    setCurrentEpisode(1);
+    // Mark the first episode as watched when season is clicked
+    const watchHistory = localStorage.getItem("watchHistory");
+    let watchHistoryObj = watchHistory ? JSON.parse(watchHistory) : {};
+    if (!watchHistoryObj[id]) {
+      watchHistoryObj[id] = {};
+    }
+    if (!watchHistoryObj[id][seasonNumber]) {
+      watchHistoryObj[id][seasonNumber] = [];
+    }
+    if (!watchHistoryObj[id][seasonNumber].includes(1)) {
+      watchHistoryObj[id][seasonNumber].push(1);
+    }
+    localStorage.setItem("watchHistory", JSON.stringify(watchHistoryObj));
+  };
 
-useEffect(() => {
-  const storedValue = localStorage.getItem('lastSelectedOption');
-  if (!storedValue || !options.find(option => option.value === storedValue)) {
-    toast.info('Defaulting to Granadilla');
-   // localStorage.setItem('lastSelectedOption', 'https://moviesapi.club/');
-  }
-  
-  if (storedValue) {
-    const selectedOption = options.find((option) => option.value === storedValue);
+  // -------------------------------
+  // REACT-SELECT & SOURCE HANDLERS
+  // -------------------------------
+  const [selectedOption, setSelectedOption] = useState(null);
+   const options = [
+    { value: "https://moviesapi.club/", label: "GRANADILLA" },
+    { value: "https://vidlink.pro/", label: "PINEBERRY" },
+    { value: "https://player.autoembed.cc/", label: "WATERMELON" },
+    { value: "https://player.videasy.net/", label: "APPLE 4K" },
+    { value: "https://player.autoembed.cc/embed/", label: "STRAWBERRY" },
+    { value: "https://embed.su/embed/", label: "GRAPE" },
+    { value: "https://autoembed.pro/embed/", label: "LEMON" },
+    { value: "https://vidsrc.cc/v2/embed/", label: "CHERRY" },
+    { value: "https://vidsrc.me/embed/", label: "KIWI" },
+    { value: "https://vidbinge.dev/embed/", label: "PAPAYA 4K" },
+    { value: "https://vidsrc.xyz/embed/", label: "BANANA" },
+    { value: "https://flicky.host/embed/", label: "COCONUT" },
+    { value: "https://play2.123embed.net/", label: "ORANGE" },
+  ];
+
+  const handleSelect = (selectedOption) => {
+      if (itemData?.id) {
+      localStorage.setItem(
+        `lastSelectedOption_${itemData.id}`,
+        selectedOption.value
+      );
+      localStorage.setItem(
+        `lastClickedSource_${itemData.id}`,
+        selectedOption.label
+      );
+      localStorage.setItem("lastSelectedOption", selectedOption.value);
+      localStorage.setItem("lastClickedSource", selectedOption.label);
+   
+    } else {
+      // Fallback to global keys if needed
+      localStorage.setItem("lastSelectedOption", selectedOption.value);
+      localStorage.setItem("lastClickedSource", selectedOption.label);
+    }
     setSelectedOption(selectedOption);
     setIframeUrl(selectedOption.value);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  
 
-  } else {
-    setSelectedOption(options[0]);
-    setIframeUrl(options[0].value);
-  }
-}, []);
-
-const handleSelect = (selectedOption) => {
-  setSelectedOption(selectedOption);
-  setIframeUrl(selectedOption.value);
-  localStorage.setItem('lastSelectedOption', selectedOption.value);
-};
-
- const handleBack = ( ) => {
-    if(id && season_number && episode_number){
-      navigate(`/tv/${id}`)
-    }else{
-      navigate(`/movie/${id}`);
+  useEffect(() => {
+    if (!itemData?.id) return;
+    
+    // Retrieve per-item stored values
+    const lastSelectedSourceValue = localStorage.getItem(
+      `lastSelectedOption_${itemData.id}`
+    );
+   
+    
+    let prioritizedValue;
+    if (lastSelectedSourceValue && options.find((option) => option.value === lastSelectedSourceValue)) {
+      prioritizedValue = lastSelectedSourceValue;
+    } else {
+      // Fallback to global value
+      prioritizedValue = localStorage.getItem("lastSelectedOption");
     }
     
-  };
-
-  const [triedSources, setTriedSources] = useState([]);
-
-const handleIframeError = () => {
-  // Mark the current source as tried
-  setTriedSources(prev => [...prev, iframeUrl]);
-
-  // Get the index of the current server
-  const currentIndex = options.findIndex(option => option.value === iframeUrl);
-  // Find the next source that hasn’t been tried yet
-  let nextOption = null;
-  for (let i = 1; i <= options.length; i++) {
-    const candidate = options[(currentIndex + i) % options.length];
-    if (!triedSources.includes(candidate.value)) {
-      nextOption = candidate;
-      break;
+    if (!prioritizedValue || !options.find((option) => option.value === prioritizedValue)) {
+      toast.info("Defaulting to Granadilla");
+      prioritizedValue = options[0].value;
     }
-  }
+    
+    const selectedOpt = options.find((option) => option.value === prioritizedValue);
+    setSelectedOption(selectedOpt);
+    setIframeUrl(selectedOpt.value);
+  }, [itemData]);
   
-  if (nextOption) {
-    toast.info(`Error detected. Switching server to ${nextOption.label}`);
-    setSelectedOption(nextOption);
-    setIframeUrl(nextOption.value);
-  } else {
-    toast.error("All sources failed. Please try again later.");
-  }
-};
 
-
-  const handleHome = () => {
-    navigate('/');
+  // -------------------------------
+  // IFRAME HANDLERS & SOURCES
+  // -------------------------------
+    const handleIframeError = () => {
+    setTriedSources((prev) => [...prev, iframeUrl]);
+    const currentIndex = options.findIndex((option) => option.value === iframeUrl);
+    let nextOption = null;
+    for (let i = 1; i <= options.length; i++) {
+      const candidate = options[(currentIndex + i) % options.length];
+      if (!triedSources.includes(candidate.value)) {
+        nextOption = candidate;
+        break;
+      }
+    }
+    if (nextOption) {
+      toast.info(`Error detected. Switching server to ${nextOption.label}`);
+      setSelectedOption(nextOption);
+      setIframeUrl(nextOption.value);
+    } else {
+      toast.error("All sources failed. Please try again later.");
+    }
   };
-  const handleSelectChange = (selectedOption) => {
-    const baseUrl = selectedOption.value;
-    setIframeUrl(baseUrl);
-    setLoading(true);
-  };
- // const [autoPlay, setAutoPlay] = useState(false);
-  const [iframeUrl, setIframeUrl] = useState('https://vidlink.pro/');
- //console.log(iframeUrl);
- const handleIframeSrc = () => {
-  let src = '';
-  if (iframeUrl === 'https://moviesapi.club/') {
-    src = `${iframeUrl}tv/${id}-${currentSeason}-${currentEpisode}`;
-  } else if (iframeUrl === 'https://vidlink.pro/') {
-    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?poster=true&autoplay=false&icons=vid`;
-  } else if (iframeUrl === 'https://autoembed.pro/embed/') {
-    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
-  }else if (iframeUrl === 'https://player.videasy.net/') {
-    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
-  }
-  else if (iframeUrl === 'https://player.autoembed.cc/embed/') {
-    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
-  }else if (iframeUrl === 'https://player.autoembed.cc/') {
-    src = `${iframeUrl}embed/tv/${id}/${currentSeason}/${currentEpisode}?server=6`;
-  }
-    else if (iframeUrl === 'https://vidsrc.cc/v2/embed/') {
-    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
-  } else if (iframeUrl === 'https://embed.su/embed/') {
-    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
-  } else if (iframeUrl === 'https://vidsrc.me/embed/') {
-    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
-  } else if (iframeUrl === 'https://vidsrc.xyz/embed/') {
-    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
-  } else if (iframeUrl === 'https://play2.123embed.net/') {
-    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
-  }
-  else if (iframeUrl === 'https://vidbinge.dev/embed/') {
-    src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
-  }
-  else if (iframeUrl === 'https://flicky.host/embed/') {
-    src = `${iframeUrl}tv/?id=${id}/${currentSeason}/${currentEpisode}`;
-  }
-   else {
-    src = iframeUrl; 
-  }
-  return src;
-};
 
-const handlemovieIframeSrc = () => {
-  let src = '';
-  if (iframeUrl === 'https://moviesapi.club/') {
-    src = `${iframeUrl}movie/${id}`;
-  } else if (iframeUrl === 'https://vidlink.pro/') {
-    src = `${iframeUrl}movie/${id}?poster=true&autoplay=false&nextbutton=true&icons=vid`;
-  } else if (iframeUrl === 'https://player.autoembed.cc/embed/') {
-    src = `${iframeUrl}movie/${id}`;
-  }  else if (iframeUrl === 'https://autoembed.pro/embed/') {
-    src = `${iframeUrl}movie/${id}`;
-  }
-  else if (iframeUrl === 'https://player.videasy.net/') {
-    src = `${iframeUrl}movie/${id}`;
-  }
-  else if (iframeUrl === 'https://player.autoembed.cc/') {
-    src = `${iframeUrl}embed/movie/${id}?server=6`;
-  }
-   else if (iframeUrl === 'https://vidsrc.cc/v2/embed/') {
-    src = `${iframeUrl}movie/${id}`;
-  } else if (iframeUrl === 'https://embed.su/embed/') {
-    src = `${iframeUrl}movie/${id}`;
-  } else if (iframeUrl === 'https://play2.123embed.net/') {
-    src = `${iframeUrl}movie/${id}`;
-  }
-   else if (iframeUrl === 'https://vidsrc.me/embed/') {
-    src = `${iframeUrl}movie/${id}`;
-  } else if (iframeUrl === 'https://vidsrc.xyz/embed/') {
-    src = `${iframeUrl}movie/${id}`;
-  }else if (iframeUrl === 'https://vidbinge.dev/embed/') {
-    src = `${iframeUrl}movie/${id}`;
-  }
-  else if (iframeUrl === 'https://flicky.host/embed/') {
-    src = `${iframeUrl}movie/?id=${id}`;
-  }
-   else {
-    src = iframeUrl; 
-  }
-  return src;
-};
-
-  
   const handleIframeLoad = () => {
     setLoading(false);
   };
 
-  return (
-    <ErrorBoundary>
-        <> 
-        <ToastContainer theme="dark" fontSize="11px" position="top-right" autoClose={8000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} progressStyle={{ backgroundColor: '#00000', color: 'white', borderRadius: '5px' ,fontSize: '11px' }} />
-      
-          <div className="player-container" >
-           
-            
-            <div className="episodes__iframe-container" style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)',width : '100%', height : '100%'}}>
-          
+  const handleIframeSrc = () => {
+    let src = "";
+    if (iframeUrl === "https://moviesapi.club/") {
+      src = `${iframeUrl}tv/${id}-${currentSeason}-${currentEpisode}`;
+    } else if (iframeUrl === "https://vidlink.pro/") {
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?poster=true&autoplay=false&icons=vid`;
+    } else if (iframeUrl === "https://autoembed.pro/embed/") {
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+    } else if (iframeUrl === "https://player.videasy.net/") {
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+    } else if (iframeUrl === "https://player.autoembed.cc/embed/") {
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+    } else if (iframeUrl === "https://player.autoembed.cc/") {
+      src = `${iframeUrl}embed/tv/${id}/${currentSeason}/${currentEpisode}?server=6`;
+    } else if (iframeUrl === "https://vidsrc.cc/v2/embed/") {
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+    } else if (iframeUrl === "https://embed.su/embed/") {
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+    } else if (iframeUrl === "https://vidsrc.me/embed/") {
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+    } else if (iframeUrl === "https://vidsrc.xyz/embed/") {
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+    } else if (iframeUrl === "https://play2.123embed.net/") {
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+    } else if (iframeUrl === "https://vidbinge.dev/embed/") {
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+    } else if (iframeUrl === "https://flicky.host/embed/") {
+      src = `${iframeUrl}tv/?id=${id}/${currentSeason}/${currentEpisode}`;
+    } else {
+      src = iframeUrl;
+    }
+    return src;
+  };
 
-            {Loading ? (
-        <div>Loading...</div>
-      ) : (
-        season_number && episode_number ? (
-          <iframe
-            className="episodes__iframe"
-            src={handleIframeSrc()}   
-            width={"100%"}  
-            height={"100%"}
-            frameBorder="0"
-            allowFullScreen
-            //sandbox
-            referrerPolicy="origin"
-            onLoad={handleIframeLoad}
-            onError={handleIframeError}
-         
-          />
-        ) : (
-          <iframe
-          src={handlemovieIframeSrc()}   
-          className="episodes__iframe"
-            width={"100%"}
-            height={"100%"}
-            frameBorder="0"
-            allowFullScreen
-            referrerPolicy="origin"
-            //sandbox
-            onLoad={handleIframeLoad}
-            onError={handleIframeError}
-          />
-        ))}
-       
-        </div>
-           
-          </div>
-          
-          <div className="sertop">
-          <div className="topbar">
-            <div className="logozz" onClick={() => navigate('/')}>
-               <img src={logo} alt="ZillaXR"/>
-               <h4 className="logotext">ZILLAXR</h4> </div>
-              <div className="menu">
-              <div className="navih" onClick={handleHome}><i className="bx bx-home-alt-2" ></i></div>
-              <div className="navi" onClick={handleBack}><i className='bx bx-arrow-back'></i></div>
-            </div>
-            {currentEpisode < totalEpisodes ? (
-     <div className="rea" onClick={() => handleEpisodeClick(parseInt(currentEpisode) + 1)}>
-   Up Next  ~ {itemData.name} ~  Episode {parseInt(currentEpisode) + 1}  <i className='bx bx-skip-next'></i>
-      </div>
-) :  (totalseasons > 1 && currentSeason < totalseasons ? (
-  <div className="rea" onClick={() => handleSeasonClick(parseInt(currentSeason) + 1)}>
-    Up Next ~ {itemData.name} ~ Season {parseInt(currentSeason) + 1}  Episode 1 <i className='bx bx-left-arrow'></i>
-  </div>
-) : null)}
-            <div className="watchlyst">
-                                    {
-                                        saved ? (
-                                            <div className="languagezz"  onClick={() => handleRemoveFromWatchlist()}><i class='bx bxs-add-to-queue' style={{fontSize:'17px'}} ></i></div>
-                               
-                                        ):(
-                                            <div className="languagez" onClick={() => saveShow()}><i class='bx bx-add-to-queue' style={{fontSize:'17px'}} ></i></div>
-                              
-                                        )
-                                    }
-                                <div className="languagez">|</div>
-                                {
-                                        like ? (
-                                            <div className="languagezz" onClick={() => handleRemoveFromFavourites()}><i className='bx bxs-heart' style={{fontSize:'17px'}}></i></div>
-                                        ):(
-                                            <div className="languagez" onClick={() => AddfavShow()}><i className='bx bx-heart' style={{fontSize:'17px'}}></i></div>
-                              
-                                        )
-                                    }
-                               
-                                
-                                </div>  
-            </div>
-            <div className="servers">
-              <h3 className="servertitle">Sources:</h3> 
-              <div className="sources"> 
-                
-              <Select
-       value={selectedOption}
-       options={options}
-       onChange={handleSelect}
-       theme={(theme) => ({
-      ...theme,
-      
-    
-      borderRadius: 10,
-      colors: {
-        ...theme.colors,
-        primary25: '#afafaf54',
-        primary: '#38383879',
-        neutral0 : '#00000e2',
+  const handlemovieIframeSrc = () => {
+    let src = "";
+    if (iframeUrl === "https://moviesapi.club/") {
+      src = `${iframeUrl}movie/${id}`;
+    } else if (iframeUrl === "https://vidlink.pro/") {
+      src = `${iframeUrl}movie/${id}?poster=true&autoplay=false&nextbutton=true&icons=vid`;
+    } else if (iframeUrl === "https://player.autoembed.cc/embed/") {
+      src = `${iframeUrl}movie/${id}`;
+    } else if (iframeUrl === "https://autoembed.pro/embed/") {
+      src = `${iframeUrl}movie/${id}`;
+    } else if (iframeUrl === "https://player.videasy.net/") {
+      src = `${iframeUrl}movie/${id}`;
+    } else if (iframeUrl === "https://player.autoembed.cc/") {
+      src = `${iframeUrl}embed/movie/${id}?server=6`;
+    } else if (iframeUrl === "https://vidsrc.cc/v2/embed/") {
+      src = `${iframeUrl}movie/${id}`;
+    } else if (iframeUrl === "https://embed.su/embed/") {
+      src = `${iframeUrl}movie/${id}`;
+    } else if (iframeUrl === "https://play2.123embed.net/") {
+      src = `${iframeUrl}movie/${id}`;
+    } else if (iframeUrl === "https://vidsrc.me/embed/") {
+      src = `${iframeUrl}movie/${id}`;
+    } else if (iframeUrl === "https://vidsrc.xyz/embed/") {
+      src = `${iframeUrl}movie/${id}`;
+    } else if (iframeUrl === "https://vidbinge.dev/embed/") {
+      src = `${iframeUrl}movie/${id}`;
+    } else if (iframeUrl === "https://flicky.host/embed/") {
+      src = `${iframeUrl}movie/?id=${id}`;
+    } else {
+      src = iframeUrl;
+    }
+    return src;
+  };
 
-       neutral5: 'grey',
-       neutral10: '#38383879',
-        neutral20: '#38383879',
-neutral30: 'red',
-neutral40: 'pink',
-neutral50: '#a9a9a9',
-neutral60: '#38383879',
-neutral70: '#696969',
-neutral80: '#505050',
-neutral90: '#303030'
-      },
-    })}
-  />
-              </div>
-            </div>
-          </div>
-          <div className="androidnext">
-          {currentEpisode < totalEpisodes ? (
-     <div className="reand" onClick={() => handleEpisodeClick(parseInt(currentEpisode) + 1)}>
-   Up Next Episode {parseInt(currentEpisode) + 1} <h4 className="episodename">{itemData.name}</h4><i className='bx bx-skip-next'></i>
-      </div>
-) :  (totalseasons > 1 && currentSeason < totalseasons ? (
-  <div className="reand" onClick={() => handleSeasonClick(parseInt(currentSeason) + 1)}>
-    Up Next Season {parseInt(currentSeason) + 1} <h4 className="episodename"> Episode 1</h4><i className='bx bx-skip-next'></i>
-  </div>
-) : null)} 
-          </div>
-          <div className="seasons">
-            
-          
-        <div className="seasons__content">
-       
-            {seasons && seasons.filter(item => item.season_number !== 0).map((item, i) => (
-                <div className="seasons__list" key={i} onClick={() => handleSeasonClick(item.season_number)}>
-                    <div className={`seas ${item.season_number == currentSeason ? "actively" : ""}`}
-       >
-                        <h4 className="seasons__name">Season {item.season_number}</h4>
-                    </div>
-                </div>
-            ))}
-        </div>
-    </div>
+  const handleBack = () => {
+    if (id && season_number && episode_number) {
+      navigate(`/tv/${id}`);
+    } else {
+      navigate(`/movie/${id}`);
+    }
+  };
+
+  const handleHome = () => {
+    navigate("/");
+  };
+
+  const handlerecoclick = (idnew, titlenew) => {
+    console.log("handlePlayer function called", idnew, titlenew);
+    const encodedTitle = encodeURIComponent(titlenew.replace(/ /g, "-").toLowerCase());
+    if (category === "tv") {
+      setCurrentSeason(1);
+      setCurrentEpisode(1);
+      navigate(`/watch/${encodedTitle}/${idnew}/1/1`);
+    } else {
+      navigate(`/watch/${encodedTitle}/${idnew}`);
+    }
+  };
+
+  const getCustomUrl = () => {
+    // Generate an encoded title (lowercase, hyphenated)
+    const rawTitle = itemData?.title || itemData?.name || "";
+    const encodedTitle = encodeURIComponent(rawTitle.replace(/ /g, "-")).toLowerCase();
+  
+    if (category === "movie") {
+      return `/watch/${encodedTitle}/${itemData?.id}`;
+    } else {
+      return `/watch/${encodedTitle}/${itemData?.id}/${currentSeason}/${currentEpisode}`;
+    }
+  };
   
 
-          {episodes.length > 0 && (
-      <div className="episode-selector" style={{backgroundImage: `url(${bgChanged})` , backgroundSize : 'cover'}}>
-        <ul className="episode_list" >
-          {episodes
-            .filter(episode => new Date(episode.air_date) <= new Date()) // Filter out unreleased episodes
-            .map((episode, index) => (
-              <li
-              key={index}
-              className={`episodes_itemz ${
-                (currentEpisode == episode.episode_number ? "actively" : "") +
-                (watchedEpisodes.includes(episode.episode_number) ? " watchedd" : "")
-              }`}
-              onClick={() => handleEpisodeClick(episode.episode_number , episode.still_path)}
+  // Reset the timer when ID, title, season, or episode changes
+  // Reset timer when these values change:
+useEffect(() => {
+  startTimeRef.current = Date.now();
+}, [id, currentSeason, currentEpisode]);
+
+// Helper: update localStorage with the current player's data
+const updatePlayerData = () => {
+  const timeSpent = Math.floor((Date.now() - startTimeRef.current) / 1000);
+  
+  // Convert runtime from minutes to seconds
+  const totalRuntime = ((itemData?.runtime || episodes[0]?.runtime) * 60) || 0;
+  
+  const lastSelectedSourceValue = localStorage.getItem( `lastSelectedOption_${itemData.id}`) || localStorage.getItem("lastSelectedOption")
+  const lastSelectedSourceLabel = localStorage.getItem(`lastClickedSource_${itemData.id}`) || localStorage.getItem("lastClickedSource")
+  
+  let timeRemaining = 0;
+  if (totalRuntime && timeSpent < totalRuntime) {
+    timeRemaining = totalRuntime - timeSpent - 300; // subtract 5 minutes (300 seconds)
+    if (timeRemaining < 0) timeRemaining = 0;
+  }
+  const dataToStore = {
+    title: itemData?.title || itemData?.name,
+    id: itemData?.id,
+    poster_path: itemData?.poster_path,
+    runtime: totalRuntime, // now in seconds
+    lastEpisode: currentEpisode,
+    seasonNumber: currentSeason,
+    currentUrl: getCustomUrl(), // only the path
+    timeSpent,
+    timeRemaining,
+    extra: "Additional data example",
+    lastWatched: Date.now(), // for sorting recency
+    lastSrc : lastSelectedSourceLabel,
+    lastValue : lastSelectedSourceValue ,
+  };
+
+  // Retrieve any existing stored data (a dictionary keyed by item id)
+  const stored = localStorage.getItem("playerDataList");
+  const playerDataList = stored ? JSON.parse(stored) : {};
+  if (itemData?.id) {
+    // Update the entry for this id
+    playerDataList[itemData.id] = dataToStore;
+    localStorage.setItem("playerDataList", JSON.stringify(playerDataList));
+    console.log("Updated playerDataList:", playerDataList);
+  }
+};
+
+// Run updatePlayerData whenever any dependency changes:
+useEffect(() => {
+  const intervalId = setInterval(() => {
+    updatePlayerData();
+  }, 3000); // 3000ms = 3 seconds
+
+  return () => clearInterval(intervalId);
+}, [itemData?.id, itemData?.title, currentSeason, currentEpisode, episodes ,getCustomUrl()]);
+
+  
+
+
+  // -------------------------------
+  // RENDERING EPISODES (including layout toggle)
+  // -------------------------------
+  const renderEpisodes = () => {
+    if (episodeLayoutMode === 0) {
+      // Image layout: render episodes as images only
+      return (
+        <div
+          className="episode-selector image-layout"
+          style={{
+            backgroundImage: `url(${bgChanged})`,
+            backgroundSize: "cover",
+          }}
+        >
+          {displayMode === 'normal' && showLeftArrowEpisodes && (
+            <div
+              className="arrow left-arrow"
+              onClick={scrollLeftep}
             >
               
-                 E{episode.episode_number} <div className="s"></div>{episode.name}
-                 {currentEpisode == episode.episode_number && (
-                   <div className="watchnow">
-                     <i className="bx bx-play"></i>
-                   </div>
-                 )}
-                 {watchedEpisodes.includes(episode.episode_number) && (
-            <div className="watchede-badge">
-            
-            <i className='bx bx-check-double'></i>
+              <i className="bx bx-left-arrow-alt" style={{ fontSize: "2rem" }}></i>
             </div>
-            )}
-              </li>
-            ))}
-        </ul>
-      </div>
-    )}
+          )}          
+          {displayMode === 'normal' && showRightArrowEpisodes && (
+            <div
+              className="arrow right-arrow"
+              onClick={scrollRightep}
+            >
+              <i className="bx bx-right-arrow-alt" style={{ fontSize: "2rem" }}></i>
+            </div>
+          )
 
-      
-        </>
+          }
+          
+          <ul className="episode_listimg" ref={episodesContainerRef}>
+            {episodes
+              .filter((episode) => new Date(episode.air_date) <= new Date())
+              .map((episode, index) => (
+                <li
+                  key={index}
+                  className={`episodes_itemzimg ${
+                    currentEpisode == episode.episode_number ? "active" : ""
+                  } ${watchedEpisodes.includes(episode.episode_number) ? " watchedd" : ""}`}
+                  onClick={() =>
+                    handleEpisodeClick(episode.episode_number, episode.still_path)
+                  }
+                >
+                  <div className="hose">
+                    {currentEpisode == episode.episode_number && (
+                      <div className="watchnowblur">
+                        <i className="bx bx-play" style={{ fontSize: "3rem" }}></i>
+                      </div>
+                    )}
+                    {watchedEpisodes.includes(episode.episode_number) && (
+                      <>
+                        <div className="watchede-badgeimg">
+                          <i className="bx bx-check-double" style={{ fontSize: "3rem" }}></i>
+                        </div>
+                      </>
+                    )}
+                    <img
+                      className="episode_posterimg"
+                      src={apiConfig.w500Image(episode.still_path)}
+                      alt={`Episode ${episode.episode_number} poster`}
+                      style={{ borderRadius: "10px", position: "relative" }}
+                    />
+                    <p className="episode_nameabo">{episode.name}</p>
+                    <p className="episode_numberabo">Episode {episode.episode_number}</p>
+                  </div>
+                </li>
+              ))}
+          </ul>
+        </div>
+      );
+    } else if (episodeLayoutMode === 1) {
+      // Descriptive layout: show episode number, name, etc.
+      return (
+        <div className="episode-selector descriptive-layout">
+          <ul className="episode_list">
+            {episodes
+              .filter((episode) => new Date(episode.air_date) <= new Date())
+              .map((episode, index) => (
+                <li
+                  key={index}
+                  className={`episodes_itemz ${
+                    currentEpisode == episode.episode_number ? "active" : ""
+                  } ${watchedEpisodes.includes(episode.episode_number) ? " watchedd" : ""}`}
+                  onClick={() =>
+                    handleEpisodeClick(episode.episode_number, episode.still_path)
+                  }
+                >
+                  <div className="holderlay2" style={{position: "relative"}}>
+                    <img className="episode_posterablur" src={apiConfig.w200Image(episode.still_path)} alt="" />
+                    <img
+                      className="episode_posterabos"
+                      src={apiConfig.w500Image(episode.still_path)}
+                      alt=""
+                      style={{ borderRadius: "10px 0 0 10px", position: "relative" }}
+                    />
+                    <div className="episode_info">
+                      <strong className="episode_numberabo">Episode {episode.episode_number}</strong>
+                      <p className="episode_nameaboz">{episode.name}</p>
+                      <p className="episode_overviewabo">{episode.overview}</p>
+                    </div>
+                    {currentEpisode == episode.episode_number && (
+                      <div className="watchnow left">
+                        <i className="bx bx-play" style={{ fontSize: "3rem" }}></i>
+                      </div>
+                    )}
+                    {watchedEpisodes.includes(episode.episode_number) && (
+                      <>
+                        <div className="watchede-badgek" style={{ position: "absolute" ,backdropFilter: "grayscale(100%) " ,width: "64%" ,height: "100%" , left: "0" }}>
+                          <i className="bx bx-check-double" style={{ fontSize: "3rem", color: "white" }}></i>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </li>
+              ))}
+          </ul>
+        </div>
+      );
+    } else {
+      // Default layout: original layout with backdrop episode image
+      return (
+        <div
+          className="episode-selector current-layout"
+          style={{
+            backgroundImage: `url(${bgChanged})`,
+            backgroundSize: "cover",
+          }}
+        >
+          <ul className="episode_list">
+            {episodes
+              .filter((episode) => new Date(episode.air_date) <= new Date())
+              .map((episode, index) => (
+                <li
+                  key={index}
+                  className={`episodes_itemz ${
+                    currentEpisode == episode.episode_number ? "active" : ""
+                  } ${watchedEpisodes.includes(episode.episode_number) ? " watchedd" : ""}`}
+                  onClick={() =>
+                    handleEpisodeClick(episode.episode_number, episode.still_path)
+                  }
+                >
+                  {watchedEpisodes.includes(episode.episode_number) && (
+                    <>
+                      <div className="imdsdi">
+                        <img
+                          style={{
+                            borderRadius: "0px 10px 10px 0px",
+                            width: "100%",
+                            height: "100%",
+                          }}
+                          className="episode-posterue"
+                          src={apiConfig.w200Image(episode.still_path)}
+                          alt={`Episode ${episode.episode_number} poster`}
+                        />
+                      </div>
+                    </>
+                  )}
+                  E{episode.episode_number} <div className="s"></div>
+                  {episode.name}
+                  {currentEpisode == episode.episode_number && (
+                    <div className="watchnow">
+                      <i className="bx bx-play"></i>
+                    </div>
+                  )}
+                  {watchedEpisodes.includes(episode.episode_number) && (
+                    <>
+                      <div className="watchede-badge2">
+                        <i className="bx bx-check-double"></i>
+                      </div>
+                    </>
+                  )}
+                </li>
+              ))}
+          </ul>
+        </div>
+      );
+    }
+  };
+
+  // -------------------------------
+  // RENDERING THE COMPONENTS
+  // -------------------------------
+  return (
+    <ErrorBoundary>
+      <>
+        <ToastContainer
+          theme="dark"
+          fontSize="11px"
+          position="top-right"
+          autoClose={8000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable={false}
+          pauseOnHover={false}
+          progressStyle={{
+            backgroundColor: "#00000",
+            color: "white",
+            borderRadius: "5px",
+            fontSize: "11px",
+          }}
+        />
+  
+        {/* Persistent iframe container (always rendered) */}
+        <div className={`persistent-iframe-container ${displayMode}`}>
+          {Loading ? (
+            <div>Loading...</div>
+          ) : season_number && episode_number ? (
+            <iframe
+              key="persistentIframe" // constant key to avoid remounts
+              className="episodes__iframe"
+              src={handleIframeSrc()}
+              style={{ borderRadius : "15px" }}
+              width={displayMode === "youtube" ? "800" : "100%"}
+              height={displayMode === "youtube" ? "450" : "100%"}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              referrerPolicy="origin"
+              onLoad={handleIframeLoad}
+              onError={handleIframeError}
+            />
+          ) : (
+            <iframe
+              key="persistentIframe"
+              src={handlemovieIframeSrc()}
+              style={{ borderRadius : "15px" }}
+            
+              className="episodes__iframe"
+              width={displayMode === "youtube" ? "800" : "100%"}
+              height={displayMode === "youtube" ? "450" : "100%"}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              frameBorder="0"
+              allowFullScreen
+              referrerPolicy="origin"
+              onLoad={handleIframeLoad}
+              onError={handleIframeError}
+            />
+          )}
+        </div>
+  
+        {displayMode === "youtube" ? (
+          // YouTube Mode UI overlays – these elements wrap around (or appear in addition to) the persistent iframe.
+          <div
+            className="youtube-mode-layout"
+            style={{
+              backgroundImage: `url(${bgChanged})`,
+              backgroundSize: "cover",
+            }}
+          >
+            <div
+              className="blurimgback"
+              style={{
+                backgroundImage: `url(${apiConfig.w200Image(
+                  itemData.backdrop_path
+                )})`,
+              }}
+            ></div>
+  
+            <div className="youtube-player">
+              <div className="sertop">
+                <div className="layout-toggles">
+                  {category === "tv" && (
+                    <button onClick={toggleEpisodeLayout}>
+                      {episodeLayoutMode === 1 ? (
+                        <i className="bx bx-image"></i>
+                      ) : episodeLayoutMode === 0 ? (
+                        <i className="bx bxs-grid"></i>
+                      ) : (
+                        <i className="bx bx-list-ul"></i>
+                      )}
+                    </button>
+                  )}
+                  <button onClick={toggleDisplayMode}>
+                    {displayMode === "youtube" ? (
+                      <i className="bx bx-grid-vertical"></i>
+                    ) : (
+                      <i className="bx bx-grid-horizontal"></i>
+                    )}{" "}
+                    {displayMode === "youtube" ? "YT Layout" : "CINEMA Layout"}
+                  </button>
+                </div>
+  
+                <div className="logozz" onClick={() => navigate("/")}>
+                  <img src={logo} alt="ZillaXR" />
+                  <h4 className="logotext">ZILLAXR</h4>
+                </div>
+                <div className="menu">
+                  <div className="navih" onClick={handleHome}>
+                    <i className="bx bx-home-alt-2"></i>
+                  </div>
+                  <div className="navi" onClick={handleBack}>
+                    <i className="bx bx-arrow-back"></i>
+                  </div>
+                </div>
+  
+                <div className="watchlyst">
+                  {saved ? (
+                    <div
+                      className="languagezz"
+                      onClick={handleRemoveFromWatchlist}
+                    >
+                      <i
+                        className="bx bxs-add-to-queue"
+                        style={{ fontSize: "17px" }}
+                      ></i>
+                    </div>
+                  ) : (
+                    <div className="languagez" onClick={saveShow}>
+                      <i
+                        className="bx bx-add-to-queue"
+                        style={{ fontSize: "17px" }}
+                      ></i>
+                    </div>
+                  )}
+                  <div className="languagez">|</div>
+                  {like ? (
+                    <div
+                      className="languagezz"
+                      onClick={handleRemoveFromFavourites}
+                    >
+                      <i
+                        className="bx bxs-heart"
+                        style={{ fontSize: "17px" }}
+                      ></i>
+                    </div>
+                  ) : (
+                    <div className="languagez" onClick={AddfavShow}>
+                      <i className="bx bx-heart" style={{ fontSize: "17px" }}></i>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="zsa">
+                 <div className="haxnoiholder">
+                <div className="hanoxi">{itemData.title || itemData.name}</div>
+                {
+                  category === "tv" && (
+                    <div className="haxnoiep">
+                      SN {currentSeason} EP {currentEpisode}
+                    </div>
+                  )
+                }
+               
+              </div>
+  
+              {category === "tv" && (
+                <div className="recommendations">
+                  <h3 className="recoheadtube">
+                    More like {itemData.title || itemData.name}
+                  </h3>
+                  <div className="recoholder">
+                  {Array.isArray(reco) &&
+                    reco.map((recoc) => (
+                      <div
+                        className="dd"
+                        key={recoc.id}
+                        
+                      >
+                        <img
+                          onClick={() =>
+                            handlerecoclick(
+                              recoc.id,
+                              recoc.title || recoc.name
+                            )
+                          }
+                          loading="lazy"
+                          className="recoimg"
+                          src={apiConfig.w200Image(recoc.poster_path)}
+                          alt={recoc.title}
+                        />
+                         
+                        <div className="savo" >
+                        <div className="languagez" onClick={() => saveShow2(recoc.id, recoc.title || recoc.name , recoc.poster_path , recoc.first_air_date || recoc.release_date , recoc.vote_average)}>
+                    <i
+                      className="bx bx-bookmark"
+                      style={{ fontSize: "23px" }}
+                    ></i>
+                  </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              </div>
+             
+            </div>
+  
+            <div className="youtube-sidebar">
+              {currentEpisode < totalEpisodes ? (
+                <div
+                  className="rearo"
+                  onClick={() =>
+                    handleEpisodeClick(parseInt(currentEpisode) + 1)
+                  }
+                >
+                  <img
+                    className="rearoimg"
+                    src={apiConfig.w200Image(
+                      episodes.find(
+                        (episode) =>
+                          episode.episode_number ===
+                          parseInt(currentEpisode) + 1
+                      ).still_path
+                    )}
+                    alt=""
+                  />
+                  NEXT UP : EP {parseInt(currentEpisode) + 1}{" "}
+                  <i className="bx bx-right-arrow"></i>
+                </div>
+              ) : totalseasons > 1 && currentSeason < totalseasons ? (
+                <div
+                  className="rearo"
+                  onClick={() =>
+                    handleSeasonClick(parseInt(currentSeason) + 1)
+                  }
+                >
+                  <img
+                    className="rearoimg"
+                    src={apiConfig.w200Image(
+                      seasons[parseInt(currentSeason)].poster_path
+                    )}
+                    alt=""
+                  />
+                  NEXT UP : SN {parseInt(currentSeason) + 1} EP 1{" "}
+                  <i className="bx bx-right-arrow"></i>
+                </div>
+              ) : null}
+              <div className="servers">
+                <Select
+                  className="selectco"
+                  value={selectedOption}
+                  options={options}
+                  onChange={handleSelect}
+                  theme={(theme) => ({
+                    ...theme,
+                    borderRadius: 10,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "#ffffff2a",
+                      primary: "#ffffff1a",
+                      neutral0: "#00000e2",
+                      neutral5: "grey",
+                      neutral10: "#38383879",
+                      neutral20: "#ffffff5a",
+                      neutral30: "red",
+                      neutral40: "red",
+                      neutral50: "#a9a9a9",
+                      neutral60: "red",
+                      neutral70: "#696969",
+                      neutral80: "#ffffff5a",
+                      neutral90: "#303030",
+                    },
+                  })}
+                />
+              </div>
+              {category === "tv" && (
+                <>
+                  <div className="seasons-container" style={{position:"relative"}}>
+                    <div className="seasons__content" ref={seasonsContainerRef}>
+                      {seasons &&
+                        seasons
+                          .filter((item) => item.season_number !== 0)
+                          .map((item, i) => (
+                            <div
+                              className="seasons__list"
+                              key={i}
+                              onClick={() => handleSeasonClick(item.season_number)}
+                            >
+                              <div
+                                className={`seas ${
+                                  item.season_number == currentSeason ? "actively" : ""
+                                }`}
+                              >
+                                <h4 className="seasons__name">
+                                  SN {item.season_number}
+                                </h4>
+                              </div>
+                            </div>
+                          ))}
+                    </div>
+                    <div className="butaboss">
+                      {showLeftArrow && (
+                        <button className="leftpal" onClick={scrollLeft}>
+                          {"<"}
+                        </button>
+                      )}
+                      {showRightArrow && (
+                        <button className="rightpal" onClick={scrollRight}>
+                          {">"}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                  {renderEpisodes()}
+                </>
+              )}
+              {category === "movie" && (
+                <div className="recommendations">
+                  <h3 className="recoheadtube">
+                    More like {itemData.title || itemData.name}
+                  </h3>
+                  <div className="recoholder">
+                  {Array.isArray(reco) &&
+                    reco.map((recoc) => (
+                      <div
+                        className="dd"
+                        key={recoc.id}
+                        
+                      >
+                        <img
+                          onClick={() =>
+                            handlerecoclick(
+                              recoc.id,
+                              recoc.title || recoc.name
+                            )
+                          }
+                          loading="lazy"
+                          className="recoimg"
+                          src={apiConfig.w200Image(recoc.poster_path)}
+                          alt={recoc.title}
+                        />
+                         
+                        <div className="savo" >
+                        <div className="languagez" onClick={() => saveShow2(recoc.id, recoc.title || recoc.name , recoc.poster_path , recoc.first_air_date || recoc.release_date , recoc.vote_average)}>
+                    <i
+                      className="bx bx-bookmark"
+                      style={{ fontSize: "23px" }}
+                    ></i>
+                  </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        ) : (
+          // Normal Mode Layout – again, the persistent iframe remains above
+          <>
+            <div
+              className="blurimgback"
+              style={{
+                backgroundImage: `url(${apiConfig.w200Image(
+                  itemData.backdrop_path
+                )})`,
+              }}
+            ></div>
+            <div className="player-container">{/* iframe is persistent above */}</div>
+            <div className="sertop">
+              <div className="logozz" onClick={() => navigate("/")}>
+                <img src={logo} alt="ZillaXR" />
+                <h4 className="logotext">ZILLAXR</h4>
+              </div>
+              <div className="menu">
+                <div className="navih" onClick={handleHome}>
+                  <i className="bx bx-home-alt-2"></i>
+                </div>
+                <div className="navi" onClick={handleBack}>
+                  <i className="bx bx-arrow-back"></i>
+                </div>
+              </div>
+              {currentEpisode < totalEpisodes ? (
+                <div
+                  className="rea"
+                  onClick={() => handleEpisodeClick(parseInt(currentEpisode) + 1)}
+                >
+                  <img
+                    className="reaimg"
+                    src={apiConfig.w200Image(
+                      episodes.find(
+                        (episode) =>
+                          episode.episode_number ===
+                          parseInt(currentEpisode) + 1
+                      ).still_path
+                    )}
+                    alt=""
+                  />
+                  NEXT UP : EP {parseInt(currentEpisode) + 1}{" "}
+                  <i className="bx bx-right-arrow"></i>
+                </div>
+              ) : totalseasons > 1 && currentSeason < totalseasons ? (
+                <div
+                  className="rea"
+                  onClick={() => handleSeasonClick(parseInt(currentSeason) + 1)}
+                >
+                  <img
+                    className="reaimg"
+                    src={apiConfig.w200Image(
+                      seasons[parseInt(currentSeason)].poster_path
+                    )}
+                    alt=""
+                  />
+                  NEXT UP : SN {parseInt(currentSeason) + 1} EP 1{" "}
+                  <i className="bx bx-right-arrow"></i>
+                </div>
+              ) : null}
+              <div className="watchlyst">
+                {saved ? (
+                  <div
+                    className="languagezz"
+                    onClick={handleRemoveFromWatchlist}
+                  >
+                    <i
+                      className="bx bxs-add-to-queue"
+                      style={{ fontSize: "17px" }}
+                    ></i>
+                  </div>
+                ) : (
+                  <div className="languagez" onClick={saveShow}>
+                    <i
+                      className="bx bx-add-to-queue"
+                      style={{ fontSize: "17px" }}
+                    ></i>
+                  </div>
+                )}
+                <div className="languagez">|</div>
+                {like ? (
+                  <div
+                    className="languagezz"
+                    onClick={handleRemoveFromFavourites}
+                  >
+                    <i
+                      className="bx bxs-heart"
+                      style={{ fontSize: "17px" }}
+                    ></i>
+                  </div>
+                ) : (
+                  <div className="languagez" onClick={AddfavShow}>
+                    <i className="bx bx-heart" style={{ fontSize: "17px" }}></i>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="servers">
+              <div className="layout-toggles">
+                {category === "tv" && (
+                  <button onClick={toggleEpisodeLayout}>
+                    {episodeLayoutMode === 0 ? (
+                      <i className="bx bx-image"></i>
+                    ) : episodeLayoutMode === 1 ? (
+                      <i className="bx bxs-grid"></i>
+                    ) : (
+                      <i className="bx bx-list-ul"></i>
+                    )}
+                  </button>
+                )}
+                <button className="layout-toggle" onClick={toggleDisplayMode}>
+                  {displayMode === "youtube" ? (
+                    <i className="bx bx-grid-vertical"></i>
+                  ) : (
+                    <i className="bx bx-grid-horizontal"></i>
+                  )}{" "}
+                  {displayMode === "youtube" ? "YT Layout" : "CINEMA Layout"}
+                </button>
+              </div>
+              <Select
+                className="selectco"
+                value={selectedOption}
+                options={options}
+                onChange={handleSelect}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 10,
+                  colors: {
+                    ...theme.colors,
+                    primary25: "#ffffff2a",
+                    primary: "#ffffff1a",
+                    neutral0: "#00000e2",
+                    neutral5: "grey",
+                    neutral10: "#38383879",
+                    neutral20: "#ffffff5a",
+                    neutral30: "red",
+                    neutral40: "red",
+                    neutral50: "#a9a9a9",
+                    neutral60: "red",
+                    neutral70: "#696969",
+                    neutral80: "#ffffff5a",
+                    neutral90: "#303030",
+                  },
+                })}
+              />
+            </div>
+            {category === "tv" && (
+              <>
+                <div className="seasons-container">
+                  <div className="seasons__content" ref={seasonsContainerRef}>
+                    {seasons &&
+                      seasons
+                        .filter((item) => item.season_number !== 0)
+                        .map((item, i) => (
+                          <div
+                            className="seasons__list"
+                            key={i}
+                            onClick={() => handleSeasonClick(item.season_number)}
+                          >
+                            <div
+                              className={`seas ${
+                                item.season_number == currentSeason ? "actively" : ""
+                              }`}
+                            >
+                              <h4 className="seasons__name">
+                                Season {item.season_number}
+                              </h4>
+                            </div>
+                          </div>
+                        ))}
+                  </div>
+                  <div className="butaboss">
+                    {showLeftArrow && (
+                      <button
+                        className="scroll-arrow left"
+                        onClick={scrollLeft}
+                      >
+                        {"<"}
+                      </button>
+                    )}
+                    {showRightArrow && (
+                      <button
+                        className="scroll-arrow right"
+                        onClick={scrollRight}
+                      >
+                        {">"}
+                      </button>
+                    )}
+                  </div>
+                </div>
+                {renderEpisodes()}
+              </>
+            )}
+            {reco && (
+              <div className="recommendationsfull">
+                <h3 className="recohead">
+                  More like {itemData.title || itemData.name}
+                </h3>
+                <div className="recoholderfull">
+                  {Array.isArray(reco) &&
+                    reco.map((recoc) => (
+                      <div
+                        className="dd"
+                        key={recoc.id}
+                        
+                      >
+                        <img
+                          onClick={() =>
+                            handlerecoclick(
+                              recoc.id,
+                              recoc.title || recoc.name
+                            )
+                          }
+                          loading="lazy"
+                          className="recoimg"
+                          src={apiConfig.w200Image(recoc.poster_path)}
+                          alt={recoc.title}
+                        />
+                         
+                        <div className="savo" >
+                        <div className="languagez" onClick={() => saveShow2(recoc.id, recoc.title || recoc.name , recoc.poster_path , recoc.first_air_date || recoc.release_date , recoc.vote_average)}>
+                    <i
+                      className="bx bx-bookmark"
+                      style={{ fontSize: "23px" }}
+                    ></i>
+                  </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
+          </>
+        )}
+      </>
     </ErrorBoundary>
   );
+  
 }
