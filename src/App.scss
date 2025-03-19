@@ -6,24 +6,28 @@
   margin: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0.11);
+  
 }
 
 html {
   font-size: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0.11);
+  scrollbar-color: #292929 #000000fa;
+  
+
   @include tablet {
-    font-size: 75%;
+    font-size: 80%;
   }
 
   @include mobile {
-    font-size: 64%;
+    font-size: 60%;
   }
 }
 
 body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0.11);
   font-family: $font-family;
-  background: $black;
+  background: linear-gradient(to right, rgb(3, 3, 3), rgb(8, 8, 8));
    color: white;
 
 }
@@ -59,7 +63,7 @@ ul {
 }
 
 .section {
-  padding: 0 .1rem;
+  margin-bottom: .8rem;
 }
 
 .section__header {
@@ -68,12 +72,15 @@ ul {
 
 ::-webkit-scrollbar {
   width: 7px;
+  background-color: #000000;
+ 
 
   @include mobile {
     display: none;
   }
 
 }
+
 
 
 /* Handle */
