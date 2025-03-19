@@ -1,6 +1,35 @@
 @use '../scss/' as *;
 @use '../scss/breakpoint' as *;
 
+.movie-lists{
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  overflow: auto;
+  width: 100%;
+  gap: .5rem;
+  margin-bottom: 2rem;
+//align-items: center;
+
+  scrollbar-width: none;  /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+ 
+}
+
+.backdrophome{
+  position: absolute;
+  bottom: 0rem;
+  right: 2rem;
+  z-index: -1;
+  width: 170px;
+  rotate: -45deg;
+  filter: blur(50px) saturate(180%) brightness(50%);
+
+  //height: 100px;
+}
+
 .message{
   position: fixed;
   top: 0;
@@ -46,22 +75,36 @@
 
 }
 .divconw{
-  background-color: #131313d2;
+  position: relative;
+  background-color: #ffffff09;
+  margin-left: .4rem;
   display: flex;
   min-height: 130px;
+  overflow: hidden;
   border-radius:  10px;
-  
-  min-width: 200px;
+  padding: 10px 1rem;
+  padding-left: 1rem;
+  min-width: 300px;
   justify-content: center;
   align-items: center;
   //flex-direction: column;
+
+  @include mobile {
+    margin-left: .2rem;
+    min-width: 100px;
+  }
 }
 .favaziwwr{
-  background: linear-gradient(to right, rgb(39, 39, 39), rgb(255, 255, 255));
+  background: linear-gradient(to right, rgb(79, 79, 79), rgb(255, 255, 255));
   background-clip: text;
  -webkit-background-clip: text;
- font-size: larger;
+ font-size: 2.2rem;
  -webkit-text-fill-color: transparent;
+
+ @include mobile {
+  font-size: 1.7rem;
+  rotate: 90deg;
+ }
 }
 .dfavaziwatchlist{
   background-color: #131313d2;
@@ -205,13 +248,13 @@
  // border-radius: 5px;
  text-align: center;
   padding: 5px 10px;
-  font-size: 1rem;
+  font-size: 2rem;
   font-weight: 600;
   color: white;
   margin-top: .6rem;
   border-left: 1px solid transparent;
-  border-image:linear-gradient(to top, rgb(3, 3, 3), rgba(255, 255, 255, 0.42)
-  ) 1;
+ // border-image:linear-gradient(to top, rgb(3, 3, 3), rgba(255, 255, 255, 0.42)
+  //) 1;
   width: 50%; 
   
   display: flex;
@@ -231,12 +274,14 @@
 .continue_watchingcontainer{
  // background-color: rgba(27, 27, 27, 0.514);
   display: flex;
-  align-items: center;
+ // align-items: center;
  // margin: 1rem;
   border-radius: 10px;
   flex-direction: row;
   overflow: auto;
-  padding: 5px;
+  margin-bottom: calc(7.2rem - 100px);
+ 
+  //padding: 5px;
   scrollbar-color: #1a1a1a00 #00000000;
   scroll-behavior: auto;
 }
@@ -251,6 +296,9 @@
 .movieimage{
   cursor: pointer;
   border-radius: 10px 0 0 10px;
+  width: 100px;
+  height: 150px;
+  object-fit: cover;
   transition: all 0.2s ease-in-out;
 
  // margin-left: .4rem;
@@ -260,8 +308,8 @@
    position: relative;
     display: flex;
     //justify-content: center;
-    width: 80px;
-    height: 130px;
+    width: 100px;
+    height: 150px;
    
     align-items: center;
     flex-direction: column;
@@ -272,13 +320,10 @@
     border-radius: 7px;
     
     img{
-      width: 80px;
-      height: 100px;
-      object-fit: cover;
       transition: all 0.2s ease-in-out;
 
       &:hover{
-      filter: blur(20px) !important;
+      filter: blur(10px) !important;
       }
     }
 }
@@ -287,13 +332,13 @@
 }
 .movietitle{
   position: absolute;
-  left: 2px;
+  left: 0px;
   bottom: 2px;
-  font-size: x-small;
+  font-size: xx-small;
   font-weight: 200;
-  background-color: #ffffff0f;
+  background-color: #0000009b;
   padding: 5px 10px;
-  border-radius: 0 10px 10px 0px;
+  border-radius: 0 4px 4px 0px;
   @include mobile {
     font-size: x-small;
   }
@@ -350,4 +395,211 @@
      
     }
 
+}
+.animecontanier{
+ //background-color: aqua;
+  display: flex;
+  align-items: center;
+  flex-direction: row !important;
+  overflow: auto;
+  padding: 5px;
+  scrollbar-color: #1a1a1a00 #00000000;
+  scroll-behavior: auto;
+  gap: 1rem;
+}
+.animecard{
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  border: 1px solid rgba(222, 170, 200, 0.339);
+  border-radius: 15px;
+  gap: 1rem;
+  cursor: pointer;
+  overflow: hidden;
+  min-width: 400px;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+.animeimg{
+  width: 150px;
+  height: 230px;
+  border-radius: 10px;
+  object-fit: cover; 
+  transition: all 0.3s ease-in-out; 
+}
+.animeimgblur{
+  position: absolute;
+  z-index: -1;
+  width: 250px;
+  height: 230px;
+
+ // border-radius: 10px;
+  object-fit: cover;  
+  filter: blur(50px) brightness(0.7) !important;
+}
+.animecard:hover .animeimg {
+  width: 90px;
+}
+.animecard:hover .anicardcontents {
+  width: 90px;
+}
+.anicardcontents{
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  gap: .5rem;
+  transition: all 0.3s ease-in-out;
+ // min-width: 300px;
+}
+.animecard:hover .anicardcontents {
+  width: 100%;
+}
+.aniinfo{
+  display: flex;
+  justify-content: right;
+  flex-wrap: wrap;
+  gap: .1rem;
+  transition: all 0.3s ease-in-out;
+}
+.mal{
+  font-size: .7rem;
+ padding: 5px 10px;
+ border-radius: 5px;
+ background-color: rgba(236, 228, 228, 0.075);
+
+ cursor: pointer;
+}
+.seasonani{
+  font-size: .8rem;
+ padding: 5px 10px;
+ border-radius: 5px;
+ width: 100px;
+ text-align: center;
+ background-color: rgba(236, 228, 228, 0.075);
+ cursor: pointer;
+ 
+}
+
+.anicardtitle{
+  font-size: .85rem;
+  background-color: rgba(236, 228, 228, 0.075);
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: 500;
+}
+.aniinforat{
+  font-size: .9rem;
+  background-color: rgba(236, 228, 228, 0.075);
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: 500;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.player-history{
+  overflow: auto;
+  display: flex;
+  //align-items:  flex-end;
+ // flex-direction: row-;
+ margin-bottom: calc(8.2rem - 100px);
+ //margin-top: 2rem;
+  gap: .4rem;
+  background-color: rgba(2, 2, 2, 0.342);
+ 
+  scrollbar-color: #1a1a1a00 #00000000;
+  scroll-behavior: auto;
+  }
+
+ 
+.player-history-item{
+  min-width: 130px !important;
+  height: 190px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  // border-radius: 20px;
+ // padding: 5px;
+  overflow: hidden;
+  gap: .5rem;
+}
+.player-history-item__poster{
+  width: 130px;
+  height: 190px;
+  border-radius: 15px;
+  object-fit: cover;
+  transition: all 0.3s ease-in-out;
+  
+}
+.player-history-item__episode2{
+   padding: 5px ;
+  width: 130px;
+  margin-left: -.1rem;
+ 
+ //background-color: rgba(255, 255, 255, 0.114);
+  color: rgb(184, 184, 184);
+  //backdrop-filter: blur(10px);
+  font-size: .65rem;
+  font-weight: 300;
+}
+.player-history-item__episode{
+  position: absolute;
+  top: -20px;
+  left: 0px;
+  padding: 2px 7px;
+  padding-right: 15px;
+  border-radius: 0px 10px 10px 0px;
+ background-color: rgba(0, 0, 0, 0.486);
+ //backdrop-filter: blur(20px) ;
+  color: rgb(255, 255, 255);
+  font-size: .63rem;
+  font-weight: 600;
+}
+.player-history-item__poster:hover{
+  //border-radius: 10px;
+  filter: brightness(0.7);
+}
+.player-history-item__info{
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  width: 100%;
+  border-radius: 0px 0px 15px 15px;
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(30px);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.817), rgba(0, 0, 0, 0.244));
+}
+.player-history-item__title{
+  font-size: .7rem;
+  font-weight: 400;
+  //background: linear-gradient(to top, rgba(0, 0, 0, 0.594), rgba(0, 0, 0, 0));
+  //backdrop-filter: blur(10px);
+  padding: 3px 1px;
+  text-align: center;
+ //max-width: max-content;
+  border-radius: 2px;
+  margin-bottom: 0rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  //background-color: rgba(236, 228, 228, 0.075);
+}
+.modal-option{
+  background-color: rgba(16, 16, 16, 0.721);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem;
+  border-radius: 15px;
+  transition: all 0.3s ease-in-out;
+
+
+  &:hover{
+    background-color: rgba(255, 255, 255, 0.075);
+    //opacity: 0.8;
+  }
 }
