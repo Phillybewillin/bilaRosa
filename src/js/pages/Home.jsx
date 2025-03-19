@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState , Suspense} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Spotlight from '../components/hero-side/Spotlight';
 import MovieList from '../components/movie-list/MovieList';
@@ -15,6 +15,13 @@ import '../pages/authpages/savedshows.scss'
 import Button from '../components/button/Button';
 const Home = () => {
   document.title = 'Home ~ Viva la Zilla';
+
+  // Top of your component
+const listRef = useRef(null);        // Anime list
+const Movieref = useRef(null);       // Movie list
+const historyRef = useRef(null);     // Continue Watching section
+const watchlistRef = useRef(null);   // Watchlist section
+
   const { user } = UserAuth();
   
   const{ getWatchlist } = useFirestore();
@@ -23,10 +30,13 @@ const Home = () => {
   const [watchlist, setWatchlist] = useState([]);
   const [tv, setTv] = useState([]);
   const [moviesData, setMoviesData] = useState([]);
+  const [continueWatching, setContinueWatching] = useState(
+    JSON.parse(localStorage.getItem('ContinueWatching')) || []
+  );
   const navigate = useNavigate();
-  const listRef = useRef(null);
-  const Movieref = useRef(null);
  
+  const continueWatchingRef = useRef(null);
+
   useEffect(() => {
     if(!user){
       setIsLoading(false)
@@ -54,7 +64,7 @@ const Home = () => {
         });
     }
   }, [user?.uid, getWatchlist]);
-  const hasMounted = useRef(false);
+ 
   const getTVresults = async (timewindow) => {
     const url = `https://api.themoviedb.org/3/trending/tv/${timewindow}?api_key=${apiConfig.apiKey}`;
     const response = await fetch(url);
@@ -69,23 +79,22 @@ const Home = () => {
     setMoviesData(data.results);
   };
 
+  // const getAnimeResults = async () => {
+  //   const url = `https://api.jikan.moe/v4/seasons/now?sfw&limit=20`;
+  //   const response = await fetch(url);
+  //   const data = await response.json();
+  //   setAnime(data.data);
+  // };
+ 
   useEffect(() => {
     // Fetch TV results
     getTVresults('day');
-    
+   // getAnimeResults();
     // Fetch movie results
     getMovieresults('day');
     //hasMounted.current = true;
   }, []);
   
-
-  const handleClick = (event, category, type) => {
-    navigate(`/z/${category}?type=${type}`, { replace: true });
-  };
-
-  const [continueWatching, setContinueWatching] = useState(
-    JSON.parse(localStorage.getItem('ContinueWatching')) || []
-  );
 
   const handleCardClick = (id, category, title, poster_path) => {
     let continueWatchingList = JSON.parse(localStorage.getItem('ContinueWatching')) || [];
@@ -100,95 +109,290 @@ const Home = () => {
     navigate(`/${category === 'tv' ? 'tv' : 'movie'}/${id}`);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete2 = (id) => {
     const newContinueWatching = continueWatching.filter((item) => item.id !== id);
     localStorage.setItem('ContinueWatching', JSON.stringify(newContinueWatching));
     setContinueWatching(newContinueWatching);
   };
 
-  
-  const divId = 'message';
+  const [history, setHistory] = useState([]);
+ 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
-  const [isVisible, setIsVisible] = useState(() => {
-    // Check if the user has already viewed the div
-    const viewedDivs = JSON.parse(localStorage.getItem('message') || '[]');
-    return !viewedDivs.includes(divId);
-  });
-  
+  // Load history from localStorage on mount
   useEffect(() => {
-    // Update local storage when isVisible changes
-    if (!isVisible) {
-      const viewedDivs = JSON.parse(localStorage.getItem('message') || '[]');
-      viewedDivs.push(divId);
-      localStorage.setItem('message', JSON.stringify(viewedDivs));
+    const stored = localStorage.getItem("playerDataList");
+    if (stored) {
+      const items = Object.values(JSON.parse(stored));
+      // Sort items by lastWatched descending (most recent first)
+      items.sort((a, b) => b.lastWatched - a.lastWatched);
+      setHistory(items);
     }
-  }, [isVisible, divId]);
-  // Common function to render a list of movies or TV shows
-  const renderList = (items, category) => ({ index, style }) => {
-    const item = items[index];
-    return (
-      <div
-        style={style}
-        key={item.id}
-        className="wrappwezadd"
-        //onClick={() => navigate(`/${category}/${item.id}`)}
-      >
-        <MovieCard key={item.id} item={item} category={category} />
-      </div>
-    );
-  };
-  const smoothScroll = (targetOffset) => {
-    const startOffset = listRef.current.state.scrollOffset || Movieref.current.state.scrollOffset;
-    const distance = targetOffset - startOffset;
-    const duration = 500; // Duration in milliseconds
-    const startTime = performance.now();
+  }, []);
 
-    const animateScroll = (currentTime) => {
-      const elapsedTime = currentTime - startTime;
-      const progress = Math.min(elapsedTime / duration, 1); // Progress: 0 to 1
-
-      const easeInOutQuad = (t) =>
-        t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; // Ease function
-      const scrollOffset = startOffset + distance * easeInOutQuad(progress);
-
-      listRef.current.scrollTo(scrollOffset) || Movieref.current.scrollTo(scrollOffset);    
-
-      if (progress < 1) {
-        requestAnimationFrame(animateScroll);
-      }
-    };
-
-    requestAnimationFrame(animateScroll);
+  // Opens the modal for the clicked history item.
+  const openModal = (item, e) => {
+    e.stopPropagation(); // Prevent triggering the parent's onClick
+    setSelectedItem(item);
+    setModalOpen(true);
   };
 
-  const handleScrollLeft = () => {
-    const currentOffset = listRef.current.state.scrollOffset || Movieref.current.state.scrollOffset;
-    smoothScroll(currentOffset - 700); // Adjust the scroll distance as needed
+  const closeModal = () => {
+    setModalOpen(false);
+    setSelectedItem(null);
   };
 
-  const handleScrollRight = () => {
-    const currentOffset = listRef.current.state.scrollOffset || Movieref.current.state.scrollOffset;
-    smoothScroll(currentOffset + 1000); // Adjust the scroll distance as needed
+  // Delete the selected item from localStorage and update the history state.
+  const handleDelete = () => {
+    if (!selectedItem) return;
+    const stored = localStorage.getItem("playerDataList");
+    const playerDataList = stored ? JSON.parse(stored) : {};
+    // Delete the entry by its id (assuming your keys are just the id)
+    delete playerDataList[selectedItem.id];
+    localStorage.setItem("playerDataList", JSON.stringify(playerDataList));
+    // Update local state
+    setHistory((prev) => prev.filter((item) => item.id !== selectedItem.id));
+    closeModal();
+    toast.success("Item deleted");
   };
-  const handleClose = () => {
-    setIsVisible(false);
-    const viewedDivs = JSON.parse(localStorage.getItem('message') || '[]');
-    const newViewedDivs = [...viewedDivs, divId];
-    localStorage.setItem('message', JSON.stringify(newViewedDivs));
+
+  // Navigate to details: if item has a seasonNumber, then it's tv, else movie.
+  const handleDetails = () => {
+    if (!selectedItem) return;
+    const category = selectedItem.seasonNumber ? "tv" : "movie";
+    navigate(`/${category}/${selectedItem.id}`);
+    closeModal();
   };
+
+  // Calculate the progress percentage for an item.
+  const getProgress = (item) => {
+    if (item.runtime > 0) {
+      return Math.min((item.timeSpent / item.runtime) * 100, 100);
+    }
+    return 0;
+  };
+
+  useEffect(() => {
+    // Retrieve the stored player data from localStorage
+    const stored = localStorage.getItem("playerDataList");
+    if (stored) {
+      // Convert the stored object to an array
+      const items = Object.values(JSON.parse(stored));
+      // Sort items by lastWatched descending (most recent first)
+      items.sort((a, b) => b.lastWatched - a.lastWatched);
+      setHistory(items);
+    }
+  }, []);
+
+  const handleScrollLeft = (ref) => {
+
+    ref.current?.scrollBy({
+      left: -700,
+      behavior: "smooth",
+    });
+  
+  };
+  
+  const handleScrollRight = (ref) => {
+  
+    ref.current?.scrollBy({
+      left: 1000,
+      behavior: "smooth",
+    });
+  
+  
+  };
+  
 
   return (
     <>
       <Spotlight />
 
+      <div className="alignerbutts">
+  <button className="left" onClick={() => handleScrollLeft(historyRef)}>
+    <i className="bx bx-left-arrow-alt"></i>
+  </button>
+  <button className="right" onClick={() => handleScrollRight(historyRef)}>
+    <i className="bx bx-right-arrow-alt"></i>
+  </button>
+</div>
+      <div className="player-history" ref={historyRef}>
+      
 
-<div className="continue_watchingcontainer">
+      {history.length > 0 && (
+        <div className="divconw">
+          <h4 className="favaziwwr">Continue Watching</h4>
+          <img className="backdrophome" src={apiConfig.w200Image(history[0]?.poster_path)} alt="" />
+            <i className="bx bx-cheese" style={{fontSize : '30px' , position : 'absolute' , right : '10px', top : '10px'}}></i>
+         
+        </div>
+      )}
+
+      {history.map((item) => {
+        const progress = getProgress(item);
+        return (
+          <div
+            key={`${item.id}_${item.seasonNumber || ""}_${item.lastEpisode || ""}`}
+            className="player-history-item"
+            onClick={() => navigate(item.currentUrl)}
+            style={{ cursor: "pointer", position: "relative" }}
+          >
+            {/* Poster Image */}
+            <img
+              src={apiConfig.w200Image(item.poster_path)}
+              alt={item.title}
+              className="player-history-item__poster"
+            />
+            <div className="player-history-item__info">
+              <h4 className="player-history-item__title">{item.title}</h4>
+              {/* Progress Bar */}
+              <div
+                style={{
+                  background: "#ffffff4a",
+                  width: "100%",
+                  height: "2.5px",
+                  borderRadius: "5px",
+                  overflow: "hidden",
+                  marginTop: "0.5rem",
+                }}
+              >
+                <div
+                  style={{
+                    background: "white",
+                    width: `${progress}%`,
+                    height: "100%",
+                    borderRadius: "5px",
+                  }}
+                ></div>
+              </div>
+              <div className="player-history-item__episode2">
+                <span>{item.lastSrc}</span>
+              </div>
+              {item.seasonNumber && (
+                <div className="player-history-item__episode">
+                  <span className="player-history-item__episode-label">
+                    SN {item.seasonNumber} • EP {item.lastEpisode}
+                  </span>
+                </div>
+              )}
+            </div>
+            {/* Action Icon Button to open the modal */}
+            <button
+              className="history-item-action-btn"
+              onClick={(e) => openModal(item, e)}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                position: "absolute",
+                top: "10px",
+                color: "white",
+                right: "10px",
+              }}
+            >
+              <i className="bx bx-dots-horizontal-rounded"></i>
+            </button>
+          </div>
+        );
+      })}
+
+      {/* Modal */}
+      {modalOpen && selectedItem && (
+        <div
+          className="modal-overlay"
+          onClick={closeModal}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0,0,0,0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1000,
+          }}
+        >
+          <div
+            className="modal-content"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              //background: "#000000d1",
+              padding: "1.5rem",
+              borderRadius: "8px",
+              minWidth: "300px",
+              textAlign: "center",
+              position: "relative",
+            }}
+          >
+            <button
+              className="modal-close-btn"
+              onClick={closeModal}
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                background: "none",
+                border: "none",
+                fontSize: "1.5rem",
+                color: "white",
+                cursor: "pointer",
+              }}
+            >
+
+              <i className='bx bx-x'></i>
+             
+            </button>
+            <div className="modal-options" style={{ display: "flex", justifyContent: "space-around", marginTop: "1rem" }}>
+              <div
+                className="modal-option"
+                onClick={handleDelete}
+                style={{ cursor: "pointer", textAlign: "center" }}
+              >
+                <i className="bx bx-trash" style={{ fontSize: "2rem", color: "red" }}></i>
+                <div style={{ color: "red" , fontSize : '16px' }}>Delete</div>
+              </div>
+              <div
+                className="modal-option"
+                onClick={handleDetails}
+                style={{ cursor: "pointer", textAlign: "center" }}
+              >
+                <i className="bx bx-info-circle" style={{ fontSize: "2rem", color: "grey" }}></i>
+                <div style={{ color: "grey" , fontSize : '16px' }}>Details</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+
+    <div className="trendmovue" style={{position : 'relative' , minWidth : '200px'}}>
+    {
+          continueWatching.length > 0 && (
+            <div className="alignerbutts" >
+            <button className="left" style={{top : '-27px'}} onClick={() => handleScrollLeft(continueWatchingRef)}>
+              <i className="bx bx-left-arrow-alt"></i>
+            </button>
+            <button className="right" style={{top : '-27px'}} onClick={() => handleScrollRight(continueWatchingRef)}>
+              <i className="bx bx-right-arrow-alt"></i>
+            </button>
+          </div>
+            
+          )
+        }
+
+
+    <div className="continue_watchingcontainer" ref={continueWatchingRef}>
         {
           continueWatching.length > 0 && (
             <div className="divconw">
-                <h4 className="favaziwwr">Recently Viewed</h4>
-                <i class='bx bx-cross'></i>
-            </div>
+            <h4 className="favaziwwr">Recently Viewed</h4>
+          <img className="backdrophome" src={apiConfig.w200Image(continueWatching[continueWatching.length - 1]?.poster_path)} alt="" />
+            <i className="bx bx-history" style={{fontSize : '30px' , position : 'absolute' , right : '10px', top : '10px'}}></i>
+         
+        </div>
             
           )
         }
@@ -206,10 +410,10 @@ const Home = () => {
               <p className="movietitle"  onClick={() => handleCardClick(item.id, item.category, item.title || item.name, item.poster_path)}
                >{item.category==='tv' ? 'Show' : 'Movie'}</p>
               <i
-                onClick={() => handleDelete(item.id)}
+                onClick={() => handleDelete2(item.id)}
                 className="bx bx-trash"
                 style={{
-                  color: 'rgba(83, 83, 83, 0.54)',
+                  color: 'rgba(0, 0, 0, 0.9)',
                   fontSize: '20px',
                   cursor: 'pointer',
                   position: 'absolute',
@@ -221,18 +425,107 @@ const Home = () => {
           ))}
         </div>
       </div>
+
+  
+    </div>
+
+      <div className="container">
+
       
-      { user && isLoading && (
+         {/* Trending Movies Section */}
+        <div className="section mb-3">
+                <div className="section-tit">
+            </div>
+          <div className="trendMovie">
+          <div className="alignerbutts">
+  <button className="left" onClick={() => handleScrollLeft(Movieref)}>
+    <i className="bx bx-left-arrow-alt"></i>
+  </button>
+  <button className="right" onClick={() => handleScrollRight(Movieref)}>
+    <i className="bx bx-right-arrow-alt"></i>
+  </button>
+</div>
+        <div className="movie-lists" ref={Movieref}>
+        <div className="divconw">
+          <h4 className="favaziwwr">Trending Movies</h4>
+          <img className="backdrophome" src={apiConfig.w200Image(moviesData[0]?.poster_path)} alt="" />
+            <i className="bx bxs-hot" style={{fontSize : '32px' , position : 'absolute' , right : '10px', top : '10px'}}></i>
+            <i className="bx bx-movie" style={{fontSize : '25px' , position : 'absolute' , right : '10px', bottom : '10px'}}></i>
+        
+        </div>                       
+                                         {
+                   moviesData.filter(itemzmovie => itemzmovie.poster_path).map((itemzmovie, ia) => (
+                         <Suspense fallback={null}>
+                          
+                           <MovieCard item={itemzmovie} category={category.movie} key={itemzmovie.id}/>
+                         
+                          
+                         </Suspense>
+                            
+                    ))
+                  }
+                  </div>
+          </div>
+        </div>
+
+        {/* Trending TV Shows Section */}
+        <div className="section mb-3">
+                 <div className="section-tit">
+            </div>
+          <div className="trendMovie">
+          <div className="alignerbutts">
+  <button className="left" onClick={() => handleScrollLeft(listRef)}>
+    <i className="bx bx-left-arrow-alt"></i>
+  </button>
+  <button className="right" onClick={() => handleScrollRight(listRef)}>
+    <i className="bx bx-right-arrow-alt"></i>
+  </button>
+</div>
+            <div className="movie-lists" ref={listRef}>
+            <div className="divconw">
+          <h4 className="favaziwwr">Trending Shows</h4>
+          <img className="backdrophome" src={apiConfig.w200Image(tv[0]?.poster_path)} alt="" />
+            <i className="bx bx-water" style={{fontSize : '32px' , position : 'absolute' , right : '10px', top : '10px'}}></i>
+            <i className="bx bx-tv" style={{fontSize : '25px' , position : 'absolute' , right : '10px', bottom : '10px'}}></i>
+        
+        </div>             
+                                  {
+            tv.filter(itemztv => itemztv.poster_path).map((itemztv, ia) => (
+                  <Suspense fallback={null}>
+                    
+                    <MovieCard item={itemztv} category={category.tv} key={itemztv.id} />
+                  
+                 
+                  </Suspense>
+                     
+             ))
+           }
+           </div>
+          </div>
+        </div>
+      
+        { user && isLoading && (
         <div className="load">loading</div>
       )}
       {user && !isLoading && watchlist?.length > 0 && (
-        
-           <div className="watchlisthome" style={{color : 'white'}}>
-            <div className="dfavaziwatchlist">
-                <h4 className="favaziwwr">My Watchlist</h4>
-                
-                <i class='bx bx-library'></i>
-            </div>  {
+            <>
+                <div className="alignerbutts" style={{position : 'relative'}} >
+  <button className="left" style={{top : '-27px'}}  onClick={() => handleScrollLeft(watchlistRef)}>
+    <i className="bx bx-left-arrow-alt"></i>
+  </button>
+  <button className="right" style={{top : '-27px'}} onClick={() => handleScrollRight(watchlistRef)}>
+    <i className="bx bx-right-arrow-alt"></i>
+  </button>
+</div><div className="watchlisthome" style={{color : 'white'}} ref={watchlistRef}>
+          
+
+        <div className="divconw">
+          <h4 className="favaziwwr"> From My Watchlist</h4>
+          <img className="backdrophome" src={apiConfig.w200Image(watchlist[0]?.poster_path)} alt="" />
+          <i class='bx bx-library' style={{fontSize : '30px' , position : 'absolute' , right : '10px', top : '10px'}}></i>
+         
+        </div>
+            {
            watchlist.map((item, i) => 
               <div  
                key={i}
@@ -262,71 +555,14 @@ const Home = () => {
               
            )}
            </div>
+            </>
+           
       )}
-
-      <div className="container">
-      
-     
-      
-
-        {/* Trending Movies Section */}
-        <div className="section mb-3">
-          <div className="section-tit">
-            <div className='villa'> <div className="spo">~</div> TRENDING MOVIES <h6 className="catx">#Today's Trending Movies</h6></div>
-            <h5 className="bluez" onClick={(event) => handleClick(event, category.movie, movieType.popular)}>view all--+</h5>
-          </div>
-          <div className="trendMovie">
-          <div className="alignerbutts">
-       <button  className="left" onClick={handleScrollLeft}><i className='bx bxs-left-arrow'></i></button>
-      <button className="right" onClick={handleScrollRight}><i className='bx bxs-right-arrow'></i></button>
-        </div>
-            {/* Replacing Swiper with FixedSizeList */}
-            <FixedSizeList
-              ref={Movieref}
-              className="movie-list"
-              margin={10}
-              height={310} // Adjust height as needed
-              width={window.innerWidth - 20} // Adjust width dynamically
-              itemSize={210} // Width of each item
-              layout="horizontal"
-              itemCount={moviesData.length}
-            >
-              {renderList(moviesData, category.movie)}
-            </FixedSizeList>
-          </div>
-        </div>
-
-        {/* Trending TV Shows Section */}
-        <div className="section mb-3">
-          <div className="section-tit">
-            <div  className='villa'> <div className="spo">~</div> TRENDING TV SHOWS<h6 className="catx"> #Today's Trending TV shows</h6></div>
-            <h5 className="bluez" onClick={(event) => handleClick(event, category.tv, tvType.popular)}>view all--+</h5>
-          </div>
-          <div className="trendMovie">
-          <div className="alignerbutts">
-       <button  className="left" onClick={handleScrollLeft}><i className='bx bxs-left-arrow'></i></button>
-      <button className="right" onClick={handleScrollRight}><i className='bx bxs-right-arrow'></i></button>
-        </div>
-            {/* Replacing Swiper with FixedSizeList */}
-            <FixedSizeList
-              ref={listRef}
-              className="movie-list"
-              height={320} // Adjust height as needed
-              width={window.innerWidth - 20} // Adjust width dynamically
-              itemSize={210} // Width of each item
-              layout="horizontal"
-              itemCount={tv.length}
-            >
-              {renderList(tv, category.tv)}
-            </FixedSizeList>
-          </div>
-        </div>
 
         <BoxOffice />
         
       </div>
-      <ToastContainer theme="dark" position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#1eff00', color: 'white', borderRadius: '10px' }} />
-     </>
+  </>
     );
 }
 
