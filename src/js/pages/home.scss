@@ -284,6 +284,10 @@
   //padding: 5px;
   scrollbar-color: #1a1a1a00 #00000000;
   scroll-behavior: auto;
+
+  @include tablet {
+    margin-bottom: 1rem;
+  }
 }
 .contin{
   display: flex;
@@ -512,7 +516,11 @@
  
   scrollbar-color: #1a1a1a00 #00000000;
   scroll-behavior: auto;
+  @include tablet {
+    margin-bottom: 1.5rem;
   }
+  }
+
 
  
 .player-history-item{
