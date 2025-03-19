@@ -233,7 +233,7 @@
 .watchnow.left{
   position: absolute;
   left: 0px;
-  top: 3rem;
+ top: 0rem;
   z-index: 1 !important;
   cursor: pointer;
   max-width: inherit;
@@ -1087,7 +1087,7 @@
 .scroll-arrow.left{
   position: absolute;
   left: 0px;
-  top: 8px;
+  bottom: -40px;
   background: linear-gradient(to right, #1a1a1a, #00000008);
   padding: 7px;
   font-size: 1.5rem;
@@ -1097,7 +1097,7 @@
 .scroll-arrow.right{
   position: absolute;
   right: 0px;
-  top: 8px;
+  bottom: -40px;
   background: linear-gradient(to left, #161616, #00000008);
   padding: 7px;
   font-size: 1.5rem;
