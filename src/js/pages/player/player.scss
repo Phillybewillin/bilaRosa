@@ -394,14 +394,18 @@
 }
 
 .hanoxi{
-  font-size: 4rem;
-  font-weight: 700;
+  font-size: 3rem;
+  font-weight: 600;
+  width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: #fafafae1;
 }
 .haxnoiholder{
   display: flex;
   align-items: first baseline;
-  gap: .5rem;
+  gap: .1rem;
 }
 .haxnoiep{
   font-weight: 500;
@@ -489,6 +493,7 @@
 
 .episode-selector.image-layout {
   position: relative;
+  overflow: hidden;
   background-image: none !important;
   background-color: transparent !important;
   .episode_list{
@@ -523,7 +528,7 @@
   .youtube-player {
     //flex: 1;
     min-height: 100vh;
-    min-width: 64.06%;
+    min-width: 69%;
     padding: 4px 10px ;
     backdrop-filter: blur(100px);
     -webkit-backdrop-filter: blur(100px);
@@ -540,7 +545,7 @@
         // The iframe itself uses the new dimensions set via inline props
       }
       .episodes__iframe {
-        min-width: 790px;
+        min-width: 1000px;
         height: 450px;
         border-radius: 15px;
       }
@@ -552,13 +557,13 @@
     right: 0;
    // flex: 0 0 350px;
    min-height: 100vh;
-    min-width: 35.94%;
+    min-width: 31%;
     max-width: 35.94%;
     overflow: hidden;
     display: flex;
    // backdrop-filter: blur(100px);
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     backdrop-filter: blur(100px);
     -webkit-backdrop-filter: blur(100px);
     background: radial-gradient(circle, rgba(0, 0, 0, 0.689) 0%, rgba(0, 0, 0, 0.995) 100%);
@@ -673,7 +678,7 @@
   .episode_listimg{
     position: relative;
     display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
   grid-gap: 5px;
     overflow: auto;
     background-image: none;
@@ -681,8 +686,8 @@
     backdrop-filter: none;
     scrollbar-width: none;
    
-    gap: 5px;
-    //padding: 3px;
+    gap: 5px !important;
+    padding: 2px !important; 
     
    border-radius: 10px;
   }
@@ -699,19 +704,19 @@
         opacity: 1;
       }
       color: white;
-      opacity: .7;
+      opacity: 1;
     }
   }
   .hose{
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 140px;
+    width: 126px;
     //gap: 10px;
     //padding: 10px
   }
   .episode_posterimg{
-    width: 140px;
+    width: 125px;
     height: 140px;
     object-fit: cover;
     border-radius: 15px !important;
@@ -753,6 +758,32 @@
     padding: 4px 10px;
     border-radius: 7px 4px 10px 7px;
     font-size: .7rem;
+  }
+  .rearo{
+    display: flex;
+    margin: .2rem;
+    //display: flex;
+    z-index: 1000 ! important;
+    position: absolute;
+    top: -10px;
+    right: 0;
+    align-items:  center;
+    justify-content: space-between;
+    flex-direction: row;
+   gap: 20px;
+   text-align: end;
+   text-wrap: wrap;
+    border-radius: 15px;
+    width: 50%;
+    font-size: .8rem ;
+    font-weight: 300;
+    background-color: #ffffff11;
+    //backdrop-filter: blur(10px);
+    padding: 0px;
+    cursor: pointer;
+    padding-right: .5rem;
+   transition: all .4s ease-in-out;
+  
   }
 }
 
@@ -848,8 +879,9 @@
   width: 250px;
   
 }
+
 // Example of the episode selector with backdrop image (normal mode)
-.episode-selector.descriptive-layout {
+.episode-selector.descriptive-layout{
   .episode_list {
     columns: 2;
    background: transparent;
@@ -863,7 +895,7 @@
     gap: 10px;
     overflow: hidden;
   }
-  .episode_posterablur{
+  .episode_posterblur{
     width: 66%;
     height: 100%;
     position: absolute;
@@ -873,7 +905,7 @@
     filter: brightness(.34) blur(40px);
   }
   .episode_posterabos{
-    min-width: 270px;
+    min-width: 230px;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -913,6 +945,7 @@
     
   }
 }
+
 
 }
 .butaboss{
@@ -977,6 +1010,7 @@
   cursor: pointer;
  
 }
+
 .recoholder{
   display: flex;
   overflow: auto;
@@ -1046,7 +1080,8 @@
   
 }
 .zsa{
-  margin-top: calc(100% - 21rem);
+  position: relative;
+  margin-top: calc(100% - 22rem);
 }
 .persistent-iframe-container.youtube{
   position: absolute;
@@ -1055,7 +1090,8 @@
   border-radius: 15px;
   padding: 0 .5rem;
   //background-color: red;
-  width: 800px !important;
+  min-width: 850px !important;
+  max-width: 100% !important;
   height: auto;
   background-size: cover;
   background-repeat: no-repeat;
