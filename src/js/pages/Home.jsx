@@ -220,7 +220,7 @@ const watchlistRef = useRef(null);   // Watchlist section
       <div className="player-history" ref={historyRef}>
       
 
-      {history.length > 0 && (
+      {history.length > 7 && (
         <div className="divconw">
           <h4 className="favaziwwr">Continue Watching</h4>
           <img className="backdrophome" src={apiConfig.w200Image(history[0]?.poster_path)} alt="" />
@@ -395,7 +395,7 @@ const watchlistRef = useRef(null);   // Watchlist section
 
     <div className="continue_watchingcontainer" ref={continueWatchingRef}>
         {
-          continueWatching.length > 0 && (
+          continueWatching.length > 7 && (
             <div className="divconw">
             <h4 className="favaziwwr">Recently Viewed</h4>
           <img className="backdrophome" src={apiConfig.w200Image(continueWatching[continueWatching.length - 1]?.poster_path)} alt="" />
@@ -528,7 +528,7 @@ const watchlistRef = useRef(null);   // Watchlist section
         { user && isLoading && (
         <div className="load">loading</div>
       )}
-      {user && !isLoading && watchlist?.length > 0 && (
+      {user && !isLoading && watchlist?.length > 7 && (
             <>
                 <div className="alignerbutts" style={{position : 'relative'}} >
   <button className="left" style={{top : '-27px'}}  onClick={() => handleScrollLeft(watchlistRef)}>
