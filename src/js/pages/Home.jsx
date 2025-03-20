@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState , Suspense} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Spotlight from '../components/hero-side/Spotlight';
 import MovieList from '../components/movie-list/MovieList';
-import { FixedSizeList } from 'react-window'; // Import FixedSizeList from react-window
+import { FixedSizeList } from 'react-window'; 
 import { category, movieType, tvType } from '../api/tmdbApi';
 import apiConfig from '../api/apiConfig';
 import './home.scss';
