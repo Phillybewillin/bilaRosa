@@ -8,8 +8,9 @@
   overflow: auto;
   width: 100%;
   gap: .5rem;
+  padding: 5px;
   margin-bottom: 2rem;
-//align-items: center;
+//align-items: baseline;
 
   scrollbar-width: none;  /* Firefox */
   &::-webkit-scrollbar {
@@ -24,10 +25,46 @@
   right: 2rem;
   z-index: -1;
   width: 170px;
-  rotate: -45deg;
-  filter: blur(50px) saturate(180%) brightness(50%);
+  rotate: -95deg;
+  filter: blur(50px) saturate(180%) brightness(40%);
 
   //height: 100px;
+}
+.spacegia{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: row-reverse;
+}
+.alignerbig{
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  gap: 5px;
+  @include mobile{
+    display: none;
+  }
+}
+.leftgia{
+  height: 90px;
+  width: 20vw;
+  //background-color: #ffffff0a;
+  background-color: rgba(255, 255, 255, 0.046);
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  color: antiquewhite;
+}
+.rightgia{
+  height: 90px;
+  width: 20vw;
+  display: flex;
+  justify-content: end;
+  background-color: #ffffff0a;
+  background-color: rgba(255, 255, 255, 0.048);
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  color: antiquewhite;
 }
 
 .message{
@@ -74,28 +111,49 @@
   font-size: .8rem;
 
 }
+.divconws{
+  position: relative;
+  background-color: #0e0e0e09;
+  margin-left: .6rem;
+  display: flex;
+  min-height: 90px;
+  overflow: hidden;
+  border-radius:  15px;
+  padding: 10px 1rem;
+  padding-left: 1rem;
+  width: 60%;
+  justify-content: start;
+  align-items: flex-end;
+  //flex-direction: column;
+
+  @include mobile {
+    margin-left: 0;
+    padding: 2px;
+    min-width: 100%;
+  }
+}
 .divconw{
   position: relative;
-  background-color: #ffffff09;
-  margin-left: .4rem;
+  background-color: #0e0e0e09;
+  margin-left: .7rem;
   display: flex;
   min-height: 130px;
   overflow: hidden;
-  border-radius:  10px;
+  border-radius:  15px;
   padding: 10px 1rem;
   padding-left: 1rem;
-  min-width: 300px;
-  justify-content: center;
-  align-items: center;
+  min-width: max-content;
+  justify-content: end;
+  align-items: flex-end;
   //flex-direction: column;
 
   @include mobile {
     margin-left: .2rem;
-    min-width: 100px;
+    min-width: min-content;
   }
 }
 .favaziwwr{
-  background: linear-gradient(to right, rgb(79, 79, 79), rgb(255, 255, 255));
+  background: linear-gradient(to right, rgb(210, 210, 210), rgb(255, 255, 255));
   background-clip: text;
  -webkit-background-clip: text;
  font-size: 2.2rem;
@@ -103,7 +161,7 @@
 
  @include mobile {
   font-size: 1.7rem;
-  rotate: 90deg;
+ // rotate: 90deg;
  }
 }
 .dfavaziwatchlist{
@@ -511,7 +569,7 @@
  // flex-direction: row-;
  margin-bottom: calc(8.2rem - 100px);
  //margin-top: 2rem;
-  gap: .4rem;
+  gap: .3rem;
   background-color: rgba(2, 2, 2, 0.342);
  
   scrollbar-color: #1a1a1a00 #00000000;
@@ -532,7 +590,7 @@
   // border-radius: 20px;
  // padding: 5px;
   overflow: hidden;
-  gap: .5rem;
+  gap: .1rem;
 }
 .player-history-item__poster{
   width: 130px;
@@ -543,28 +601,28 @@
   
 }
 .player-history-item__episode2{
-   padding: 5px ;
+   padding: 5px;
   width: 130px;
   margin-left: -.1rem;
  
  //background-color: rgba(255, 255, 255, 0.114);
-  color: rgb(184, 184, 184);
+  color: rgb(217, 212, 212);
   //backdrop-filter: blur(10px);
   font-size: .65rem;
   font-weight: 300;
 }
 .player-history-item__episode{
-  position: absolute;
-  top: -20px;
+  
   left: 0px;
   padding: 2px 7px;
-  padding-right: 15px;
+  text-align: end;
+  //padding-right: 17px;
   border-radius: 0px 10px 10px 0px;
- background-color: rgba(0, 0, 0, 0.486);
+// background-color: rgba(0, 0, 0, 0.486);
  //backdrop-filter: blur(20px) ;
   color: rgb(255, 255, 255);
   font-size: .63rem;
-  font-weight: 600;
+  font-weight: 500;
 }
 .player-history-item__poster:hover{
   //border-radius: 10px;
@@ -582,13 +640,17 @@
   backdrop-filter: blur(30px);
   background: linear-gradient(to top, rgba(0, 0, 0, 0.817), rgba(0, 0, 0, 0.244));
 }
+.spacebtween{
+  display: flex;
+  justify-content: space-between;
+}
 .player-history-item__title{
   font-size: .7rem;
   font-weight: 400;
   //background: linear-gradient(to top, rgba(0, 0, 0, 0.594), rgba(0, 0, 0, 0));
   //backdrop-filter: blur(10px);
   padding: 3px 1px;
-  text-align: center;
+  text-align: start;
  //max-width: max-content;
   border-radius: 2px;
   margin-bottom: 0rem;
