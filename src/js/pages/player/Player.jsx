@@ -776,7 +776,7 @@ useEffect(() => {
                   }
                 >
                   <div className="holderlay2" style={{position: "relative"}}>
-                    <img className="episode_posterablur" src={apiConfig.w200Image(episode.still_path)} alt="" />
+                    <img className="episode_posterblur" src={apiConfig.w200Image(episode.still_path)} alt="" />
                     <img
                       className="episode_posterabos"
                       src={apiConfig.w500Image(episode.still_path)}
@@ -902,9 +902,9 @@ useEffect(() => {
               key="persistentIframe" // constant key to avoid remounts
               className="episodes__iframe"
               src={handleIframeSrc()}
-              style={{ borderRadius : "15px" }}
-              width={displayMode === "youtube" ? "800" : "100%"}
-              height={displayMode === "youtube" ? "450" : "100%"}
+              style={{ borderRadius : "10px" }}
+              width={displayMode === "youtube" ? "100%" : "100%"}
+              height={displayMode === "youtube" ? "480" : "100%"}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -919,7 +919,7 @@ useEffect(() => {
               style={{ borderRadius : "15px" }}
             
               className="episodes__iframe"
-              width={displayMode === "youtube" ? "800" : "100%"}
+              width={displayMode === "youtube" ? "1000px" : "100%"}
               height={displayMode === "youtube" ? "450" : "100%"}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               frameBorder="0"
@@ -1024,6 +1024,47 @@ useEffect(() => {
                 </div>
               </div>
               <div className="zsa">
+                <div className="hevdo">
+                {currentEpisode < totalEpisodes ? (
+                <div
+                  className="rearo"
+                  onClick={() =>
+                    handleEpisodeClick(parseInt(currentEpisode) + 1)
+                  }
+                >
+                  <img
+                    className="rearoimg"
+                    src={apiConfig.w200Image(
+                      episodes.find(
+                        (episode) =>
+                          episode.episode_number ===
+                          parseInt(currentEpisode) + 1
+                      ).still_path
+                    )}
+                    alt=""
+                  />
+                  NEXT UP : EP {parseInt(currentEpisode) + 1}{" "}
+                  <i className="bx bx-right-arrow"></i>
+                </div>
+              ) : totalseasons > 1 && currentSeason < totalseasons ? (
+                <div
+                  className="rearo"
+                  onClick={() =>
+                    handleSeasonClick(parseInt(currentSeason) + 1)
+                  }
+                >
+                  <img
+                    className="rearoimg"
+                    src={apiConfig.w200Image(
+                      seasons[parseInt(currentSeason)].poster_path
+                    )}
+                    alt=""
+                  />
+                  NEXT UP : SN {parseInt(currentSeason) + 1} EP 1{" "}
+                  <i className="bx bx-right-arrow"></i>
+                </div>
+              ) : null}
+                </div>
                  <div className="haxnoiholder">
                 <div className="hanoxi">{itemData.title || itemData.name}</div>
                 {
@@ -1080,45 +1121,7 @@ useEffect(() => {
             </div>
   
             <div className="youtube-sidebar">
-              {currentEpisode < totalEpisodes ? (
-                <div
-                  className="rearo"
-                  onClick={() =>
-                    handleEpisodeClick(parseInt(currentEpisode) + 1)
-                  }
-                >
-                  <img
-                    className="rearoimg"
-                    src={apiConfig.w200Image(
-                      episodes.find(
-                        (episode) =>
-                          episode.episode_number ===
-                          parseInt(currentEpisode) + 1
-                      ).still_path
-                    )}
-                    alt=""
-                  />
-                  NEXT UP : EP {parseInt(currentEpisode) + 1}{" "}
-                  <i className="bx bx-right-arrow"></i>
-                </div>
-              ) : totalseasons > 1 && currentSeason < totalseasons ? (
-                <div
-                  className="rearo"
-                  onClick={() =>
-                    handleSeasonClick(parseInt(currentSeason) + 1)
-                  }
-                >
-                  <img
-                    className="rearoimg"
-                    src={apiConfig.w200Image(
-                      seasons[parseInt(currentSeason)].poster_path
-                    )}
-                    alt=""
-                  />
-                  NEXT UP : SN {parseInt(currentSeason) + 1} EP 1{" "}
-                  <i className="bx bx-right-arrow"></i>
-                </div>
-              ) : null}
+              
               <div className="servers">
                 <Select
                   className="selectco"
