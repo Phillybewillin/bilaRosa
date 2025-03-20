@@ -246,6 +246,9 @@ const watchlistRef = useRef(null);   // Watchlist section
             />
             <div className="player-history-item__info">
               <h4 className="player-history-item__title">{item.title}</h4>
+              <div className="player-history-item__episode2">
+                <span>{item.lastSrc}</span>
+              </div>
               {/* Progress Bar */}
               <div
                 style={{
@@ -254,7 +257,7 @@ const watchlistRef = useRef(null);   // Watchlist section
                   height: "2.5px",
                   borderRadius: "5px",
                   overflow: "hidden",
-                  marginTop: "0.5rem",
+                  marginTop: "0.1rem",
                 }}
               >
                 <div
@@ -266,16 +269,22 @@ const watchlistRef = useRef(null);   // Watchlist section
                   }}
                 ></div>
               </div>
-              <div className="player-history-item__episode2">
-                <span>{item.lastSrc}</span>
+                 
+                <div className="spacebtween">
+                <div className="player-history-item__episode">
+                    {item.seasonNumber ? "Show" : "Movie"}
               </div>
+             
               {item.seasonNumber && (
                 <div className="player-history-item__episode">
+                 
                   <span className="player-history-item__episode-label">
                     SN {item.seasonNumber} • EP {item.lastEpisode}
                   </span>
                 </div>
               )}
+                </div>
+             
             </div>
             {/* Action Icon Button to open the modal */}
             <button
@@ -437,22 +446,28 @@ const watchlistRef = useRef(null);   // Watchlist section
                 <div className="section-tit">
             </div>
           <div className="trendMovie">
-          <div className="alignerbutts">
-  <button className="left" onClick={() => handleScrollLeft(Movieref)}>
-    <i className="bx bx-left-arrow-alt"></i>
+          <div className="spacegia">
+          <div className="alignerbig">
+  <button className="leftgia" onClick={() => handleScrollLeft(Movieref)}>
+    <i className="bx bx-left-arrow-alt" style={{fontSize : '52px'}}></i>
   </button>
-  <button className="right" onClick={() => handleScrollRight(Movieref)}>
-    <i className="bx bx-right-arrow-alt"></i>
+  <button className="rightgia" onClick={() => handleScrollRight(Movieref)}>
+    <i className="bx bx-right-arrow-alt" style={{fontSize : '52px'}}></i>
   </button>
 </div>
-        <div className="movie-lists" ref={Movieref}>
-        <div className="divconw">
+<div className="divconws">
           <h4 className="favaziwwr">Trending Movies</h4>
           <img className="backdrophome" src={apiConfig.w200Image(moviesData[0]?.poster_path)} alt="" />
-            <i className="bx bxs-hot" style={{fontSize : '32px' , position : 'absolute' , right : '10px', top : '10px'}}></i>
-            <i className="bx bx-movie" style={{fontSize : '25px' , position : 'absolute' , right : '10px', bottom : '10px'}}></i>
+            <i className="bx bxs-hot" style={{fontSize : '32px' , position : 'absolute' , right : '1px', top : '1px'}}></i>
+            <i className="bx bx-movie" style={{fontSize : '25px' , position : 'absolute' , right : '3px', bottom: '10px'}}></i>
         
-        </div>                       
+        </div>
+          
+        </div> 
+        
+   
+        <div className="movie-lists" ref={Movieref}>
+                           
                                          {
                    moviesData.filter(itemzmovie => itemzmovie.poster_path).map((itemzmovie, ia) => (
                          <Suspense fallback={null}>
@@ -473,22 +488,28 @@ const watchlistRef = useRef(null);   // Watchlist section
                  <div className="section-tit">
             </div>
           <div className="trendMovie">
-          <div className="alignerbutts">
-  <button className="left" onClick={() => handleScrollLeft(listRef)}>
-    <i className="bx bx-left-arrow-alt"></i>
+            <div className="spacegia">
+            <div className="alignerbig">
+  <button className="leftgia" onClick={() => handleScrollLeft(listRef)}>
+    <i className="bx bx-left-arrow-alt" style={{fontSize : '52px'}}></i>
   </button>
-  <button className="right" onClick={() => handleScrollRight(listRef)}>
-    <i className="bx bx-right-arrow-alt"></i>
+  <button className="rightgia" onClick={() => handleScrollRight(listRef)}>
+    <i className="bx bx-right-arrow-alt" style={{fontSize : '52px'}}></i>
   </button>
 </div>
-            <div className="movie-lists" ref={listRef}>
-            <div className="divconw">
-          <h4 className="favaziwwr">Trending Shows</h4>
+<div className="divconws">
+<h4 className="favaziwwr">Trending Shows</h4>
           <img className="backdrophome" src={apiConfig.w200Image(tv[0]?.poster_path)} alt="" />
-            <i className="bx bx-water" style={{fontSize : '32px' , position : 'absolute' , right : '10px', top : '10px'}}></i>
-            <i className="bx bx-tv" style={{fontSize : '25px' , position : 'absolute' , right : '10px', bottom : '10px'}}></i>
-        
-        </div>             
+            <i className="bx bx-water" style={{fontSize : '32px' , position : 'absolute' , right : '1px', top : '1px'}}></i>
+            <i className="bx bx-tv" style={{fontSize : '25px' , position : 'absolute' , right : '3px', bottom : '1px'}}></i>
+       
+            </div>
+   
+
+          
+        </div> 
+            <div className="movie-lists" ref={listRef}>
+                       
                                   {
             tv.filter(itemztv => itemztv.poster_path).map((itemztv, ia) => (
                   <Suspense fallback={null}>
