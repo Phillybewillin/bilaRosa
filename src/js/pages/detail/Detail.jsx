@@ -361,7 +361,7 @@ for (let i = 0; i < bubbleCount; i++) {
   const startY = (ringRadius * Math.sin(rad)).toFixed(2) + 'rem';
   
   // Bubble size using CodePen logic (2 + random*4 rem) – you can adjust as needed.
-  const sizeNum = .1 + Math.random() * 4;
+  const sizeNum = .3 + Math.random() * 2;
   const size = sizeNum.toFixed(2) + 'rem';
   
   // Movement: bubbles "disintegrate" by moving further out.
@@ -491,8 +491,11 @@ const ringStyle = {
             month: 'short',
             year: 'numeric'
           })}</div>
-                                <div className="language"><i className="bx bx-time" style={{fontSize:'11px'}}></i> RUNTIME | { category === 'movie' ? formatRuntime(item.runtime) : item.last_episode_to_air.runtime }MIN</div>
-                            
+                              <div className="language"><i className="bx bx-time" style={{fontSize:'11px'}}></i> RUNTIME | { 
+  category === 'movie' 
+    ? item?.runtime ? formatRuntime(item.runtime) : 'N/A' 
+    : item?.last_episode_to_air?.runtime || item?.next_episode_to_air?.runtime || 40 
+} MIN</div>
                                 </div>
                                 <div className="langu">
                                     {
@@ -656,9 +659,7 @@ const ringStyle = {
                        }
                       
                        
-                       <ToastContainer theme='dark' position="top-right" autoClose={4000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#ffffff' , color : 'white', borderRadius : '5px'}}/>
-           
-                    </>
+                           </>
                 )
             }
            </div>
