@@ -209,18 +209,21 @@ const watchlistRef = useRef(null);   // Watchlist section
     <>
       <Spotlight />
 
+      
+{history.length > 7 && (
       <div className="alignerbutts">
-  <button className="left" onClick={() => handleScrollLeft(historyRef)}>
-    <i className="bx bx-left-arrow-alt"></i>
-  </button>
-  <button className="right" onClick={() => handleScrollRight(historyRef)}>
-    <i className="bx bx-right-arrow-alt"></i>
-  </button>
-</div>
+      <button className="left" onClick={() => handleScrollLeft(historyRef)}>
+        <i className="bx bx-left-arrow-alt"></i>
+      </button>
+      <button className="right" onClick={() => handleScrollRight(historyRef)}>
+        <i className="bx bx-right-arrow-alt"></i>
+      </button>
+    </div>
+      )}
       <div className="player-history" ref={historyRef}>
       
 
-      {history.length > 7 && (
+      {history.length > 0 && (
         <div className="divconw">
           <h4 className="favaziwwr">Continue Watching</h4>
           <img className="backdrophome" src={apiConfig.w200Image(history[0]?.poster_path)} alt="" />
@@ -379,7 +382,7 @@ const watchlistRef = useRef(null);   // Watchlist section
 
     <div className="trendmovue" style={{position : 'relative' , minWidth : '200px'}}>
     {
-          continueWatching.length > 0 && (
+          continueWatching.length > 7 && (
             <div className="alignerbutts" >
             <button className="left" style={{top : '-27px'}} onClick={() => handleScrollLeft(continueWatchingRef)}>
               <i className="bx bx-left-arrow-alt"></i>
@@ -395,7 +398,7 @@ const watchlistRef = useRef(null);   // Watchlist section
 
     <div className="continue_watchingcontainer" ref={continueWatchingRef}>
         {
-          continueWatching.length > 7 && (
+          continueWatching.length > 0 && (
             <div className="divconw">
             <h4 className="favaziwwr">Recently Viewed</h4>
           <img className="backdrophome" src={apiConfig.w200Image(continueWatching[continueWatching.length - 1]?.poster_path)} alt="" />
@@ -528,7 +531,7 @@ const watchlistRef = useRef(null);   // Watchlist section
         { user && isLoading && (
         <div className="load">loading</div>
       )}
-      {user && !isLoading && watchlist?.length > 7 && (
+      {user && !isLoading && watchlist?.length > 0 && (
             <>
                 <div className="alignerbutts" style={{position : 'relative'}} >
   <button className="left" style={{top : '-27px'}}  onClick={() => handleScrollLeft(watchlistRef)}>
