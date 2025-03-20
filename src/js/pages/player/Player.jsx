@@ -600,7 +600,7 @@ export default function Player() {
   };
 
   const handlerecoclick = (idnew, titlenew) => {
-    console.log("handlePlayer function called", idnew, titlenew);
+    //console.log("handlePlayer function called", idnew, titlenew);
     const encodedTitle = encodeURIComponent(titlenew.replace(/ /g, "-").toLowerCase());
     if (category === "tv") {
       setCurrentSeason(1);
@@ -668,7 +668,7 @@ const updatePlayerData = () => {
     // Update the entry for this id
     playerDataList[itemData.id] = dataToStore;
     localStorage.setItem("playerDataList", JSON.stringify(playerDataList));
-    console.log("Updated playerDataList:", playerDataList);
+   // console.log("Updated playerDataList:", playerDataList);
   }
 };
 
@@ -919,8 +919,8 @@ useEffect(() => {
               style={{ borderRadius : "15px" }}
             
               className="episodes__iframe"
-              width={displayMode === "youtube" ? "1000px" : "100%"}
-              height={displayMode === "youtube" ? "450" : "100%"}
+              width={displayMode === "youtube" ? "100%" : "100%"}
+              height={displayMode === "youtube" ? "480" : "100%"}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               frameBorder="0"
               allowFullScreen
