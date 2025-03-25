@@ -3,22 +3,23 @@
 .tags{
    position: sticky;
    
-   top: 0px;
-    z-index: 48;
+     top: 0px;
+    z-index: 8;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    text-align: center;
+   // margin: 5px 0;
     overflow: auto;
     gap: 5px;
-    padding: 5px;
+    //padding: 15px 0;
     border-radius: 1px;
-    stroke-width: 1px;
-    scrollbar-width: 10px;
-    background-color: #000000be;
-    backdrop-filter: blur(20px);
-    scrollbar-color: #1a1a1a00 #7a505000;
- 
+    margin-bottom: .5rem;
+   // background-color: #000000c0;
+    //backdrop-filter: blur(20px);
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    padding: 2px;
     @include mobile {
       position: relative;
         top: 0px;
@@ -31,38 +32,42 @@
 .tag{
     display: flex;
     align-items: center;
+    flex-wrap: nowrap !important;
     justify-content: center;
     position: relative;
     color: white;
-    font-size: .7rem;
-    padding: 7px 40px;
-    height: 40px;
-    min-width: 120px;
-    text-align: center;
-    border: 1.3px solid #4f4f4fb8;
-    //background: rgba(50, 46, 46, 0.384);
+    font-size: .75rem;
+   padding: 10px 23px;
+   white-space: nowrap;
+   // height: 40px;
+    width: auto;
+    //text-align: center;
+    border: 1.3px solid #4f4f4f04;
+    background: rgba(255, 255, 255, 0.073);
     border-radius: 10px;
     cursor: pointer;
-    font-weight: 300;
+    font-weight: 500;
     //border: 1px solid #4f4f4f00;
      
-    transition: all 0.5s ease-in-out;
+    transition: all 0.3s ease-in-out;
     &:hover{
         opacity: 0.5;
-        border: 1px solid pink;
+       // border: 1px solid rgb(216, 4, 39);
        // transition: all 0.5s ease-in-out;
     }
     
     @include mobile {
-        font-size: 1rem;
+        font-size: .9rem;
         
     }
 }
 .tagOutline{
     position: relative;
-    padding: 2.5px;
+    display: flex;
+    flex-wrap: nowrap !important;
+    padding: 1.5px;
     border-radius: 10px;
-    background: #15151500;
+    background: #d2baba00;
     transition: all 0.5s ease-in-out;
 
     @include mobile {
@@ -74,9 +79,9 @@
 .tag.selected {
     border-radius: 10px;
     border: none;
-    color: rgb(254, 254, 254);
+    color: rgb(0, 0, 0);
     backdrop-filter: blur(10px);
-    background: rgba(0, 0, 0, 0.393);
+    background: rgb(253, 253, 253);
     transition: all 0.5s ease-in-out;
 }
 .tagOutline.selected::before{
@@ -124,7 +129,7 @@
     
 }
 .tagOutline.selected::after {
-    filter: blur(25px);
+    filter: blur(55px);
     transform: translate3d(0, 0, 0);
     border-radius: 10px;
   }
