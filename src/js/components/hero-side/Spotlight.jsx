@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef , useEffect , useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Button from "../button/Button";
 import './spotlight.scss';
@@ -8,27 +8,117 @@ import 'swiper/scss';
 import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
 import 'swiper/scss/autoplay';
-import { EffectCoverflow } from "swiper/modules";
+import '../../pages/home.scss';
+import apiConfig from "../../api/apiConfig";
+// import tmdbApi from "../../api/tmdbApi";
 
 import "swiper/scss/effect-coverflow";
 const Spotlight = () => {
   
              const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 1024;
 
-
+             const historyRef = useRef(null); 
   const sliderRef = useRef(null);
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
   const touchStartTimeRef = useRef(null);
   const touchStartXRef = useRef(null);
     const navigate = useNavigate();
-      const ACTIVE_WIDTH = 800;    // Active slide width when fully active.
+    const ACTIVE_WIDTH = 800;    // Active slide width when fully active.
     const INACTIVE_WIDTH = 300;  // All other slides width.
     const WIDTH_DIFF = ACTIVE_WIDTH - INACTIVE_WIDTH; // 500 px.
     const MAX_DURATION = 500;    // Duration (ms) for a full transition (t=1).
     const COMMIT_THRESHOLD = 0.5; // If computed factor ≥ 0.5, commit to the neighbor.
     const TRANSITION_SPEED = 1000; // ms for a slow, gradual transition.
-  
+     const [history, setHistory] = useState([]);
+    
+     const [modalOpen, setModalOpen] = useState(false);
+     const [selectedItem, setSelectedItem] = useState(null);
+   
+
+     useEffect(() => {
+        const stored = localStorage.getItem("playerDataList");
+        if (stored) {
+          const items = Object.values(JSON.parse(stored));
+          // Sort items by lastWatched descending (most recent first)
+          items.sort((a, b) => b.lastWatched - a.lastWatched);
+          setHistory(items);
+        }
+      }, []);
+    
+      // Opens the modal for the clicked history item.
+      const openModal = (item, e) => {
+        e.stopPropagation(); // Prevent triggering the parent's onClick
+        setSelectedItem(item);
+        setModalOpen(true);
+      };
+    
+      const closeModal = () => {
+        setModalOpen(false);
+        setSelectedItem(null);
+      };
+    
+      // Delete the selected item from localStorage and update the history state.
+      const handleDelete = () => {
+        if (!selectedItem) return;
+        const stored = localStorage.getItem("playerDataList");
+        const playerDataList = stored ? JSON.parse(stored) : {};
+        // Delete the entry by its id (assuming your keys are just the id)
+        delete playerDataList[selectedItem.id];
+        localStorage.setItem("playerDataList", JSON.stringify(playerDataList));
+        // Update local state
+        setHistory((prev) => prev.filter((item) => item.id !== selectedItem.id));
+        closeModal();
+        toast.success("Item deleted");
+      };
+    
+      // Navigate to details: if item has a seasonNumber, then it's tv, else movie.
+      const handleDetails = () => {
+        if (!selectedItem) return;
+        const category = selectedItem.seasonNumber ? "tv" : "movie";
+        navigate(`/${category}/${selectedItem.id}`);
+        closeModal();
+      };
+    
+      // Calculate the progress percentage for an item.
+      const getProgress = (item) => {
+        if (item.runtime > 0) {
+          return Math.min((item.timeSpent / item.runtime) * 100, 100);
+        }
+        return 0;
+      };
+    
+      useEffect(() => {
+        // Retrieve the stored player data from localStorage
+        const stored = localStorage.getItem("playerDataList");
+        if (stored) {
+          // Convert the stored object to an array
+          const items = Object.values(JSON.parse(stored));
+          // Sort items by lastWatched descending (most recent first)
+          items.sort((a, b) => b.lastWatched - a.lastWatched);
+          setHistory(items);
+        }
+      }, []);
+    
+      const handleScrollLeft = (ref) => {
+    
+        ref.current?.scrollBy({
+          left: -700,
+          behavior: "smooth",
+        });
+      
+      };
+      
+      const handleScrollRight = (ref) => {
+      
+        ref.current?.scrollBy({
+          left: 1000,
+          behavior: "smooth",
+        });
+      
+      
+      };
+      
   
       const handleEpisodeClick = (id , title ,selectedSeason, episodeNumber) => {
       //console.log(selectedSeason , episodeNumber);
@@ -158,8 +248,38 @@ const Spotlight = () => {
     >
         <SwiperSlide>
               <div className="spotlight-item">
+              <h1 className="spotlight-number">R</h1>
+                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/25CY0FggI3YXy7AS4xIfVBcRaMq.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0rem 1rem 2rem rgba(117, 0, 0, 0.35))'}}/>
+                
+                <div className="spotlight-content">
+                                
+                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/w500/4ErxI9hrCWYewkZODZHOwmn43xe.png"/></h2>
+                
+                  
+                 
+                  <div className="spotty">
+                  <p className="spotlight-genres">
+                    <span className="genre a">HORROR</span>
+                    <span className="genre a">COMEDY</span>
+                    <span className="genre a">MYSTERY</span>
+                  </p>
+                  <h5 className="genre a"> MOVIE | 21 FEB 2025 </h5> <h5 className="genre a"> 60%</h5>
+                  </div>
+                  <p className="spotlight-overview">
+                  When twin brothers find a mysterious wind-up monkey, a series of outrageous deaths tear their family apart. Twenty-five years later, the monkey begins a new killing spree forcing the estranged brothers to confront the cursed toy.
+
+</p>
+                  <div className="spotty">
+                  <Button className="spotlight-watch-btn" onClick={() => navigate('/movie/1124620')}>  <i className='bx bx-info-circle'></i></Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 1124620, "the monkey")}>  <i className='bx bx-play'></i> Watch Now </Button>
+                  </div>
+                  </div>
+              </div>
+            </SwiperSlide> 
+        <SwiperSlide>
+              <div className="spotlight-item">
               <h1 className="spotlight-number">PG</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/2n7lYEeIbucsEQCswRcVB6ZYmMP.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0rem 1rem 2rem rgba(14, 165, 165, 0.26))'}}/>
+                <img loading='lazy' src={'https://image.tmdb.org/t/p/w1280/5cSwaCiTjvUqMTkCTI4msG7Tahy.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0rem 1rem 2rem rgba(14, 165, 165, 0.26))'}}/>
                 
                 <div className="spotlight-content">
                                 
@@ -215,35 +335,7 @@ const Spotlight = () => {
                  </div>
             </SwiperSlide>
            
-          <SwiperSlide>
-              <div className="spotlight-item">
-              <h1 className="spotlight-number">R</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/w1280/vh5FIqfosYaLWxCmZfSPjgUWWfn.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0rem 1rem 2rem rgba(214, 7, 7, 0.26))'}}/>
-                
-                <div className="spotlight-content">
-                                
-                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/w500/a4FM8iWOafaGIpHPcNDtit290tV.png"/></h2>
-                
-                  
-                 
-                  <div className="spotty">
-                  <p className="spotlight-genres">
-                    <span className="genre a">HORROR</span>
-                    <span className="genre a">COMEDY</span>
-                    <span className="genre a">MYSTERY</span>
-                  </p>
-                  <h5 className="genre a"> MOVIE | 06 FEB 2025 </h5> <h5 className="genre a"> 62%</h5>
-                  </div>
-                  <p className="spotlight-overview">
-                  When the "Heart Eyes Killer" strikes Seattle, a pair of co-workers pulling overtime on Valentine's Day are mistaken for a couple by the elusive couple-hunting killer. Now, they must spend the most 
-</p>
-                  <div className="spotty">
-                  <Button className="spotlight-watch-btn" onClick={() => navigate('/movie/1302916')}>  <i className='bx bx-info-circle'></i></Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 1302916, "Heart eyes")}>  <i className='bx bx-play'></i> Watch Now </Button>
-                  </div>
-                  </div>
-              </div>
-            </SwiperSlide> 
+        
           
             
             <SwiperSlide>
@@ -713,7 +805,7 @@ Big Nick is back on the hunt in Europe and closing in on Donnie, who is embroile
             <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">PG</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/w1280/rRLQRYOkAPKqs2mL4IYKdntwUgr.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 1.5rem rgba(255, 0, 0, 0.12))'}}/>
+                <img loading='lazy' src={'https://image.tmdb.org/t/p/w1280/rRLQRYOkAPKqs2mL4IYKdntwUgr.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 3rem rgba(255, 0, 0, 0.2))'}}/>
                 
                 <div className="spotlight-content">
                                
@@ -747,7 +839,179 @@ Big Nick is back on the hunt in Europe and closing in on Donnie, who is embroile
             <div className="buttsl" ref={navigationNextRef} > <i className="bx bx-right-arrow-alt"></i></div>
           
             </div>
+            
             </Swiper>
+            <div className="conconwa">
+            {history.length > 7 && (
+      <div className="alignerbuttsco">
+      <button className="leftgia" onClick={() => handleScrollLeft(historyRef)}>
+        <i className="bx bx-left-arrow-alt" style={{fontSize : '25px'}}></i>
+      </button>
+      <button className="rightgia"  onClick={() => handleScrollRight(historyRef)}>
+        <i className="bx bx-right-arrow-alt" style={{fontSize : '25px'}}></i>
+      </button>
+    </div>
+      )}
+      <div className="player-history" ref={historyRef}>
+      
+
+      {history.length > 0 && (
+        <div className="divconw">
+          <h4 className="favaziwwr">Continue Watching</h4>
+          <img className="backdrophome" src={apiConfig.w200Image(history[0]?.poster_path)} alt="" />
+            <i className="bx bx-cheese" style={{fontSize : '30px' , position : 'absolute' , right : '10px', top : '10px'}}></i>
+         
+        </div>
+      )}
+
+      {history.map((item) => {
+        const progress = getProgress(item);
+        return (
+          <div
+            key={`${item.id}_${item.seasonNumber || ""}_${item.lastEpisode || ""}`}
+            className="player-history-item"
+            onClick={() => navigate(item.currentUrl)}
+            style={{ cursor: "pointer", position: "relative" }}
+          >
+            {/* Poster Image */}
+            <img
+              src={apiConfig.w200Image(item.poster_path)}
+              alt={item.title}
+              className="player-history-item__poster"
+            />
+            <div className="player-history-item__info">
+              <h4 className="player-history-item__title">{item.title}</h4>
+              <div className="player-history-item__episode2">
+                <span>{item.lastSrc}</span>
+              </div>
+              {/* Progress Bar */}
+              <div
+                style={{
+                  background: "#ffffff4a",
+                  width: "100%",
+                  height: "2.2px",
+                  borderRadius: "5px",
+                  overflow: "hidden",
+                  marginTop: "0.1rem",
+                }}
+              >
+                <div
+                  style={{
+                    background: "linear-gradient(to right,rgb(255, 0, 47),rgb(107, 2, 255))",
+                    width: `${progress}%`,
+                    height: "100%",
+                    borderRadius: "5px",
+                  }}
+                ></div>
+              </div>
+                 
+                <div className="spacebtween">
+                <div className="player-history-item__episode">
+                    {item.seasonNumber ? "Show" : "Movie"}
+              </div>
+             
+              {item.seasonNumber && (
+                <div className="player-history-item__episode">
+                 
+                  <span className="player-history-item__episode-label">
+                    SN {item.seasonNumber} • EP {item.lastEpisode}
+                  </span>
+                </div>
+              )}
+                </div>
+             
+            </div>
+            {/* Action Icon Button to open the modal */}
+            <button
+              className="history-item-action-btn"
+              onClick={(e) => openModal(item, e)}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                position: "absolute",
+                top: "10px",
+                color: "white",
+                right: "10px",
+              }}
+            >
+              <i className="bx bx-dots-horizontal-rounded"></i>
+            </button>
+          </div>
+        );
+      })}
+
+      {/* Modal */}
+      {modalOpen && selectedItem && (
+        <div
+          className="modal-overlay"
+          onClick={closeModal}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0,0,0,0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1000,
+          }}
+        >
+          <div
+            className="modal-content"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              //background: "#000000d1",
+              padding: "1.5rem",
+              borderRadius: "8px",
+              minWidth: "300px",
+              textAlign: "center",
+              position: "relative",
+            }}
+          >
+            <button
+              className="modal-close-btn"
+              onClick={closeModal}
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                background: "none",
+                border: "none",
+                fontSize: "1.5rem",
+                color: "white",
+                cursor: "pointer",
+              }}
+            >
+
+              <i className='bx bx-x'></i>
+             
+            </button>
+            <div className="modal-options" style={{ display: "flex", justifyContent: "space-around", marginTop: "1rem" }}>
+              <div
+                className="modal-option"
+                onClick={handleDelete}
+                style={{ cursor: "pointer", textAlign: "center" }}
+              >
+                <i className="bx bx-trash" style={{ fontSize: "2rem", color: "red" }}></i>
+                <div style={{ color: "red" , fontSize : '16px' }}>Delete</div>
+              </div>
+              <div
+                className="modal-option"
+                onClick={handleDetails}
+                style={{ cursor: "pointer", textAlign: "center" }}
+              >
+                <i className="bx bx-info-circle" style={{ fontSize: "2rem", color: "grey" }}></i>
+                <div style={{ color: "grey" , fontSize : '16px' }}>Details</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+            </div>
         </div>
       </>
       
