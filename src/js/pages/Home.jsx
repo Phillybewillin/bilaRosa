@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState , Suspense} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Spotlight from '../components/hero-side/Spotlight';
 import MovieList from '../components/movie-list/MovieList';
-import { FixedSizeList } from 'react-window'; 
+import { FixedSizeList } from 'react-window'; // Import FixedSizeList from react-window
 import { category, movieType, tvType } from '../api/tmdbApi';
 import apiConfig from '../api/apiConfig';
 import './home.scss';
@@ -19,7 +19,7 @@ const Home = () => {
   // Top of your component
 const listRef = useRef(null);        // Anime list
 const Movieref = useRef(null);       // Movie list
-const historyRef = useRef(null);     // Continue Watching section
+    // Continue Watching section
 const watchlistRef = useRef(null);   // Watchlist section
 
   const { user } = UserAuth();
@@ -210,185 +210,17 @@ const watchlistRef = useRef(null);   // Watchlist section
       <Spotlight />
 
       
-{history.length > 7 && (
-      <div className="alignerbutts">
-      <button className="left" onClick={() => handleScrollLeft(historyRef)}>
-        <i className="bx bx-left-arrow-alt"></i>
-      </button>
-      <button className="right" onClick={() => handleScrollRight(historyRef)}>
-        <i className="bx bx-right-arrow-alt"></i>
-      </button>
-    </div>
-      )}
-      <div className="player-history" ref={historyRef}>
-      
 
-      {history.length > 0 && (
-        <div className="divconw">
-          <h4 className="favaziwwr">Continue Watching</h4>
-          <img className="backdrophome" src={apiConfig.w200Image(history[0]?.poster_path)} alt="" />
-            <i className="bx bx-cheese" style={{fontSize : '30px' , position : 'absolute' , right : '10px', top : '10px'}}></i>
-         
-        </div>
-      )}
-
-      {history.map((item) => {
-        const progress = getProgress(item);
-        return (
-          <div
-            key={`${item.id}_${item.seasonNumber || ""}_${item.lastEpisode || ""}`}
-            className="player-history-item"
-            onClick={() => navigate(item.currentUrl)}
-            style={{ cursor: "pointer", position: "relative" }}
-          >
-            {/* Poster Image */}
-            <img
-              src={apiConfig.w200Image(item.poster_path)}
-              alt={item.title}
-              className="player-history-item__poster"
-            />
-            <div className="player-history-item__info">
-              <h4 className="player-history-item__title">{item.title}</h4>
-              <div className="player-history-item__episode2">
-                <span>{item.lastSrc}</span>
-              </div>
-              {/* Progress Bar */}
-              <div
-                style={{
-                  background: "#ffffff4a",
-                  width: "100%",
-                  height: "2.5px",
-                  borderRadius: "5px",
-                  overflow: "hidden",
-                  marginTop: "0.1rem",
-                }}
-              >
-                <div
-                  style={{
-                    background: "white",
-                    width: `${progress}%`,
-                    height: "100%",
-                    borderRadius: "5px",
-                  }}
-                ></div>
-              </div>
-                 
-                <div className="spacebtween">
-                <div className="player-history-item__episode">
-                    {item.seasonNumber ? "Show" : "Movie"}
-              </div>
-             
-              {item.seasonNumber && (
-                <div className="player-history-item__episode">
-                 
-                  <span className="player-history-item__episode-label">
-                    SN {item.seasonNumber} • EP {item.lastEpisode}
-                  </span>
-                </div>
-              )}
-                </div>
-             
-            </div>
-            {/* Action Icon Button to open the modal */}
-            <button
-              className="history-item-action-btn"
-              onClick={(e) => openModal(item, e)}
-              style={{
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                position: "absolute",
-                top: "10px",
-                color: "white",
-                right: "10px",
-              }}
-            >
-              <i className="bx bx-dots-horizontal-rounded"></i>
-            </button>
-          </div>
-        );
-      })}
-
-      {/* Modal */}
-      {modalOpen && selectedItem && (
-        <div
-          className="modal-overlay"
-          onClick={closeModal}
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(0,0,0,0.5)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 1000,
-          }}
-        >
-          <div
-            className="modal-content"
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              //background: "#000000d1",
-              padding: "1.5rem",
-              borderRadius: "8px",
-              minWidth: "300px",
-              textAlign: "center",
-              position: "relative",
-            }}
-          >
-            <button
-              className="modal-close-btn"
-              onClick={closeModal}
-              style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                background: "none",
-                border: "none",
-                fontSize: "1.5rem",
-                color: "white",
-                cursor: "pointer",
-              }}
-            >
-
-              <i className='bx bx-x'></i>
-             
-            </button>
-            <div className="modal-options" style={{ display: "flex", justifyContent: "space-around", marginTop: "1rem" }}>
-              <div
-                className="modal-option"
-                onClick={handleDelete}
-                style={{ cursor: "pointer", textAlign: "center" }}
-              >
-                <i className="bx bx-trash" style={{ fontSize: "2rem", color: "red" }}></i>
-                <div style={{ color: "red" , fontSize : '16px' }}>Delete</div>
-              </div>
-              <div
-                className="modal-option"
-                onClick={handleDetails}
-                style={{ cursor: "pointer", textAlign: "center" }}
-              >
-                <i className="bx bx-info-circle" style={{ fontSize: "2rem", color: "grey" }}></i>
-                <div style={{ color: "grey" , fontSize : '16px' }}>Details</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
 
     <div className="trendmovue" style={{position : 'relative' , minWidth : '200px'}}>
     {
           continueWatching.length > 7 && (
             <div className="alignerbutts" >
-            <button className="left" style={{top : '-27px'}} onClick={() => handleScrollLeft(continueWatchingRef)}>
-              <i className="bx bx-left-arrow-alt"></i>
+            <button className="leftgia" style={{top : '-27px'}} onClick={() => handleScrollLeft(continueWatchingRef)}>
+              <i className="bx bx-left-arrow-alt" style={{fontSize : '26px'}}></i>
             </button>
-            <button className="right" style={{top : '-27px'}} onClick={() => handleScrollRight(continueWatchingRef)}>
-              <i className="bx bx-right-arrow-alt"></i>
+            <button className="rightgia" style={{top : '-27px' }} onClick={() => handleScrollRight(continueWatchingRef)}>
+              <i className="bx bx-right-arrow-alt" style={{fontSize : '26px'}}></i>
             </button>
           </div>
             
@@ -452,18 +284,17 @@ const watchlistRef = useRef(null);   // Watchlist section
           <div className="spacegia">
           <div className="alignerbig">
   <button className="leftgia" onClick={() => handleScrollLeft(Movieref)}>
-    <i className="bx bx-left-arrow-alt" style={{fontSize : '52px'}}></i>
+    <i className="bx bx-left-arrow-alt" style={{fontSize : '26px'}}></i>
   </button>
   <button className="rightgia" onClick={() => handleScrollRight(Movieref)}>
-    <i className="bx bx-right-arrow-alt" style={{fontSize : '52px'}}></i>
+    <i className="bx bx-right-arrow-alt" style={{fontSize : '26px'}}></i>
   </button>
 </div>
 <div className="divconws">
           <h4 className="favaziwwr">Trending Movies</h4>
           <img className="backdrophome" src={apiConfig.w200Image(moviesData[0]?.poster_path)} alt="" />
-            <i className="bx bxs-hot" style={{fontSize : '32px' , position : 'absolute' , right : '1px', top : '1px'}}></i>
-            <i className="bx bx-movie" style={{fontSize : '25px' , position : 'absolute' , right : '3px', bottom: '10px'}}></i>
-        
+            <i className="bx bxs-hot" style={{fontSize : '22px' , position : 'absolute' , right : '1px', bottom : '15px' , opacity : '0.6'}}></i>
+           
         </div>
           
         </div> 
@@ -494,18 +325,17 @@ const watchlistRef = useRef(null);   // Watchlist section
             <div className="spacegia">
             <div className="alignerbig">
   <button className="leftgia" onClick={() => handleScrollLeft(listRef)}>
-    <i className="bx bx-left-arrow-alt" style={{fontSize : '52px'}}></i>
+    <i className="bx bx-left-arrow-alt" style={{fontSize : '26px'}}></i>
   </button>
   <button className="rightgia" onClick={() => handleScrollRight(listRef)}>
-    <i className="bx bx-right-arrow-alt" style={{fontSize : '52px'}}></i>
+    <i className="bx bx-right-arrow-alt" style={{fontSize : '26px'}}></i>
   </button>
 </div>
 <div className="divconws">
 <h4 className="favaziwwr">Trending Shows</h4>
           <img className="backdrophome" src={apiConfig.w200Image(tv[0]?.poster_path)} alt="" />
-            <i className="bx bx-water" style={{fontSize : '32px' , position : 'absolute' , right : '1px', top : '1px'}}></i>
-            <i className="bx bx-tv" style={{fontSize : '25px' , position : 'absolute' , right : '3px', bottom : '1px'}}></i>
-       
+            <i className="bx bx-water" style={{fontSize : '22px' , position : 'absolute' , right : '1px', bottom : '15px' , opacity : '0.6'}}></i>
+           
             </div>
    
 
