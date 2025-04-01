@@ -94,15 +94,17 @@
     background-color: rgb(0, 0, 0);
     color: rgba(255, 255, 255, 0.92);
     border-radius: 10px;
-    width: 100%;
+    width: 96%;
     height: 100%;
     overflow: hidden;
     margin: .5rem 0 ;
+    margin-left: 3rem;
     font-size: .85rem;
     //position: relative;
     //border-left: 1px solid rgba(233, 233, 233, 0.644);
    // padding: .5rem;
     @include mobile {
+        margin-left: 0;
        // overflow: auto;
      font-size: 1rem;
     }
@@ -122,11 +124,11 @@
     //background-color: rgba(15, 15, 15, 0.08);
     color: rgb(168, 168, 168);
     border-radius: 5px;
-    font-size: 3rem;
+    font-size: 2.4rem;
     font-weight: 700;
 
     @include mobile {
-        font-size: 2.5rem;
+        font-size: 2rem;
       }
 
 
@@ -458,7 +460,7 @@
 }
 .settitle{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 
     @include mobile {
@@ -534,7 +536,7 @@
     color: rgba(255, 255, 255, 0.39);
     font-weight: 600;
     border-right: 1.5px solid transparent;
-    border-image: linear-gradient(to top, rgba(159, 90, 117, 0.911), rgb(50, 79, 45)) 1;
+    border-image: linear-gradient(to top, rgba(159, 90, 117, 0.911), rgb(40, 201, 12)) 1;
     
     padding-right: .5rem;
     //font-size: 1.2rem;
