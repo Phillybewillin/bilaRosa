@@ -153,23 +153,25 @@ const Sidebar = () => {
       <div ref={SidebarRef} className="newheader">
         {/* Search modal */}
         {!hidesearch && (
-          <div className="searchabsolute">
+          <div className="searchabso" >
             <div className="searchmovieabsolute">
               <div className="searchios" onClick={() => setHidesearch(!hidesearch)}>
                 <h2 className="searchabsolutetitle">
                   {searchValue ? ` Showing Results for '${searchValue}'` : 'Search'}
                 </h2>
-                <div className="searchabsolutetitleicon">
-                  <i className='bx bx-search-alt'></i>
-                </div>
+                
               </div>
               <div className="searchbar-container">
                 <Input
                   type="text"
-                  placeholder="Search anything 🍿"
+                  placeholder="Try Typing something..."
                   value={searchValue}
                   onChange={handleInputChange}
+                  
                 />
+                <div className="searchabsolutetitleicon">
+                  <i className='bx bx-search-alt'></i>
+                </div>
                 <button 
                   onClick={() => {navigate('/filter'); setHidesearch(!hidesearch);}} 
                   className="filter-button"
@@ -250,13 +252,13 @@ const Sidebar = () => {
           {/* Discord Icon below header nav */}
           <div className="discord-container">
             <a 
-              href="https://discord.gg/MCt2R9gqGb" 
+              href="https://discord.gg/ynfvjgHrBd" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="iconsidebox"
             >
               <i className="bx bxl-discord-alt" style={{fontWeight:'400', fontSize:'20px'}}></i>
-              <h5 className="iconvz">Discord</h5>
+              <h5 className="iconvz">Join our Discord</h5>
             </a>
           </div>
         </div>
