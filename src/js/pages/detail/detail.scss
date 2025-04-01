@@ -56,20 +56,37 @@
         left: 0;
         width: 100%;
         height: 100%;
-       background-image: linear-gradient(180deg, rgba(127, 117, 117, 0), rgba(0, 0, 0, 0.865));
+       //background-image: linear-gradient(180deg, rgba(127, 117, 117, 0), rgba(0, 0, 0, 0.797));
      // background-image: linear-gradient(90deg, $black, rgba(127, 117, 117, 0));
     }
 
     @include mobile {
-        
-        height: 100vh;
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: -7rem;
+        left: 0;
+        width: 100%;
+        height: 15%;
+        z-index: -1000 !important; /* adjust this value to control the amount of blur */
+        background-image: inherit;
+        filter: blur(55px);
+          //background-image: linear-gradient(180deg, rgba(127, 117, 117, 0), rgba(0, 0, 0, 0.498));
+      
+         @include overlay();
+      } 
+      border-bottom-right-radius: 20px;
+      border-bottom-left-radius: 20px;
+        height: calc(100vh - 37rem);
     }
 }
 .postertitlett{
   position: relative;
-  //background-color: red;
+  background-color: rgba(255, 255, 255, 0.055);
   max-height: 150px;
-  min-width: 200px ;
+  min-width: 150px ;
+  padding: .4rem 1rem;
+  border-radius: 15px;
   max-width: 300px;
   @include mobile {
   max-height: 100px;
@@ -119,7 +136,7 @@
 }
 .trailler{
   position: absolute;
-  top: -7rem ;
+  top: 0rem ;
   right: 5px;
   display: flex;
  // width: 50%;
@@ -135,8 +152,8 @@
 }
 .ratingpos{
   position: absolute;
-  top: 0rem ;
-  right: 1.5rem;
+  top: -6.5rem ;
+  right: 1rem;
   display: flex;
   //transition: all .3s ease-in-out;
   @include mobile {
@@ -377,6 +394,7 @@
 
 }
 .castdiv{
+  width: 100%;
   display: flex;
   flex-direction: column;
   z-index: 2;
@@ -388,8 +406,8 @@
     position: relative;
       width: 100%;
     max-height: auto;
-    background-image:linear-gradient(to top, rgba(0, 0, 0, 0.381), rgba(0, 0, 0, 0));
-     border-radius: 5px;
+   // background-image:linear-gradient(to top, rgba(0, 0, 0, 0.381), rgba(0, 0, 0, 0));
+    // border-radius: 5px;
     // gap: 30px;
     //padding: 5px;
      overflow: auto;
@@ -397,11 +415,12 @@
     .casts {
       display: flex;
       flex-direction: row;
-      justify-content: center;
+      //justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
+      flex-direction: row;
+      //flex-wrap: nowrap;
 
-     // overflow: auto;
+     overflow: auto;
       //line-height: 1;
       margin: .5rem;
       //line-height: 1;
@@ -692,10 +711,10 @@
 }
 
 .rating-content {
-  width: 4rem;  // Inner circle (smaller than ring to reveal the border)
-  height: 4rem;
+  width: 4.5rem;  // Inner circle (smaller than ring to reveal the border)
+  height: 4.5rem;
   border-radius: 50%;
-  background: #000000a1;
+  background: #000000db;
   backdrop-filter: blur(20px);
 
   -webkit-backdrop-filter: blur(20px);
@@ -995,16 +1014,17 @@
   align-items: center;
   font-size: .8rem;
   //margin-right: 10px;
-  backdrop-filter: blur(10px) saturate(180%);
+  backdrop-filter: none;
   font-weight: 100;
   padding: 12px 30px;
-  background-color: rgba(16, 16, 16, 0.322);
-   color: white;
+  background-color: rgba(0, 0, 0, 0.696);
+  color: white;
   gap: 10px;
-
+ border-radius: 5px !important;
   @include mobile {
     font-size: 1rem;
-    padding: 10px 20px;
+    margin-bottom: .1rem;
+    padding: 15px 20px;
   }
 }
 .bx.bx-directions{
@@ -1012,17 +1032,18 @@
 }
 .prodcomp{
   position: absolute;
-  top: 5rem;
+  top: 6rem;
   right: 0;
   width: 15%;
-  height: auto;
+  max-height: 85%;
+  overflow: hidden;
   background-color: rgba(255, 255, 255, 0.062);
-  backdrop-filter: blur(20px);
-
-  -webkit-backdrop-filter: blur(20px);
+  // backdrop-filter: blur(20px);
+  // // max-width: ;
+  // -webkit-backdrop-filter: blur(20px);
  padding: 1rem;
  border-radius: 15px;
- z-index: 1;
+ z-index: -1;
  @include mobile {
   display: none;
  }
