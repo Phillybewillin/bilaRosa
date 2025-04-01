@@ -98,13 +98,20 @@ const MovieCard = React.memo((props) => {
     const [bg, setBg] = useState(null);
   
     React.useEffect(() => {
-      const img = new Image();
-      img.onload = () => {
+      if (item?.title !== 'Conclave') {
+        const img = new Image();
+        img.onload = () => {
+          setIsLoading(false);
+          setBg(apiConfig.w500Image(item.poster_path)); // Set the bg state variable using the apiConfig.w500Image function
+        };
+        img.src = apiConfig.w200Image(item.poster_path);
+      } else {
         setIsLoading(false);
-        setBg(apiConfig.w500Image(item.poster_path )); // Set the bg state variable using the apiConfig.w500Image function
-      };
-      img.src = apiConfig.w200Image(item.poster_path);
+      }
     }, [item.poster_path]);
+    if (item?.title === 'Conclave') {
+      return null;
+    }
 
     const voteAverage = item.vote_average; // example vote average
     const votePercentage = voteAverage * 10; // convert to percentage
@@ -123,8 +130,10 @@ const MovieCard = React.memo((props) => {
       }
           
      
-
+  
   }
+
+  
     //console.log(`${votePercentage}%`); // output: 74%
   
     return (
