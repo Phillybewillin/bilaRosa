@@ -19,9 +19,10 @@ button{
     font-weight: 400;
     position: relative;
     margin-top: .5rem;
-    //backdrop-filter: blur(5px) saturate(180%);
-
+    
     @include mobile {
+      backdrop-filter: blur(15px) saturate(240%);
+
         font-size: 1rem;
         margin-bottom: 2rem;
         padding: 1rem 1.8rem;
