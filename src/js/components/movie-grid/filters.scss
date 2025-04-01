@@ -1,7 +1,7 @@
 @use '../../scss/' as *;
 
 .filters {
-    margin-top: 3rem;
+   // margin-top: 3rem;
     margin-left: 3.4rem;
     min-height: fit-content;
     height: 100%;
@@ -20,13 +20,23 @@
         margin-left: 0;
     }
 }
+.filename {
+    text-align: center;
+    font-weight: 300;
+    //background-color: #16001d;
+    padding: 2rem;
+    border: 1px solid rgba(255, 192, 203, 0.429);
+    clip-path: polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 85% 15%, 100% 15%, 100% 85%, 85% 85%, 85% 100%, 15% 100%, 15% 85%, 0% 85%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
 .formtitle{
     padding: .3rem;
     border-bottom: 1px solid rgba(128, 128, 128, 0.37);
     //background-color: #101010;
     color: rgb(255, 255, 255);
     font-size: smaller;
-    text-align: end;
+    text-align: start;
     //border-radius: 5px;
 }
 .bigmovie{
@@ -34,7 +44,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-
+    z-index: 1;
     @include mobile{
         flex-direction: column;
     }
@@ -44,30 +54,48 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 2rem;
-    background-color: rgba(135, 135, 135, 0.388);
-  
+    padding: 1rem;
+    //background-color: rgba(135, 135, 135, 0.388);
+    border: 1px solid rgb(46, 46, 46);
     width: 100%;
     margin: .5rem;
     border-radius: 10px;
     cursor: pointer;
+    &:hover{
+        color: rgb(128, 127, 127);
+    }
 }
 .righter{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 2rem;
-    background-color: rgba(135, 135, 135, 0.388);
+    padding: 1rem;
+    //background-color: rgba(135, 135, 135, 0.388);
     width: 100%;
+    border: 1px solid rgb(46, 46, 46);
+   
     margin: .5rem;
     border-radius: 10px;
     cursor: pointer;
+    &:hover{
+        color: rgb(128, 127, 127);
+    }
+}
+.toggle-filters{
+    margin-bottom: 1rem;
+}
+.backback{
+    background-color: #161616;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 20px;
+    transition: all 2s ease-in-out;
 }
 .righters{
     position: sticky;
     top: 0rem;
-    z-index: 99;
+    z-index: 1;
     display: flex;
 
     flex-direction: row;
@@ -80,35 +108,39 @@
     background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(14, 14, 14, 0.014));
     color: rgb(255, 255, 255);
     width: 100%;
-    margin: .5rem 0;
+    margin: 0rem 0;
    // border-radius: 10px;
     cursor: pointer;
 }
 .select{
-    background-color: rgb(79, 25, 42);
-}
-.gen{
-    columns: 4;
-    break-inside: avoid-column;
-    gap: .5rem;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: .5rem;
-   @include mobile {
-     columns: 1;
+    border: 1px solid rgb(255, 185, 228);
+   
    }
+.gen{
+    display: inline-flex;
+    flex-wrap: wrap;
+    font-size: .75rem;
+    gap: .5rem;
+    align-items: center;
+    justify-content: start;
+    padding: .5rem;
+    z-index: 50;
+  
 }
 .cbut{
     display: flex;
     margin-bottom: 1rem;
     gap: .5rem;
 }
-
+.lent{
+    display: flex;
+    flex-wrap: wrap;
+}
 .genrezz{
     cursor: pointer;
-    background-color: rgb(35, 35, 35);
+    //background-color: rgb(35, 35, 35);
     border: 1px solid $black;
-    padding: 5px 10px;
+    padding: 10px;
     border-radius: 5px;
     display: flex;
     flex-direction: row;
@@ -130,14 +162,14 @@
 
 .genrezzx{
     cursor: pointer;
-    background-color: rgb(14, 14, 14);
-    border: 1px solid $black;
-    padding: 5px 10px;
-    border-radius: 5px;
+   // background-color: rgb(14, 14, 14);
+    border: 1px solid rgb(80, 80, 80);
+    padding:  10px;
+    border-radius: 10px;
     display: flex;
     justify-content: space-between;
     
-    font-size: .7rem;
+    font-size: .75rem;
     @include mobile{
         font-size: .85rem;
     }
@@ -157,7 +189,9 @@
     }
 
     @include mobile {
-        grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
     
     }
     
