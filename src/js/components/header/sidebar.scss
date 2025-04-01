@@ -12,7 +12,7 @@
     background: linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0.055));
    
     backdrop-filter: grayscale(100%)  blur(2px);
-             z-index: 10003 !important;
+            // z-index: 10003 !important;
     transition: all .5s ease-in-out;
 
     &.shrinker{
@@ -41,7 +41,7 @@
   
   }
   .headersidebar{
-    margin-top: 4rem;
+    margin-top: 5.5rem;
     //background-color: #3030305b;
     z-index: 1000 !important;
     height: 100%;
@@ -77,9 +77,13 @@
        color: $main-bg;
        background-color: $main-bg;
    }
+   &:hover{
+     background-color: #65656532;
+     border-radius: 12px;
+   }
    &.active::after ,&:hover::after{
-       width: 50%;
-       color: $main-bg;
+       width: 10%;
+       color: lawngreen;
        
    }
    @include mobile {
@@ -97,8 +101,8 @@
   }
  }
  .iconsideboxitem.active{
-    background-color: #ffffff1b;
-    border-radius: 10px;
+    background-color: #ffffff23;
+    border-radius: 12px;
    // backdrop-filter: blur(20px);
    
  }
@@ -125,14 +129,14 @@
      background-color: $main-bg;
  }
  &.active::after ,&:hover::after{
-    position: absolute;
-    left: -.6rem;
-    bottom: .9rem;
+    // position: absolute;
+    // left: 1rem;
+    // bottom: .9rem;
      height: 3.7px;
      background-color: rgb(255, 255, 255);
      border-radius: 5px;
      width: 40%;
-     rotate: 90deg;
+    // rotate: 90deg;
      transition: width 0.5s ease-in-out;
   
      
