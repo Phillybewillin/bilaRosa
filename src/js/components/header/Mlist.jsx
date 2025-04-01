@@ -96,80 +96,86 @@ const Mlist = ({ movies , value }) => {
     navigate(`/${category || 'tv'}/${id}`);
 }
 
+
+
   return (
     <>
     <div className="bzbaner" style={{
     backgroundImage: `url(${apiConfig.w200Image(selectedMovie.poster_path)})`,
   }}></div>
   
-    <div className="containermodz">
-          <div className="modalsearchcontent">
-       
-        <div className="detaizza" >
-        <div className="background-image" style={{
-    backgroundImage: `url(${apiConfig.w500Image(selectedMovie.poster_path)})`,
+  {selectedMovie && selectedMovie.title !== 'Conclave' && selectedMovie.name !== 'Conclave' ? (
+ <div className="containermodz">
+ <div className="modalsearchcontent">
+
+<div className="detaizza" >
+<div className="background-image" style={{
+backgroundImage: `url(${apiConfig.w500Image(selectedMovie.poster_path)})`,
+
+}} />  
+<h2 className="movietitleza">{selectedMovie.title || selectedMovie.name}</h2>
+<p className="overviewseries">{selectedMovie.overview}</p>
+<div className="date">
+       <p className="ratingz">
+         {selectedMovie.media_type === "tv" ? "Show" : "Movie"}
+       </p>
+       {selectedMovie.vote_average && (
+         <p className="ratingz">{selectedMovie.vote_average.toFixed(1)}</p>
+       )}
+       <p className="ratingz">
+         {(new Date(selectedMovie.release_date || selectedMovie.first_air_date))
+           .getFullYear()}
+       </p>
+       <p className="ratingz">
+        {selectedMovie.original_language.toUpperCase()}
+       </p>
+ </div>
+  <div className="showwet">
+    <div className="szz">
+   {
+                               saved ? (
+                                   <div className="languagezz" onClick={() => setSaved(false)}><i class='bx bxs-add-to-queue' style={{fontSize:'17px'}} ></i> Added To Watchlist</div>
+                      
+                               ):(
+                                   <div className="languagez" onClick={() => saveShow(selectedMovie)}><i class='bx bx-add-to-queue' style={{fontSize:'17px'}} ></i> Add To Watchlist</div>
+                     
+                               )
+      }
+     </div> 
+     
+     <button className="shobuttn2" onClick={() => handlecardClick(selectedMovie.id,selectedMovie.category || selectedMovie.media_type, selectedMovie.title || selectedMovie.name, selectedMovie.poster_path,)}><i className='bx bx-info-circle'></i></button>
+  
+     <button className="shobuttn" onClick={() => handleClickza(selectedMovie)}>
+     <i className='bx bx-play'></i> Watch
+   </button>
+                 
+  </div>
+ 
+
+</div>
+   
+</div>
+</div>
+) : null}
     
-  }} />  
-        <h2 className="movietitleza">{selectedMovie.title || selectedMovie.name}</h2>
-        <p className="overviewseries">{selectedMovie.overview}</p>
-        <div className="date">
-                <p className="ratingz">
-                  {selectedMovie.media_type === "tv" ? "Show" : "Movie"}
-                </p>
-                {selectedMovie.vote_average && (
-                  <p className="ratingz">{selectedMovie.vote_average.toFixed(1)}</p>
-                )}
-                <p className="ratingz">
-                  {(new Date(selectedMovie.release_date || selectedMovie.first_air_date))
-                    .getFullYear()}
-                </p>
-                <p className="ratingz">
-                 {selectedMovie.original_language.toUpperCase()}
-                </p>
-          </div>
-           <div className="showwet">
-             <div className="szz">
-            {
-                                        saved ? (
-                                            <div className="languagezz" onClick={() => setSaved(false)}><i class='bx bxs-add-to-queue' style={{fontSize:'17px'}} ></i> Added To Watchlist</div>
-                               
-                                        ):(
-                                            <div className="languagez" onClick={() => saveShow(selectedMovie)}><i class='bx bx-add-to-queue' style={{fontSize:'17px'}} ></i> Add To Watchlist</div>
-                              
-                                        )
-               }
-              </div> 
-              
-              <button className="shobuttn2" onClick={() => handlecardClick(selectedMovie.id,selectedMovie.category || selectedMovie.media_type, selectedMovie.title || selectedMovie.name, selectedMovie.poster_path,)}><i className='bx bx-info-circle'></i></button>
-           
-              <button className="shobuttn" onClick={() => handleClickza(selectedMovie)}>
-              <i className='bx bx-play'></i> Watch
-            </button>
-                          
-           </div>
-          
-        
-        </div>
-            
-      </div>
-    </div>
     
       {showMovies && (
         <>
         <div className="moviez" onClick={handleImageClick}>
-          {movies && movies.map((movie, index) => (
-            <div className="movieimg" key={index} onClick={() => handlecardClick(movie.id,movie.category || movie.media_type, movie.title || movie.name, movie.poster_path,)} >
-              <img
-                onMouseEnter={(e) => setSelectedMovie(movie) }
-                onMouseLeave={(e) => setSelectedMovie(movie)}
-                className="moviezabs"
-                 src={movie?.poster_path ? `https://image.tmdb.org/t/p/w200/${movie.poster_path}` : ""}
-                 alt={movie.title || movie.name}
-              />
-              <p className="movititlesearch">{movie.title || movie.name}</p>
-              
-            </div>
-          ))}
+        {movies && movies.map((movie, index) => (
+  movie.title !== 'Conclave' && movie.name !== 'Conclave' ? (
+    <div className="movieimg" key={index} onClick={() => handlecardClick(movie.id, movie.category || movie.media_type, movie.title || movie.name, movie.poster_path)}>
+      <img
+        onMouseEnter={(e) => setSelectedMovie(movie)}
+        onMouseLeave={(e) => setSelectedMovie(movie)}
+        className="moviezabs"
+        src={movie?.poster_path ? `https://image.tmdb.org/t/p/w200/${movie.poster_path}` : ""}
+        alt={movie.title || movie.name}
+      />
+      <p className="movititlesearch">{movie.title || movie.name}</p>
+    </div>
+  ) : null
+))}
         </div>
       </>
       )}
