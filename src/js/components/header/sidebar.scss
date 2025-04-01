@@ -9,22 +9,25 @@
     z-index: 11 !important;
     width: 60px;
     //backdrop-filter: blur(10px);
-    background: linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+    background: linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0.055));
    
-    
+    backdrop-filter: grayscale(100%)  blur(2px);
+             z-index: 10003 !important;
     transition: all .5s ease-in-out;
 
     &.shrinker{
-        width: 40px;
-        opacity: .3; 
+        width: 60px;
+        //opacity: .3; 
+        //backdrop-filter: blur(20px);
+          
        // backdrop-filter: none;
         background: linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0));
         z-index: 99;
         transition: all .5s ease-in-out;
 
         &:hover{
-            opacity: 1;
-            backdrop-filter: blur(10px);
+           // opacity: 1;
+            backdrop-filter: blur(20px);
             width: 60px;
             transition: all .5s ease-in-out;
         }
@@ -94,9 +97,10 @@
   }
  }
  .iconsideboxitem.active{
-    background-color: #ffffff2e;
-    border-radius: 7px;
-    backdrop-filter: blur(20px);
+    background-color: #ffffff1b;
+    border-radius: 10px;
+   // backdrop-filter: blur(20px);
+   
  }
 
  .iconsideboxitem{
@@ -121,10 +125,14 @@
      background-color: $main-bg;
  }
  &.active::after ,&:hover::after{
-     height: 3.3px;
-     background-color: rgb(0, 255, 247);
+    position: absolute;
+    left: -.6rem;
+    bottom: .9rem;
+     height: 3.7px;
+     background-color: rgb(255, 255, 255);
      border-radius: 5px;
      width: 40%;
+     rotate: 90deg;
      transition: width 0.5s ease-in-out;
   
      
@@ -132,17 +140,18 @@
  }
  .iconvz{
      opacity: 0;
-    font-size: .65rem;
-     font-weight: 300;
+    font-size: .69rem;
+     font-weight: 500;
      transition: all 0.3s ease-in-out;
  }
  .iconsidebox:hover .iconvz{
   opacity: 1;
-  font-size: .65rem;
+  //font-size: .65rem;
 }
 .active .iconvz{
     opacity: 1 !important;
     font-size: .65rem;
+    font-weight: 600;
   }
 .searchbar-container{
     display: flex;
@@ -161,20 +170,21 @@
         color: white !important;
     }  
 }
-.searchabsolute{
+.searchabso{
     position: fixed;
     display: flex;
+    z-index: 0;
     justify-content: center;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 0;
+   
     background-color: #000000bf;
     //width: 100%;
-    background-image: radial-gradient(transparent 2px, #000 0);
+    background-image: radial-gradient(transparent 2px, #000000ae 0);
     background-size: 4px 4px;
-    backdrop-filter: brightness(.3) blur(14px) !important;
+    backdrop-filter: brightness(.5) grayscale(1) !important;
     backdrop-filter: blur(10px);
 }
 .searchmovieabsolute{
@@ -195,7 +205,7 @@
   
  // width: 400px;
  input {
-    background-color: rgba(0, 0, 0, 0.575);
+    background-color: rgba(6, 6, 6, 0.525);
    
     //margin-top: .1rem;
     border-radius: 10px;
@@ -206,7 +216,7 @@
    padding: .7rem 1.3rem;
    //margin-bottom: .4rem;
    width: 450px;
-   border: 2px solid rgba(104, 104, 104, 0.203);
+   border: 1px solid rgba(251, 251, 251, 0.993);
      
      &:focus {
        outline: none;
@@ -361,22 +371,28 @@
     }
 }
 .searchabsolutetitle{
-    background: linear-gradient(to right, rgb(234, 234, 234), rgb(255, 255, 255));
-    background-clip: text;
-   -webkit-background-clip: text;
-   -webkit-text-fill-color: transparent;
-    //margin-left: -6rem;
-   // padding: 10px ;
-    font-size: 1.3rem;
-    text-align: center;
-    filter: drop-shadow(0 0 3rem rgb(0, 0, 0));
-    //box-shadow: #bc1d1d39 0px 0px 10px 0px;
+    margin-left: -5rem;
+    padding: 10px ;
+    font-size: 1rem;
+    margin-bottom: .3rem;
+    text-align: start;
+    font-weight: 700;
+    background-color: #ffffff13;
+    border-radius: 7px;
+    @include tablet {
+        font-size: .8rem;
+        margin-left: -3rem;
+    }
 }
-
+.searchabsolutetitleicon{
+    margin-left: -2rem;
+    z-index: 20;
+    margin-top: 5px;
+}
 .searchios{
     display: flex;
 
-    width: 70vh;
+    width: 60vh;
     justify-content: space-between;
     padding-right: .5rem;
     align-items: center;
