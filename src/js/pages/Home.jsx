@@ -4,6 +4,7 @@ import Spotlight from '../components/hero-side/Spotlight';
 import MovieList from '../components/movie-list/MovieList';
 import { FixedSizeList } from 'react-window'; // Import FixedSizeList from react-window
 import { category, movieType, tvType } from '../api/tmdbApi';
+import tmdbApi from '../api/tmdbApi';
 import apiConfig from '../api/apiConfig';
 import './home.scss';
 import { toast, ToastContainer } from 'react-toastify';
@@ -21,7 +22,8 @@ const listRef = useRef(null);        // Anime list
 const Movieref = useRef(null);       // Movie list
     // Continue Watching section
 const watchlistRef = useRef(null);   // Watchlist section
-
+const Edref = useRef(null);
+const mEdref = useRef(null);
   const { user } = UserAuth();
   
   const{ getWatchlist } = useFirestore();
@@ -33,6 +35,8 @@ const watchlistRef = useRef(null);   // Watchlist section
   const [continueWatching, setContinueWatching] = useState(
     JSON.parse(localStorage.getItem('ContinueWatching')) || []
   );
+  const [editorsPicks , setEditorsPicks] = useState([])
+  const [popula , setPopula]  = useState([])
   const navigate = useNavigate();
  
   const continueWatchingRef = useRef(null);
@@ -79,6 +83,26 @@ const watchlistRef = useRef(null);   // Watchlist section
     setMoviesData(data.results);
   };
 
+  const getEditorsPicks = async() =>{
+    const similae = await tmdbApi.similar('tv', '71446' )
+    
+    setEditorsPicks(similae.results)
+   //console.log(poplar);
+     
+  }
+  const getEditorsPickas = async () => {
+    const params = {};
+    const poplar = await tmdbApi.getMoviesList(movieType.popular, { params });
+    const shuffledResults = poplar.results.sort(() => Math.random() - 0.5);
+    
+    setPopula(shuffledResults);
+    //console.log(poplar);
+  };
+
+  
+
+
+
   // const getAnimeResults = async () => {
   //   const url = `https://api.jikan.moe/v4/seasons/now?sfw&limit=20`;
   //   const response = await fetch(url);
@@ -89,6 +113,8 @@ const watchlistRef = useRef(null);   // Watchlist section
   useEffect(() => {
     // Fetch TV results
     getTVresults('day');
+    getEditorsPicks();
+    getEditorsPickas();
    // getAnimeResults();
     // Fetch movie results
     getMovieresults('day');
@@ -115,80 +141,18 @@ const watchlistRef = useRef(null);   // Watchlist section
     setContinueWatching(newContinueWatching);
   };
 
-  const [history, setHistory] = useState([]);
+  
+
+
+
  
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
 
-  // Load history from localStorage on mount
-  useEffect(() => {
-    const stored = localStorage.getItem("playerDataList");
-    if (stored) {
-      const items = Object.values(JSON.parse(stored));
-      // Sort items by lastWatched descending (most recent first)
-      items.sort((a, b) => b.lastWatched - a.lastWatched);
-      setHistory(items);
-    }
-  }, []);
-
-  // Opens the modal for the clicked history item.
-  const openModal = (item, e) => {
-    e.stopPropagation(); // Prevent triggering the parent's onClick
-    setSelectedItem(item);
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-    setSelectedItem(null);
-  };
-
-  // Delete the selected item from localStorage and update the history state.
-  const handleDelete = () => {
-    if (!selectedItem) return;
-    const stored = localStorage.getItem("playerDataList");
-    const playerDataList = stored ? JSON.parse(stored) : {};
-    // Delete the entry by its id (assuming your keys are just the id)
-    delete playerDataList[selectedItem.id];
-    localStorage.setItem("playerDataList", JSON.stringify(playerDataList));
-    // Update local state
-    setHistory((prev) => prev.filter((item) => item.id !== selectedItem.id));
-    closeModal();
-    toast.success("Item deleted");
-  };
-
-  // Navigate to details: if item has a seasonNumber, then it's tv, else movie.
-  const handleDetails = () => {
-    if (!selectedItem) return;
-    const category = selectedItem.seasonNumber ? "tv" : "movie";
-    navigate(`/${category}/${selectedItem.id}`);
-    closeModal();
-  };
-
-  // Calculate the progress percentage for an item.
-  const getProgress = (item) => {
-    if (item.runtime > 0) {
-      return Math.min((item.timeSpent / item.runtime) * 100, 100);
-    }
-    return 0;
-  };
-
-  useEffect(() => {
-    // Retrieve the stored player data from localStorage
-    const stored = localStorage.getItem("playerDataList");
-    if (stored) {
-      // Convert the stored object to an array
-      const items = Object.values(JSON.parse(stored));
-      // Sort items by lastWatched descending (most recent first)
-      items.sort((a, b) => b.lastWatched - a.lastWatched);
-      setHistory(items);
-    }
-  }, []);
+ 
 
   const handleScrollLeft = (ref) => {
 
     ref.current?.scrollBy({
-      left: -700,
+      left: -1000,
       behavior: "smooth",
     });
   
@@ -293,7 +257,7 @@ const watchlistRef = useRef(null);   // Watchlist section
 <div className="divconws">
           <h4 className="favaziwwr">Trending Movies</h4>
           <img className="backdrophome" src={apiConfig.w200Image(moviesData[0]?.poster_path)} alt="" />
-            <i className="bx bxs-hot" style={{fontSize : '22px' , position : 'absolute' , right : '1px', bottom : '15px' , opacity : '0.6'}}></i>
+            <i className="bx bx-meteor" style={{fontSize : '22px' , position : 'absolute' , right : '10px', bottom : '15px' , opacity : '0.6'}}></i>
            
         </div>
           
@@ -334,7 +298,7 @@ const watchlistRef = useRef(null);   // Watchlist section
 <div className="divconws">
 <h4 className="favaziwwr">Trending Shows</h4>
           <img className="backdrophome" src={apiConfig.w200Image(tv[0]?.poster_path)} alt="" />
-            <i className="bx bx-water" style={{fontSize : '22px' , position : 'absolute' , right : '1px', bottom : '15px' , opacity : '0.6'}}></i>
+            <i className="bx bxs-bowling-ball" style={{fontSize : '22px' , position : 'absolute' , right : '10px', bottom : '15px' , opacity : '0.6'}}></i>
            
             </div>
    
@@ -357,7 +321,86 @@ const watchlistRef = useRef(null);   // Watchlist section
            </div>
           </div>
         </div>
+
+        <div className="section mb-3">
+                <div className="section-tit">
+            </div>
+          <div className="trendMovie">
+          <div className="spacegia">
+          <div className="alignerbig">
+  <button className="leftgia" onClick={() => handleScrollLeft(Edref)}>
+    <i className="bx bx-left-arrow-alt" style={{fontSize : '26px'}}></i>
+  </button>
+  <button className="rightgia" onClick={() => handleScrollRight(Edref)}>
+    <i className="bx bx-right-arrow-alt" style={{fontSize : '26px'}}></i>
+  </button>
+</div>
+<div className="divconws">
+          <h4 className="favaziwwr">Editors Picks </h4>
+          <img className="backdrophome" src={apiConfig.w200Image(editorsPicks[0]?.poster_path)} alt="" />
+            <i className="bx bxs-cat" style={{fontSize : '22px' , position : 'absolute' , right : '10px', bottom : '15px' , opacity : '0.6'}}></i>
+           
+        </div>
+          
+        </div> 
+        
+   
+        <div className="movie-lists" ref={Edref}>
+                           
+                                         {
+                   editorsPicks.filter(itemzmovied => itemzmovied.poster_path).map((itemzmovied, ia) => (
+                         <Suspense fallback={null}>
+                          
+                           <MovieCard item={itemzmovied} category={category.tv} key={itemzmovied.id}/>
+                         
+                          
+                         </Suspense>
+                            
+                    ))
+                  }
+                  </div>
+          </div>
+        </div>
       
+        <div className="section mb-3">
+                <div className="section-tit">
+            </div>
+          <div className="trendMovie">
+          <div className="spacegia">
+          <div className="alignerbig">
+  <button className="leftgia" onClick={() => handleScrollLeft(mEdref)}>
+    <i className="bx bx-left-arrow-alt" style={{fontSize : '26px'}}></i>
+  </button>
+  <button className="rightgia" onClick={() => handleScrollRight(mEdref)}>
+    <i className="bx bx-right-arrow-alt" style={{fontSize : '26px'}}></i>
+  </button>
+</div>
+<div className="divconws">
+          <h4 className="favaziwwr">Popular Movies</h4>
+          <img className="backdrophome" src={apiConfig.w200Image(popula[0]?.poster_path)} alt="" />
+            <i className="bx bx-heart" style={{fontSize : '22px' , position : 'absolute' , right : '10px', bottom : '15px' , opacity : '0.6'}}></i>
+           
+        </div>
+          
+        </div> 
+        
+   
+        <div className="movie-lists" ref={mEdref}>
+                           
+                                         {
+                   popula.filter(itemzmovied => itemzmovied.poster_path).map((itemzmovied, ia) => (
+                         <Suspense fallback={null}>
+                          
+                           <MovieCard item={itemzmovied} category={category.movie} key={itemzmovied.id}/>
+                         
+                          
+                         </Suspense>
+                            
+                    ))
+                  }
+                  </div>
+          </div>
+        </div>
         { user && isLoading && (
         <div className="load">loading</div>
       )}
