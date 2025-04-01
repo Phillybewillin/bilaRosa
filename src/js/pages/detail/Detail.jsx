@@ -281,6 +281,14 @@ const Detail = () => {
           return '#e74c3c'; // Red for lower ratings
         }
       };
+
+     if (item?.title === 'Conclave') {
+  return (
+    <div>
+      <h1>Item removed due to copyright issues</h1>
+    </div>
+  );
+}
       
 
     const scrollToTop = () => {
@@ -659,7 +667,9 @@ const ringStyle = {
                        }
                       
                        
-                           </>
+                       <ToastContainer theme='dark' position="top-right" autoClose={4000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#ffffff' , color : 'white', borderRadius : '5px'}}/>
+           
+                    </>
                 )
             }
            </div>
