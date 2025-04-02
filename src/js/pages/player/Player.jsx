@@ -426,18 +426,20 @@ export default function Player() {
   const [selectedOption, setSelectedOption] = useState(null);
    const options = [
     { value: "https://moviesapi.club/", label: "GRANADILLA" },
+    { value: "https://vidfast.pro/", label: " CANTALOUPE" },
     { value: "https://vidlink.pro/", label: "PINEBERRY" },
-    { value: "https://player.autoembed.cc/", label: "WATERMELON" },
     { value: "https://player.videasy.net/", label: "APPLE 4K" },
-    { value: "https://player.autoembed.cc/embed/", label: "STRAWBERRY" },
+    { value: "https://vidsrc.me/embed/", label: "KIWI" },
     { value: "https://embed.su/embed/", label: "GRAPE" },
     { value: "https://autoembed.pro/embed/", label: "LEMON" },
     { value: "https://vidsrc.cc/v2/embed/", label: "CHERRY" },
-    { value: "https://vidsrc.me/embed/", label: "KIWI" },
+    { value: "https://player.autoembed.cc/embed/", label: "STRAWBERRY" },
     { value: "https://vidbinge.dev/embed/", label: "PAPAYA 4K" },
     { value: "https://vidsrc.xyz/embed/", label: "BANANA" },
     { value: "https://flicky.host/embed/", label: "COCONUT" },
     { value: "https://play2.123embed.net/", label: "ORANGE" },
+    { value: "https://player.autoembed.cc/", label: "WATERMELON" },
+   
   ];
 
   const handleSelect = (selectedOption) => {
@@ -523,7 +525,9 @@ export default function Player() {
     let src = "";
     if (iframeUrl === "https://moviesapi.club/") {
       src = `${iframeUrl}tv/${id}-${currentSeason}-${currentEpisode}`;
-    } else if (iframeUrl === "https://vidlink.pro/") {
+    }  else if (iframeUrl === "https://vidfast.pro/") {
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+    }else if (iframeUrl === "https://vidlink.pro/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?poster=true&autoplay=false&icons=vid`;
     } else if (iframeUrl === "https://autoembed.pro/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
@@ -556,6 +560,8 @@ export default function Player() {
   const handlemovieIframeSrc = () => {
     let src = "";
     if (iframeUrl === "https://moviesapi.club/") {
+      src = `${iframeUrl}movie/${id}`;
+    } else if (iframeUrl === "https://vidfast.pro/") {
       src = `${iframeUrl}movie/${id}`;
     } else if (iframeUrl === "https://vidlink.pro/") {
       src = `${iframeUrl}movie/${id}?poster=true&autoplay=false&nextbutton=true&icons=vid`;
@@ -600,7 +606,7 @@ export default function Player() {
   };
 
   const handlerecoclick = (idnew, titlenew) => {
-    //console.log("handlePlayer function called", idnew, titlenew);
+    console.log("handlePlayer function called", idnew, titlenew);
     const encodedTitle = encodeURIComponent(titlenew.replace(/ /g, "-").toLowerCase());
     if (category === "tv") {
       setCurrentSeason(1);
@@ -668,7 +674,7 @@ const updatePlayerData = () => {
     // Update the entry for this id
     playerDataList[itemData.id] = dataToStore;
     localStorage.setItem("playerDataList", JSON.stringify(playerDataList));
-   // console.log("Updated playerDataList:", playerDataList);
+    console.log("Updated playerDataList:", playerDataList);
   }
 };
 
@@ -902,9 +908,9 @@ useEffect(() => {
               key="persistentIframe" // constant key to avoid remounts
               className="episodes__iframe"
               src={handleIframeSrc()}
-              style={{ borderRadius : "10px" }}
+              //style={{ borderRadius : "10px" }}
               width={displayMode === "youtube" ? "100%" : "100%"}
-              height={displayMode === "youtube" ? "480" : "100%"}
+              height={displayMode === "youtube" ? "473" : "100%"}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -920,7 +926,7 @@ useEffect(() => {
             
               className="episodes__iframe"
               width={displayMode === "youtube" ? "100%" : "100%"}
-              height={displayMode === "youtube" ? "480" : "100%"}
+              height={displayMode === "youtube" ? "473" : "100%"}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               frameBorder="0"
               allowFullScreen
