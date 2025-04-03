@@ -246,6 +246,66 @@ const Spotlight = () => {
       })}
       className="swiper"
     >
+      <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">TV-MA</h1>
+                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/kpgbsuBLAz865wXEnAapkAtnVNB.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 3rem rgba(0, 119, 255, 0.2))'}}/>
+                
+                <div className="spotlight-content">
+                               
+                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/w500/ct4zQL0VHxww0fG0rIw4k8i9jue.png"/></h2>
+                  
+              
+      
+                  <div className="spotty">
+                  <p className="spotlight-genres">
+                    
+                    <span className="genre a">ACTION & ADVENTURE</span>
+                    <span className="genre a">ANIMATION</span>
+                    <span className="genre a">SCI-FI & FANTASY</span>
+
+                  </p>
+                  <h5 className="genre a"> TV | 03 APR 2025 </h5> <h5 className="genre a"> 83%</h5>
+                </div>
+                  
+                  <p className="spotlight-overview">When a mysterious villain threatens to open the gates of Hell, a devilishly handsome demon hunter could be the world's best hope for salvation.</p>
+                  <div className="spotty">
+                  <Button className="spotlight-watch-btn" onClick={() => navigate('/tv/235930')}><i className='bx bx-info-circle'></i> </Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick( 235930, "devil may cry" ,1 ,1)}>  <i className='bx bx-play'></i> Watch Now</Button>
+                  </div>
+                 </div>
+              </div>
+        </SwiperSlide> 
+        <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">TV-MA</h1>
+                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/xXv87ECdpvLbmHlZD7HhyyYhVMP.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 3rem rgba(132, 125, 2, 0.3))'}}/>
+                
+                <div className="spotlight-content">
+                               
+                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/original/sZQ4d6PsMVJqNhZnxAx7G3BZbQV.png"/></h2>
+                  
+              
+      
+                  <div className="spotty">
+                  <p className="spotlight-genres">
+                    
+                    <span className="genre a">ACTION & ADVENTURE</span>
+                    <span className="genre a">ANIMATION</span>
+                    <span className="genre a">SCI-FI & FANTASY</span>
+
+                  </p>
+                  <h5 className="genre a"> TV | 03 APR 2025 </h5> <h5 className="genre a"> 83%</h5>
+                </div>
+                  
+                  <p className="spotlight-overview">Backwoods bounty hunter Hub Halloran comes back from the dead with an unexpected second chance at life, love, and a nearly-forgotten musical career — only to find that his old job now has a demonic new twist..</p>
+                  <div className="spotty">
+                  <Button className="spotlight-watch-btn" onClick={() => navigate('/tv/229711')}><i className='bx bx-info-circle'></i> </Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(229711, "THE BONDSMAN" ,1 ,1)}>  <i className='bx bx-play'></i> Watch Now</Button>
+                  </div>
+                 </div>
+              </div>
+            </SwiperSlide> 
         <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">R</h1>
@@ -802,36 +862,7 @@ Big Nick is back on the hunt in Europe and closing in on Donnie, who is embroile
               </div>
             </SwiperSlide>
            
-            <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">PG</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/w1280/rRLQRYOkAPKqs2mL4IYKdntwUgr.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 3rem rgba(255, 0, 0, 0.2))'}}/>
-                
-                <div className="spotlight-content">
-                               
-                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/w500/hituKZkdeiqCpYIfsFRNUbWIVjZ.png"/></h2>
-                  
-              
-      
-                  <div className="spotty">
-                  <p className="spotlight-genres">
-                    
-                    <span className="genre a">ACTION</span>
-                    <span className="genre a">FAMILY</span>
-                    <span className="genre a">SCI-FI</span>
-
-                  </p>
-                  <h5 className="genre a"> MOVIE | 04 DEC 2024 </h5> <h5 className="genre a"> 72%</h5>
-                </div>
-                  
-                  <p className="spotlight-overview">Sonic, Knuckles, and Tails reunite against a powerful new adversary, Shadow, a mysterious villain with powers unlike anything they have faced before. With their abilities outmatched in every way, Team Sonic must seek out an  </p>
-                  <div className="spotty">
-                  <Button className="spotlight-watch-btn" onClick={() => navigate('/movie/939243')}><i className='bx bx-info-circle'></i> </Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 939243, "Sonic 3")}>  <i className='bx bx-play'></i> Watch Now</Button>
-                  </div>
-                 </div>
-              </div>
-            </SwiperSlide> 
+            
           
             
             <div className="alignerbutts2">
