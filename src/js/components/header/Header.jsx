@@ -154,7 +154,22 @@ const Header = () => {
       const data = await response.json();
       if (data.results.length > 0) {
         const randomIndex = Math.floor(Math.random() * data.results.length);
-        const randomId = data.results[randomIndex].id;
+        const randomItem = data.results[randomIndex];
+        const randomId = randomItem.id;
+        let continueWatching = JSON.parse(localStorage.getItem('ContinueWatching')) || [];
+        if (!Array.isArray(continueWatching)) {
+          continueWatching = [];
+        }
+        const foundItem = continueWatching.find(item => item.id === randomId);
+        if (!foundItem) {
+          continueWatching = [...continueWatching, {
+            id: randomItem.id,
+            category: randomItem.category,
+            title: randomItem.title,
+            poster_path: randomItem.poster_path
+          }];
+          localStorage.setItem('ContinueWatching', JSON.stringify(continueWatching));
+        }
         navigate(`/${type}/${randomId}`);
       }
     } catch (error) {
@@ -194,7 +209,7 @@ const Header = () => {
             <div className="searchmovie">
               <Input
                 type="text"
-                placeholder="What if, you searched for a movie ?"
+                placeholder="What if, you searched for a nothing ?"
                 value={searchValue}
                 onChange={handleInputChange}
               />
@@ -276,7 +291,7 @@ const Header = () => {
                         <div className="lozg" onClick={() => window.open('https://t.me/+MQUUqEx2WXA0ZmZk')}>
                           <i className='bx bxl-telegram'></i>
                         </div>
-                        <div className="lozg" onClick={() => window.open('https://discord.gg/MCt2R9gqGb')}>
+                        <div className="lozg" onClick={() => window.open('https://discord.gg/ynfvjgHrBd')}>
                           <i className='bx bxl-discord-alt'></i>
                         </div>
                         <div className="lozg" onClick={() => window.open('https://reddit.com/r/zillaXRxyz')}>
@@ -306,7 +321,7 @@ const Header = () => {
                         <div className="lozg" onClick={() => window.open('https://t.me/+MQUUqEx2WXA0ZmZk')}>
                           <i className='bx bxl-telegram'></i>
                         </div>
-                        <div className="lozg" onClick={() => window.open('https://discord.gg/MCt2R9gqGb')}>
+                        <div className="lozg" onClick={() => window.open('https://discord.gg/ynfvjgHrBd')}>
                           <i className='bx bxl-discord-alt'></i>
                         </div>
                         <div className="lozg" onClick={() => window.open('https://reddit.com/r/zillaXRxyz')}>
@@ -321,11 +336,14 @@ const Header = () => {
             </div>
           </nav>
           <div className="drccbtn" onClick={() => setShowRandom(!showrandom)}>
-            RANDOM <i className='bx bx-shuffle'></i>
+            GAMBLE <i className='bx bx-shuffle'></i>
           </div>
           {showrandom && (
             <div className="dracco" onClick={() => setShowRandom(!showrandom)}>
-              <h2 className="draccotext">Do you want to watch a random Movie or TV Show?</h2>
+              <h2 className="draccotext">Gamble on something to watch ?</h2>
+               <img className='draccopic' onClick={() => fetchRandomId("movie")} src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZm5uZW0yMjRsdjNib2dueGswNmF1bG1hZjQxMW0xdTd5dnJjYWY3dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QOXIRdZnubGlrdfsQB/giphy.gif" alt="" />
+               <img className='draccopicb' onClick={() => fetchRandomId("tv")} src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMG03MDd1aDVvdWx4cXc5bGVhcHFrY3h5bHBqcjB6cjhsZjZ1Y2NkMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0MYw2nPaMz5PnNzG/giphy.gif" alt="" />
+            
               <div className="draccocont">
                 <button className="randombtn" onClick={() => fetchRandomId("movie")} disabled={loading}>
                   {loading ? "a Random Movie " : " a Random Movie"} 
@@ -369,7 +387,7 @@ const Header = () => {
                         <div className="lozg" onClick={() => window.open('https://t.me/+MQUUqEx2WXA0ZmZk')}>
                           <i className='bx bxl-telegram'></i>
                         </div>
-                        <div className="lozg" onClick={() => window.open('https://discord.gg/MCt2R9gqGb')}>
+                        <div className="lozg" onClick={() => window.open('https://discord.gg/ynfvjgHrBd')}>
                           <i className='bx bxl-discord-alt'></i>
                         </div>
                         <div className="lozg" onClick={() => window.open('https://reddit.com/r/zillaXRxyz')}>
@@ -399,7 +417,7 @@ const Header = () => {
                         <div className="lozg" onClick={() => window.open('https://t.me/+MQUUqEx2WXA0ZmZk')}>
                           <i className='bx bxl-telegram'></i>
                         </div>
-                        <div className="lozg" onClick={() => window.open('https://discord.gg/MCt2R9gqGb')}>
+                        <div className="lozg" onClick={() => window.open('https://discord.gg/ynfvjgHrBd')}>
                           <i className='bx bxl-discord-alt'></i>
                         </div>
                         <div className="lozg" onClick={() => window.open('https://reddit.com/r/zillaXRxyz')}>
