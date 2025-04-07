@@ -48,7 +48,7 @@
    .swiper-slide {
    // z-index: 99;
     width: 100%;
-    height: 520px;
+    height: 555px;
     padding-top: .1rem;
     object-fit: contain;
     margin-bottom: 4rem !important;
@@ -73,7 +73,7 @@
       opacity: 1;
       transition: opacity 0.5s ease;
       pointer-events: none;
-      border-radius: 17px;
+      border-radius: 19px;
       z-index: 1; // Make sure it sits above the image
     }
     @include tablet {
@@ -97,7 +97,7 @@
   font-size: 1.5rem;
   transition: width .5s ease, font-size .6s ease-out;
   z-index: 99;
-  width: 800px !important;
+  width: 850px !important;
    object-fit: cover;
    &::after {
     opacity: 0;
@@ -164,10 +164,17 @@ margin-bottom: 2rem;
 
 /* Change the size and color of all bullets to a larger size */
 .swiper-pagination-bullet {
-  width: 10px;
-  height: 3px;
+  width: 15px;
+  height: 5px;
   background-color: #ffffff;
-  border-radius: 2px;
+  border-radius: 7px;
+
+  @include mobile {
+    width: 7px;
+    height: 7px;
+    background-color: #ffffff;
+    border-radius: 2px;
+  }
 }
 }
 
@@ -221,7 +228,7 @@ margin-bottom: 2rem;
 
 .spotlight-number{
   position: absolute;
-    margin-top: 2rem;
+    bottom: 6rem;
     font-size: 1.1rem;
     right: 0px;
     padding: 1rem;
@@ -230,12 +237,12 @@ margin-bottom: 2rem;
    //backdrop-filter: blur(5px);
     color: rgba(241, 241, 241, 0.63);
 
-    background-color: rgba(0, 0, 0, 0.546);
-   
+    background-color: rgba(255, 255, 255, 0.059);
     font-weight: 300;
     z-index: 10;
     @include mobile {
-      top: 1rem;
+      //top: 3rem;
+      bottom: 1rem;
         font-size: 4rem;
     }
     @include tablet {
@@ -270,7 +277,7 @@ margin-bottom: 2rem;
 }
 .spotlight-image{
     width : 100%;
-    height: 505px;
+    height: 540px;
     object-fit: cover;
     background-size: cover;
     background-position: center;
@@ -383,18 +390,21 @@ margin-bottom: 2rem;
   font-size: smaller;
   background-color: rgba(255, 255, 255, 0.064);
  // backdrop-filter: blur(10px);
+ border-radius: 5px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   font-size: small;
   font-weight: 300;
   color: white;
   transition: all .3s ease-in-out;
+  scale: .9;
+
 }
 .buttsr{
   position: absolute;
   z-index: 50 !important;
-
-  right: 10.9rem;
+  border-radius: 5px;
+  left: 3.9rem;
   bottom: 2.9rem;
   //background-color: rgba(18, 18, 18, 0.724);
   color: white;
@@ -405,25 +415,25 @@ margin-bottom: 2rem;
   //backdrop-filter: blur(10px);
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
- width: 50px;
+ width: 80px;
   font-size: small;
   font-weight: 300;
   color: white;
   transition: all .3s ease-in-out;
-
+  scale: .9;
   @include tablet {
     right: 13.4rem;
   }
 }
 .buttsr:hover{
-  scale: .9;
+  scale: 1;
   transition: all .3s ease-in-out;
   cursor: pointer;
   color: rgb(240, 11, 61);
   
 }
 .buttsl:hover{
-  scale: .9;
+  scale: 1;
   transition: all .3s ease-in-out;
   cursor: pointer;
   color: rgb(237, 31, 16);
