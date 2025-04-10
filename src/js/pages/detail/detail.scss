@@ -56,7 +56,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-       background-image: linear-gradient(180deg, rgba(127, 117, 117, 0), rgba(0, 0, 0, 0.797));
+       background-image: linear-gradient(180deg, rgba(127, 117, 117, 0), rgb(0, 0, 0));
      // background-image: linear-gradient(90deg, $black, rgba(127, 117, 117, 0));
     }
 
@@ -77,7 +77,7 @@
       } 
       border-bottom-right-radius: 20px;
       border-bottom-left-radius: 20px;
-        height: calc(100vh - 37rem);
+        height: calc(100vh - 36rem);
     }
 }
 .postertitlett{
@@ -136,9 +136,9 @@
   }
 
 }
-.trailler{
+.trailller{
   position: absolute;
-  top: 0rem ;
+  top: 0rem;
   right: 10px;
  
   display: flex;
@@ -149,7 +149,7 @@
   //transition: all .3s ease-in-out;
   @include mobile {
     position: absolute;
-    top: -35.5rem ;
+    top: -35.5rem;
     right: 3px;
   }
 }
@@ -387,8 +387,10 @@
 
     @include mobile {
         width: 100%;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
         background: linear-gradient(to top , rgba(0, 0, 0, 0.605) ,rgba(0, 0, 0, 0.313));
-        backdrop-filter: none;
+        //backdrop-filter: none;
         align-items: center;
         flex-direction: column;
         margin-bottom: 2px;
@@ -1025,11 +1027,10 @@
   gap: 10px;
  border-radius: 10px !important;
   @include mobile {
-    background-color: rgba(252, 252, 252, 0.171);
- 
     font-size: 1rem;
-    margin-bottom: .1rem;
-    padding: 11px 20px;
+    background-color: rgba(14, 14, 14, 0.322);
+    margin-bottom: 0rem;
+    padding: 15px 25px;
   }
 }
 .bx.bx-directions{
