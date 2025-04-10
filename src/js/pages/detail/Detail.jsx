@@ -460,7 +460,7 @@ const ringStyle = {
           
                     <div className="banner" style={{backgroundImage: `url(${apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)})`}}></div>
                   
-                      <div className="trailler">
+                      <div className="trailller">
 
                      <Button className='btntrailer' onClick={watchTrailer}><i class='bx bx-joystick-alt'></i>Trailer</Button>
                          {category === 'movie' && 
