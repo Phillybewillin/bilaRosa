@@ -245,7 +245,37 @@ const Spotlight = () => {
         },
       })}
       className="swiper"
-    >
+    >  
+     <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">TV-MA</h1>
+                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/lY2DhbA7Hy44fAKddr06UrXWWaQ.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 3rem rgba(6, 48, 1, 0.3))'}}/>
+                
+                <div className="spotlight-content">
+                               
+                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/w500/msYtgZbEo8tAOJ37T50kgqulpKf.png"/></h2>
+                  
+              
+      
+                  <div className="spotty">
+                  <p className="spotlight-genres">
+                    
+                    <span className="genre a">MYSTERY</span>
+                    <span className="genre a">DRAMA</span>
+                    <span className="genre a">SCI-FI</span>
+
+                  </p>
+                  <h5 className="genre a"> TV | 04 DEC 2023 </h5> <h5 className="genre a"> 83%</h5>
+                </div>
+                  
+                  <p className="spotlight-overview">Twenty years after modern civilization has been destroyed, Joel, a hardened survivor, is hired to smuggle Ellie, a 14-year-old girl, out of an oppressive quarantine zone. What starts as a small job soon becomes a brutal, heartbreaking journey, as they both .</p>
+                  <div className="spotty">
+                  <Button className="spotlight-watch-btn" onClick={() => navigate('/tv/100088')}><i className='bx bx-info-circle'></i> </Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(100088, "LOU" ,1 ,1)}>  <i className='bx bx-play'></i> Watch Now</Button>
+                  </div>
+                 </div>
+              </div>
+            </SwiperSlide>
        <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
