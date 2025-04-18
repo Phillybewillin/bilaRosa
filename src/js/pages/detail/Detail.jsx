@@ -39,7 +39,7 @@ const Detail = () => {
        setNotLoaded(false);
       }
       
-     console.log(response);
+     //console.log(response);
   }
 
  
@@ -134,7 +134,7 @@ const Detail = () => {
     if (trailer) {
       setVideos(trailer.key);
     } else {
-        toast.error('No trailer found')
+        //toast.error('No trailer found')
         setVideos(null);
        //console.log('No trailer found');
     }
@@ -446,7 +446,8 @@ const ringStyle = {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 1.5 }}
-      >
+      > 
+       
         <div className="bigman">
            {
                 item && (
