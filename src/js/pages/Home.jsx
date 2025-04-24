@@ -177,8 +177,12 @@ const mEdref = useRef(null);
 
 
     <div className="trendmovue" style={{position : 'relative' , minWidth : '200px'}}>
-    {
-          continueWatching.length > 7 && (
+    {   
+     
+          continueWatching.length > 0 && (
+            <div className="spacegia">
+                {
+          continueWatching.length > 20 && (
             <div className="alignerbutts" >
             <button className="leftgia" style={{top : '-27px'}} onClick={() => handleScrollLeft(continueWatchingRef)}>
               <i className="bx bx-left-arrow-alt" style={{fontSize : '26px'}}></i>
@@ -190,20 +194,23 @@ const mEdref = useRef(null);
             
           )
         }
-
-
-    <div className="continue_watchingcontainer" ref={continueWatchingRef}>
-        {
-          continueWatching.length > 0 && (
-            <div className="divconw">
+       <div className="divconw">
             <h4 className="favaziwwr">Recently Viewed</h4>
           <img className="backdrophome" src={apiConfig.w200Image(continueWatching[continueWatching.length - 1]?.poster_path)} alt="" />
             <i className="bx bx-history" style={{fontSize : '30px' , position : 'absolute' , right : '10px', top : '10px'}}></i>
-         
+            
         </div>
+      
+      </div>
+           
             
           )
         }
+    
+
+
+    <div className="continue_watchingcontainer" ref={continueWatchingRef}>
+        
       
         <div className="contin">
           {continueWatching.map((item) => (
