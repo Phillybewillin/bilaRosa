@@ -165,19 +165,21 @@
   background-color: #0e0e0e09;
   margin-left: .7rem;
   display: flex;
-  min-width: 50vw;
+  min-width: 60vw;
+  max-width: auto;
   overflow: hidden;
   border-radius:  15px;
   padding: 10px 1rem;
   padding-left: 3.5rem;
  // min-width: max-content;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
  // padding-left: 3.5rem;
   //flex-direction: column;
    
   @include tablet {
     //padding-left: 7rem;
+    min-width: 100%;
     margin-left: 5em;
     
   }
