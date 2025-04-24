@@ -787,8 +787,10 @@ Former high school lab partners Marshall and Frances begin to unravel a conspira
             
             </Swiper>
             <div className="conconwa">
-            {history.length > 7 && (
-      <div className="alignerbuttsco">
+            {history.length > 0 && (
+              <div className="spacegia">
+                 {history.length > 10 && (
+      <div className="alignerbutts">
       <button className="leftgia" onClick={() => handleScrollLeft(historyRef)}>
         <i className="bx bx-left-arrow-alt" style={{fontSize : '25px'}}></i>
       </button>
@@ -797,17 +799,20 @@ Former high school lab partners Marshall and Frances begin to unravel a conspira
       </button>
     </div>
       )}
-      <div className="player-history" ref={historyRef}>
-      
-
-      {history.length > 0 && (
-        <div className="divconw">
+                <div className="divconw">
           <h4 className="favaziwwr">Continue Watching</h4>
           <img className="backdrophome" src={apiConfig.w200Image(history[0]?.poster_path)} alt="" />
             <i className="bx bx-cheese" style={{fontSize : '30px' , position : 'absolute' , right : '10px', top : '10px'}}></i>
          
         </div>
+              </div>
+        
       )}
+           
+      <div className="player-history" ref={historyRef}>
+      
+
+      
 
       {history.map((item) => {
         const progress = getProgress(item);
@@ -825,19 +830,30 @@ Former high school lab partners Marshall and Frances begin to unravel a conspira
               className="player-history-item__poster"
             />
             <div className="player-history-item__info">
-              <h4 className="player-history-item__title">{item.title}</h4>
-              <div className="player-history-item__episode2">
-                <span>{item.lastSrc}</span>
+              
+              <div className="spacebtween">
+                <div className="player-history-item__title">
+                {item.title}
               </div>
+             
+              {item.seasonNumber && (
+                <div className="player-history-item__episode">
+                 
+                  <span className="player-history-item__episode-label">
+                    S{item.seasonNumber} • E{item.lastEpisode}
+                  </span>
+                </div>
+              )}
+                </div>
               {/* Progress Bar */}
               <div
                 style={{
                   background: "#ffffff4a",
                   width: "100%",
-                  height: "2.2px",
+                  height: "2.9px",
                   borderRadius: "5px",
                   overflow: "hidden",
-                  marginTop: "0.1rem",
+                  margin: "0rem .5rem",
                 }}
               >
                 <div
@@ -850,20 +866,7 @@ Former high school lab partners Marshall and Frances begin to unravel a conspira
                 ></div>
               </div>
                  
-                <div className="spacebtween">
-                <div className="player-history-item__episode">
-                    {item.seasonNumber ? "Show" : "Movie"}
-              </div>
-             
-              {item.seasonNumber && (
-                <div className="player-history-item__episode">
-                 
-                  <span className="player-history-item__episode-label">
-                    SN {item.seasonNumber} • EP {item.lastEpisode}
-                  </span>
-                </div>
-              )}
-                </div>
+               
              
             </div>
             {/* Action Icon Button to open the modal */}
@@ -871,13 +874,13 @@ Former high school lab partners Marshall and Frances begin to unravel a conspira
               className="history-item-action-btn"
               onClick={(e) => openModal(item, e)}
               style={{
-                background: "none",
+               
                 border: "none",
                 cursor: "pointer",
                 position: "absolute",
-                top: "10px",
+                top: "5px",
                 color: "white",
-                right: "10px",
+                right: "5px",
               }}
             >
               <i className="bx bx-dots-horizontal-rounded"></i>
@@ -928,6 +931,7 @@ Former high school lab partners Marshall and Frances begin to unravel a conspira
                 fontSize: "1.5rem",
                 color: "white",
                 cursor: "pointer",
+                
               }}
             >
 
@@ -941,7 +945,7 @@ Former high school lab partners Marshall and Frances begin to unravel a conspira
                 style={{ cursor: "pointer", textAlign: "center" }}
               >
                 <i className="bx bx-trash" style={{ fontSize: "2rem", color: "red" }}></i>
-                <div style={{ color: "red" , fontSize : '16px' }}>Delete</div>
+                <div style={{ color: "red" , fontSize : '16px' }}>Remove</div>
               </div>
               <div
                 className="modal-option"
