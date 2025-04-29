@@ -37,7 +37,9 @@
   //rotate: -95deg;
   filter: blur(100px) brightness(0.7) saturate(2.5);
   //background-image: linear-gradient(to top , black , red);
-
+ @include mobile {
+   display: none;
+ }
   //height: 100px;
 }
 
