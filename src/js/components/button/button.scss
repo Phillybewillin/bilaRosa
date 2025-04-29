@@ -11,9 +11,9 @@ button{
 .spotlight-watch-btn,
 .btn{
     //border: 3px solid transparent;
-    background-color: rgba(255, 255, 255, 0.185);
+    background-color: rgba(255, 255, 255, 0.066);
     color : white;
-    border-radius: 7px;
+    border-radius: 6px;
     padding: .7rem 1.8rem;
     font-size: .75rem;
     font-weight: 400;
@@ -21,10 +21,10 @@ button{
     margin-top: .5rem;
     
     @include mobile {
-      backdrop-filter: blur(15px) saturate(240%);
+      backdrop-filter: blur(4px) ;
 
-        font-size: 1rem;
-        margin-bottom: 2rem;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
         padding: 1rem 1.8rem;
         padding-left: 2.1rem;
         //padding: .3rem 1rem;
@@ -32,22 +32,22 @@ button{
 }
 .btnprime{
   //border: 3px solid transparent;
-  background-color: rgba(255, 255, 255, 0.114);
+  background-color: rgba(255, 255, 255, 0.066);
     color : white;
-    border-radius: 10px;
+    border-radius: 6px;
     padding: .7rem 1.3rem;
     padding-left: 2rem;
     font-size: .75rem;
     font-weight: 400;
     position: relative;
     margin-top: .5rem;
-    backdrop-filter: blur(5px) saturate(180%);
+    backdrop-filter: blur(5px);
 
    
 
   @include mobile {
-    font-size: 1rem;
-    margin-bottom: 2rem;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
     
     padding: 1rem 1.5rem;
     padding-left: 2.5rem;
