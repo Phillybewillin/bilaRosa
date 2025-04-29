@@ -36,15 +36,29 @@ const MovieCard = React.memo(({ item = {}, category }) => {
   }, []);
 
   // preload poster
-  useEffect(() => {
-    if (!item.poster_path) return;
-    const img = new Image();
-    img.onload = () => {
-      setBg(apiConfig.w500Image(item.poster_path));
-      setIsLoading(false);
-    };
-    img.src = apiConfig.w500Image(item.poster_path);
-  }, [item.poster_path]);
+  // lazy load poster using IntersectionObserver
+useEffect(() => {
+  const node = containerRef.current;
+  if (!node || !item.poster_path) return;
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        const img = new Image();
+        img.onload = () => {
+          setBg(apiConfig.w500Image(item.poster_path));
+          setIsLoading(false);
+        };
+        img.src = apiConfig.w500Image(item.poster_path);
+        observer.disconnect(); // only load once
+      }
+    },
+    { threshold: 0.1 }
+  );
+
+  observer.observe(node);
+  return () => observer.disconnect();
+}, [item.poster_path]);
 
   // watchlist
   useEffect(() => {
@@ -232,11 +246,11 @@ const cinemaStatus = inCinema(new Date(item.release_date || item.first_air_date)
       >
         {isLoading ? (
           <SkeletonTheme baseColor="#ffffff11" enableAnimation={false}>
-            <Skeleton
-              borderRadius={20}
-              className="movie-card"
-              style={{ width: 190, height: 270 }}
-            />
+            <div className="movie-card">
+       <Skeleton
+    style={{ width: '100%', height: '100%', borderRadius: '10px' }}
+  />
+</div>
           </SkeletonTheme>
         ) : (
           <div
