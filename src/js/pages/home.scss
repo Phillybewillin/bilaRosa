@@ -188,8 +188,8 @@
    
   @include tablet {
     //padding-left: 7rem;
-    min-width: 100%;
-    margin-left: 5em;
+    min-width: 50%;
+    margin-left: 2.2rem;
     
   }
   @include mobile {
@@ -390,8 +390,13 @@
   //padding: 5px;
   scrollbar-color: #1a1a1a00 #00000000;
   scroll-behavior: auto;
-
+   
   @include tablet {
+    padding-left: 5rem;
+    margin-bottom: .5rem;
+  }
+
+  @include mobile {
     padding-left: 0;
     margin-bottom: .5rem;
   }
@@ -620,6 +625,10 @@
   scrollbar-color: #1a1a1a00 #00000000;
   scroll-behavior: auto;
   @include tablet {
+    padding-left: 3rem;
+    margin-bottom: 1.5rem;
+  }
+  @include mobile {
     padding: .3rem;
     margin-bottom: 1.5rem;
   }
