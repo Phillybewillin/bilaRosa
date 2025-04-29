@@ -980,7 +980,7 @@
   
   -webkit-backdrop-filter: blur(4px);
 }
-@keyframes slideDown {
+@keyframes slideDownvideomodal {
   0% {
     transform: translateY(-100px);
     opacity: 0;
@@ -998,7 +998,7 @@
   border-radius: 18px;
   border: none;
   background-color: #0000006e;
-  animation: slideDown 0.4s ease-out;
+  animation: slideDownvideomodal 0.4s ease-out;
 
   @include mobile {
     width: 100%;
