@@ -17,6 +17,7 @@ import disney from '../../assets/disney.png';
 import max from '../../assets/max.png';
 import { toast } from "react-toastify";
 import Button from "../button/Button";
+import MovieCard from "../movie-card/MovieCard";
 const BoxOffice = () => {
     const navigate = useNavigate();
 
@@ -24,9 +25,9 @@ const BoxOffice = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [showCount, setShowCount] = useState(100);
-    const [networkid ,setNetworkid] = useState(2552);
-    const [nettitle, setNettitle] = useState('Apple Tv+');
-    const [backdrop, setBackdrop] = useState(apple);
+    const [networkid ,setNetworkid] = useState(213);
+    const [nettitle, setNettitle] = useState('Netflix');
+    const [backdrop, setBackdrop] = useState(netflix);
     // Your TMDB API key
     const API_KEY = import.meta.env.VITE_TMDB_API_KEY; 
     const {user} = UserAuth();
@@ -87,12 +88,12 @@ const BoxOffice = () => {
         //console.log('response', response.data.results);
         setShows((prevShows) => {
           const newShows = [...prevShows, ...response.data.results.filter((show) => Boolean(show.poster_path) && Boolean(show.vote_average))];
-          console.log('new shows',newShows);
+         // console.log('new shows',newShows);
           return newShows;
         });
         //setShows((prevShows) => [...prevShows, ...response.data.results]);
         //setShowCount((prevShowCount) => prevShowCount + response.data.results.length);// Update showCount to include new results
-        console.log('arr',showCount ,pagecount);
+        //console.log('arr',showCount ,pagecount);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -114,72 +115,10 @@ const handleShowMoreClick = () => {
 
   
     
-    useEffect(() => {
-      if (selectedItem) {
-       // console.log('selected item', selectedItem)
-        checkIfInWatchlist(user?.uid, selectedItem?.id).then((data) => {
-          setWatchlistStatus((prevStatus) => ({ ...prevStatus, [selectedItem.id]: data }));
-        });
-      }
-    }, [user , selectedItem ,watchlistStatus ]);
+
 
    
-    // Display loading, error, or the list of shows
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
-    const saveShow = async (show) => {
-     
-        if (!user) {
-          toast.error("Please login to add to your watchlist");
-          return;
-        }
     
-        const data = {
-          id: show?.id,
-          title: show?.title || show?.name,
-          category: 'tv',
-          poster_path: show?.poster_path,
-          release_date: show?.release_date || show?.first_air_date,
-          vote_average: show?.vote_average,
-          //overview: details?.overview,
-        };
-    
-        const dataId = show?.id?.toString();
-        await addToWatchlist(user?.uid, dataId, data);
-        const isSetToWatchlist = await checkIfInWatchlist(user?.uid, dataId);
-        setIsInWatchlist(isSetToWatchlist);
-      };
-
-      const getColor = (votePercentage) => {
-        if (votePercentage === null || votePercentage === undefined) {
-          return 'gray'; // or some other default color
-        }
-        if (votePercentage >= 86) {
-            return 'magenta';
-        } else if (votePercentage >= 72) {
-            return 'rgb(8, 164, 0)';
-        } 
-        else if (votePercentage >= 55) {
-            return 'rgb(150, 135, 0)';
-        } else {
-          return 'red';
-        }
-            
-       
-  
-    }
-    const handleCardClick = (id, category, title, poster_path) => {
-      let continueWatchingList = JSON.parse(localStorage.getItem('ContinueWatching')) || [];
-      if (!Array.isArray(continueWatchingList)) {
-        continueWatchingList = [];
-      }
-      const foundItem = continueWatchingList.find((item) => item.id === id);
-      if (!foundItem) {
-        continueWatchingList = [...continueWatchingList, { id, category, title, poster_path }];
-        localStorage.setItem('ContinueWatching', JSON.stringify(continueWatchingList));
-      }
-      navigate(`/${category === 'tv' ? 'tv' : 'movie'}/${id}`);
-    };
     const scrollToTop = () => {
       window.scrollTo({ top: 1500, behavior: 'smooth' });
     };
@@ -288,36 +227,9 @@ const handleShowMoreClick = () => {
             <div className="boxoffice__lis">
   
     {shows && shows.map((show , s ) => (
-      <div key={show.id + s} className="boxoffice__list"   >
-       <img className="posterpp" src={apiConfig.w200Image(show.poster_path)} alt="Netflix" onClick={() => handleCardClick(show.id, 'tv' , show.title || show.name, show.poster_path)}/> 
-        <h4 className="boxoffice__movie" onClick={() => handleCardClick(show.id, 'tv' , show.title || show.name, show.poster_path)} >{show.name || show.title}</h4>
-        <p className="overviewboxoff">{show.overview}</p>
-         <button
-    //tabIndex={0}
-    className="boxofficerz"
-    onClick={() => {
-      saveShow(show);
-      setSelectedItem(show);
-    }}
-  >
-    <p
-      style={{
-        cursor: "pointer",
-        color: watchlistStatus[show.id] ? "aqua" : "rgba(255, 255, 255, 0.549)",
-      }}
-    >
-      {watchlistStatus[show.id] ? (
-        <i className="bx bxs-bookmark-plus" style={{ fontSize: "19px" }}></i>
-      ) : (
-        <i className="bx bx-bookmark-plus" style={{ fontSize: "18px" }}></i>
-      )}
-    </p>
-  </button>
-  <p className="boxofficera" style={{ border: getColor(show.vote_average * 10) ,
-  background: `linear-gradient(to top, ${getColor(show.vote_average * 10)} ${show.vote_average * 10}%,rgba(255, 255, 255, 0) 0)`
-}}>
-  {show.vote_average.toFixed(1)}
-</p>
+      <div key={show.id + s} className="boxoffice__list">
+        <MovieCard category={'tv'} item={show} />
+   
       </div>
     ))}
   
