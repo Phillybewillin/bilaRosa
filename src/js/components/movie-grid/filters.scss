@@ -17,7 +17,7 @@
     }
     @include tablet {
         padding: .5rem;
-        margin-left: 0;
+        margin-left: 4rem;
     }
 }
 .filename {
@@ -177,15 +177,21 @@
 
 .movie-gridk{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
     align-items: center;
     gap: 8px;
     
     
 
     @include tablet {
-        grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr));
-        left: 0;
+        padding: 0rem;
+       display: flex;
+       gap: 1rem;
+       //flex-direction: column;
+       flex-wrap: wrap;
+       align-items: center;
+       justify-content: center;
+       
     }
 
     @include mobile {
