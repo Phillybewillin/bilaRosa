@@ -1,12 +1,155 @@
 @use '../../scss/' as *;
 
 
+
+
+
+.movie-card-container {
+  position: relative;
+  height: auto;
+  display: inline-block;
+  overflow: visible;  // ensure modal isn't clipped
+}
+
+
+
+
+
+
+.movie-modal {
+  position: absolute;
+  width: 330px;
+  height: 250px;
+  //transform: translate(-56%, 0%);
+  background: #000000b9;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+  z-index: 1000 !important;
+  overflow: hidden;
+  // opacity: 0;
+  //transform: scale(0.9);
+  //animation: modalIn 0.25s ease-out forwards;
+
+  
+ 
+
+  img {
+    width: 100%;
+    height: 70%;
+    display: block;
+    object-fit: cover;
+  }
+  h2{
+    position: absolute;
+    bottom: 5rem;
+    filter: drop-shadow(-2px 4px 5px rgb(0, 0, 0));
+
+    @include mobile {
+      font-size: 3rem;
+      bottom: 12rem;
+    }
+  }
+
+  .modaldetails {
+    padding: 16px;
+    color: #fff;
+
+    .modal-row {
+      //position: absolute;
+      top: -5px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 1px;
+      @include mobile {
+      top: 2px;
+      margin-bottom: 2rem;
+      }
+      &.controls {
+        position: relative;
+
+        .icon-btn {
+          background: none;
+          border: 3px solid #ffffff9d;
+          border-radius: 50%;
+          color: white;
+          cursor: pointer;
+          scale: 1.2;
+          font-size: 1.2rem;
+          margin-right: 12px;
+          padding: 4px;
+
+          @include mobile {
+            scale: 1.7;
+            margin-right: 2rem;
+          }
+
+          &:hover {
+            border-color: #fff;
+          }
+
+          &.play-btn {
+            scale: 1.2;
+            background-color: #fff;
+            color: #141414;
+            @include mobile {
+              scale: 1.7;
+             
+            }
+            &:hover {
+              //opacity: 0.8;
+              border-color: black;
+            }
+          }
+
+          &.close-btn {
+            position: absolute;
+            right: -10px;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            top: 5px;
+            color: #fff;
+          }
+        }
+      }
+
+      &.info {
+        gap: 5px;
+        span {
+          margin-right: 1px;
+          font-size: 0.8rem;
+          font-weight: 500;
+          @include mobile {
+            font-size: 1.2rem;
+            //margin-right: 2rem;
+          }
+        }
+        
+      }
+
+      &.extra {
+        margin-top: -1.4rem;
+        /* Placeholder for future content */
+        .overviewmodal{
+          text-overflow: ellipsis;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          line-clamp: 2;
+          box-orient: vertical;
+        }
+      }
+    }
+  }
+}
 .movie-card {
   cursor: pointer;
   display: inline-block;
-  width: 190px;
-  height: 270px;
-overflow: hidden;
+  width: 170px;
+  height: 250px;
+  overflow: hidden;
   //margin-left:3px;
     position: relative !important;
     background-position: center;
@@ -15,25 +158,12 @@ overflow: hidden;
    // padding-top: 132%;
     //height: 330px;
     //margin: .2rem;
-    border-radius: 20px;
+    border-radius: 10px;
     transition: all .5s ease-in-out;
     
     //transition: padding .5s ease-in-out;
     
-    .inCinema{
-        display: flex;
-        align-items: center;
-        position: absolute;
-        top: 1px;
-        z-index: 0;
-        right: 1px;
-        background-color: rgba(33, 19, 22, 0.662);
-        padding:  8px;
-        border-radius: 0px 20px 0px 10px;
-        font-size: 10px;
-        font-weight: 300;
-        //color: white;
-    }
+   
     .catz{
       display: flex;
       position: absolute;
@@ -129,7 +259,7 @@ overflow: hidden;
             opacity: 1;
             transition: opacity 1s ease;
            // border: 2px solid $main-bg;
-           border-radius: 20px;
+           //border-radius: 20px;
         
         }
         .btnz{
@@ -153,8 +283,8 @@ overflow: hidden;
            // padding-top: 2rem;
             z-index: inherit;
             opacity: 1;
-            border-radius: 20px;
-            backdrop-filter: blur(20px);
+           // border-radius: 20px;
+            //backdrop-filter: blur(20px);
             transition: all .2s ease-in-out;
         }
 
@@ -180,6 +310,13 @@ overflow: hidden;
        }
 
     }
+
+    @include mobile{
+      width: 120px;
+      height: 180px;
+    }
+
+   
 }
 
 .infomovie{
@@ -270,4 +407,239 @@ overflow: hidden;
  
   }
     
+}
+.movie-card-container {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+}
+
+/* Backdrop */
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 900;
+}
+
+/* Animations */
+@keyframes modalIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// movie-card.scss
+.movie-card-container {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.158);
+  z-index: 900;
+}
+
+/* Animations */
+@keyframes slideUp {
+  0% { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+@keyframes slideDown {
+  0% { transform: translateY(0);    opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+/* Bloom-in: scale from 0 to 1, slight overshoot, no opacity */
+@keyframes bloomIn {
+  0% {
+   transform: scale(0);
+    //border-radius: 50%;
+  }
+  60% {
+    //transform: scale(1.1);   /* overshoot for elasticity */
+    border-radius: 14px;
+  }
+  100% {
+    transform: scale(1);
+    border-radius: 10px;
+  }
+}
+
+/* Bloom-out: reverse the effect */
+@keyframes bloomOut {
+  0% {
+    transform: scale(1);
+    border-radius: 20px;
+  }
+  60% {
+    //transform: scale(1.1);   /* overshoot for elasticity */
+    border-radius: 14px;
+  }
+  100% {
+    transform: scale(0);
+    border-radius: 50%;
+  }
+}
+
+
+/* Base modal */
+.movie-modal {
+  z-index: 1000 !important;
+  overflow: hidden;
+  background: #000000cd;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  /* Desktop bloom-in */
+  &:not(.mobile) {
+    position: absolute;
+    
+    transform-origin: bottom ;
+    animation: bloomIn .3s ease-out forwards;
+  }
+
+  /* Desktop bloom-out */
+  &:not(.mobile) {
+    animation: bloomIn 0.3s ease-out forwards;
+  }
+
+  &.closing:not(.mobile) {
+    animation: bloomOut 0.3s ease-in forwards;
+  }
+
+  /* Mobile bottom sheet (unchanged) */
+  &.mobile {
+    position: fixed;
+    bottom: 0; left: 0;
+    width: 100%; height: 50vh;
+    border-radius: 15px 15px 0 0;
+    transform: translateY(100%);
+    animation: slideUp 0.35s ease-out forwards;
+
+    &.closing {
+      animation: slideDown 0.35s ease-in forwards;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 70%;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+  }
+
+  h2 {
+    position: absolute;
+    bottom: 5rem;
+    filter: drop-shadow(-2px 4px 5px rgba(0,0,0,0.8));
+    @include mobile {
+      font-size: 3rem;
+      bottom: 12rem;
+    }
+  }
+
+  .modaldetails {
+    padding: 16px;
+    color: #fff;
+
+    .modal-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1px;
+      @include mobile {
+        margin-bottom: 2rem;
+      }
+
+      &.controls {
+        position: relative;
+
+        .icon-btn {
+          background: none;
+          border: 3px solid rgba(255,255,255,0.6);
+          border-radius: 50%;
+          color: #fff;
+          cursor: pointer;
+          font-size: 1.2rem;
+          margin-right: 12px;
+          padding: 4px;
+          scale: 1.2;
+          @include mobile {
+            scale: 1.7;
+            margin-right: 2rem;
+          }
+
+          &:hover { border-color: #fff; }
+
+          &.play-btn {
+            background: #fff;
+            color: #141414;
+            scale: 1.2;
+            @include mobile { scale: 1.7; }
+          }
+
+          &.close-btn {
+            position: absolute;
+            right: -10px;
+            top: 2px;
+
+            border-color: #890000bb;
+            @include mobile { top: 5px; }
+            &:hover { border-color: #f00000; transform: rotateY(180deg);}
+          }
+        }
+      }
+
+      &.info {
+        gap: 5px;
+        span {
+          font-size: 0.8rem;
+          font-weight: 500;
+          @include mobile { font-size: 1.2rem; }
+        }
+        .inCinema{
+          display: flex;
+          align-items: center;
+         
+          background-color: rgba(255, 255, 255, 0.091);
+          padding:  8px;
+          border-radius: 10px 10px 0px 0px;
+          font-size: .8rem;
+          font-weight: 300;
+          //color: white;
+      }
+      }
+
+      &.extra {
+        margin-top: -1.4rem;
+        .overviewmodal {
+          display: -webkit-box;
+          line-clamp: 2;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      }
+    }
+  }
 }
