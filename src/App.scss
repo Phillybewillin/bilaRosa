@@ -21,7 +21,7 @@ html {
   }
 
   @include mobile {
-    font-size: 60%;
+    font-size: 65%;
   }
 }
 
@@ -41,7 +41,7 @@ body {
   font-family: $font-family;
   //background: linear-gradient(to right, rgb(3, 3, 3), rgb(8, 8, 8));
    color: white;
-    background-color: #070707;
+    background-color: #000000;
 }
 
 a {
