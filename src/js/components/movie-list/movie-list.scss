@@ -20,8 +20,8 @@
    font-size: smaller;
    background-color: rgba(255, 255, 255, 0.105);
    
-   border-top-right-radius: 5px;
-   border-bottom-right-radius: 5px;
+   border-top-right-radius: 2px;
+   border-bottom-right-radius: 2px;
    font-weight: 200;
    transition: all .3s ease-in-out;
    //backdrop-filter: blur(10px);
@@ -41,8 +41,8 @@
    // border-right: 1px solid rgba(233, 233, 233, 0.644);
    font-size: smaller;
    background-color: rgba(255, 255, 255, 0.105);
-   border-top-left-radius: 5px;
-   border-bottom-left-radius: 5px;
+   border-top-left-radius: 2px;
+   border-bottom-left-radius: 2px;
    font-weight: 200;
    transition: all .3s ease-in-out;
    //backdrop-filter: blur(10px);
@@ -82,29 +82,31 @@
 }
 .boxoffice__title{
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1rem;
     padding: 10px;
     border-bottom: .5px solid transparent;
-    border-image: linear-gradient(to left, rgb(0, 211, 248), rgb(206, 60, 133)) 1;
+    //border-image: linear-gradient(to left, rgb(0, 211, 248), rgb(206, 60, 133)) 1;
     color: rgba(255, 255, 255, 0.92);
-    font-weight: 200;
+    font-weight: 300;
 
 }
 .boxoffice{
     background-color: rgb(0, 0, 0);
     color: rgba(255, 255, 255, 0.92);
-    border-radius: 10px;
-    width: 96%;
+    //border-radius: 25px;
+    width: 94.5%;
     height: 100%;
     overflow: hidden;
     margin: .5rem 0 ;
-    margin-left: 3rem;
+    margin-left: 4rem;
     font-size: .85rem;
-    //position: relative;
+     //position: relative;
     //border-left: 1px solid rgba(233, 233, 233, 0.644);
    // padding: .5rem;
     @include mobile {
+        width: 100%;
         margin-left: 0;
+        border-radius: 0px;
        // overflow: auto;
      font-size: 1rem;
     }
@@ -123,7 +125,7 @@
     margin-bottom: 1rem;
     //background-color: rgba(15, 15, 15, 0.08);
     color: rgb(168, 168, 168);
-    border-radius: 5px;
+    border-radius: 2px;
     font-size: 2.4rem;
     font-weight: 700;
 
@@ -154,7 +156,7 @@
    //background-color: rgb(186, 0, 93);
     color: rgba(199, 199, 199, 0.692);
     font-weight: 300;
-    border-radius: 6px;
+    border-radius: 2px;
     //width: 100%;
 }
 
@@ -167,12 +169,12 @@
    // background-color: rgb(186, 0, 93);
     color: rgba(199, 199, 199, 0.692);
     font-weight: 300;
-    border-radius: 6px;
+    border-radius: 2px;
     //width: 100%;
 }
 .posterpp{ max-width: 100px;
     height: 120px;
-    border-radius: 10px;
+    border-radius: 20px;
 
     &:hover{
         filter: grayscale(20)
@@ -188,20 +190,47 @@
    // background-color: rgb(186, 0, 93);
     color: rgba(100, 100, 100, 0.692);
     font-weight: 300;
-   // border-radius: 6px;
+   // border-radius: 2px;
     //width: 100%;
 }
 .blurr{
     //border-radius: 20px;
-    backdrop-filter: blur(105px);
-    background-color: #050505b0;
+    backdrop-filter: blur(105px) saturate(150%) brightness(50%);
+    //background-color: #05050500;
+    background-image: linear-gradient(to bottom, #000000, #20202000 , #000000);
+   
     width: 100%;
     height: 100%;
-    padding: .5rem;
+    padding: 1rem .2rem;
 }
 .boxoffice__poster{ max-width: 100px;
     height: 150px;
-    //border-radius: 10px;
+    //border-radius: 20px;
+}
+.boxoffice__lis{
+    width: 100%;
+    //background: #0000006d;
+    border-radius: 20px;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap:wrap;
+   // gap: -10rem;
+    overflow: auto;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    
+    @include tablet {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        width: auto;
+        overflow: auto;
+    }
+    padding: .5rem;
+    
 }
 .boxoffice__list{
     display: flex;
@@ -209,19 +238,17 @@
     flex-direction: row;
     //flex-wrap:;
     justify-content: space-between;
-    gap: 1rem;
+    //gap: 1rem;
     padding: .5rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    border-bottom: .5px solid rgba(255, 255, 255, 0.112);
+    // border-bottom: .5px solid rgba(255, 255, 255, 0.112);
 }
 .watchprov{
-    padding: 10px 0;
+    padding: 7px 0;
     display: flex;
     //flex-direction: column;
-  //  flex-wrap: wrap;
+  flex-wrap: wrap;
     overflow: auto;
-   //justify-content: end;
+   justify-content: center;
    -ms-overflow-style: none;  /* IE and Edge */
    scrollbar-width: none;  /* Firefox */
    &::-webkit-scrollbar {
@@ -255,14 +282,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-     min-width: 100px;
+    min-width: 100px;
     height: 70px;
     margin: 5px;
     cursor: pointer;
     //color: red;
     background-color: #070707;
     padding:  10px;
-    border-radius: 10px ;
+    border-radius: 20px ;
 
 }
 
@@ -282,7 +309,7 @@
             #eec0f5 90%
         );
     padding:  10px;
-    border-radius: 10px;
+    border-radius: 20px;
 
 }
 .apple{
@@ -294,7 +321,7 @@
     cursor: pointer;
     background-image: linear-gradient(to bottom, #000000, #202020);
     padding: 10px;
-    border-radius: 10px ;
+    border-radius: 20px ;
 }
 .hbo{
     display: flex;
@@ -305,7 +332,7 @@
     margin: 5px;
     background-color: rgb(0, 0, 0);
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 20px;
   
 }
 .hulu{
@@ -318,7 +345,7 @@
     //color: #08EF87;
     background-image: linear-gradient(to bottom, #000000, #142E3B);
     padding: 10px;
-    border-radius: 10px ;
+    border-radius: 20px ;
    
 }
 .showtime{
@@ -331,7 +358,7 @@
     //color: rgb(0, 0, 0);
     background-color: rgba(255, 255, 255, 0.858);
     padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 20px;
   
 }
 .prime{
@@ -344,7 +371,7 @@
     //color: rgb(255, 255, 255);
     background-image: linear-gradient(220deg, #2385a0, #001838);
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 20px;
  
 }
 .disney{
@@ -357,7 +384,7 @@
     //color: #e3e9f6;
     background-image: linear-gradient(to top, #00919E, #002132);
     padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 20px;
     
 }
 .comedyc{
@@ -371,7 +398,7 @@
     //color: rgb(0, 0, 0);
     background-color: rgba(255, 255, 255, 0.858);
     padding: 10px 5px;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 .fox{
     display: flex;
@@ -384,7 +411,7 @@
     //color: rgb(0, 0, 0);
     background-color: rgba(255, 255, 255, 0.858);
     padding: 10px 5px;
-    border-radius: 10px;
+    border-radius: 20px;
    
 }
 .fx{
@@ -398,7 +425,7 @@
     //color: rgb(0, 0, 0);
     background-color: rgba(255, 255, 255, 0.858);
     padding: 10px 5px;
-    border-radius: 10px;
+    border-radius: 20px;
    
 }
 .paramount{
@@ -411,14 +438,14 @@
     //color: rgb(0, 0, 0);
     background-color: rgba(255, 255, 255, 0.858);
     padding: 10px 5px;
-    border-radius: 10px;
+    border-radius: 20px;
     
 }
 
 .boxoffice__titlecat{
     background-color: #000000bf;
     padding: 10px 26px;
-    border-radius: 7px;
+    border-radius: 2px;
     font-size: small;
     cursor: pointer;
     font-weight: 300;
@@ -433,7 +460,7 @@
 
 .boxoffice__button{
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 20px;
     background-color: rgba(10, 10, 10, 0.329);
     color: rgba(255, 251, 251, 0.831);
     font-weight: 200;
@@ -499,7 +526,7 @@
     top: 5px;
     left: 0;
     z-index: 1;
-    border-radius: 0 10px 10px 0px;
+    border-radius: 2 10px 10px 0px;
 }
 .betting_img1{
     width: 90%;
@@ -510,7 +537,7 @@
     @include mobile {
         width: 60%;
     }
-    //border-radius: 10px;
+    //border-radius: 20px;
 }
 .win{
     position: absolute;
@@ -555,6 +582,17 @@
     font-weight: 400;
     font-size: .9rem;
     padding-right: 4px;
+}
+.zest{
+    height: 250px;
+    gap: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    @include mobile {
+        height: 80px;
+    }
 }
 .overviewboxoff{
     position: absolute;
