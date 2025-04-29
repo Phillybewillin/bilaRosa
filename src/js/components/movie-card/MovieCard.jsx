@@ -1,193 +1,319 @@
-import React, { useState , useEffect } from 'react';
+// MovieCard.jsx
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './movie-card.scss';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import apiConfig from "../../api/apiConfig";
-import {UserAuth} from "../../context/AuthContext";
-import {db} from "../../Firebase";
-import { useFirestore } from "../../Firestore";
-import{arrayUnion , doc , updateDoc , setDoc} from "firebase/firestore";
-import 'react-toastify/dist/ReactToastify.css';
+import apiConfig from '../../api/apiConfig';
+import { UserAuth } from '../../context/AuthContext';
+import { useFirestore } from '../../Firestore';
 import { toast } from 'react-toastify';
-import Skeleton , { SkeletonTheme } from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
-import { addDoc, collection } from "firebase/firestore"; 
-import { category } from '../../api/tmdbApi';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 
-const MovieCard = React.memo((props) => {
-    const {user} = UserAuth();
-    const { addToWatchlist, checkIfInWatchlist  } = useFirestore();
- 
-    const [saved , setSaved] = useState(false);
+const MovieCard = React.memo(({ item = {}, category }) => {
+  const { user } = UserAuth();
+  const { addToWatchlist, checkIfInWatchlist } = useFirestore();
+  const navigate = useNavigate();
 
-    const item = props.item  // Add a fallback empty object if item is undefined
+  const containerRef = useRef(null);
+  const modalRef     = useRef(null);
+  const touchStartY = useRef(null);
 
-    const [isInWatchlist, setIsInWatchlist] = useState(false);
-     const releaseYear = item?.release_date || item?.first_air_date;
-    const year = (new Date(releaseYear)).getFullYear();
-    //console.log(year);
-    //const movieDoc = doc(db , 'users' ,  `${user?.email}`);
-    const saveShow = async (event) => {
-      event.preventDefault();
-      event.stopPropagation();
+  // state
+  const [isLoading, setIsLoading]         = useState(true);
+  const [bg, setBg]                       = useState(null);
+  const [isInWatchlist, setIsInWatchlist] = useState(false);
+  const [showModal, setShowModal]         = useState(false);
+  const [isClosing, setIsClosing]         = useState(false);
+  const [modalPos, setModalPos]           = useState({ top: 0, left: 0 });
+  const [isMobile, setIsMobile]           = useState(window.innerWidth < 1000);
 
-        if (!user) {
-          toast.error('Please log in to save a movie');
-          return;
-        }
+  // viewport
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 1000);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  // preload poster
+  useEffect(() => {
+    if (!item.poster_path) return;
+    const img = new Image();
+    img.onload = () => {
+      setBg(apiConfig.w500Image(item.poster_path));
+      setIsLoading(false);
+    };
+    img.src = apiConfig.w500Image(item.poster_path);
+  }, [item.poster_path]);
+
+  // watchlist
+  useEffect(() => {
+    if (!user) return setIsInWatchlist(false);
+    checkIfInWatchlist(user.uid, item.id).then(setIsInWatchlist);
+  }, [user, item, checkIfInWatchlist]);
+
+  // handle close (with mobile animation)
+  const triggerClose = () => {
     
-        const data = {
-          id: item?.id,
-          title: item?.title || item?.name,
-          category: props.category,
-          poster_path: item?.poster_path,
-          release_date: item?.release_date || item?.first_air_date,
-          vote_average: item?.vote_average,
-          //overview: details?.overview,
-        };
-    
-        const dataId = item?.id?.toString();
-        await addToWatchlist(user?.uid, dataId, data);
-        const isSetToWatchlist = await checkIfInWatchlist(user?.uid, dataId);
-        setIsInWatchlist(isSetToWatchlist);
-      };
-    
-      useEffect(() => {
-        if (!user) {
-          setIsInWatchlist(false);
-          return;
-        }
-    
-        checkIfInWatchlist(user?.uid, item?.id).then((data) => {
-          setIsInWatchlist(data);
-        });
-      }, [item, user, checkIfInWatchlist]);
-    
-    const navigate = useNavigate();
+      setIsClosing(true);
+      setTimeout(() => {
+        setIsClosing(false);
+        setShowModal(false);
+      }, 250);
+   
+  };
 
-    const handlecardClick = (id,category, title, poster_path) => {
-        let continueWatching = JSON.parse(localStorage.getItem('ContinueWatching')) || [];
-        if (!Array.isArray(continueWatching)) {
-            continueWatching = [];
-        }
-        const foundItem = continueWatching.find(item => item.id === id);
-        if (!foundItem) {
-            continueWatching = [...continueWatching, {id,category, title, poster_path }];
-            localStorage.setItem('ContinueWatching' , JSON.stringify(continueWatching));
-            //console.log(continueWatching);
-        }
-        navigate(`/${category}/${id}`);
+  // ESC to close
+  useEffect(() => {
+    if (!showModal) return;
+    const onKey = (e) => { if (e.key === 'Escape') triggerClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [showModal, isMobile]);
+
+  // lock scroll on mobile
+  useEffect(() => {
+    if (showModal && isMobile) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => { document.body.style.overflow = prev; };
     }
-    const inCinema = (releaseDate) => {
-        const today = new Date();
-        const threeWeeksAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate() - (4 * 7));
-        if (props.category === 'movie') {
-            if (releaseDate < today) {
-                return releaseDate > threeWeeksAgo ? '  In Cinema' : '';
-            }
-            else{
-                return 'Coming Soon';
-            }
+  }, [showModal, isMobile]);
+
+  // swipe-down to close on mobile
+  const onTouchStart = (e) => {
+    touchStartY.current = e.touches[0].clientY;
+  };
+  const onTouchMove = (e) => {
+    if (touchStartY.current == null) return;
+    const deltaY = e.touches[0].clientY - touchStartY.current;
+    if (deltaY > 40) {
+      touchStartY.current = null;
+      triggerClose();
+    }
+  };
+
+  // save watchlist
+  const saveShow = async (e) => {
+    e.stopPropagation();
+    if (!user) {
+      toast.error('Please log in to save a movie');
+      return;
+    }
+    await addToWatchlist(user.uid, item.id.toString(), {
+      id: item.id,
+      title: item.title || item.name,
+      category,
+      poster_path: item.poster_path,
+      release_date: item.release_date || item.first_air_date,
+      vote_average: item.vote_average,
+    });
+    const inList = await checkIfInWatchlist(user.uid, item.id);
+    setIsInWatchlist(inList);
+  };
+
+  // details
+  const goToDetails = (id,category, title, poster_path) => {
+    let continueWatching = JSON.parse(localStorage.getItem('ContinueWatching')) || [];
+    if (!Array.isArray(continueWatching)) {
+        continueWatching = [];
+    }
+    const foundItem = continueWatching.find(item => item.id === id);
+    if (!foundItem) {
+        continueWatching = [...continueWatching, {id,category, title, poster_path }];
+        localStorage.setItem('ContinueWatching' , JSON.stringify(continueWatching));
+        //console.log(continueWatching);
+    }
+    navigate(`/${category}/${id}`);
+}
+const inCinema = (releaseDate) => {
+    const today = new Date();
+    const threeWeeksAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate() - (4 * 7));
+    if (category === 'movie') {
+        if (releaseDate < today) {
+            return releaseDate > threeWeeksAgo ? '  In Cinema' : '';
         }
-        return '';
+        else{
+            return 'Coming Soon';
+        }
     }
-    const cinemaStatus = inCinema(new Date(item.release_date || item.first_air_date));
-    const [isLoading, setIsLoading] = useState(true);
-    const [bg, setBg] = useState(null);
-  
-    React.useEffect(() => {
-      if (item?.title !== 'Conclave') {
-        const img = new Image();
-        img.onload = () => {
-          setIsLoading(false);
-          setBg(apiConfig.w500Image(item.poster_path)); // Set the bg state variable using the apiConfig.w500Image function
-        };
-        img.src = apiConfig.w200Image(item.poster_path);
-      } else {
-        setIsLoading(false);
-      }
-    }, [item.poster_path]);
-    if (item?.title === 'Conclave') {
-      return null;
-    }
+    return '';
+}
 
-    const voteAverage = item.vote_average; // example vote average
-    const votePercentage = voteAverage * 10; // convert to percentage
+const cinemaStatus = inCinema(new Date(item.release_date || item.first_air_date));
+  const onCardClick = () => {
+    if (isMobile) setShowModal(true);
+    else goToDetails();
+  };
 
-    const getColor = (votePercentage) => {
-      if (votePercentage >= 86) {
-        return '#9b59b6'; // Royal Purple for the best of the best
-      } else if (votePercentage >= 70) {
-        return '#2ecc71'; // Emerald Green for 70 and above
-      } else if (votePercentage >= 60) {
-        return '#f1c40f'; // Sunflower Yellow for 60 and above
-      } else if (votePercentage >= 55) {
-        return '#e67e22'; // Carrot Orange for 55 and above
-      } else {
-        return '#e74c3c'; // Red for lower ratings
-      }
-          
-     
-  
-  }
+  // player
+  const handlePlayer = (id, name, type) => {
+    if (!id || !name) return;
+    const detailslug = encodeURIComponent(name.trim().replace(/ /g, "-").toLowerCase());
+    const path = `/watch/${detailslug}/${id}${type === 'tv' ? '/1/1' : ''}`;
+    navigate(path);
+  };
 
-  
-    //console.log(`${votePercentage}%`); // output: 74%
-  
-    return (
-        <>
-        <div>
-        
+  const showTimerRef = useRef(null);
+ const hideTimerRef = useRef(null);
+
+  // cleanup timers on unmount
+  useEffect(() => {
+    return () => {
+     clearTimeout(showTimerRef.current);
+     clearTimeout(hideTimerRef.current);
+    };
+  }, []);
+
+  // hover desktop
+  const handleMouseEnter = () => {
+       if (!containerRef.current || isMobile) return;
+       // cancel any pending hide
+       clearTimeout(hideTimerRef.current);
+       // schedule show
+       showTimerRef.current = setTimeout(() => {
+         const rect = containerRef.current.getBoundingClientRect();
+         const modalW = 300;
+         let leftOffset = rect.width - 170;
+         if (rect.left + rect.width + modalW + 10 > window.innerWidth) {
+           leftOffset = -modalW + 145;
+         }
+         setModalPos({ top: 0, left: leftOffset });
+         setShowModal(true);
+       }, 150);
+     };
+    
+     const handleMouseLeave = (e) => {
+       if (isMobile) return;
+       const to = e.relatedTarget;
+       // still within card or modal? bail out
+       if (
+         containerRef.current.contains(to) ||
+         (modalRef.current && modalRef.current.contains(to))
+       ) {
+         return;
+       }
+       // cancel any pending show
+       clearTimeout(showTimerRef.current);
+       // schedule hide
+       hideTimerRef.current = setTimeout(() => {
+         triggerClose();
+       }, 150);
+     };
+
+  // derived
+  const year    = new Date(item.release_date || item.first_air_date).getFullYear();
+  const votePct = (item.vote_average || 0) * 10;
+  const getColor = (p) =>
+    p >= 86 ? '#9b59b6' :
+    p >= 70 ? '#2ecc71' :
+    p >= 60 ? '#f1c40f' :
+    p >= 55 ? '#e67e22' : '#e74c3c';
+  const runtime = category === 'movie' && item.runtime
+    ? `${Math.floor(item.runtime/60)}h ${item.runtime%60}m`
+    : null;
+  const seasons = category === 'tv' && item.number_of_seasons
+    ? `${item.number_of_seasons} season${item.number_of_seasons>1?'s':''}`
+    : null;
+
+  if (item.title === 'Conclave') return null;
+
+  return (
+    <>
+      {showModal && isMobile && (
+        <div className="modal-backdrop" onClick={triggerClose} />
+      )}
+
+      <div
+        className="movie-card-container"
+        ref={containerRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         {isLoading ? (
-          <SkeletonTheme  baseColor='#ffffff11' enableAnimation={false} >
-            <Skeleton borderRadius={20} className="movie-card" style={{background: 'linear-gradient(120deg, rgba(20, 20, 20, 0.7), rgba(91, 81, 0, 0.38))' ,margin :'0 5px' , height : '270px' , width : '190px'}} customHighlightBackground = 'linear-gradient(120deg, rgba(0, 28, 0, 0.7), rgba(66, 0, 13, 0.7))' variant="rect" />
+          <SkeletonTheme baseColor="#ffffff11" enableAnimation={false}>
+            <Skeleton
+              borderRadius={20}
+              className="movie-card"
+              style={{ width: 190, height: 270 }}
+            />
           </SkeletonTheme>
         ) : (
-         
-          <div className="movie-card" onClick={() => handlecardClick(item.id,props.category, item.title || item.name, item.poster_path)}  style={{backgroundImage : `url(${bg})`, backgroundSize : 'cover' , backgroundPosition : 'center' , backgroundRepeat : 'no-repeat'}}>
-            <div className="inCinema">
-              <i className='bx bx-badge-check' style={{fontSize :'12px'}}></i> { cinemaStatus}
-            </div>
-             <div className="btnz">
-            <i className='bx bx-play-circle'></i>
-            </div>
-            <h4 className='year'>
-            {Number.isNaN(year) ? '' : year}
-           </h4>
-              
-            <div className="infomovie">
-            <div className="title">
-              <div className="titlename">
-                {item.title || item.name }
-              </div> 
-            </div>
-            <div className="vote" style={{color: getColor(votePercentage.toFixed(0))}}>{votePercentage.toFixed(0)}%</div> 
-          
-            <div className="cat"> 
-            <div className="catz">{props.category === 'tv' ? 'Show' : 'Movie'}</div> 
-          
-            <button className="savemovie" onClick={saveShow}>    <p style={{ cursor : 'pointer' , color : isInWatchlist ? 'aqua' : 'rgba(255, 255, 255, 0.549)'}}>
-          {isInWatchlist ? <i className='bx bxs-bookmark-plus'  style={{fontSize :'19px'}}></i> :<i className='bx bx-bookmark-plus' style={{fontSize :'18px'}}></i>}
-           </p>
-              </button>
-                </div>
-          </div>
-          </div> 
-         
-          
+          <div
+            className="movie-card"
+            onClick={onCardClick}
+            style={{ backgroundImage: `url(${bg})` }}
+          />
         )}
-    
-          
-         
-           </div>
-        </>
-    );
+
+        {showModal && (
+          <div
+            ref={modalRef}
+            className={`movie-modal${isMobile ? ' mobile' : ''}${isClosing ? ' closing' : ''}`}
+            style={isMobile ? {} : { top: 0, left: `${modalPos.left}px` }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onTouchStart={isMobile ? onTouchStart : null}
+            onTouchMove={isMobile ? onTouchMove : null}
+          >
+            <img
+              src={apiConfig.w1280Image(item.backdrop_path || item.poster_path)}
+              alt={item.title}
+              onClick={()=> goToDetails( item.id, category, item.title, item.poster_path)}
+            />
+            <div className="modaldetails">
+              <h2>{item.title || item.name}</h2>
+
+              <div className="modal-row controls">
+                <button
+                  className="icon-btn play-btn"
+                  onClick={() => handlePlayer(item.id, item.title || item.name, category)}
+                >
+                  <i className="bx bx-play" />
+                </button>
+                <button className="icon-btn watchlist-btn" onClick={saveShow}>
+                  {isInWatchlist ? (
+                    <i className="bx bxs-bookmark-plus" />
+                  ) : (
+                    <i className="bx bx-bookmark-plus" />
+                  )}
+                </button>
+                <button className="icon-btn info-btn" onClick={()=> goToDetails( item.id, category, item.title, item.poster_path)}>
+                  <i className="bx bx-info-square" />
+                </button>
+                <button className="icon-btn close-btn" onClick={triggerClose}>
+                  <i className="bx bx-x" />
+                </button>
+              </div>
+
+              <div className="modal-row info">
+                <span className="typeg">{category === 'tv' ? 'Show' : 'Movie'}</span>
+                <div className="space">•</div>
+                <span className="rating" style={{ color: getColor(votePct) }}>
+                  {votePct.toFixed(0)}%
+                </span>
+                <div className="space">•</div>
+                <span className="year">{year}</span>
+                {cinemaStatus && <div className="space">•</div>}
+                { cinemaStatus && <div className="inCinema">
+                   { cinemaStatus}
+                </div>}
+                 </div>
+
+              <div className="modal-row extra" >
+              {isMobile && <div className="overviewmodal">{item.overview}</div>}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
 });
+
 MovieCard.propTypes = {
   category: PropTypes.string.isRequired,
-  item: PropTypes.shape({ title : PropTypes.string , name : PropTypes.string , poster_path : PropTypes.string , id : PropTypes.number.isRequired , vote_average : PropTypes.number }).isRequired
+  item: PropTypes.object.isRequired,
 };
 
 export default MovieCard;
