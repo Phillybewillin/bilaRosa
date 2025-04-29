@@ -4,14 +4,14 @@
 .movie-lists{
   display: flex;
   flex-direction: row;
- min-height: 160px;
+  min-height: 160px;
   overflow: auto;
   width: 100%;
   gap: .5rem;
   padding: 5px;
-  margin-bottom: 1rem;
+  margin-bottom: -.7rem;
 //align-items: baseline;
-  padding-left: 4.5rem;
+  padding-left: 4.2rem;
   scrollbar-width: none;  /* Firefox */
   &::-webkit-scrollbar {
     display: none;
@@ -33,12 +33,14 @@
   bottom: 0rem;
   right: 0rem;
   z-index: -1;
-  width: 50%;
+  width: 55%;
   //rotate: -95deg;
   filter: blur(100px) brightness(0.7) saturate(2.5);
+  //background-image: linear-gradient(to top , black , red);
 
   //height: 100px;
 }
+
 .spacegia{
   display: flex;
   align-items: center;
@@ -136,16 +138,18 @@
   //background-color: #0e0e0e09;
   margin-left: .6rem;
   display: flex;
-  min-height: 50px;
-  overflow: hidden;
+  //min-height: 50px;
+  //overflow: hidden;
   border-radius:  15px;
   padding: 10px 1rem;
-  
+  //background-image: linear-gradient(to bottom right, rgb(0, 0, 0)  , rgba(0, 0, 0, 0.943) 70%, rgba(0, 0, 0, 0) );
+ 
   width: 50%;
   justify-content: start;
   align-items: center;
   //flex-direction: column;
   padding-left: 3.5rem;
+  margin-bottom: .5rem;
   @include tablet {
     padding-left: 4rem;
     margin-left: .8rem;
@@ -162,17 +166,19 @@
 }
 .divconw{
   position: relative;
-  background-color: #0e0e0e09;
+// background-image: linear-gradient(to  top, rgba(0, 0, 0, 0.461)  , rgba(0, 0, 0, 0.267), rgba(0, 0, 0, 0.027) );
+  //background-color: #0000005f;
   margin-left: .7rem;
   display: flex;
-  min-width: 60vw;
-  max-width: auto;
-  overflow: hidden;
+  width: 50%;
+  //max-width: 100vw;
+ //overflow:hidden ;
+ 
   border-radius:  15px;
   padding: 10px 1rem;
-  padding-left: 3.5rem;
+  padding-left: 3rem;
  // min-width: max-content;
-  justify-content: space-between;
+  justify-content:space-between;
   align-items: center;
  // padding-left: 3.5rem;
   //flex-direction: column;
@@ -185,6 +191,7 @@
   }
   @include mobile {
     margin-left: .2rem;
+    padding-left: .5rem;
     align-items: center;
     //min-width: min-content;
   }
@@ -375,7 +382,7 @@
   border-radius: 10px;
   flex-direction: row;
   overflow: auto;
-  //margin-bottom: calc(7.2rem - 100px);
+  margin-bottom: -1rem;
   padding-left: 3.6rem;
   //padding: 5px;
   scrollbar-color: #1a1a1a00 #00000000;
@@ -383,7 +390,7 @@
 
   @include tablet {
     padding-left: 0;
-    margin-bottom: 1rem;
+    margin-bottom: .5rem;
   }
 }
 .contin{
@@ -418,7 +425,7 @@
     overflow: auto;
     background-color: #ffffff0a;
    
-    border-radius: 14px;
+    border-radius: 3px;
     &:hover{
       width: 110px;
       .movietitle{
@@ -600,7 +607,7 @@
  // flex-direction: row-;
  //margin-bottom: calc(6.2rem - 100px);
  //margin-top: 2rem;
-  gap: .5rem;
+  gap: .2rem;
   //position: absolute;
   margin-top: 1rem;
   left: 0;
@@ -610,7 +617,7 @@
   scrollbar-color: #1a1a1a00 #00000000;
   scroll-behavior: auto;
   @include tablet {
-    padding-left: 0;
+    padding: .3rem;
     margin-bottom: 1.5rem;
   }
   }
@@ -618,20 +625,21 @@
 
  
 .player-history-item{
-  min-width: 120px !important;
-  height: 170px;
+  min-width: 190px !important;
+  height: 130px;
   position: relative;
   display: flex;
   flex-direction: column;
-  border-radius: 20px;
+  border-radius: 6px;
  // padding: 5px;
   overflow: hidden;
   gap: .2rem;
 }
 .player-history-item__poster{
-  width: 120px;
+  width: 190px;
+  filter: brightness(0.8);
   height: 190px;
-  border-radius: 15px;
+  border-radius: 1px;
   object-fit: cover;
   transition: all 0.3s ease-in-out;
   
@@ -677,7 +685,7 @@
   flex-direction: column;
  // backdrop-filter: blur(50px) brightness(.5);
  // -webkit-backdrop-filter: blur(50px) brightness(.5);
- background: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+ background: linear-gradient(to top, rgba(0, 0, 0, 0.852), rgba(0, 0, 0, 0));
 }
 .spacebtween{
   display: flex;
@@ -685,7 +693,7 @@
   align-items: center;
   width: 100%;
   padding: 2px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.813), rgba(0, 0, 0, 0));
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.397), rgba(0, 0, 0, 0));
   //background-color: rgba(255, 255, 255, 0.066);
  
 }
@@ -724,7 +732,8 @@
   }
 }
 .history-item-action-btn{
-  padding: .5rem;
+  padding: .2rem;
+  transform: rotate(90deg);
   background-color: #000000e1;
   border-radius: 50%;
   opacity: 0.7;
