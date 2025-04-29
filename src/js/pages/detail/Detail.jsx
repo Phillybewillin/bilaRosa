@@ -654,12 +654,12 @@ const ringStyle = {
                               
                        {
   items.results.filter(itemz => itemz.poster_path).map((itemz, ia) => (
-    <div className="wrappwezs" key={ia} onClick={() => {scrollToTop(); setNotLoaded(true);}}>
+    <div className="wrappwezs" key={ia}>
         <Suspense fallback={null}>
       <MovieCard item={itemz} category={category} key={itemz.id} />
       </Suspense>
-      {itemz.overview && <p className="overviewx">{itemz.overview}</p>}
-    </div>
+      
+     </div>
   ))
 }
                            </div>
