@@ -84,9 +84,10 @@ const mEdref = useRef(null);
   };
 
   const getEditorsPicks = async() =>{
-    const similae = await tmdbApi.similar('tv', '71446' )
-    
-    setEditorsPicks(similae.results)
+    const similae = await tmdbApi.similar('tv', '60574' )
+    const shuffleded = similae.results.sort(() => Math.random() - 0.5);
+   
+    setEditorsPicks(shuffleded)
    //console.log(poplar);
      
   }
@@ -231,7 +232,7 @@ const mEdref = useRef(null);
                   fontSize: '20px',
                   cursor: 'pointer',
                   position: 'absolute',
-                  bottom: '5px',
+                  top: '5px',
                   right: '1px'
                 }}
               ></i>
@@ -263,7 +264,7 @@ const mEdref = useRef(null);
 <div className="divconws">
           <h4 className="favaziwwr">Trending Movies</h4>
           <img className="backdrophome" src={apiConfig.w200Image(moviesData[0]?.poster_path)} alt="" />
-            <i className="bx bx-meteor" style={{fontSize : '22px' , position : 'absolute' , right : '10px', bottom : '15px' , opacity : '0.6'}}></i>
+            <i className="bx bx-meteor" style={{fontSize : '22px' , position : 'absolute' , right : '10px', top : '10px' , opacity : '0.6'}}></i>
            
         </div>
           
@@ -304,7 +305,7 @@ const mEdref = useRef(null);
 <div className="divconws">
 <h4 className="favaziwwr">Trending Shows</h4>
           <img className="backdrophome" src={apiConfig.w200Image(tv[0]?.poster_path)} alt="" />
-            <i className="bx bxs-bowling-ball" style={{fontSize : '22px' , position : 'absolute' , right : '10px', bottom : '15px' , opacity : '0.6'}}></i>
+            <i className="bx bxs-bowling-ball" style={{fontSize : '22px' , position : 'absolute' , right : '10px', top : '10px' , opacity : '0.6'}}></i>
            
             </div>
    
@@ -344,7 +345,7 @@ const mEdref = useRef(null);
 <div className="divconws">
           <h4 className="favaziwwr">Editors Picks </h4>
           <img className="backdrophome" src={apiConfig.w200Image(editorsPicks[0]?.poster_path)} alt="" />
-            <i className="bx bxs-cat" style={{fontSize : '22px' , position : 'absolute' , right : '10px', bottom : '15px' , opacity : '0.6'}}></i>
+            <i className="bx bxs-cat" style={{fontSize : '22px' , position : 'absolute' , right : '10px', top : '10px' , opacity : '0.6'}}></i>
            
         </div>
           
@@ -384,7 +385,7 @@ const mEdref = useRef(null);
 <div className="divconws">
           <h4 className="favaziwwr">Popular Movies</h4>
           <img className="backdrophome" src={apiConfig.w200Image(popula[0]?.poster_path)} alt="" />
-            <i className="bx bx-heart" style={{fontSize : '22px' , position : 'absolute' , right : '10px', bottom : '15px' , opacity : '0.6'}}></i>
+            <i className="bx bx-heart" style={{fontSize : '22px' , position : 'absolute' , right : '10px', top : '10px' , opacity : '0.6'}}></i>
            
         </div>
           
