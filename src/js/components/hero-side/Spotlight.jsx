@@ -246,65 +246,175 @@ const Spotlight = () => {
       })}
       className="swiper"
     >
-      <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">TV-MA</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/gzOIymABxmetAECXtazEYCpMmfb.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 3rem rgba(119, 64, 0, 0.59))'}}/>
-                
-                <div className="spotlight-content">
-                               
-                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/w500/VeNCc4i7LbRQpwC1mYl5jtBzFM.png"/></h2>
-                  
-              
-      
-                  <div className="spotty">
-                  <p className="spotlight-genres">
-                    
-                    <span className="genre a">MYSTERY</span>
-                    <span className="genre a">DRAMA</span>
-                   
-                  </p>
-                  <h5 className="genre a"> TV | 04 DEC 2018 </h5> <h5 className="genre a"> 80%</h5>
-                </div>
-                  
-                  <p className="spotlight-overview">A dangerously charming, intensely obsessive young man goes to extreme measures to insert himself into the lives of those he is transfixed by..</p>
-                  <div className="spotty">
-                  <Button className="spotlight-watch-btn" onClick={() => navigate('/tv/78191')}><i className='bx bx-info-circle'></i> </Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(78191, "YOU" ,1 ,1)}>  <i className='bx bx-play'></i> Watch Now</Button>
-                  </div>
-                 </div>
-              </div>
-     </SwiperSlide> 
      <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">TV-MA</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/w1280/ajztm40qDPqMONaSJhQ2PaNe2Xd.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 3rem rgba(65, 0, 22, 0.47))'}}/>
-                
-                <div className="spotlight-content">
-                               
-                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/w500/xwuSAZHLsalFcOut36SDvBPDhZO.png"/></h2>
-                  
-              
-      
-                  <div className="spotty">
-                  <p className="spotlight-genres">
-                    
-                    <span className="genre a">ACTION</span>
-                    <span className="genre a">DRAMA</span>
-                    <span className="genre a">SCI-FI & FANTASY</span>
+  <div className="spotlight-item">
+    <h1 className="spotlight-number">TV-MA</h1>
+    <img
+      loading="lazy"
+      src="https://image.tmdb.org/t/p/w1280/zz6DywhCTRHxrRXCjXU71edNOUX.jpg"
+      alt="Death of a Unicorn"
+      className="spotlight-image"
+      style={{ filter: 'drop-shadow(0 0 3rem rgba(255, 255, 255, 0.52))' }}
+    />
+    <div className="spotlight-content">
+      <h2 className="spotlight-name">
+        <img
+          loading="lazy"
+          className="spotim"
+          src="https://image.tmdb.org/t/p/w500/yumy3enQh3Ag14WFCp0MtWBROtU.png"
+          alt="Death of a Unicorn logo"
+        />
+      </h2>
+      <div className="spotty">
+        <p className="spotlight-genres">
+          <span className="genre a">HORROR</span>
+          <span className="genre a">FANTASY</span>
+          <span className="genre a">COMEDY</span>
+        </p>
+        <h5 className="genre a">MOVIE | 03 MAR 2025</h5>
+        <h5 className="genre a">66%</h5>
+      </div>
+      <p className="spotlight-overview">
+        A father and daughter accidentally hit and kill a unicorn while en route to a weekend retreat,
+      </p>
+      <div className="spotty">
+        <Button className="spotlight-watch-btn" onClick={() => navigate('/movie/1153714')}>
+          <i className="bx bx-info-circle"></i>
+        </Button>
+        <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 1153714, "death of a unicorn")}>  <i className='bx bx-play'></i> Watch Now</Button>
+                 
+      </div>
+    </div>
+  </div>
+</SwiperSlide>
 
-                  </p>
-                  <h5 className="genre a"> TV | 04 DEC 2023 </h5> <h5 className="genre a"> 83%</h5>
-                </div>
-                  
-                  <p className="spotlight-overview">In an era filled with danger, deception and intrigue, Cassian Andor will discover the difference he can make in the struggle against the tyrannical Galactic Empire. He embarks on a path that is destined to turn him into a rebel hero..</p>
-                  <div className="spotty">
-                  <Button className="spotlight-watch-btn" onClick={() => navigate('/tv/83867')}><i className='bx bx-info-circle'></i> </Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(83867, "aNDOR" ,1 ,1)}>  <i className='bx bx-play'></i> Watch Now</Button>
-                  </div>
-                 </div>
-              </div>
-     </SwiperSlide> 
+<SwiperSlide>
+  <div className="spotlight-item">
+    <h1 className="spotlight-number">TV-MA</h1>
+    <img
+      loading="lazy"
+      src="https://image.tmdb.org/t/p/original/cS8QuTToYejetylQDHMGc8jjPIj.jpg"
+      alt="DROP"
+      className="spotlight-image"
+      style={{ filter: 'drop-shadow(0 0 3rem rgba(119, 12, 0, 0.59))' }}
+    />
+    <div className="spotlight-content">
+      <h2 className="spotlight-name">
+        <img
+          loading="lazy"
+          className="spotim"
+          src="https://image.tmdb.org/t/p/w500/c9FDFca7YITIOdNz57BF0dEGyEG.png"
+          alt="DROP logo"
+        />
+      </h2>
+      <div className="spotty">
+        <p className="spotlight-genres">
+          <span className="genre a">HORROR</span>
+          <span className="genre a">MYSTERY</span>
+          <span className="genre a">THRILLER</span>
+        </p>
+        <h5 className="genre a">MOVIE | 04 APR 2025</h5>
+        <h5 className="genre a">65%</h5>
+      </div>
+      <p className="spotlight-overview">
+        A father and daughter accidentally hit and kill a unicorn while en route to a weekend retreat,
+      </p>
+      <div className="spotty">
+        <Button className="spotlight-watch-btn" onClick={() => navigate('/movie/1249213')}>
+          <i className="bx bx-info-circle"></i>
+        </Button>
+        <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 1249213, "drop")}>  <i className='bx bx-play'></i> Watch Now</Button>
+                 
+      </div>
+    </div>
+  </div>
+</SwiperSlide>
+
+<SwiperSlide>
+  <div className="spotlight-item">
+    <h1 className="spotlight-number">TV-MA</h1>
+    <img
+      loading="lazy"
+      src="https://image.tmdb.org/t/p/original/wY1US9I51xxkwDJXQp6ktmhfh2Z.jpg"
+      alt="YOU"
+      className="spotlight-image"
+      style={{ filter: 'drop-shadow(0 0 3rem rgba(152, 0, 0, 0.59))' }}
+    />
+    <div className="spotlight-content">
+      <h2 className="spotlight-name">
+        <img
+          loading="lazy"
+          className="spotim"
+          src="https://image.tmdb.org/t/p/w500/VeNCc4i7LbRQpwC1mYl5jtBzFM.png"
+          alt="YOU logo"
+        />
+      </h2>
+      <div className="spotty">
+        <p className="spotlight-genres">
+          <span className="genre a">MYSTERY</span>
+          <span className="genre a">DRAMA</span>
+        </p>
+        <h5 className="genre a">TV | 04 DEC 2018</h5>
+        <h5 className="genre a">80%</h5>
+      </div>
+      <p className="spotlight-overview">
+        A dangerously charming, intensely obsessive young man goes to extreme measures to insert himself into the lives of those he is transfixed by..
+      </p>
+      <div className="spotty">
+        <Button className="spotlight-watch-btn" onClick={() => navigate('/tv/78191')}>
+          <i className="bx bx-info-circle"></i>
+        </Button>
+        <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(78191, "YOU", 1, 1)}>
+          <i className="bx bx-play"></i> Watch Now
+        </Button>
+      </div>
+    </div>
+  </div>
+</SwiperSlide>
+
+<SwiperSlide>
+  <div className="spotlight-item">
+    <h1 className="spotlight-number">TV-MA</h1>
+    <img
+      loading="lazy"
+      src="https://image.tmdb.org/t/p/original/3hPKf2eriMi6B2L5brfQH0A7MNe.jpg"
+      alt="ANDOR"
+      className="spotlight-image"
+      style={{ filter: 'drop-shadow(0 0 3rem rgba(77, 77, 77, 0.59))' }}
+    />
+    <div className="spotlight-content">
+      <h2 className="spotlight-name">
+        <img
+          loading="lazy"
+          className="spotim"
+          src="https://image.tmdb.org/t/p/w500/xwuSAZHLsalFcOut36SDvBPDhZO.png"
+          alt="ANDOR logo"
+        />
+      </h2>
+      <div className="spotty">
+        <p className="spotlight-genres">
+          <span className="genre a">ACTION</span>
+          <span className="genre a">DRAMA</span>
+          <span className="genre a">SCI-FI & FANTASY</span>
+        </p>
+        <h5 className="genre a">TV | 04 DEC 2023</h5>
+        <h5 className="genre a">83%</h5>
+      </div>
+      <p className="spotlight-overview">
+        In an era filled with danger, deception and intrigue, Cassian Andor will discover the difference he can make in the struggle against the tyrannical Galactic Empire...
+      </p>
+      <div className="spotty">
+        <Button className="spotlight-watch-btn" onClick={() => navigate('/tv/83867')}>
+          <i className="bx bx-info-circle"></i>
+        </Button>
+        <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(83867, "ANDOR", 1, 1)}>
+          <i className="bx bx-play"></i> Watch Now
+        </Button>
+      </div>
+    </div>
+  </div>
+</SwiperSlide>
+
      <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
@@ -801,8 +911,7 @@ Former high school lab partners Marshall and Frances begin to unravel a conspira
       )}
                 <div className="divconw">
           <h4 className="favaziwwr">Continue Watching</h4>
-          <img className="backdrophome" src={apiConfig.w200Image(history[0]?.poster_path)} alt="" />
-            <i className="bx bx-cheese" style={{fontSize : '30px' , position : 'absolute' , right : '10px', top : '10px'}}></i>
+             <i className="bx bx-cheese" style={{fontSize : '22px' , position : 'absolute' , right : '10px', top : '10px' }}></i>
          
         </div>
               </div>
@@ -848,12 +957,12 @@ Former high school lab partners Marshall and Frances begin to unravel a conspira
               {/* Progress Bar */}
               <div
                 style={{
-                  background: "#ffffff4a",
+                  background: "#ffffff1a",
                   width: "100%",
                   height: "2.9px",
                   borderRadius: "5px",
                   overflow: "hidden",
-                  margin: "0rem .5rem",
+                  //margin: "0rem .5rem",
                 }}
               >
                 <div
