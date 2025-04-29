@@ -196,8 +196,7 @@ const mEdref = useRef(null);
         }
        <div className="divconw">
             <h4 className="favaziwwr">Recently Viewed</h4>
-          <img className="backdrophome" src={apiConfig.w200Image(continueWatching[continueWatching.length - 1]?.poster_path)} alt="" />
-            <i className="bx bx-history" style={{fontSize : '30px' , position : 'absolute' , right : '10px', top : '10px'}}></i>
+            <i className="bx bx-history" style={{fontSize : '23px' , position : 'absolute' , right : '10px', top : '12px' , color : 'rgba(255, 255, 255, 0.7)'}}></i>
             
         </div>
       
