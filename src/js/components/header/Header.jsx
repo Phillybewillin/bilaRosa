@@ -5,7 +5,7 @@ import Button, { OutlineButton } from '../button/Button';
 import './header.scss';
 import Mlist from './Mlist';
 import Input from '../input/Input';
-import logo from '../../assets/icons8-alien-monster-emoji-48.png';
+import logo from '../../assets/LOGGO3.png';
 import Signup from '../../pages/authpages/Signup';
 import Login from '../../pages/authpages/Login';
 import { Menu, MenuItem, MenuButton, MenuDivider } from '@szhsin/react-menu';
@@ -30,6 +30,11 @@ const Header = () => {
   const [noResults, setNoResults] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showrandom, setShowRandom] = useState(false);
+  const [randomItem, setRandomItem] = useState(null);
+  const [randomType, setRandomType] = useState(null);
+  const [showCountdown, setShowCountdown] = useState(false);
+  const [countdown, setCountdown] = useState(5);
+
  
   // Persist search query from URL on mount
   useEffect(() => {
@@ -142,67 +147,111 @@ const Header = () => {
     setNoResults(false);
     setShowModal(false);
   }, [searchValue, user]);
+ 
 
+  const intervalRef = useRef(null); // Store interval globally
+  
   const fetchRandomId = async (type) => {
+    // Clear any existing interval first
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  
     setLoading(true);
+    setShowCountdown(false);
+    setRandomItem(null);
+    
     try {
-      const totalPages = 500; // Max TMDB pages
+      const totalPages = 500;
       const randomPage = Math.floor(Math.random() * totalPages) + 1;
-      const response = await fetch(
-        `https://api.themoviedb.org/3/discover/${type}?api_key=${apiConfig.apiKey}&page=${randomPage}`
-      );
+      const response = await fetch(`https://api.themoviedb.org/3/discover/${type}?api_key=${apiConfig.apiKey}&page=${randomPage}`);
       const data = await response.json();
+  
       if (data.results.length > 0) {
         const randomIndex = Math.floor(Math.random() * data.results.length);
-        const randomItem = data.results[randomIndex];
-        const randomId = randomItem.id;
-        let continueWatching = JSON.parse(localStorage.getItem('ContinueWatching')) || [];
-        if (!Array.isArray(continueWatching)) {
-          continueWatching = [];
-        }
-        const foundItem = continueWatching.find(item => item.id === randomId);
-        if (!foundItem) {
-          continueWatching = [...continueWatching, {
-            id: randomItem.id,
-            category: randomItem.category,
-            title: randomItem.title,
-            poster_path: randomItem.poster_path
-          }];
-          localStorage.setItem('ContinueWatching', JSON.stringify(continueWatching));
-        }
-        navigate(`/${type}/${randomId}`);
+        const item = data.results[randomIndex];
+  
+        setRandomItem(item);
+        setRandomType(type);
+        setCountdown(10);
+        setShowCountdown(true);
+  
+        let counter = 10;
+        intervalRef.current = setInterval(() => {
+          counter--;
+          setCountdown(counter);
+          if (counter === 0) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+            handlePlayer(item.id, item.title || item.name, type);
+          }
+        }, 1000);
       }
     } catch (error) {
       console.error("Error fetching random ID:", error);
     } finally {
-     setLoading(false);
+      setLoading(false);
     }
   };
+  
+  
+  const handlePlayer = (id, name, type) => {
+    if (!id || !name) return;
+    const detailslug = encodeURIComponent(name.trim().replace(/ /g, "-").toLowerCase());
+    const path = `/watch/${detailslug}/${id}${type === 'tv' ? '/1/1' : ''}`;
+    navigate(path);
+  };
 
+  const goToDetails = (id,category, title, poster_path) => {
+    let continueWatching = JSON.parse(localStorage.getItem('ContinueWatching')) || [];
+    if (!Array.isArray(continueWatching)) {
+        continueWatching = [];
+    }
+    const foundItem = continueWatching.find(item => item.id === id);
+    if (!foundItem) {
+        continueWatching = [...continueWatching, {id,category, title, poster_path }];
+        localStorage.setItem('ContinueWatching' , JSON.stringify(continueWatching));
+        //console.log(continueWatching);
+    }
+    navigate(`/${category}/${id}`);
+}
   // Header shrink/hide effect on scroll
+  
+
+  const prevScrollY = useRef(0);
+  
   useEffect(() => {
     const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+  
       if (headerRef.current) {
-        const scrolledDown = window.scrollY > 50;
-        const scrolledUp = window.scrollY < window.prevScrollY;
+        const scrolledDown = currentScrollY > 50;
+        const scrolledUp = currentScrollY < prevScrollY.current;
+  
         headerRef.current.classList.toggle('shrink', scrolledDown);
+  
         if (scrolledUp) {
           headerRef.current.classList.remove('hide');
         } else if (scrolledDown) {
           headerRef.current.classList.add('hide');
+          setShowRandom(false);
         }
+  
+        prevScrollY.current = currentScrollY;
       }
-      window.prevScrollY = window.scrollY;
     };
+  
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  
 
   return (
     <>
       <div ref={headerRef} className="header">
         <div className="logo" onClick={() => navigate('/')}>
-          <img src={logo} alt="ZillaXR" />
+          <img src={logo} alt="MOVIEPLUTO" />
         </div>
         {!hidesearch && (
           <div className="mlrowa">
@@ -335,27 +384,137 @@ const Header = () => {
               </Menu>
             </div>
           </nav>
-          <div className="drccbtn" onClick={() => setShowRandom(!showrandom)}>
+          <div className="drccbtn" onClick={() => {setShowRandom(!showrandom)}}>
+            
             GAMBLE <i className='bx bx-shuffle'></i>
           </div>
           {showrandom && (
-            <div className="dracco" onClick={() => setShowRandom(!showrandom)}>
-              <h2 className="draccotext">Gamble on something to watch ?</h2>
-               <img className='draccopic' onClick={() => fetchRandomId("movie")} src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZm5uZW0yMjRsdjNib2dueGswNmF1bG1hZjQxMW0xdTd5dnJjYWY3dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QOXIRdZnubGlrdfsQB/giphy.gif" alt="" />
-               <img className='draccopicb' onClick={() => fetchRandomId("tv")} src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMG03MDd1aDVvdWx4cXc5bGVhcHFrY3h5bHBqcjB6cjhsZjZ1Y2NkMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0MYw2nPaMz5PnNzG/giphy.gif" alt="" />
-            
-              <div className="draccocont">
-                <button className="randombtn" onClick={() => fetchRandomId("movie")} disabled={loading}>
-                  {loading ? "a Random Movie " : " a Random Movie"} 
-                  <p className='randompic'><i className='bx bx-movie'></i></p>
-                </button>
-                <button className='randombtn' onClick={() => fetchRandomId("tv")} disabled={loading}>
-                  {loading ? "a Random Show" : " a Random Show"}
-                  <p className='randompic'><i className='bx bx-tv'></i></p>
-                </button>
-              </div>
+  <div className="dracco" onClick={() => setShowRandom(false)}>
+    <div className="dracco-inner" onClick={(e) => e.stopPropagation()}>
+      {showCountdown && randomItem && (
+        <div className="random-confirmation">
+          <h4>START'S IN {countdown}S</h4>
+          <img
+            src={apiConfig.w500Image(randomItem.backdrop_path || randomItem.poster_path)}
+            alt={randomItem.title || randomItem.name}
+          />
+
+          <div className="random-actions">
+            <div className="tiova">
+              <h3>{randomItem.title || randomItem.name}</h3>
+              <p>{randomItem.overview}</p>
+              <p>{randomType.toUpperCase()} : {randomItem.release_date || randomItem.first_air_date}</p>
             </div>
-          )}
+
+            <div className="buttondual">
+              <button
+                className="aga"
+                onClick={() =>
+                  handlePlayer(randomItem.id, randomItem.title || randomItem.name, randomType)
+                }
+              >
+                <i className="bx bx-play"></i>
+              </button>
+              <button
+                className="aga"
+                onClick={() =>
+                  goToDetails(randomItem.id, randomType, randomItem.title, randomItem.poster_path)
+                }
+              >
+                <i className="bx bx-info-square"></i>
+              </button>
+              <button
+  className="aga"
+  onClick={() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    const types = ["movie", "tv"];
+    const randomType = types[Math.floor(Math.random() * types.length)];
+    fetchRandomId(randomType);
+    //setShowRandom(false);
+    setCountdown(null); // Optional: clear the countdown display
+  }}
+>
+  <i className="bx bx-x"></i>
+</button>
+
+            </div>
+          </div>
+        </div>
+      )}
+
+      <img
+        className="draccopic"
+        onClick={() => fetchRandomId("movie")}
+        src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZm5uZW0yMjRsdjNib2dueGswNmF1bG1hZjQxMW0xdTd5dnJjYWY3dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QOXIRdZnubGlrdfsQB/giphy.gif"
+        alt="Random Movie"
+      />
+      <img
+        className="draccopicb"
+        onClick={() => fetchRandomId("tv")}
+        src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMG03MDd1aDVvdWx4cXc5bGVhcHFrY3h5bHBqcjB6cjhsZjZ1Y2NkMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0MYw2nPaMz5PnNzG/giphy.gif"
+        alt="Random TV"
+      />
+
+      <div className="draccocont">
+      <h2 className="draccotext">Gamble on something to watch?</h2>
+     
+        <button
+          className="randombtn"
+          onClick={(e) => {
+            e.stopPropagation();
+            fetchRandomId("movie");
+          }}
+          disabled={loading}
+        >
+          {loading ? "A Movie" : "Movie"}
+          <p className="randompic"><i className="bx bx-movie"></i></p>
+        </button>
+
+        <button
+          className="randombtn"
+          onClick={(e) => {
+            e.stopPropagation();
+            fetchRandomId("tv");
+          }}
+          disabled={loading}
+        >
+          {loading ? "A Show" : "Show"}
+          <p className="randompic"><i className="bx bx-tv"></i></p>
+        </button>
+
+        <button
+          className="randombtn"
+          onClick={(e) => {
+            e.stopPropagation();
+            const types = ["movie", "tv"];
+            const randomType = types[Math.floor(Math.random() * types.length)];
+            fetchRandomId(randomType);
+          }}
+          disabled={loading}
+        >
+          Luck <i className="bx bx-dice-6"></i>
+        </button>
+        <button
+  className="aga2"
+  onClick={() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    setShowRandom(false);
+    setCountdown(null); // Optional: clear the countdown display
+  }}
+>
+  <i className="bx bx-x"></i>
+</button>
+      </div>
+    </div>
+  </div>
+)}
+
           <div className="hosz">
             <div className="menuzz">
               <Menu 
