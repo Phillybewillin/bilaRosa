@@ -51,7 +51,7 @@
     //border-radius: 10px;
    //margin-left: 20px;
    position: absolute;
-   right: calc(50% - 50px);
+   right: calc(50% - 100px);
    top: 7px;
    //backdrop-filter: blur(10px);
     font-size: 1rem;
@@ -63,7 +63,7 @@
 
     img {
         margin: 0 1px;
-        width: 37px;
+        width: 200px;
        // filter: drop-shadow(0 0 1rem rgba(49, 19, 19, 0.55));
         @include mobile {
           //position: absolute;
