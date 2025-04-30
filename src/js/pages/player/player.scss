@@ -2,7 +2,7 @@
 
 
 .player-container {
-
+ 
   padding: 0;
   display: flex;
   justify-content: center;
@@ -13,6 +13,12 @@
 
   //background-color: rgba(0, 0, 0);
   position: relative;
+
+  @include mobile {
+    height: 31vh;
+    //background-color: #ba24247f;
+    //backdrop-filter: blur(10px);
+  }
 }
 
 .menu {
@@ -92,34 +98,35 @@
 .navi{
   display: flex;
   align-items: center;
-  //background-color: rgba(159, 27, 27, 0.564);
+  background-color: rgba(255, 255, 255, 0.121);
   //backdrop-filter: blur(10px);
-  padding: 7px ;
-  border-left: 1px solid rgba(248, 109, 141, 0.968);
+  padding: 8px ;
+  //border-left: 1px solid rgba(248, 109, 141, 0.968);
  
   cursor: pointer;
   margin-left:  5px;
   font-size: .85rem;
   font-weight: 400;
   color: rgb(209, 208, 208);
-  //border-radius: 8px ;
+  border-radius: 5px ;
   opacity: .5;
 
   @include mobile{
-    scale: 1.3;
+    margin-left: 1rem;
+    scale: 1.2;
   }
 }
 .navih{
   
-  //background-color: rgba(176, 151, 151, 0.482);
+  background-color: rgba(255, 255, 255, 0.096);
   padding: 5px 8px;
   cursor: pointer;
   margin: 2px 3px;
   font-size: 1.3rem;
   font-weight: 500;
   color: rgb(255, 255, 255);
-  border-left: 1px solid rgba(255, 27, 42, 0.968);
-  //border-radius: 10px;
+  //border-left: 1px solid rgba(255, 27, 42, 0.968);
+  border-radius: 5px;
   opacity: .7;
 
   @include mobile{
@@ -187,7 +194,7 @@
   gap: 20px;
   cursor: pointer;
   color: white;
-  font-size: 12px;
+  font-size: 11px;
   text-align: center;
   transition: all .3s ease-in-out;
   @include mobile {
@@ -205,23 +212,24 @@
   left: 6rem;
   top: 7px;
   @include mobile {
-    top: 5px;
-    left: 9rem; ;
+    
+    top: 3px;
+    left: 75vw; ;
   }
 }
 .watchnow{
   position: absolute;
-  right: 1px;
+  right: 0px;
   
   z-index: 1 !important;
   cursor: pointer;
-  width: 100px;
-  height: 40px;
+  width: 70px;
+  height: 37px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 7px 10px ;
-  border-radius: 7px;
+  border-radius: 0px 10px 10px 0px;
   //background-color: #00fffb;
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
@@ -236,14 +244,14 @@
  top: 0rem;
   z-index: 1 !important;
   cursor: pointer;
-  max-width: inherit;
+  width: 45%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 7px 110px ;
+  padding: 7px 10px ;
   border-radius: 10px 0px 0px 10px;
-  background-color: #0000009d;
+  background-color: #0000004f;
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
   color: rgb(255, 255, 255);
@@ -258,19 +266,22 @@
   z-index: 1;
   cursor: pointer;
   width: 100%;
-  height: 140px;
+  height: 141px;
 
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 7px 10px ;
-  border-radius: 10px;
+  border-radius: 5px;
   //background-color: #00fffb;
   backdrop-filter: blur(7px) brightness(0.4);
   -webkit-backdrop-filter: blur(7px) brightness(0.4);
   color: rgb(255, 255, 255);
   font-size: l;
   
+}
+.seasons__content{
+  padding: 0 .5rem;
 }
 .watchede-badge2,
 .watchede-badge{
@@ -285,7 +296,7 @@
   height: 100%;
   left: 0rem;
   border-radius: 10px;
-  backdrop-filter: grayscale(1) brightness(0.5) ;
+ backdrop-filter: grayscale(1) brightness(0.5) ;
   color: white;
 }
 
@@ -296,8 +307,8 @@
   color: white;
   z-index: 1;
   width: 100%;
-  border-radius: 10px;
-  height: 141px;
+  border-radius: 1px;
+  height: 140px;
   backdrop-filter: grayscale(1) brightness(0.5) ;
   -webkit-backdrop-filter: grayscale(1);
 }
@@ -351,7 +362,10 @@
  transition: all .4s ease-in-out;
   
   @include mobile {
-    display: none;
+    position: relative;
+    margin: 0 .5rem;
+    width: 250px;
+    //display: none;
   }
 }
 .dd{
@@ -376,7 +390,7 @@
 }
 .servers{
   position: relative;
-  z-index: 999999;
+  //z-index: 999999;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -388,10 +402,12 @@
   //backdrop-filter: blur(10px);
   padding: 8px;
   @include mobile {
-    z-index: 999999;
-    font-size: .89rem;
+    //z-index: 999999;
+    font-size: .9rem;
+    padding: .3rem;
   }
 }
+
 
 .hanoxi{
   font-size: 2rem;
@@ -407,7 +423,7 @@
   justify-content: flex-start;
   align-items: first baseline;
   gap: .4rem;
-  margin: 1rem;
+  margin: 1rem .5rem;
 }
 .haxnoiep{
   font-weight: 500;
@@ -456,18 +472,21 @@
   padding: 5px 0px;
   //background-color: rgba(0, 0, 0, 0.5);
   button {
-    background-color: #ffffff1e;
+    background-color: #ffffff11;
     border: none;
     padding: 9px 14px;
-    border-radius: 12px;
+    border-radius: 5px;
     color: white;
     cursor: pointer;
     font-size: 0.75rem;
     transition: background-color 0.3s ease;
       &:hover {
-        background-color: #c3000067;
+        background-color: #ffffff21;
       }
       
+  }
+  @include mobile {
+    //display: none;
   }
 }
 .layout-toggle{
@@ -522,6 +541,7 @@
 // -----------------
 .youtube-mode-layout {
   display: flex;
+  
   //gap: 10px;
  max-width: 100vw;
  //overflow: hidden;
@@ -533,9 +553,9 @@
     min-height: 100vh;
     min-width: 69%;
     padding: 4px 10px ;
-    backdrop-filter: blur(100px);
-    -webkit-backdrop-filter: blur(100px);
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.587) 0%, rgb(0, 0, 0) 100%);
+    //backdrop-filter: blur(100px);
+    //-webkit-backdrop-filter: blur(100px);
+    //background: radial-gradient(circle, rgba(0, 0, 0, 0.587) 0%, rgb(0, 0, 0) 100%);
   
     .player-container {
       height: auto;
@@ -544,7 +564,7 @@
       .episodes__iframe-container {
         margin-top: .4rem;
         width: 100%;
-        height: auto;
+        height: 1000px;
         // The iframe itself uses the new dimensions set via inline props
       }
       .episodes__iframe {
@@ -567,10 +587,7 @@
    // backdrop-filter: blur(100px);
     flex-direction: column;
     gap: 10px;
-    backdrop-filter: blur(100px);
-    -webkit-backdrop-filter: blur(100px);
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.689) 0%, rgba(0, 0, 0, 0.995) 100%);
-  
+   
     padding: 5px 0;
     padding-right: 2px;
     //border-radius: 5px;
@@ -620,10 +637,11 @@
       width:100%;
       text-align: start;
       border-radius: 15px;
-      height: 169px;
+      height: 19px;
       backdrop-filter: grayscale(1) brightness(0.5) ;
       -webkit-backdrop-filter: grayscale(1);
     }
+    
     .watchede-badgeimg{
       position: absolute;
       top: 0;
@@ -634,8 +652,8 @@
       width: auto;
       text-align: end;
 
-      border-radius: 15px;
-      height: 141px;
+      border-radius: 5px;
+      height: 125px;
       backdrop-filter: grayscale(1) brightness(0.5) ;
       -webkit-backdrop-filter: grayscale(1);
     }
@@ -646,18 +664,18 @@
       //bottom: 2px;
       color: white;
       z-index: 1;
-      width: 101%;
+      width: 100%;
       
       z-index: 1;
       cursor: pointer;
       //width: 141px;
-      height: 140px;
+      height: 125px;
     
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 7px 10px ;
-      border-radius: 15px;
+      border-radius: 5px;
       //background-color: #00fffb;
       backdrop-filter: blur(7px) brightness(0.4);
       -webkit-backdrop-filter: blur(7px) brightness(0.4);
@@ -665,6 +683,21 @@
      
       
       
+    }
+    .watchede-badgek{
+      position: absolute;
+      left: 0;
+      //left: 0px;
+      //bottom: 2px;
+      color: white;
+      z-index: 1;
+      width:45% !important;
+      height: 100% !important;
+      text-align: end;
+      border-radius: 10px 0px 0px 10px !important;
+      
+      backdrop-filter: grayscale(1) brightness(0.5) ;
+      -webkit-backdrop-filter: grayscale(1);
     }
   
     .servers,
@@ -720,9 +753,9 @@
   }
   .episode_posterimg{
     width: 125px;
-    height: 140px;
+    height: 125px;
     object-fit: cover;
-    border-radius: 15px !important;
+    border-radius: 5px !important;
     
   }
   .layout-toggles {
@@ -734,14 +767,14 @@
     button {
       background-color: #ffffff11 !important;
       border: none;
-      padding: 9px 14px;
-      border-radius: 10px;
+      padding: 9px 17px;
+      border-radius: 5px;
       color: white;
       cursor: pointer;
       font-size: 0.75rem;
       transition: background-color 0.3s ease;
       &:hover {
-        background-color: #c3000067 ! important;
+        background-color: #9c9c9c4c ! important;
       }
 
     }
@@ -912,7 +945,9 @@
     filter: brightness(.34) blur(40px);
   }
   .episode_posterabos{
-    height: 130px;
+    height: 120px;
+    min-width: 45%;
+    object-fit: cover;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -936,12 +971,13 @@
       //background-color: #00000015;
       padding: 4px 0px;
       border-radius: 5px;
-      font-size: .94rem;
+      font-size: .9rem;
       font-weight: 500;
       opacity: 1;
     }
     .episode_overviewabo{
       color: grey;
+      font-size: .7rem;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
@@ -969,10 +1005,10 @@
 .leftpal{
   position: absolute;
   left: 0px;
-  bottom: -15px;
+  bottom: -2px;
   z-index: 3 !important;
   padding: 10px;
-  background: linear-gradient(to right, #000000, #00000008);
+  background: linear-gradient(to right, #000000c2, #00000008);
   color: white;
   font-size: 2rem;
   font-weight: 500;
@@ -983,10 +1019,10 @@
 .rightpal{
   position: absolute;
   right: 0px;
-  bottom: -15px;
+  bottom: -2px;
   z-index: 3 !important;
   padding: 10px;
-  background: linear-gradient(to left, #000000, #00000008);
+  background: linear-gradient(to left, #000000c2, #00000008);
   color: white;
   font-size: 2rem;
   font-weight: 500;
@@ -1022,8 +1058,8 @@
   display: flex;
   overflow: auto;
   flex-direction: row;
-  flex-wrap: wrap;
-  max-width: 800px;
+  flex-wrap: nowrap;
+  width: 100%;
   gap: 5px;
 }
 .recoholderfull{
@@ -1037,25 +1073,25 @@
   gap: 10px;
 }
 .recohead{
-  padding: 1rem .2rem;
+  padding: 1rem .3rem;
   text-align: start;
   color: rgb(164, 164, 164);
-  font-size: 4rem;
+  font-size: 2rem;
   font-weight: 600;
   //sborder-radius: 10px;
-  border-top: 1px solid #fffdfd20;
+ // border-top: 1px solid #fffdfd20;
 }
 .recoheadtube{
-  padding: .3rem .6rem;
-  text-align: end;
+  padding: .5rem .6rem;
+  text-align: center;
   color: rgb(206, 206, 206);
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 600;
   border-radius: 15px;
  // max-width: inherit;
-  background-color: #ffffff07;
-  margin-bottom: 10px;
-  //border: 1px solid #fffdfd20;
+ // background-color: #ffffff07;
+  margin: 10px;
+  border: 1px solid #fffdfd20;
 }
 
 .recoimg{
@@ -1086,30 +1122,33 @@
   filter: blur(100px) brightness(.4);
   
 }
+.haxnoititle{
+  padding-left: 6px;
+  margin-bottom: -10px;
+}
 .zsa{
   position: relative;
-  margin-top: calc(100% - 22rem);
+  margin-top: calc(100vh - 9.9rem);
 }
 .persistent-iframe-container.youtube{
   position: absolute;
-  top: 3.5rem;
+  top: .5rem;
   left: .5rem;
   border-radius: 15px;
-  padding: 0 .5rem;
+  padding: .1rem .3rem;
   //background-color: red;
-  min-width: 856px !important;
-  max-width: 100% !important;
-  height: auto;
-  background-size: cover;
-  background-repeat: no-repeat;
-   display: flex;
-  justify-content: center;
-  align-items: center;
+  min-width: 68% !important;
+  //max-width: 100% !important;
+  height: calc(100vh - 11rem);
+
   z-index: 1000 !important;
-  border-radius: 20px;
+  border-radius: 10px;
+  //bottom: calc(100vh - 33.4rem);
   
   .episodes__iframe{
-    border-radius: 20px;
+    border-radius: 17px;
+    //height: calc(100vh - 12rem);
+
   }
   
 }
@@ -1129,16 +1168,17 @@
   align-items: center;
   z-index: 1000 !important;
   
+  @include mobile {
+    position: fixed;
+    top: 0;
+    z-index: 1001 !important;
+    width: 100% !important;
+    height: 30vh;
+  }
   
 }
 
-@media only screen and (max-width: 1920px) and (max-height: 1080px) {
-  .episodes__iframe{
-    border-radius: 10px;
-  
-   
-  }
-}
+
 
 
 .scroll-arrow.left{
@@ -1160,6 +1200,7 @@
   font-size: 1.5rem;
   width: 30px;
 }
+
 .arrow.left-arrow{
   position: absolute;
   left: 0px;
