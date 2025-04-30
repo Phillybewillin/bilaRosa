@@ -30,12 +30,12 @@ i {
  
         margin: 2px;
         //opacity: .4;
-        width: 49px;
+        width: 269px;
         border-radius: 20PX;
 
         @include mobile {
           //position: absolute;
-            width: 30px;
+            width: 130px;
             margin-right: 0;
         }
     }
@@ -360,6 +360,14 @@ i {
 
     
 }
+.draccocont{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap : .5rem;
+}
 .drccbtn{
   cursor: pointer;
 
@@ -386,17 +394,20 @@ i {
 .dracco{
   position: fixed;
   display: flex;
-  justify-content: center;
+  //justify-content: flex-end;
   //align-items: center;
-  margin-top: 25rem;
+  flex-direction: column;
+  //gap: .5rem;
+  margin-top: 40rem;
   margin-right: 13rem;
-  padding: 1rem .2rem;
+ padding: .2rem .5rem;
   width: 30%;
-  background-color: rgba(0, 0, 0, 0.813);
+  background-color: rgba(0, 0, 0, 0.568);
   backdrop-filter: blur(30px);
-  height: 300px;
+  height: max-content;
   border-radius: 20px;
   z-index: 100;
+  transition: height 0.5s ease-out;
  // overflow: auto;
   @include mobile {
     //flex-direction: column;
@@ -405,7 +416,7 @@ i {
     padding: 0rem;
     //margin-top: ;
     width: 100%;
-    margin: 10rem .1rem;
+    margin: 9rem .1rem;
    // height: 35%;
   }
 }
@@ -415,16 +426,17 @@ i {
   align-items: center;
   justify-content: center;
  // gap : .5rem;
-  padding: .5rem 1rem;
+  padding: 2rem 1rem;
   color: rgb(255, 255, 254);
-  margin: 1rem;
-  background-color: rgba(255, 255, 255, 0.068);
-  border-radius: 10px;
+  margin: .1rem 0rem;
+  z-index: 1;
+ 
+  border-radius: 5px;
   text-align: start;
   //font-size: .9rem;
   @include mobile {
-    margin: 2rem ;
-    padding: 3rem;
+    margin: 1rem ;
+    //padding: 3rem;
     //display: none;
     font-size: 2.5rem;
   }
@@ -435,14 +447,13 @@ i {
   z-index: 100;
   position: relative;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  
   gap : .5rem;
-  padding: .7rem 1.2rem;
+  padding: 1rem 3.5rem;
   color: rgb(255, 255, 255);
-  margin: 2.3rem 1rem;
+  //margin: 2.3rem 1rem;
   background-color: rgba(255, 255, 255, 0.068);
-  border-radius: 10px;
+  border-radius: 7px;
   text-align: end;
   font-size: .9rem;
   transition: all 0.5s ease-in-out;
@@ -451,14 +462,14 @@ i {
     text-decoration: underline;
   }
   @include mobile {
-    margin: 2rem ;
-    padding: 3rem;
-    font-size: 1rem;
+    //margin: 2rem ;
+    padding: 2rem 3rem;
+    font-size: 1.4rem;
     //display: none;
   }
 }
 .randompic{
-  position: absolute;
+  //position: absolute;
   top: 5px;
   font-weight: 600;
   color: rgb(222, 222, 222);
@@ -664,13 +675,13 @@ i {
 }
 .draccopic{
    position: absolute;
-    top: 1rem;
-    left: 0.2rem;
-    margin-top: 1rem;
-    margin-left: 1rem;
-    border-radius: 10px 10px 0px 0px;
-    width: 57%;
-    height: 70px;
+    top: -.1rem;
+    left: -.4rem;
+   filter: grayscale(100%);
+
+    border-radius: 20px 20px 0px 0px;
+    width: 103.6%;
+    height: 100px;
     object-fit: cover;
 
     @include mobile {
@@ -684,14 +695,20 @@ i {
      opacity: .4;
     }
 }
+.dracco-inner{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
 .draccopicb{
   position: absolute;
-   bottom: 1rem;
-   left: 0.2rem;
-   margin-bottom: 1rem;
-   margin-left: 1rem;
+   bottom: 0rem;
+   display: none;
+   left: 0rem;
+  // margin-bottom: 1rem;
+  
    border-radius: 0px 0px 10px 10px;
-   width: 57%;
+   width: 100%;
    height: 70px;
    object-fit: cover;
 
@@ -705,4 +722,146 @@ i {
      margin-bottom: 0;
     // display: none;
    }
+}
+.random-confirmation{
+  //position: fixed;
+  z-index: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+ // backdrop-filter: blur(15px);
+ // justify-content: ;
+ margin-top: 1rem;
+ padding: 0rem;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 20px;
+  gap: .5rem;
+  height:max-content;
+
+  @include mobile {
+    margin-top: 1rem;
+    height: 500px ;
+    //margin-bottom: 1rem;
+    padding: 0rem;
+     flex-direction: column;
+     gap: .5rem;
+     //height:max-content;
+   }
+ h4{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: rgb(255, 255, 255);
+  font-size: small;
+  font-weight: 500
+
+  
+ }
+ 
+ background: rgba(248, 248, 248, 0.075);
+ img{
+  border-radius: 20px 20px 0px 0px;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+
+  @include mobile {
+    
+   
+    height: 250px;
+    object-fit: cover;
+   }
+ }
+ .tiova{
+  
+  //font-size: small;
+ h3{
+  z-index: 1;
+  @include mobile {
+    font-size: 2.5rem;
+  }
+ }
+
+  p{
+    font-size: x-small;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    line-clamp: 3;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    //white-space: nowrap;
+    width: 90%;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.792);
+
+    @include mobile {
+      font-size: small;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      line-clamp: 3;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      box-orient: vertical;
+      //white-space: nowrap;
+      width: 90%;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.792);
+     }
+  }
+ }
+
+
+
+}
+.buttondual{
+  display: flex;
+  gap: .5rem;
+  @include mobile {
+    margin-top: 5rem;
+    gap: 1rem;
+  }
+}
+.random-actions{
+  display: flex;
+  padding: .2rem .5rem;
+  flex-direction: row;
+  padding-bottom: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  @include mobile{
+    flex-direction: column;
+  }
+
+  .aga{
+    padding: .7rem ;
+    background-color: rgba(255, 255, 255, 0.037);
+    outline: 3px solid rgba(255, 255, 255, 0.422);
+    color: rgb(255, 255, 255);
+    border-radius: 50%;
+    white-space: nowrap;
+    transition: all 0.5s ease-in-out;
+    &:hover{
+      background-color: rgba(96, 96, 96, 0.468);
+      text-decoration: underline;
+    }
+
+    @include mobile {
+      padding: 1rem ;
+      background-color: rgba(255, 255, 255, 0.037);
+      outline: 3px solid rgba(255, 255, 255, 0.422);
+      color: rgb(255, 255, 255);
+      border-radius: 50%;
+      white-space: nowrap;
+      transition: all 0.5s ease-in-out;
+      &:hover{
+        background-color: rgba(96, 96, 96, 0.468);
+        text-decoration: underline;
+      }
+     }
+  }
 }
