@@ -1,23 +1,28 @@
 import React from "react";
 import './footer.scss';
 import { Link } from 'react-router-dom';
+import footer from '../../assets/LOGGO.jpg';
 //import logo from '../../assets/icons8-alien-monster-emoji-48.png';
 export const Footer = () => {
 
     return (
+        <> 
+        
+        
         <div className="footer" loading="lazy">
-               
-                
-                <div className="footer__content__logo">
-                   <div className="xilla"><h1>ZILLAXR</h1></div>
-                    <div className="xilla">
-                    <a href="https://discord.gg/MCt2R9gqGb" target="_blank" rel="noreferrer"><i className='bx bxl-discord-alt' style={{color: 'crimson', fontSize: '35px',padding : '5px',borderRadius : '5px' ,marginLeft:"5px"}}></i></a>
+        <div className="footer__content__logo">
+                     <div className="xilla">
+                    <h3 style={{color: 'grey', fontSize: '20px',padding : '5px',borderRadius : '5px' ,marginLeft:"5px"}}>Join Our Community</h3>
+                    <a href="https://discord.gg/ynfvjgHrBd" target="_blank" rel="noreferrer"><i className='bx bxl-discord-alt' style={{color: '#7289da', fontSize: '30px',padding : '5px',borderRadius : '5px' ,marginLeft:"5px"}}></i></a>
                         
-                    <a href="https://t.me/+MQUUqEx2WXA0ZmZk" target="_blank" rel="noreferrer"><i className="bx bxl-telegram" style={{color: 'aqua', fontSize: '30px',padding : '5px',borderRadius : '5px' ,marginLeft:"5px"}}></i></a>
-                    <a href="https://reddit.com/r/zillaXRxyz" target="_blank " rel="noreferrer"><i className="bx bxl-reddit"style={{color: 'white',fontSize: '35px',padding : '5px',borderRadius : '5px',marginLeft:"5px"}}></i></a>
+                    <a href="https://t.me/+MQUUqEx2WXA0ZmZk" target="_blank" rel="noreferrer"><i className="bx bxl-telegram" style={{color: 'gray', fontSize: '30px',padding : '5px',borderRadius : '5px' ,marginLeft:"5px"}}></i></a>
+                    <a href="https://reddit.com/r/zillaXRxyz" target="_blank " rel="noreferrer"><i className="bx bxl-reddit"style={{color: 'white',fontSize: '30px',padding : '5px',borderRadius : '5px',marginLeft:"5px"}}></i></a>
                     </div>
                    
                 </div>
+            <img src={footer} alt="Moviepluto" />   
+                
+               
                 <div className="footer__content__menus">
                 <div className="footer__content__menu">
               
@@ -52,6 +57,8 @@ This site does not store any files on our server, we only linked to the media wh
                        </div>
                 </div>
                 </div>
+        </>
+       
     );
 }
 
