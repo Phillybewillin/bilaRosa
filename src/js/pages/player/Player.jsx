@@ -13,6 +13,7 @@ import Select from "react-select";
 import { UserAuth } from "../../context/AuthContext";
 import { useFirestore } from "../../Firestore";
 import tmdbApi from "../../api/tmdbApi";
+import MovieCard from "../../components/movie-card/MovieCard";
 
 export default function Player() {
   const { title, id, season_number, episode_number } = useParams();
@@ -271,36 +272,10 @@ export default function Player() {
     await addToWatchlist(user?.uid, dataId, data);
     const isSetToWatchlist = await checkIfInWatchlist(user?.uid, dataId);
     setSaved(isSetToWatchlist);
-    console.log(isSetToWatchlist, dataId, data);
+    //console.log(isSetToWatchlist, dataId, data);
   };
 
-  const saveShow2 = async (
-    recodataid,
-    recodataname,
-    recodataposter,
-    recodatadate,
-    recodatavote
-  ) => {
-    if (!user) {
-      toast.error("Access denied. Please logIn to add this to your Watchlist");
-      return;
-    }
-    toast.info("Adding to your Watchlist" + recodataname);
-    const data = {
-      id: recodataid,
-      title: recodataname,
-      category: season_number ? "tv" : "movie",
-      poster_path: recodataposter,
-      release_date: itemData?.first_air_date || recodatadate,
-      vote_average: recodatavote,
-    };
-
-    const dataId = recodataid?.toString();
-    await addToWatchlist(user?.uid, dataId, data);
-    const isSetToWatchlist = await checkIfInWatchlist(user?.uid, dataId);
-    setSaved(isSetToWatchlist);
-    console.log(isSetToWatchlist, dataId, data);
-  };
+ 
 
   useEffect(() => {
     if (!user) {
@@ -356,35 +331,35 @@ export default function Player() {
   // -------------------------------
   // EPISODE & SEASON HANDLERS
   // -------------------------------
+  const [previewSeason, setPreviewSeason] = useState(currentSeason); // holds last clicked season
+
   const handleEpisodeClick = (episodeNumber, episodeUrl = null) => {
     const url = new URL(window.location.href);
-    url.pathname = url.pathname.replace(/\/\d+$/, `/${episodeNumber}`);
-    window.history.pushState({}, "", url.toString());
-
-    const watchHistory = localStorage.getItem("watchHistory");
-    localStorage.setItem("lastClickedSeason", currentSeason);
-    if (watchHistory) {
-      const watchHistoryObj = JSON.parse(watchHistory);
-      if (!watchHistoryObj[id]) {
-        watchHistoryObj[id] = {};
-      }
-      if (!watchHistoryObj[id][currentSeason]) {
-        watchHistoryObj[id][currentSeason] = [];
-      }
-      watchHistoryObj[id][currentSeason].push(episodeNumber);
-      localStorage.setItem("watchHistory", JSON.stringify(watchHistoryObj));
-    } else {
-      const watchHistoryObj = {
-        [id]: {
-          [currentSeason]: [episodeNumber],
-        },
-      };
-      localStorage.setItem("watchHistory", JSON.stringify(watchHistoryObj));
+    const pathnameParts = url.pathname.split("/");
+    if (pathnameParts.length >= 5) {
+      pathnameParts[pathnameParts.length - 2] = previewSeason;
+      pathnameParts[pathnameParts.length - 1] = episodeNumber;
+      url.pathname = pathnameParts.join("/");
+      window.history.pushState({}, "", url.toString());
     }
+  
+    const watchHistory = localStorage.getItem("watchHistory");
+    localStorage.setItem("lastClickedSeason", previewSeason);
+    const watchHistoryObj = watchHistory ? JSON.parse(watchHistory) : {};
+    if (!watchHistoryObj[id]) watchHistoryObj[id] = {};
+    if (!watchHistoryObj[id][previewSeason]) watchHistoryObj[id][previewSeason] = [];
+    if (!watchHistoryObj[id][previewSeason].includes(episodeNumber)) {
+      watchHistoryObj[id][previewSeason].push(episodeNumber);
+    }
+    localStorage.setItem("watchHistory", JSON.stringify(watchHistoryObj));
+  
     window.scrollTo({ top: 0, behavior: "smooth" });
+    setCurrentSeason(previewSeason); // now commit
     setCurrentEpisode(episodeNumber);
     setbgChanged(apiConfig.w200Image(episodeUrl) || apiConfig.w200Image(itemData.backdrop_path));
   };
+  
+  
 
   const watchHistory = localStorage.getItem("watchHistory");
   const watchHistoryObj = watchHistory ? JSON.parse(watchHistory) : {};
@@ -395,30 +370,82 @@ export default function Player() {
       ? watchHistoryObj[id][currentSeason]
       : [];
 
-  const handleSeasonClick = (seasonNumber) => {
-    const url = new URL(window.location.href);
-    const pathnameParts = url.pathname.split("/");
-    pathnameParts[pathnameParts.length - 2] = seasonNumber;
-    pathnameParts[pathnameParts.length - 1] = "1";
-    url.pathname = pathnameParts.join("/");
-    window.history.pushState({}, "", url.toString());
-    localStorage.setItem(`lastClickedSeason_${id}`, seasonNumber);
-    setCurrentSeason(seasonNumber);
-    setCurrentEpisode(1);
-    // Mark the first episode as watched when season is clicked
-    const watchHistory = localStorage.getItem("watchHistory");
-    let watchHistoryObj = watchHistory ? JSON.parse(watchHistory) : {};
-    if (!watchHistoryObj[id]) {
-      watchHistoryObj[id] = {};
-    }
-    if (!watchHistoryObj[id][seasonNumber]) {
-      watchHistoryObj[id][seasonNumber] = [];
-    }
-    if (!watchHistoryObj[id][seasonNumber].includes(1)) {
-      watchHistoryObj[id][seasonNumber].push(1);
-    }
-    localStorage.setItem("watchHistory", JSON.stringify(watchHistoryObj));
-  };
+      const handleSeasonClick = (seasonNumber) => {
+        setPreviewSeason(seasonNumber); // only previewed
+        fetchEpisodes(id, seasonNumber);
+      
+        // Optional: preload watch history (for visual cues)
+        const watchHistory = localStorage.getItem("watchHistory");
+        let watchHistoryObj = watchHistory ? JSON.parse(watchHistory) : {};
+        if (!watchHistoryObj[id]) {
+          watchHistoryObj[id] = {};
+        }
+        if (!watchHistoryObj[id][seasonNumber]) {
+          watchHistoryObj[id][seasonNumber] = [];
+        }
+      };
+
+      //episode next 
+
+      const handleQuickEpisodeClickNext = (episodeNumber, episodeUrl = null) => {
+        const url = new URL(window.location.href);
+        url.pathname = url.pathname.replace(/\/\d+$/, `/${episodeNumber}`);
+        window.history.pushState({}, "", url.toString());
+    
+        const watchHistory = localStorage.getItem("watchHistory");
+        localStorage.setItem("lastClickedSeason", currentSeason);
+        if (watchHistory) {
+          const watchHistoryObj = JSON.parse(watchHistory);
+          if (!watchHistoryObj[id]) {
+            watchHistoryObj[id] = {};
+          }
+          if (!watchHistoryObj[id][currentSeason]) {
+            watchHistoryObj[id][currentSeason] = [];
+          }
+          watchHistoryObj[id][currentSeason].push(episodeNumber);
+          localStorage.setItem("watchHistory", JSON.stringify(watchHistoryObj));
+        } else {
+          const watchHistoryObj = {
+            [id]: {
+              [currentSeason]: [episodeNumber],
+            },
+          };
+          localStorage.setItem("watchHistory", JSON.stringify(watchHistoryObj));
+        }
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setCurrentEpisode(episodeNumber);
+        setbgChanged(apiConfig.w200Image(episodeUrl) || apiConfig.w200Image(itemData.backdrop_path));
+      };
+    
+     
+    
+      const handleQuickSeasonClickNext = (seasonNumber) => {
+        const url = new URL(window.location.href);
+        const pathnameParts = url.pathname.split("/");
+        pathnameParts[pathnameParts.length - 2] = seasonNumber;
+        pathnameParts[pathnameParts.length - 1] = "1";
+        url.pathname = pathnameParts.join("/");
+        window.history.pushState({}, "", url.toString());
+        localStorage.setItem(`lastClickedSeason_${id}`, seasonNumber);
+        setCurrentSeason(seasonNumber);
+        setCurrentEpisode(1);
+        // Mark the first episode as watched when season is clicked
+        const watchHistory = localStorage.getItem("watchHistory");
+        let watchHistoryObj = watchHistory ? JSON.parse(watchHistory) : {};
+        if (!watchHistoryObj[id]) {
+          watchHistoryObj[id] = {};
+        }
+        if (!watchHistoryObj[id][seasonNumber]) {
+          watchHistoryObj[id][seasonNumber] = [];
+        }
+        if (!watchHistoryObj[id][seasonNumber].includes(1)) {
+          watchHistoryObj[id][seasonNumber].push(1);
+        }
+        localStorage.setItem("watchHistory", JSON.stringify(watchHistoryObj));
+      };
+    
+      
+      
 
   // -------------------------------
   // REACT-SELECT & SOURCE HANDLERS
@@ -427,18 +454,19 @@ export default function Player() {
    const options = [
     { value: "https://moviesapi.club/", label: "GRANADILLA" },
     { value: "https://vidfast.pro/", label: " CANTALOUPE" },
+    { value: "https://vidora.su/", label: "DRAGONFRUIT" },
+    { value: "https://player.vidsrc.co/embed/", label: "MANGOSTEEN" },
+    { value: "https://player.autoembed.cc/embed/", label: "STRAWBERRY" },
     { value: "https://vidlink.pro/", label: "PINEBERRY" },
+    { value: "https://vidsrc.rip/embed/", label: "PERSIMMON" },
     { value: "https://player.videasy.net/", label: "APPLE 4K" },
     { value: "https://vidsrc.me/embed/", label: "KIWI" },
     { value: "https://embed.su/embed/", label: "GRAPE" },
     { value: "https://autoembed.pro/embed/", label: "LEMON" },
     { value: "https://vidsrc.cc/v2/embed/", label: "CHERRY" },
-    { value: "https://player.autoembed.cc/embed/", label: "STRAWBERRY" },
-    { value: "https://vidbinge.dev/embed/", label: "PAPAYA 4K" },
     { value: "https://vidsrc.xyz/embed/", label: "BANANA" },
-    { value: "https://flicky.host/embed/", label: "COCONUT" },
-    { value: "https://play2.123embed.net/", label: "ORANGE" },
-    { value: "https://player.autoembed.cc/", label: "WATERMELON" },
+    
+     { value: "https://player.autoembed.cc/", label: "WATERMELON" },
    
   ];
 
@@ -545,12 +573,12 @@ export default function Player() {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
     } else if (iframeUrl === "https://vidsrc.xyz/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
-    } else if (iframeUrl === "https://play2.123embed.net/") {
+    } else if (iframeUrl === "https://vidora.su/") {
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?colour=ff0059&autoplay=true&autonextepisode=false&backbutton=https%3A%2F%2Fvidora.su%2F&pausescreen=true`;
+    } else if (iframeUrl === "https://player.vidsrc.co/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
-    } else if (iframeUrl === "https://vidbinge.dev/embed/") {
+    } else if (iframeUrl === "https://vidsrc.rip/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
-    } else if (iframeUrl === "https://flicky.host/embed/") {
-      src = `${iframeUrl}tv/?id=${id}/${currentSeason}/${currentEpisode}`;
     } else {
       src = iframeUrl;
     }
@@ -577,16 +605,16 @@ export default function Player() {
       src = `${iframeUrl}movie/${id}`;
     } else if (iframeUrl === "https://embed.su/embed/") {
       src = `${iframeUrl}movie/${id}`;
-    } else if (iframeUrl === "https://play2.123embed.net/") {
-      src = `${iframeUrl}movie/${id}`;
+    } else if (iframeUrl === " https://vidora.su/") {
+      src = `${iframeUrl}movie/${id}?colour=ff0059&autoplay=true&autonextepisode=false&backbutton=https%3A%2F%2Fvidora.su%2F&pausescreen=true`;
     } else if (iframeUrl === "https://vidsrc.me/embed/") {
       src = `${iframeUrl}movie/${id}`;
     } else if (iframeUrl === "https://vidsrc.xyz/embed/") {
       src = `${iframeUrl}movie/${id}`;
-    } else if (iframeUrl === "https://vidbinge.dev/embed/") {
+    } else if (iframeUrl === "https://player.vidsrc.co/embed/") {
       src = `${iframeUrl}movie/${id}`;
-    } else if (iframeUrl === "https://flicky.host/embed/") {
-      src = `${iframeUrl}movie/?id=${id}`;
+    } else if (iframeUrl === "https://vidsrc.rip/embed/") {
+      src = `${iframeUrl}movie/${id}`;
     } else {
       src = iframeUrl;
     }
@@ -606,7 +634,7 @@ export default function Player() {
   };
 
   const handlerecoclick = (idnew, titlenew) => {
-    console.log("handlePlayer function called", idnew, titlenew);
+    //console.log("handlePlayer function called", idnew, titlenew);
     const encodedTitle = encodeURIComponent(titlenew.replace(/ /g, "-").toLowerCase());
     if (category === "tv") {
       setCurrentSeason(1);
@@ -674,7 +702,7 @@ const updatePlayerData = () => {
     // Update the entry for this id
     playerDataList[itemData.id] = dataToStore;
     localStorage.setItem("playerDataList", JSON.stringify(playerDataList));
-    console.log("Updated playerDataList:", playerDataList);
+    //console.log("Updated playerDataList:", playerDataList);
   }
 };
 
@@ -689,6 +717,33 @@ useEffect(() => {
 
   
 
+useEffect(() => {
+  if (!id) return;
+
+  const url = new URL(window.location.href);
+  const pathParts = url.pathname.split("/");
+
+  const idFromUrl = pathParts.includes(id) ? id : null;
+  const seasonFromUrl = parseInt(pathParts[pathParts.length - 2]);
+  const episodeFromUrl = parseInt(pathParts[pathParts.length - 1]);
+
+  // Defensive checks
+  if (idFromUrl !== id) {
+    console.warn("URL id does not match state id");
+    return;
+  }
+
+  if (!isNaN(seasonFromUrl)) {
+    setCurrentSeason(seasonFromUrl);
+    setPreviewSeason(seasonFromUrl); // If you're using preview-based logic
+  }
+
+  if (!isNaN(episodeFromUrl)) {
+    setCurrentEpisode(episodeFromUrl);
+  }
+
+  // optional: log or flag mismatches
+}, [id]);
 
   // -------------------------------
   // RENDERING EPISODES (including layout toggle)
@@ -801,7 +856,7 @@ useEffect(() => {
                     )}
                     {watchedEpisodes.includes(episode.episode_number) && (
                       <>
-                        <div className="watchede-badgek" style={{ position: "absolute" ,backdropFilter: "grayscale(100%) " ,width: "64%" ,height: "100%" , left: "0" }}>
+                        <div className="watchede-badgek">
                           <i className="bx bx-check-double" style={{ fontSize: "3rem", color: "white" }}></i>
                         </div>
                       </>
@@ -842,7 +897,8 @@ useEffect(() => {
                           style={{
                             borderRadius: "0px 10px 10px 0px",
                             width: "100%",
-                            height: "100%",
+                            height: "90%",
+                            objectFit: "cover",
                           }}
                           className="episode-posterue"
                           src={apiConfig.w200Image(episode.still_path)}
@@ -898,7 +954,7 @@ useEffect(() => {
             fontSize: "11px",
           }}
         />
-  
+      <div className="abocont">
         {/* Persistent iframe container (always rendered) */}
         <div className={`persistent-iframe-container ${displayMode}`}>
           {Loading ? (
@@ -910,7 +966,7 @@ useEffect(() => {
               src={handleIframeSrc()}
               //style={{ borderRadius : "10px" }}
               width={displayMode === "youtube" ? "100%" : "100%"}
-              height={displayMode === "youtube" ? "473" : "100%"}
+              height={displayMode === "youtube" ? "100%" : "100%"}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -922,11 +978,11 @@ useEffect(() => {
             <iframe
               key="persistentIframe"
               src={handlemovieIframeSrc()}
-              style={{ borderRadius : "15px" }}
+             // style={{ borderRadius : "15px" }}
             
               className="episodes__iframe"
               width={displayMode === "youtube" ? "100%" : "100%"}
-              height={displayMode === "youtube" ? "473" : "100%"}
+              height={displayMode === "youtube" ? "100%" : "100%"}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               frameBorder="0"
               allowFullScreen
@@ -942,7 +998,7 @@ useEffect(() => {
           <div
             className="youtube-mode-layout"
             style={{
-              backgroundImage: `url(${bgChanged})`,
+             // backgroundImage: `url(${bgChanged})`,
               backgroundSize: "cover",
             }}
           >
@@ -953,9 +1009,77 @@ useEffect(() => {
                   itemData.backdrop_path
                 )})`,
               }}
-            ></div>
+            />
   
             <div className="youtube-player">
+              
+              <div className="zsa">
+              <div className="hevdo">
+  {currentEpisode < totalEpisodes ? (
+    // NEXT EPISODE in current committed season
+    (() => {
+      const nextEpisode = episodes.find(
+        (ep) => ep.episode_number === currentEpisode + 1
+      );
+
+      return nextEpisode ? (
+        <div
+          className="rearo"
+          onClick={() => handleQuickEpisodeClickNext(currentEpisode + 1)}
+        >
+          <img
+            className="rearoimg"
+            src={apiConfig.w200Image(nextEpisode.still_path)}
+            alt=""
+          />
+          NEXT UP : EP {currentEpisode + 1}
+          <i className="bx bx-right-arrow"></i>
+        </div>
+      ) : null;
+    })()
+  ) : totalseasons > 1 && currentSeason < totalseasons ? (
+    // NEXT SEASON START — still based on current committed season
+    (() => {
+      const nextSeason = seasons.find(
+        (s) => s.season_number === currentSeason + 1
+      );
+
+      return nextSeason ? (
+        <div
+          className="rearo"
+          onClick={() => {
+            // Do not commit season yet — just preview/fetch episodes
+            handleQuickSeasonClickNext(currentSeason + 1);
+          }}
+        >
+          <img
+            className="rearoimg"
+            src={apiConfig.w200Image(nextSeason.poster_path)}
+            alt=""
+          />
+          NEXT UP : SN {currentSeason + 1} EP 1
+          <i className="bx bx-right-arrow"></i>
+        </div>
+      ) : null;
+    })()
+  ) : null}
+</div>
+
+                <div className="haxnoititle">
+                     Currently Watching:
+                </div>
+                 <div className="haxnoiholder">
+                 
+                <div className="hanoxi">{itemData.title || itemData.name}</div>
+                {
+                  category === "tv" && (
+                    <div className="haxnoiep">
+                      SN {currentSeason} EP {currentEpisode}
+                    </div>
+                  )
+                }
+               
+              </div>
               <div className="sertop">
                 <div className="layout-toggles">
                   {category === "tv" && (
@@ -1029,59 +1153,6 @@ useEffect(() => {
                   )}
                 </div>
               </div>
-              <div className="zsa">
-                <div className="hevdo">
-                {currentEpisode < totalEpisodes ? (
-                <div
-                  className="rearo"
-                  onClick={() =>
-                    handleEpisodeClick(parseInt(currentEpisode) + 1)
-                  }
-                >
-                  <img
-                    className="rearoimg"
-                    src={apiConfig.w200Image(
-                      episodes.find(
-                        (episode) =>
-                          episode.episode_number ===
-                          parseInt(currentEpisode) + 1
-                      ).still_path
-                    )}
-                    alt=""
-                  />
-                  NEXT UP : EP {parseInt(currentEpisode) + 1}{" "}
-                  <i className="bx bx-right-arrow"></i>
-                </div>
-              ) : totalseasons > 1 && currentSeason < totalseasons ? (
-                <div
-                  className="rearo"
-                  onClick={() =>
-                    handleSeasonClick(parseInt(currentSeason) + 1)
-                  }
-                >
-                  <img
-                    className="rearoimg"
-                    src={apiConfig.w200Image(
-                      seasons[parseInt(currentSeason)].poster_path
-                    )}
-                    alt=""
-                  />
-                  NEXT UP : SN {parseInt(currentSeason) + 1} EP 1{" "}
-                  <i className="bx bx-right-arrow"></i>
-                </div>
-              ) : null}
-                </div>
-                 <div className="haxnoiholder">
-                <div className="hanoxi">{itemData.title || itemData.name}</div>
-                {
-                  category === "tv" && (
-                    <div className="haxnoiep">
-                      SN {currentSeason} EP {currentEpisode}
-                    </div>
-                  )
-                }
-               
-              </div>
   
               {category === "tv" && (
                 <div className="recommendations">
@@ -1096,27 +1167,7 @@ useEffect(() => {
                         key={recoc.id}
                         
                       >
-                        <img
-                          onClick={() =>
-                            handlerecoclick(
-                              recoc.id,
-                              recoc.title || recoc.name
-                            )
-                          }
-                          loading="lazy"
-                          className="recoimg"
-                          src={apiConfig.w200Image(recoc.poster_path)}
-                          alt={recoc.title}
-                        />
-                         
-                        <div className="savo" >
-                        <div className="languagez" onClick={() => saveShow2(recoc.id, recoc.title || recoc.name , recoc.poster_path , recoc.first_air_date || recoc.release_date , recoc.vote_average)}>
-                    <i
-                      className="bx bx-bookmark"
-                      style={{ fontSize: "23px" }}
-                    ></i>
-                  </div>
-                        </div>
+                        <MovieCard category={category} item={recoc} />
                       </div>
                     ))}
                   </div>
@@ -1171,7 +1222,7 @@ useEffect(() => {
                             >
                               <div
                                 className={`seas ${
-                                  item.season_number == currentSeason ? "actively" : ""
+                                  item.season_number === currentSeason || item.season_number === previewSeason ? "actively" : ""
                                 }`}
                               >
                                 <h4 className="seasons__name">
@@ -1184,12 +1235,12 @@ useEffect(() => {
                     <div className="butaboss">
                       {showLeftArrow && (
                         <button className="leftpal" onClick={scrollLeft}>
-                          {"<"}
+                          <i className="bx bx-chevron-left"></i>
                         </button>
                       )}
                       {showRightArrow && (
                         <button className="rightpal" onClick={scrollRight}>
-                          {">"}
+                          <i className="bx bx-chevron-right"></i>
                         </button>
                       )}
                     </div>
@@ -1210,27 +1261,8 @@ useEffect(() => {
                         key={recoc.id}
                         
                       >
-                        <img
-                          onClick={() =>
-                            handlerecoclick(
-                              recoc.id,
-                              recoc.title || recoc.name
-                            )
-                          }
-                          loading="lazy"
-                          className="recoimg"
-                          src={apiConfig.w200Image(recoc.poster_path)}
-                          alt={recoc.title}
-                        />
-                         
-                        <div className="savo" >
-                        <div className="languagez" onClick={() => saveShow2(recoc.id, recoc.title || recoc.name , recoc.poster_path , recoc.first_air_date || recoc.release_date , recoc.vote_average)}>
-                    <i
-                      className="bx bx-bookmark"
-                      style={{ fontSize: "23px" }}
-                    ></i>
-                  </div>
-                        </div>
+                        <MovieCard category={category} item={recoc} />
+                      
                       </div>
                     ))}
                   </div>
@@ -1266,7 +1298,7 @@ useEffect(() => {
               {currentEpisode < totalEpisodes ? (
                 <div
                   className="rea"
-                  onClick={() => handleEpisodeClick(parseInt(currentEpisode) + 1)}
+                  onClick={() => handleQuickEpisodeClickNext(parseInt(currentEpisode) + 1)}
                 >
                   <img
                     className="reaimg"
@@ -1285,7 +1317,7 @@ useEffect(() => {
               ) : totalseasons > 1 && currentSeason < totalseasons ? (
                 <div
                   className="rea"
-                  onClick={() => handleSeasonClick(parseInt(currentSeason) + 1)}
+                  onClick={() => handleQuickSeasonClickNext(parseInt(currentSeason) + 1)}
                 >
                   <img
                     className="reaimg"
@@ -1437,41 +1469,19 @@ useEffect(() => {
                   More like {itemData.title || itemData.name}
                 </h3>
                 <div className="recoholderfull">
-                  {Array.isArray(reco) &&
+                   {Array.isArray(reco) &&
                     reco.map((recoc) => (
-                      <div
-                        className="dd"
-                        key={recoc.id}
-                        
-                      >
-                        <img
-                          onClick={() =>
-                            handlerecoclick(
-                              recoc.id,
-                              recoc.title || recoc.name
-                            )
-                          }
-                          loading="lazy"
-                          className="recoimg"
-                          src={apiConfig.w200Image(recoc.poster_path)}
-                          alt={recoc.title}
-                        />
-                         
-                        <div className="savo" >
-                        <div className="languagez" onClick={() => saveShow2(recoc.id, recoc.title || recoc.name , recoc.poster_path , recoc.first_air_date || recoc.release_date , recoc.vote_average)}>
-                    <i
-                      className="bx bx-bookmark"
-                      style={{ fontSize: "23px" }}
-                    ></i>
-                  </div>
-                        </div>
+                      <div className="mcardwrper" key={recoc.id}>
+                        <MovieCard category={category} item={recoc} />
                       </div>
-                    ))}
+                       ))}
                 </div>
               </div>
             )}
           </>
         )}
+      </div>
+        
       </>
     </ErrorBoundary>
   );
