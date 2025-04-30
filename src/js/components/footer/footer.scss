@@ -9,11 +9,25 @@
     height: auto;
     padding: 1rem .5rem;
     //color: $white;
+    padding-left: 3rem;
+    img{
+      opacity: .4;
+      background-image: linear-gradient(180deg, rgba(132, 47, 47, 0.813), rgba(0, 0, 0, 0.498));
+   
+      width: 100%;
+      //height: 100px;
+    }
+   
     @include tablet {
       padding-left: 4rem;
       
       //justify-content: space-between;
-  }
+  } @include mobile {
+    padding: 0rem 0rem;
+    padding-left: 0rem;
+    opacity: .4;
+    //justify-content: space-between;
+}
     
 
     &__content {
@@ -53,7 +67,7 @@
             margin: .3rem;
             font-size: .7rem;
             font-weight: 500;
-            background-color:rgba(18, 18, 18, 0.598);
+            background-color:rgba(82, 0, 99, 0.598);
 
             & > * ~ * {
                
@@ -94,7 +108,7 @@
   font-weight: 300;
   text-align: start;
   color: $white;
-  color: rgba(172, 172, 172, 0.534);
+  color: rgba(172, 172, 172, 0.733);
 }
 .footer__content__menu{
    background-color: rgba(254, 255, 255, 0.05);
@@ -129,14 +143,9 @@
 
 }
 .xilla{
-  background: linear-gradient(to right, rgba(138, 138, 138, 0.863), rgb(255, 255, 255));
-  background-clip: text;
- -webkit-background-clip: text;
- -webkit-text-fill-color: transparent;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
+   display: flex;
+   width: 100%;
+   justify-content: flex-end;
+   align-items: center;
   font-size: 1rem;
 }
