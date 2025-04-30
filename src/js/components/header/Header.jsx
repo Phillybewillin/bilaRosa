@@ -417,8 +417,14 @@ const Header = () => {
               </button>
               <button
                 className="aga"
-                onClick={() =>
-                  goToDetails(randomItem.id, randomType, randomItem.title, randomItem.poster_path)
+                onClick={() => {
+                   if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+
+    setCountdown(null);
+                  goToDetails(randomItem.id, randomType, randomItem.title, randomItem.poster_path)}
                 }
               >
                 <i className="bx bx-info-square"></i>
