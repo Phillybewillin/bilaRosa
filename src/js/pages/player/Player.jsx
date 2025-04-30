@@ -6,7 +6,7 @@ import "./player.scss";
 import "../detail/seasons.scss";
 import apiConfig from "../../api/apiConfig";
 import ErrorBoundary from "../../pages/Errorboundary";
-import logo from "../../assets/icons8-alien-monster-emoji-48.png";
+import logo from "../../assets/LOGGO3.png";
 import { ToastContainer, toast } from "react-toastify";
 import Select from "react-select";
 
@@ -605,8 +605,8 @@ export default function Player() {
       src = `${iframeUrl}movie/${id}`;
     } else if (iframeUrl === "https://embed.su/embed/") {
       src = `${iframeUrl}movie/${id}`;
-    } else if (iframeUrl === " https://vidora.su/") {
-      src = `${iframeUrl}movie/${id}?colour=ff0059&autoplay=true&autonextepisode=false&backbutton=https%3A%2F%2Fvidora.su%2F&pausescreen=true`;
+    } else if (iframeUrl === "https://vidora.su/") {
+      src = `${iframeUrl}movie/${id}?colour=ff0059`;
     } else if (iframeUrl === "https://vidsrc.me/embed/") {
       src = `${iframeUrl}movie/${id}`;
     } else if (iframeUrl === "https://vidsrc.xyz/embed/") {
@@ -1105,7 +1105,7 @@ useEffect(() => {
   
                 <div className="logozz" onClick={() => navigate("/")}>
                   <img src={logo} alt="ZillaXR" />
-                  <h4 className="logotext">ZILLAXR</h4>
+                  
                 </div>
                 <div className="menu">
                   <div className="navih" onClick={handleHome}>
@@ -1168,6 +1168,26 @@ useEffect(() => {
                         
                       >
                         <MovieCard category={category} item={recoc} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+               {category === "movie" && (
+                <div className="recommendations">
+                  <h3 className="recoheadtube">
+                    More like {itemData.title || itemData.name}
+                  </h3>
+                  <div className="recoholder">
+                  {Array.isArray(reco) &&
+                    reco.map((recoc) => (
+                      <div
+                        className="dd"
+                        key={recoc.id}
+                        
+                      >
+                        <MovieCard category={category} item={recoc} />
+                      
                       </div>
                     ))}
                   </div>
@@ -1248,26 +1268,7 @@ useEffect(() => {
                   {renderEpisodes()}
                 </>
               )}
-              {category === "movie" && (
-                <div className="recommendations">
-                  <h3 className="recoheadtube">
-                    More like {itemData.title || itemData.name}
-                  </h3>
-                  <div className="recoholder">
-                  {Array.isArray(reco) &&
-                    reco.map((recoc) => (
-                      <div
-                        className="dd"
-                        key={recoc.id}
-                        
-                      >
-                        <MovieCard category={category} item={recoc} />
-                      
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+             
             </div>
           </div>
         ) : (
@@ -1284,8 +1285,8 @@ useEffect(() => {
             <div className="player-container">{/* iframe is persistent above */}</div>
             <div className="sertop">
               <div className="logozz" onClick={() => navigate("/")}>
-                <img src={logo} alt="ZillaXR" />
-                <h4 className="logotext">ZILLAXR</h4>
+                <img src={logo} alt="MOVIEPLUTO"/>
+                
               </div>
               <div className="menu">
                 <div className="navih" onClick={handleHome}>
