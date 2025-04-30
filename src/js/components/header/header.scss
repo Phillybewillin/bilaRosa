@@ -477,6 +477,19 @@ i {
   font-size: 1.5rem;
  
 }
+.aga2{
+  padding: .6rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.068);
+  color: rgb(255, 255, 255);
+  outline: 3px solid rgba(255, 255, 255, 0.333);
+  transition: all 0.5s ease-in-out;
+  &:hover{
+    outline: 3px solid rgb(255, 255, 255);
+    background-color: rgba(96, 96, 96, 0.468);
+    text-decoration: underline;
+  }
+}
 
 .iconbox{
    color: rgb(255, 255, 255);
