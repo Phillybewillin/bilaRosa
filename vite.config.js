@@ -74,6 +74,35 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
+     workbox: {
+    runtimeCaching: [
+      {
+        urlPattern: /^https:\/\/api\.themoviedb\.org\/3\//,
+        handler: 'StaleWhileRevalidate',
+        options: {
+          cacheName: 'tmdb-api-cache',
+          expiration: {
+            maxEntries: 100,
+            maxAgeSeconds: 60 * 60 * 6, // 6 hours
+          },
+          cacheableResponse: {
+            statuses: [0, 200],
+          },
+        },
+      },
+      {
+        urlPattern: ({ url }) => url.origin === self.location.origin,
+        handler: 'NetworkFirst',
+        options: {
+          cacheName: 'local-assets',
+          expiration: {
+            maxEntries: 100,
+            maxAgeSeconds: 60 * 60 * 24, // 1 day
+          },
+        },
+      },
+    ],
+  },
     build: {
       minify: 'esbuild',
       rollupOptions: {
