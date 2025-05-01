@@ -15,7 +15,7 @@ import { useFirestore } from '../Firestore';
 import '../pages/authpages/savedshows.scss'
 import Button from '../components/button/Button';
 const Home = () => {
- // document.title = 'Home ~ Viva la Zilla';
+  document.title = 'Home ~ Viva la Zilla';
 
   // Top of your component
 const listRef = useRef(null);        // Anime list
@@ -40,6 +40,51 @@ const mEdref = useRef(null);
   const navigate = useNavigate();
  
   const continueWatchingRef = useRef(null);
+    const [recommendations, setRecommendations] = useState([]);
+  const recentScrollRef = useRef(null);
+
+  useEffect(() => {
+    const fetchRecommendations = async () => {
+      const stored = localStorage.getItem('playerDataList');
+      if (!stored) return;
+
+      try {
+        const parsed = Object.values(JSON.parse(stored))
+          .filter(item => item?.id && item?.lastWatched)
+          .sort((a, b) => b.lastWatched - a.lastWatched);
+
+        if (!parsed.length) return;
+
+        const recentItems = parsed.slice(0, 2);
+        const allRecs = [];
+
+        for (const item of recentItems) {
+          const { id, seasonNumber, lastEpisode } = item;
+          if (!id) continue;
+
+          const type = seasonNumber && lastEpisode ? 'tv' : 'movie';
+
+          try {
+            const res = await tmdbApi.similar(type , id);
+            if (Array.isArray(res.results)) {
+              allRecs.push(...res.results);
+            }
+          } catch (err) {
+            console.error(`Failed to fetch similar for ID ${id}`, err);
+          }
+        }
+
+        if (!allRecs.length) return;
+
+        const shuffled = allRecs.sort(() => Math.random() - 0.5);
+        setRecommendations(shuffled);
+      } catch (err) {
+        console.error('Error processing localStorage for WatchNext:', err);
+      }
+    };
+
+    fetchRecommendations();
+  }, []);
 
   useEffect(() => {
     if(!user){
@@ -175,7 +220,54 @@ const mEdref = useRef(null);
       <Spotlight />
 
       
-
+      {
+      recommendations.length > 0 &&(
+        <div className="section mb-3">
+        <div className="section-tit"></div>
+        <div className="trendMovie">
+          <div className="spacegia">
+            <div className="alignerbig">
+              <button className="leftgia" onClick={() => handleScrollLeft(recentScrollRef)}>
+                <i className="bx bx-left-arrow-alt" style={{ fontSize: '26px' }}></i>
+              </button>
+              <button className="rightgia" onClick={() => handleScrollRight(recentScrollRef)}>
+                <i className="bx bx-right-arrow-alt" style={{ fontSize: '26px' }}></i>
+              </button>
+            </div>
+  
+            <div className="divconws">
+              <h4 className="favaziwwr">You may also like</h4>
+              <img
+                className="backdrophome"
+                src={apiConfig.w200Image(recommendations[0]?.poster_path)}
+                alt=""
+              />
+              <i
+                className="bx bx-pulse"
+                style={{
+                  fontSize: '22px',
+                  position: 'absolute',
+                  right: '10px',
+                  top: '10px',
+                  opacity: '0.6'
+                }}
+              />
+            </div>
+          </div>
+  
+          <div className="movie-lists" ref={recentScrollRef}>
+            {recommendations
+              .filter(show => show.poster_path)
+              .map(show => (
+                <Suspense fallback={null} key={show.id}>
+                  <MovieCard item={show} category={category.tv} />
+                </Suspense>
+              ))}
+          </div>
+        </div>
+      </div>
+      )
+    }
 
     <div className="trendmovue" style={{position : 'relative' , minWidth : '200px'}}>
     {   
@@ -243,8 +335,10 @@ const mEdref = useRef(null);
 
   
     </div>
+    
+   
 
-      <div className="container">
+       <div className="container">
 
       
          {/* Trending Movies Section */}
