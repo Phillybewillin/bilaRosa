@@ -260,7 +260,7 @@ const mEdref = useRef(null);
               .filter(show => show.poster_path)
               .map(show => (
                 <Suspense fallback={null} key={show.id}>
-                  <MovieCard item={show} category={category.tv} />
+                  <MovieCard item={show} category={show.media_type} />
                 </Suspense>
               ))}
           </div>
