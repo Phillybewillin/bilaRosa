@@ -244,6 +244,94 @@ export default function Player() {
     }
   };
 
+  //error handling
+
+ 
+  
+  
+
+const handleIframeError = () => {
+  setTriedSources((prev) => [...prev, iframeUrl]);
+  const currentIndex = options.findIndex((option) => option.value === iframeUrl);
+  let nextOption = null;
+
+  for (let i = 1; i <= options.length; i++) {
+    const candidate = options[(currentIndex + i) % options.length];
+    if (!triedSources.includes(candidate.value)) {
+      nextOption = candidate;
+      break;
+    }
+  }
+
+  if (nextOption) {
+    toast.info(`Error detected. Switching server to ${nextOption.label}`);
+    setSelectedOption(nextOption);
+    setIframeUrl(nextOption.value);
+  } else {
+    toast.error("All sources failed. Please try again later.");
+  }
+};
+
+// Attempt to prefetch URL before assigning to iframe
+useEffect(() => {
+  const fullSrc = season_number && episode_number === "tv" ? handleIframeSrc() : handlemovieIframeSrc();
+
+  const prefetchIframe = async (url) => {
+    try {
+      const response = await fetch(url, { mode: 'no-cors' });
+      // Can't inspect response status, but network-level errors will throw
+      return true;
+    } catch (err) {
+      console.error(`Prefetch failed for ${url}:`, err);
+      return false;
+    }
+  };
+
+  let canceled = false;
+
+  prefetchIframe(fullSrc).then(success => {
+    if (!success && !canceled) {
+      handleIframeError();
+    }
+  });
+
+  return () => {
+    canceled = true;
+  };
+}, [iframeUrl, displayMode, id, currentSeason, currentEpisode]);
+
+
+// Listen for iframe load or fail
+useEffect(() => {
+  const iframe = document.getElementById("my_iframe");
+  const timeout = setTimeout(() => {
+    console.warn("Iframe load timeout");
+    handleIframeError();
+  }, 8000);
+
+  const onLoad = () => clearTimeout(timeout);
+  iframe?.addEventListener("load", onLoad);
+
+  return () => {
+    iframe?.removeEventListener("load", onLoad);
+    clearTimeout(timeout);
+  };
+}, [iframeUrl]);
+
+// Listen to postMessage errors
+useEffect(() => {
+  const onMessage = (event) => {
+    if (!iframeUrl.includes(event.origin)) return;
+    if (event.data?.type === "error") {
+      console.error("Iframe reported error:", event.data.message);
+      handleIframeError();
+    }
+  };
+  window.addEventListener("message", onMessage);
+  return () => window.removeEventListener("message", onMessage);
+}, [iframeUrl]);
+
+
   // -------------------------------
   // WATCHLIST & FAVOURITES FUNCTIONS (unchanged)
   // -------------------------------
@@ -452,20 +540,22 @@ export default function Player() {
   // -------------------------------
   const [selectedOption, setSelectedOption] = useState(null);
    const options = [
+    { value: "https://vidjoy.pro/embed/", label: "DURIAN" },
     { value: "https://moviesapi.club/", label: "GRANADILLA" },
+    { value: "https://player.vidsrc.co/embed/", label: "MANGOSTEEN" },
     { value: "https://vidfast.pro/", label: " CANTALOUPE" },
     { value: "https://vidora.su/", label: "DRAGONFRUIT" },
-    { value: "https://player.vidsrc.co/embed/", label: "MANGOSTEEN" },
-    { value: "https://player.autoembed.cc/embed/", label: "STRAWBERRY" },
-    { value: "https://vidlink.pro/", label: "PINEBERRY" },
+    { value: "https://player.autoembed.cc/embed/", label: "STRAWBERRY"},
+    { value: "https://vidzee.wtf/", label: "TANGERINE" },
+    { value: "https://vidzee.wtf/2", label: "TANGERINE 4K" },
     { value: "https://vidsrc.rip/embed/", label: "PERSIMMON" },
-    { value: "https://player.videasy.net/", label: "APPLE 4K" },
+    { value: "https://vidlink.pro/", label: "PINEBERRY" },
+    { value: "https://player.videasy.net/", label: "APPLE 4K"},
     { value: "https://vidsrc.me/embed/", label: "KIWI" },
     { value: "https://embed.su/embed/", label: "GRAPE" },
     { value: "https://autoembed.pro/embed/", label: "LEMON" },
     { value: "https://vidsrc.cc/v2/embed/", label: "CHERRY" },
     { value: "https://vidsrc.xyz/embed/", label: "BANANA" },
-    
      { value: "https://player.autoembed.cc/", label: "WATERMELON" },
    
   ];
@@ -525,25 +615,7 @@ export default function Player() {
   // -------------------------------
   // IFRAME HANDLERS & SOURCES
   // -------------------------------
-    const handleIframeError = () => {
-    setTriedSources((prev) => [...prev, iframeUrl]);
-    const currentIndex = options.findIndex((option) => option.value === iframeUrl);
-    let nextOption = null;
-    for (let i = 1; i <= options.length; i++) {
-      const candidate = options[(currentIndex + i) % options.length];
-      if (!triedSources.includes(candidate.value)) {
-        nextOption = candidate;
-        break;
-      }
-    }
-    if (nextOption) {
-      toast.info(`Error detected. Switching server to ${nextOption.label}`);
-      setSelectedOption(nextOption);
-      setIframeUrl(nextOption.value);
-    } else {
-      toast.error("All sources failed. Please try again later.");
-    }
-  };
+  
 
   const handleIframeLoad = () => {
     setLoading(false);
@@ -555,7 +627,16 @@ export default function Player() {
       src = `${iframeUrl}tv/${id}-${currentSeason}-${currentEpisode}`;
     }  else if (iframeUrl === "https://vidfast.pro/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
-    }else if (iframeUrl === "https://vidlink.pro/") {
+    } else if (iframeUrl === "https://vidjoy.pro/embed/") {
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?adFree=true`;
+    }
+    else if (iframeUrl === "https://vidzee.wtf/") {
+      src = `${iframeUrl}tv/multi.php?id=${id}&season=${currentSeason}&episode=${currentEpisode}`;
+    }
+    else if (iframeUrl === "https://vidzee.wtf/2") {
+      src = `https://vidzee.wtf/tv/${id}/${currentSeason}/${currentEpisode}`;
+    }
+    else if (iframeUrl === "https://vidlink.pro/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?poster=true&autoplay=false&icons=vid`;
     } else if (iframeUrl === "https://autoembed.pro/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
@@ -563,9 +644,7 @@ export default function Player() {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
     } else if (iframeUrl === "https://player.autoembed.cc/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
-    } else if (iframeUrl === "https://player.autoembed.cc/") {
-      src = `${iframeUrl}embed/tv/${id}/${currentSeason}/${currentEpisode}?server=6`;
-    } else if (iframeUrl === "https://vidsrc.cc/v2/embed/") {
+    }  else if (iframeUrl === "https://vidsrc.cc/v2/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
     } else if (iframeUrl === "https://embed.su/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
@@ -577,7 +656,10 @@ export default function Player() {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?colour=ff0059&autoplay=true&autonextepisode=false&backbutton=https%3A%2F%2Fvidora.su%2F&pausescreen=true`;
     } else if (iframeUrl === "https://player.vidsrc.co/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
-    } else if (iframeUrl === "https://vidsrc.rip/embed/") {
+    } else if (iframeUrl === "https://player.autoembed.cc/") {
+      src = `${iframeUrl}embed/tv/${id}/${currentSeason}/${currentEpisode}?server=6`;
+    }
+    else if (iframeUrl === "https://vidsrc.rip/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
     } else {
       src = iframeUrl;
@@ -589,7 +671,14 @@ export default function Player() {
     let src = "";
     if (iframeUrl === "https://moviesapi.club/") {
       src = `${iframeUrl}movie/${id}`;
-    } else if (iframeUrl === "https://vidfast.pro/") {
+    }else if (iframeUrl === "https://vidjoy.pro/embed/") {
+      src = `${iframeUrl}movie/${id}?adFree=true`;
+    }else if (iframeUrl === "https://vidzee.wtf/") {
+      src = `${iframeUrl}movie/multi.php?id=${id}`;
+    }else if (iframeUrl === "https://vidzee.wtf/2") {
+      src = `https://vidzee.wtf/movie/4k/${id}`;
+    }
+    else if (iframeUrl === "https://vidfast.pro/") {
       src = `${iframeUrl}movie/${id}`;
     } else if (iframeUrl === "https://vidlink.pro/") {
       src = `${iframeUrl}movie/${id}?poster=true&autoplay=false&nextbutton=true&icons=vid`;
@@ -633,17 +722,6 @@ export default function Player() {
     navigate("/");
   };
 
-  const handlerecoclick = (idnew, titlenew) => {
-    //console.log("handlePlayer function called", idnew, titlenew);
-    const encodedTitle = encodeURIComponent(titlenew.replace(/ /g, "-").toLowerCase());
-    if (category === "tv") {
-      setCurrentSeason(1);
-      setCurrentEpisode(1);
-      navigate(`/watch/${encodedTitle}/${idnew}/1/1`);
-    } else {
-      navigate(`/watch/${encodedTitle}/${idnew}`);
-    }
-  };
 
   const getCustomUrl = () => {
     // Generate an encoded title (lowercase, hyphenated)
@@ -963,6 +1041,7 @@ useEffect(() => {
             <iframe
               key="persistentIframe" // constant key to avoid remounts
               className="episodes__iframe"
+              id="my_iframe"
               src={handleIframeSrc()}
               //style={{ borderRadius : "10px" }}
               width={displayMode === "youtube" ? "100%" : "100%"}
@@ -979,7 +1058,7 @@ useEffect(() => {
               key="persistentIframe"
               src={handlemovieIframeSrc()}
              // style={{ borderRadius : "15px" }}
-            
+             id="my_iframe"
               className="episodes__iframe"
               width={displayMode === "youtube" ? "100%" : "100%"}
               height={displayMode === "youtube" ? "100%" : "100%"}
