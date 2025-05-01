@@ -146,9 +146,8 @@ const Detail = () => {
   }, [category, id ]);
 
   useEffect(() => {
-    document.title = `${item?.title || item?.name} - Watch it on ZillaXR`;
+    document.title = `${item?.title || item?.name || "MOVIEPLUTO" } - MOVIEPLUTO`;
     scrollToTop();
-    
     //console.log('items:', items);
   }, [category, id , item]);
    
