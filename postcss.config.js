@@ -10,8 +10,8 @@ export default {
         safelist: [
           /^swiper/,              // Swiper.js
           /^Toastify/,            // react-toastify
-          /^react-select/,        // react-select
-          /^embla/,               // embla-carousel
+          //^react-select/,        // react-select
+          ///^embla/,               // embla-carousel
           /^szh-menu/,            // @szhsin/react-menu (actual class prefix)
           /^szh-menu__/,          // deeper specificity for menu items
         ],
