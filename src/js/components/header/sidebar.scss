@@ -1,5 +1,18 @@
 @use "../../scss/" as *;
 
+.logoside{
+    transform: rotate(90deg);
+    transition: all .4s ease;
+    transform-origin: center;
+    background-color: #ffffff13;
+    border-radius: 0 10px 10px 0px;
+    img{
+        width: 180px;
+       // height: 40px
+    }
+    
+}
+
 .newheader{
     position: fixed;
     top: 0;
@@ -16,8 +29,8 @@
     transition: all .5s ease-in-out;
 
     &.shrinker{
-        width: 60px;
-        //opacity: .3; 
+       
+        opacity: .3; 
         //backdrop-filter: blur(20px);
           
        // backdrop-filter: none;
@@ -26,13 +39,29 @@
         transition: all .5s ease-in-out;
 
         &:hover{
-           // opacity: 1;
+           opacity: 1;
             backdrop-filter: blur(20px);
-            width: 60px;
+            width: 180px;
             transition: all .5s ease-in-out;
         }
        
     }
+    &:hover{
+        opacity: 1;
+         backdrop-filter: blur(20px);
+         width: 180px;
+         transition: all .5s ease-in-out;
+
+         .iconvz{
+          opacity: 1 !important;
+          //font-size: .65rem;
+          font-weight: 500;
+        }
+        .logoside{
+            border-radius: 0px;
+          transform: rotate(0deg);
+        }
+     }
 
 
     @include mobile {
@@ -41,7 +70,13 @@
   
   }
   .headersidebar{
-    margin-top: 5.5rem;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    align-items: center;
+    //gap: .4rem;
+    margin-top: 0;
+    padding-top: 4rem;
     //background-color: #3030305b;
     z-index: 1000 !important;
     height: 100%;
@@ -55,7 +90,7 @@
     //backdrop-filter: blur(5px);
     //-webkit-backdrop-filter: blur(5px);
     padding:  10px;
-    margin-bottom: 1.5rem;
+   // margin-bottom: 1.5rem;
      border-radius: 7px;
      display: flex;
      flex-direction: column;
@@ -63,8 +98,12 @@
      justify-content: center;
      font-size:1rem;
      gap: .1rem;
-     transition: all 0.7s ease-in-out;
+     transition: all 0.3s ease-in-out;
      position: relative;
+     i{
+       font-size: 1.5rem !important;
+       font-weight: 200;
+     }
      &::after{
        content: "";
        position: absolute;
@@ -72,7 +111,7 @@
        left: 50%;
        transform: translateX(-50%);
        width: 0;
-       transition: width 0.5s ease;
+       transition: width 0.3s ease;
        height: 2.7px;
        color: $main-bg;
        background-color: $main-bg;
@@ -101,8 +140,10 @@
   }
  }
  .iconsideboxitem.active{
-    background-color: #ffffff23;
-    border-radius: 12px;
+    //border: 2px solid rgb(255, 255, 255);
+    //background-color: #003f0811;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.719));
+    border-radius: 15px;
    // backdrop-filter: blur(20px);
    
  }
@@ -123,7 +164,7 @@
      left: 50%;
      transform: translateX(-50%);
      width: 0;
-     transition: width 0.5s ease-in-out;
+     transition: width 0.3s ease-in-out;
      height: 2.5px;
      
      background-color: $main-bg;
@@ -137,15 +178,15 @@
      border-radius: 5px;
      width: 40%;
     // rotate: 90deg;
-     transition: width 0.5s ease-in-out;
+     transition: width 0.3s ease-in-out;
   
      
  }
  }
  .iconvz{
      opacity: 0;
-    font-size: .69rem;
-     font-weight: 500;
+    font-size: .7rem;
+     font-weight: 600;
      transition: all 0.3s ease-in-out;
  }
  .iconsidebox:hover .iconvz{
@@ -164,13 +205,13 @@
     gap: .5rem;
 }
 .filter-button{
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.87) !important;
+    border-radius: 50%;
+    background-color: rgba(15, 15, 15, 0.756) !important;
     padding: .5rem;
-    color: #000 !important;
+    color: #ffffff !important;
     transition: all .3s ease-in-out;
     &:hover{
-        background-color: rgba(19, 19, 19, 0.87) !important;
+        background-color: rgba(75, 75, 75, 0.87) !important;
         color: white !important;
     }  
 }
@@ -184,28 +225,71 @@
     width: 100vw;
     height: 100vh;
    
-    background-color: #000000bf;
+    background-color: #000000;
     //width: 100%;
-    background-image: radial-gradient(transparent 2px, #000000ae 0);
+    //background-image: radial-gradient(transparent 2px, #000000ae 0);
     background-size: 4px 4px;
-    backdrop-filter: brightness(.5) grayscale(1) !important;
-    backdrop-filter: blur(10px);
+    //backdrop-filter: brightness(.5) grayscale(1) !important;
+    //backdrop-filter: blur(10px);
+
+    
 }
+.searchabso {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 1.9rem;
+  }
+  
+  .backdrop {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    background: rgba(22, 22, 22, 0.152);
+    //backdrop-filter: blur(6px);
+    z-index: 0;
+  }
+  
+  .searchmovieabsolute {
+    position: relative;
+    z-index: 1;
+    //background-color: #fff;
+    background: none;
+    margin-top: 50px;
+    padding: 1rem;
+    border-radius: 8px;
+    width: 90%;
+    height: max-content;
+    max-width:max-content;
+    //box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+  }
+  
+  .search-active {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    border-radius: 13px;
+
+    .iconvz {
+      opacity: 1;
+      font-size: .7rem;
+      font-weight: 550;
+    }
+  }
+  
+
 .searchmovieabsolute{
     //background-color: ;
      //position: relative;
   //margin-left: -180px;
   display: flex;
   //justify-content: flex-start;
-  padding: 0 0.3rem;
-  position: absolute;
-  top: 5rem;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 19;
-  flex-direction: column;
+ gap: 2rem;
   align-items: center;
+  flex-direction: column;
+
   
  // width: 400px;
  input {
@@ -220,7 +304,7 @@
    padding: .7rem 1.3rem;
    //margin-bottom: .4rem;
    width: 450px;
-   border: 1px solid rgba(251, 251, 251, 0.993);
+   border: 2px solid rgba(251, 251, 251, 0.116);
      
      &:focus {
        outline: none;
@@ -264,10 +348,15 @@
 
 }
 .clearsearch{
+    position: absolute;
+    top: auto;
+    right: .5rem;
+    border: none;
     background-color: #1b1b1bf8;
-    padding: .5rem;
+    padding: .8rem;
     font-size: small;
-    border-radius: 9px;
+    border: 2px solid #f4f4f440;
+    border-radius: 50%;
     //margin: 3px;
     cursor: pointer;
 }
@@ -375,11 +464,11 @@
     }
 }
 .searchabsolutetitle{
-    margin-left: -5rem;
+   // margin-left: -5rem;
     padding: 10px ;
     font-size: 1rem;
-    margin-bottom: .3rem;
-    text-align: start;
+    margin-bottom: .1rem;
+    text-align:center;
     font-weight: 700;
     background-color: #ffffff13;
     border-radius: 7px;
@@ -389,19 +478,34 @@
     }
 }
 .searchabsolutetitleicon{
-    margin-left: -2rem;
+    margin-left: -3.7rem;
+    border-radius: 0 10px 10px 0px;
     z-index: 20;
-    margin-top: 5px;
+    background-color: #ffffff13;
+    padding: .64rem 1rem;
+    margin-top: 0px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    @include tablet {
+        margin-left: -2.7rem;
+    }
+
+    &:hover{
+        background-color: #ffffff33;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px)
+    }
 }
 .searchios{
     display: flex;
-
-    width: 60vh;
-    justify-content: space-between;
-    padding-right: .5rem;
+ margin-right: 2rem;
+    width: 73vh;
+    
+    justify-content: start;
+    //padding-right: .5rem;
     align-items: center;
     z-index: 70 !important;
     //border-radius: 0 0 10px 10px;
-    //background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(2, 2, 2, 0.553));
+  //background: linear-gradient(to bottom, rgb(145, 26, 26), rgba(2, 2, 2, 0.553));
   
 }
