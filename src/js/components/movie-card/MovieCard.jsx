@@ -157,7 +157,7 @@ const inCinema = (releaseDate) => {
 const cinemaStatus = inCinema(new Date(item.release_date || item.first_air_date));
   const onCardClick = () => {
     if (isMobile) setShowModal(true);
-    else goToDetails();
+    else goToDetails( item.id, category, item.title, item.poster_path);
   };
 
   // player
@@ -243,6 +243,7 @@ const cinemaStatus = inCinema(new Date(item.release_date || item.first_air_date)
         ref={containerRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        //onClick={onCardClick}
       >
         {isLoading ? (
           <SkeletonTheme baseColor="#ffffff11" enableAnimation={false}>
