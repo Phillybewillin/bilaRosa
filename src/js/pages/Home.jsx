@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState , Suspense} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Spotlight from '../components/hero-side/Spotlight';
 import MovieList from '../components/movie-list/MovieList';
-import { FixedSizeList } from 'react-window'; // Import FixedSizeList from react-window
+//import { FixedSizeList } from 'react-window'; // Import FixedSizeList from react-window
 import { category, movieType, tvType } from '../api/tmdbApi';
 import tmdbApi from '../api/tmdbApi';
 import apiConfig from '../api/apiConfig';
@@ -15,7 +15,7 @@ import { useFirestore } from '../Firestore';
 import '../pages/authpages/savedshows.scss'
 import Button from '../components/button/Button';
 const Home = () => {
-  document.title = 'Home ~ Viva la Zilla';
+ //document.title = 'Home ~ Viva la Zilla';
 
   // Top of your component
 const listRef = useRef(null);        // Anime list
