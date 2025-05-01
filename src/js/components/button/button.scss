@@ -91,14 +91,16 @@ button{
 }
 
 .btn-outline{
-    background-color: transparent;
-    color: $main-bg;
+    color: $black;
+    background-color: $txt-bg;
+    //color: $main-bg;
     border: 3px solid $txt-bg;
     box-shadow: unset;
     transition: color .3s ease, background-color .3s ease;
 }
 
 .btn-outline:hover{
+    opacity:.7;
     box-shadow: unset;
     color: $black;
     background-color: $txt-bg;
