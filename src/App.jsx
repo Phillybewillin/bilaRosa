@@ -15,6 +15,7 @@ import Player from './js/pages/player/Player';
 import Sidebar from './js/components/header/Sidebar';
 import {motion} from 'motion/react'
 import { ToastContainer } from 'react-toastify';
+import useAdControl from './js/hooks/useAdControl';
 //const Player = lazyWithPreload(() => import('./js/pages/player/Player'));
 const Filters = lazyWithPreload(() => import('./js/components/movie-grid/Filters'));
 //const Login = lazyWithPreload(() => import('./js/pages/authpages/Login'));
@@ -31,7 +32,7 @@ Account.preload();
 Socials.preload();
 const App = () => {
     const location = useLocation();
-  
+    useAdControl();
     const hideHeaderPaths = [
       "/watch/:title/:id",
       "/watch/:title/:id/:season_number/:episode_number",
@@ -54,11 +55,12 @@ const App = () => {
         <Routes>
           <Route path="/" element={
              <motion.div 
-             initial={{opacity: 0}}
-             animate={{opacity: 1}}
-             exit={{opacity: 0}}
-             transition={{duration : 1.4}}
-             >
+             initial={{ opacity: 0}}
+             animate={{ opacity: 1 }}
+             exit={{ opacity: 0}}
+             transition={{ duration: 1.5 }}
+             //style={{ height: '100%' }}
+         >
               <Home />
               </motion.div>
             } />
