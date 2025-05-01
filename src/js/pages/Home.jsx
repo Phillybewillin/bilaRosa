@@ -15,7 +15,7 @@ import { useFirestore } from '../Firestore';
 import '../pages/authpages/savedshows.scss'
 import Button from '../components/button/Button';
 const Home = () => {
-  document.title = 'Home ~ Viva la Zilla';
+ // document.title = 'Home ~ Viva la Zilla';
 
   // Top of your component
 const listRef = useRef(null);        // Anime list
