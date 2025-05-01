@@ -10,6 +10,8 @@
         width: 180px;
        // height: 40px
     }
+
+    
     
 }
 
@@ -63,7 +65,9 @@
         }
      }
 
-
+    @include tablet {
+      padding-top: 1.2rem;
+    }
     @include mobile {
       display: none;
     }
@@ -507,5 +511,8 @@
     z-index: 70 !important;
     //border-radius: 0 0 10px 10px;
   //background: linear-gradient(to bottom, rgb(145, 26, 26), rgba(2, 2, 2, 0.553));
-  
+   
+    @include tablet {
+        width: 50%;
+    }
 }
