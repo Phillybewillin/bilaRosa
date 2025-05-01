@@ -1,0 +1,70 @@
+.error-boundary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #000000;
+    padding: 2rem;
+  }
+  
+  .error-card {
+    background: rgba(0, 0, 0, 0.582);
+    border: #ffffff17 solid 2px;
+    border-radius: 26px;
+    box-shadow: 0 20px 100px rgba(195, 195, 195, 0.237);
+    padding: 1.5rem 1rem;
+    max-width: 600px;
+    width: 100%;
+    text-align: end;
+  }
+  
+  .error-title {
+    font-size: 2rem;
+    color: #e53935;
+    margin-bottom: 1rem;
+  }
+  
+  .error-message {
+    color: #555;
+    margin-bottom: 1.5rem;
+  }
+  
+  .error-details {
+    background: #0b0b0b;
+    padding: 1rem;
+    text-align: left;
+    font-size: 0.875rem;
+    color: #707070;
+    border-radius: 8px;
+    max-height: max-content;
+    overflow: auto;
+    margin-bottom: 1.5rem;
+  // animation: fade-in 0.5s ease-in-out;
+    summary {
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+    }
+  
+    pre {
+      white-space: pre-wrap;
+      margin: 0;
+    }
+  }
+  
+  
+  .refresh-button {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 7px;
+    font-size: .9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #fac7e0;
+    }
+  }
+  
