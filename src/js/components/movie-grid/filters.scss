@@ -11,13 +11,14 @@
     position: relative;
     gap: 1rem;
 
-    @include mobile {
-        padding: .5rem;
-        margin-left: 0;
-    }
+ 
     @include tablet {
         padding: .5rem;
         margin-left: 4rem;
+    }
+    @include mobile {
+        padding: .5rem;
+        margin-left: 0;
     }
 }
 .filename {
@@ -86,7 +87,8 @@
     margin-bottom: 1rem;
 }
 .backback{
-    background-color: #161616;
+    background-color: #101010;
+    filter: drop-shadow(0 0 3rem rgba(132, 132, 132, 0.448));
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 20px;
@@ -114,7 +116,7 @@
 }
 .select{
     border: 1px solid rgb(255, 185, 228);
-   
+    
    }
 .gen{
     display: inline-flex;
@@ -125,6 +127,10 @@
     justify-content: start;
     padding: .5rem;
     z-index: 50;
+
+    @include mobile{
+        font-size: .95rem;
+    }
   
 }
 .cbut{
@@ -155,7 +161,7 @@
        // color: grey;
 }
 @include mobile{
-    font-size: .85rem;
+    font-size: .9rem;
 }
 
 }
