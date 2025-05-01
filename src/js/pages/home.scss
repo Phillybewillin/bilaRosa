@@ -194,9 +194,9 @@
   }
   @include mobile {
     margin-left: .2rem;
-    padding-left: .5rem;
+    padding-left: .2rem;
     align-items: center;
-     min-width: 100%;
+     width: 100%;
     //min-width: min-content;
   }
 }
