@@ -98,14 +98,19 @@ useEffect(() => {
   const onTouchStart = (e) => {
     touchStartY.current = e.touches[0].clientY;
   };
+  
   const onTouchMove = (e) => {
     if (touchStartY.current == null) return;
-    const deltaY = e.touches[0].clientY - touchStartY.current;
-    if (deltaY > 40) {
+    const currentY = e.touches[0].clientY;
+    const deltaY = currentY - touchStartY.current;
+  
+    if (deltaY > 60) {
+      e.preventDefault(); // prevent pull-to-refresh
       touchStartY.current = null;
       triggerClose();
     }
   };
+  
 
   // save watchlist
   const saveShow = async (e) => {
@@ -198,23 +203,23 @@ const cinemaStatus = inCinema(new Date(item.release_date || item.first_air_date)
      };
     
      const handleMouseLeave = (e) => {
-       if (isMobile) return;
-       const to = e.relatedTarget;
-       // still within card or modal? bail out
-       if (
-         containerRef.current.contains(to) ||
-         (modalRef.current && modalRef.current.contains(to))
-       ) {
-         return;
-       }
-       // cancel any pending show
-       clearTimeout(showTimerRef.current);
-       // schedule hide
-       hideTimerRef.current = setTimeout(() => {
-         triggerClose();
-       }, 150);
-     };
-
+      if (isMobile) return;
+      const to = e.relatedTarget;
+      // Check if to is not null before calling contains
+      if (to && (
+        containerRef.current.contains(to) ||
+        (modalRef.current && modalRef.current.contains(to))
+      )) {
+        return;
+      }
+      // If we reach here, the mouse has left the viewport or the element
+      // cancel any pending show
+      clearTimeout(showTimerRef.current);
+      // schedule hide
+      hideTimerRef.current = setTimeout(() => {
+        triggerClose();
+      }, 150);
+    };
   // derived
   const year    = new Date(item.release_date || item.first_air_date).getFullYear();
   const votePct = (item.vote_average || 0) * 10;
