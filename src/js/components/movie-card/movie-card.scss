@@ -506,6 +506,7 @@
 /* Base modal */
 .movie-modal {
   z-index: 1000 !important;
+  touch-action: none;
   overflow: hidden;
   background: #000000cd;
   backdrop-filter: blur(10px);
