@@ -9,7 +9,7 @@ import { useNavigate, useLocation } from "react-router";
 import Select from "react-select";
 
 const Filters = () => {
-  document.title = "Filters • ZILLA-XR";
+  document.title = "FILTERS • MOVIEPLUTO";
 
   // List of countries for react-select
   const [countryOptions] = useState([
@@ -276,12 +276,12 @@ const Filters = () => {
       {items && items.length > 0 &&
           (category === "movie" ? (
             <div className="righters">
-              <h3>MOVIES</h3>
+              <h2>MOVIES</h2>
               <i className="bx bx-movie"></i>
             </div>
           ) : (
             <div className="righters">
-              <h3>TV SHOWS</h3>
+              <h2>TV SHOWS</h2>
               <i className="bx bx-tv"></i>
             </div>
           ))}
