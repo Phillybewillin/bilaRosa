@@ -67,15 +67,15 @@ useEffect(() => {
   }, [user, item, checkIfInWatchlist]);
 
   // handle close (with mobile animation)
-  const triggerClose = () => {
-    
-      setIsClosing(true);
-      setTimeout(() => {
-        setIsClosing(false);
-        setShowModal(false);
-      }, 250);
-   
-  };
+ const triggerClose = () => {
+  setIsClosing(true);
+
+  setTimeout(() => {
+    setIsClosing(false);
+    setShowModal(false);
+  }, isMobile ? 50 : 250); // Faster close on mobile, debounced on desktop
+};
+
 
   // ESC to close
   useEffect(() => {
