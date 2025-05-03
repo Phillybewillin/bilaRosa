@@ -73,7 +73,7 @@ useEffect(() => {
   setTimeout(() => {
     setIsClosing(false);
     setShowModal(false);
-  }, isMobile ? 50 : 250); // Faster close on mobile, debounced on desktop
+  }, isMobile ? 190 : 250); // Faster close on mobile, debounced on desktop
 };
 
 
