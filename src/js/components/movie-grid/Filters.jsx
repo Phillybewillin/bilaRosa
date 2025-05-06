@@ -9,7 +9,7 @@ import { useNavigate, useLocation } from "react-router";
 import Select from "react-select";
 
 const Filters = () => {
-  document.title = "FILTERS • MOVIEPLUTO";
+  document.title = "Filters • MoviePluto";
 
   // List of countries for react-select
   const [countryOptions] = useState([
@@ -276,12 +276,12 @@ const Filters = () => {
       {items && items.length > 0 &&
           (category === "movie" ? (
             <div className="righters">
-              <h2>MOVIES</h2>
+              <h3>MOVIES</h3>
               <i className="bx bx-movie"></i>
             </div>
           ) : (
             <div className="righters">
-              <h2>TV SHOWS</h2>
+              <h3>TV SHOWS</h3>
               <i className="bx bx-tv"></i>
             </div>
           ))}
@@ -353,20 +353,26 @@ const Filters = () => {
                 <h3 className="formtitle">COUNTRIES</h3>
            
                 <Select
+                  className="select"
                   value={draftSelectedCountry}
                   onChange={(selectedOption) => setDraftSelectedCountry(selectedOption)}
                   options={countryOptions}
                   placeholder="Select Country"
                   isClearable
+                  classNames={{
+                    menu: () => 'custom-select-menu',
+                    option: () => 'custom-select-option',
+                  }}
                   theme={(theme) => ({
                     ...theme,
-                  
+                    zIndex: 1000,
+                    position: "relative",
                     borderRadius: 10,
                     colors: {
                       ...theme.colors,
                       primary25: "#ffffff2a",
                       primary: "#ffffff1a",
-                      neutral0: "#00000e2",
+                      neutral0: "#000000",
                       neutral5: "grey",
                       neutral10: "#38383879",
                       neutral20: "#ffffff5a",
@@ -388,6 +394,10 @@ const Filters = () => {
                 <div className="gen">
                 <h3 className="formtitle">YEAR</h3>
                   <Select
+                   classNames={{
+                    menu: () => 'custom-select-menu',
+                    option: () => 'custom-select-option',
+                  }}
                     value={draftSelectedYear}
                     onChange={(selectedOption) => setDraftSelectedYear(selectedOption)}
                     options={yearsOptions}
@@ -400,7 +410,7 @@ const Filters = () => {
                         ...theme.colors,
                         primary25: "#ffffff2a",
                         primary: "#ffffff1a",
-                        neutral0: "#00000e2",
+                        neutral0: "#000000",
                         neutral5: "grey",
                         neutral10: "#38383879",
                         neutral20: "#ffffff5a",
@@ -423,6 +433,10 @@ const Filters = () => {
                 <div className="gen">
                 <h3 className="formtitle">SORT BY</h3>
                   <Select
+                   classNames={{
+                    menu: () => 'custom-select-menu',
+                    option: () => 'custom-select-option',
+                  }}
                     value={{ value: draftSortBy, label: sortByOptions.find(option => option.value === draftSortBy)?.label || "Popularity Descending" }}
                     onChange={(selectedOption) => setDraftSortBy(selectedOption?.value || "popularity.desc")}
                     options={sortByOptions}
@@ -434,7 +448,7 @@ const Filters = () => {
                         ...theme.colors,
                         primary25: "#ffffff2a",
                         primary: "#ffffff1a",
-                        neutral0: "#00000e2",
+                        neutral0: "#000000",
                         neutral5: "grey",
                         neutral10: "#38383879",
                         neutral20: "#ffffff5a",
@@ -497,22 +511,19 @@ const Filters = () => {
         </div>
       </div>
       <ToastContainer
-        theme="dark"
-        position="top-right"
-        autoClose={2500}
-        hideProgressBar={false}
-        newestOnTop={false}
+         toastClassName="blurred-toast"
+         bodyClassName="toast-body"
+         theme="dark"
+         position="botton-right"
+         autoClose={2500}
+         hideProgressBar={false}
+         newestOnTop={false}
         closeOnClick={false}
         rtl={false}
         pauseOnFocusLoss={false}
         draggable={false}
         pauseOnHover={false}
-        backdrop={true}
-        progressStyle={{
-          backgroundColor: "#ff0000",
-          color: "white",
-          borderRadius: "10px"
-        }}
+       
       />
     </>
   );
