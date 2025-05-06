@@ -1,6 +1,23 @@
 @use "../../scss/" as *;
 
 
+
+
+.custom-select-menu {
+  background-color: rgba(255, 255, 255, 0.043);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+ 
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.078) rgba(0, 0, 0, 0)
+}
+.custom-select-option:hover {
+ // background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  //border-radius: 5px;
+}
+
+
 .player-container {
  
   padding: 0;
@@ -216,8 +233,8 @@
   top: 7px;
   @include mobile {
     
-    top: -.2rem;
-    left: 75vw; ;
+    top: -.4rem;
+    left: 75vw;
   }
 }
 .watchnow{
@@ -366,7 +383,7 @@
  transition: all .4s ease-in-out;
   
   @include mobile {
-    left: 9rem;
+    left: 8.8rem;
     top: -1.4rem;
     position: absolute;
     margin: 1rem .5rem;
@@ -525,6 +542,7 @@
 }
 
 .episode-selector.image-layout {
+  transition: all .4s ease;
   position: relative;
   overflow: hidden;
   background-image: none !important;
@@ -612,7 +630,7 @@
       backdrop-filter: none;
       //background-color: #7e7e7e15 !important;
       overflow: hidden;
-      transition: all .3s ease-in-out;
+      transition: all .4s ease;
     }
     
     .episode_listimg{
@@ -622,6 +640,7 @@
       flex-direction: column;
       gap: 10px;
       padding: 10px;
+      transition: all .4s ease;
       
      // border-radius: 10px;
     }
