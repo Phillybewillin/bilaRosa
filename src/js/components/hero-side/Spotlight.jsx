@@ -936,7 +936,7 @@ Former high school lab partners Marshall and Frances begin to unravel a conspira
           >
             {/* Poster Image */}
             <img
-              src={apiConfig.w200Image(item.poster_path)}
+              src={apiConfig.w500Image(item.poster_path)}
               alt={item.title}
               className="player-history-item__poster"
             />
