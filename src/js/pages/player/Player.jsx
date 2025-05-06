@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect ,useCallback  } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import axios from "axios";
@@ -43,6 +43,27 @@ export default function Player() {
   const [Loading, setLoading] = useState(false);
   const [iframeUrl, setIframeUrl] = useState("");
   const [triedSources, setTriedSources] = useState([]);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const options = [
+   { value: "https://vidjoy.pro/embed/", label: "DURIAN" },
+   { value: "https://moviesapi.club/", label: "GRANADILLA" },
+   { value: "https://player.vidsrc.co/embed/", label: "MANGOSTEEN" },
+   { value: "https://vidfast.pro/", label: " CANTALOUPE" },
+   { value: "https://vidora.su/", label: "DRAGONFRUIT" },
+   { value: "https://player.autoembed.cc/embed/", label: "STRAWBERRY"},
+   { value: "https://vidzee.wtf/", label: "TANGERINE" },
+   { value: "https://vidzee.wtf/2", label: "TANGERINE 4K" },
+   { value: "https://vidsrc.rip/embed/", label: "PERSIMMON" },
+   { value: "https://vidlink.pro/", label: "PINEBERRY" },
+   { value: "https://player.videasy.net/", label: "APPLE 4K"},
+   { value: "https://vidsrc.me/embed/", label: "KIWI" },
+   { value: "https://embed.su/embed/", label: "GRAPE" },
+   { value: "https://autoembed.pro/embed/", label: "LEMON" },
+   { value: "https://vidsrc.cc/v2/embed/", label: "CHERRY" },
+   { value: "https://vidsrc.xyz/embed/", label: "BANANA" },
+    { value: "https://player.autoembed.cc/", label: "WATERMELON" },
+  
+ ];
   
   // -------------------------------
   // LOCAL STORAGE & TIMING
@@ -246,90 +267,125 @@ export default function Player() {
 
   //error handling
 
- 
+  function debounce(func, delay = 500) {
+    let timer;
+    return (...args) => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => func(...args), delay);
+    };
+  }
   
   
 
-const handleIframeError = () => {
-  setTriedSources((prev) => [...prev, iframeUrl]);
-  const currentIndex = options.findIndex((option) => option.value === iframeUrl);
-  let nextOption = null;
+  const errorCountRef = useRef({});
 
-  for (let i = 1; i <= options.length; i++) {
-    const candidate = options[(currentIndex + i) % options.length];
-    if (!triedSources.includes(candidate.value)) {
-      nextOption = candidate;
-      break;
-    }
-  }
+  const isOnline = () => navigator.onLine;
 
-  if (nextOption) {
-    toast.info(`Error detected. Switching server to ${nextOption.label}`);
-    setSelectedOption(nextOption);
-    setIframeUrl(nextOption.value);
-  } else {
-    toast.error("All sources failed. Please try again later.");
-  }
-};
+  const handleIframeError = useCallback(
+    debounce((reason = "unknown") => {
+      console.warn(`handleIframeError triggered by: ${reason}`);
+  
+      const currentOption = options.find(option => option.value === iframeUrl);
+      if (currentOption?.label === "GRANADILLA") {
+        console.info("Error detected, but current source is GRANADILLA. Not switching.");
+        //toast.warn("Issue detected on GRANADILLA, but no failover is configured.");
+        return;
+      }
+  
+      if (!isOnline()) {
+        toast.error("You're offline. Please check your connection.");
+        return;
+      }
+  
+      errorCountRef.current[iframeUrl] = (errorCountRef.current[iframeUrl] || 0) + 1;
+  
+      if (errorCountRef.current[iframeUrl] > 2) {
+        toast.error("Multiple retries failed for this source. Stopping attempts.");
+        return;
+      }
+  
+      setTriedSources(prev => [...prev, iframeUrl]);
+  
+      const currentIndex = options.findIndex(option => option.value === iframeUrl);
+      let nextOption = null;
+  
+      for (let i = 1; i <= options.length; i++) {
+        const candidate = options[(currentIndex + i) % options.length];
+        if (!triedSources.includes(candidate.value)) {
+          nextOption = candidate;
+          break;
+        }
+      }
+  
+      if (nextOption) {
+        toast.info(`Error detected (${reason}). Switching server to ${nextOption.label}`);
+        setSelectedOption(nextOption);
+        setIframeUrl(nextOption.value);
+      } else {
+        toast.error("All sources failed. Please try again later.");
+      }
+    }, 500),
+    [iframeUrl, options, triedSources]
+  );
+  
 
-// Attempt to prefetch URL before assigning to iframe
-useEffect(() => {
-  const fullSrc = season_number && episode_number === "tv" ? handleIframeSrc() : handlemovieIframeSrc();
+  // Assign iframe URL on mount or when deps change
+  useEffect(() => {
+    const fullSrc = season_number && episode_number === "tv"
+      ? handleIframeSrc()
+      : handlemovieIframeSrc();
+    setIframeUrl(fullSrc);
+  }, [season_number, episode_number, displayMode, id, currentSeason, currentEpisode]);
 
-  const prefetchIframe = async (url) => {
-    try {
-      const response = await fetch(url, { mode: 'no-cors' });
-      // Can't inspect response status, but network-level errors will throw
-      return true;
-    } catch (err) {
-      console.error(`Prefetch failed for ${url}:`, err);
-      return false;
-    }
-  };
+  // Handle iframe load/error/timeout
+  useEffect(() => {
+    const iframe = document.getElementById("my_iframe");
+    if (!iframe) return;
 
-  let canceled = false;
-
-  prefetchIframe(fullSrc).then(success => {
-    if (!success && !canceled) {
+    const timeout = setTimeout(() => {
+      console.warn("Iframe load timeout");
       handleIframeError();
-    }
-  });
+    }, 10000); // 10s timeout
 
-  return () => {
-    canceled = true;
-  };
-}, [iframeUrl, displayMode, id, currentSeason, currentEpisode]);
+    const onLoad = () => {
+      clearTimeout(timeout);
+      console.log("Iframe loaded successfully");
+    };
 
-
-// Listen for iframe load or fail
-useEffect(() => {
-  const iframe = document.getElementById("my_iframe");
-  const timeout = setTimeout(() => {
-    console.warn("Iframe load timeout");
-    handleIframeError();
-  }, 8000);
-
-  const onLoad = () => clearTimeout(timeout);
-  iframe?.addEventListener("load", onLoad);
-
-  return () => {
-    iframe?.removeEventListener("load", onLoad);
-    clearTimeout(timeout);
-  };
-}, [iframeUrl]);
-
-// Listen to postMessage errors
-useEffect(() => {
-  const onMessage = (event) => {
-    if (!iframeUrl.includes(event.origin)) return;
-    if (event.data?.type === "error") {
-      console.error("Iframe reported error:", event.data.message);
+    const onError = () => {
+      clearTimeout(timeout);
+      console.warn("Iframe encountered a load error");
       handleIframeError();
-    }
-  };
-  window.addEventListener("message", onMessage);
-  return () => window.removeEventListener("message", onMessage);
-}, [iframeUrl]);
+    };
+
+    iframe.addEventListener("load", onLoad);
+    iframe.addEventListener("error", onError);
+
+    return () => {
+      iframe.removeEventListener("load", onLoad);
+      iframe.removeEventListener("error", onError);
+      clearTimeout(timeout);
+    };
+  }, [iframeUrl]);
+
+  // Listen to postMessage errors from iframe
+  useEffect(() => {
+    const onMessage = (event) => {
+      try {
+        const originMatch = iframeUrl.includes(event.origin);
+        if (originMatch && event.data?.type === "error") {
+          console.error("Iframe reported error:", event.data.message);
+          handleIframeError();
+        }
+      } catch (e) {
+        console.warn("Error parsing iframe message:", e);
+      }
+    };
+
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, [iframeUrl]);
+
 
 
   // -------------------------------
@@ -538,27 +594,7 @@ useEffect(() => {
   // -------------------------------
   // REACT-SELECT & SOURCE HANDLERS
   // -------------------------------
-  const [selectedOption, setSelectedOption] = useState(null);
-   const options = [
-    { value: "https://vidjoy.pro/embed/", label: "DURIAN" },
-    { value: "https://moviesapi.club/", label: "GRANADILLA" },
-    { value: "https://player.vidsrc.co/embed/", label: "MANGOSTEEN" },
-    { value: "https://vidfast.pro/", label: " CANTALOUPE" },
-    { value: "https://vidora.su/", label: "DRAGONFRUIT" },
-    { value: "https://player.autoembed.cc/embed/", label: "STRAWBERRY"},
-    { value: "https://vidzee.wtf/", label: "TANGERINE" },
-    { value: "https://vidzee.wtf/2", label: "TANGERINE 4K" },
-    { value: "https://vidsrc.rip/embed/", label: "PERSIMMON" },
-    { value: "https://vidlink.pro/", label: "PINEBERRY" },
-    { value: "https://player.videasy.net/", label: "APPLE 4K"},
-    { value: "https://vidsrc.me/embed/", label: "KIWI" },
-    { value: "https://embed.su/embed/", label: "GRAPE" },
-    { value: "https://autoembed.pro/embed/", label: "LEMON" },
-    { value: "https://vidsrc.cc/v2/embed/", label: "CHERRY" },
-    { value: "https://vidsrc.xyz/embed/", label: "BANANA" },
-     { value: "https://player.autoembed.cc/", label: "WATERMELON" },
-   
-  ];
+ 
 
   const handleSelect = (selectedOption) => {
       if (itemData?.id) {
@@ -1284,6 +1320,10 @@ useEffect(() => {
                   value={selectedOption}
                   options={options}
                   onChange={handleSelect}
+                  classNames={{
+                    menu: () => 'custom-select-menu',
+                    option: () => 'custom-select-option',
+                  }}
                   theme={(theme) => ({
                     ...theme,
                     borderRadius: 10,
@@ -1473,6 +1513,10 @@ useEffect(() => {
                 className="selectco"
                 value={selectedOption}
                 options={options}
+                classNames={{
+                  menu: () => 'custom-select-menu',
+                  option: () => 'custom-select-option',
+                }}
                 onChange={handleSelect}
                 theme={(theme) => ({
                   ...theme,
@@ -1481,7 +1525,7 @@ useEffect(() => {
                     ...theme.colors,
                     primary25: "#ffffff2a",
                     primary: "#ffffff1a",
-                    neutral0: "#00000e2",
+                    neutral0: "#00000a2",
                     neutral5: "grey",
                     neutral10: "#38383879",
                     neutral20: "#ffffff5a",
@@ -1511,7 +1555,7 @@ useEffect(() => {
                           >
                             <div
                               className={`seas ${
-                                item.season_number == currentSeason ? "actively" : ""
+                                item.season_number == currentSeason || item.season_number == previewSeason ? "actively" : ""
                               }`}
                             >
                               <h4 className="seasons__name">
