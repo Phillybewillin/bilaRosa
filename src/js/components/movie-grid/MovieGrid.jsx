@@ -97,7 +97,7 @@ const MovieGrid = props => {
 
   // --- State declarations ---
   const [items, setItems] = useState([]);
-  document.title = `${props.category === category.movie ? 'Movies • ZillaXR' : 'TV Shows • ZillaXR'}`;
+  document.title = `${props.category === category.movie ? 'Movies • MoviePluto' : 'TV Shows • Moviepluto'}`;
   // Selected genres (array of numbers)
   const [selectedGenre, setSelectedGenre] = useState([]);
   // Selected type (if set, we ignore genres)
