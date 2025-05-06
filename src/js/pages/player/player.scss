@@ -1,6 +1,15 @@
 @use "../../scss/" as *;
 
+.blurred-toast {
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  color: #fff;
+}
 
+.toast-body {
+  font-size: 14px;
+  line-height: 1.4;
+}
 
 
 .custom-select-menu {
