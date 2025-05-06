@@ -318,7 +318,7 @@ export default function Player() {
       }
   
       if (nextOption) {
-        toast.info(`Error detected (${reason}). Switching server to ${nextOption.label}`);
+        toast.info(`Error detected . Switching server to ${nextOption.label}`);
         setSelectedOption(nextOption);
         setIframeUrl(nextOption.value);
       } else {
@@ -1050,9 +1050,11 @@ useEffect(() => {
     <ErrorBoundary>
       <>
         <ToastContainer
+           toastClassName="blurred-toast"
+           bodyClassName="toast-body"
           theme="dark"
           fontSize="11px"
-          position="top-right"
+          position="bottom-right"
           autoClose={8000}
           hideProgressBar={false}
           newestOnTop={false}
@@ -1061,12 +1063,7 @@ useEffect(() => {
           pauseOnFocusLoss={false}
           draggable={false}
           pauseOnHover={false}
-          progressStyle={{
-            backgroundColor: "#00000",
-            color: "white",
-            borderRadius: "5px",
-            fontSize: "11px",
-          }}
+         
         />
       <div className="abocont">
         {/* Persistent iframe container (always rendered) */}
