@@ -4,15 +4,27 @@
   background-color: rgba(255, 255, 255, 0.043);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
- 
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.078) rgba(0, 0, 0, 0)
+   z-index: 9999 !important;
+   scrollbar-width: thin;
+   scrollbar-color: rgba(255, 255, 255, 0.078) rgba(0, 0, 0, 0)
 }
 .custom-select-option:hover {
  // background-color: rgba(0, 0, 0, 0.05);
   cursor: pointer;
   //border-radius: 5px;
 }
+
+.blurred-toast {
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  color: #fff;
+}
+
+.toast-body {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
 
 .filters {
    // margin-top: 3rem;
