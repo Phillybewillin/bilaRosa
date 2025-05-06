@@ -59,13 +59,13 @@ ul {
   list-style-type: none;
 }
 .blurred-toast {
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(6px);
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
   color: #fff;
 }
 
 .toast-body {
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.4;
 }
 
