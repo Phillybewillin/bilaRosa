@@ -15,6 +15,7 @@ import Player from './js/pages/player/Player';
 import Sidebar from './js/components/header/Sidebar';
 import {motion} from 'motion/react'
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import useAdControl from './js/hooks/useAdControl';
 //const Player = lazyWithPreload(() => import('./js/pages/player/Player'));
 const Filters = lazyWithPreload(() => import('./js/components/movie-grid/Filters'));
@@ -47,7 +48,7 @@ const App = () => {
 
   return (
     <>
-     <ToastContainer theme="dark" position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#1eff00', color: 'white', borderRadius: '10px' }} />
+     <ToastContainer theme="dark" toastClassName="blurred-toast"  bodyClassName="toast-body"  icon={false} position="bottom-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#1eff00', color: 'white', borderRadius: '10px' }} />
    
       <AuthContextProvider>
       {!hideHeader && <Header />}
