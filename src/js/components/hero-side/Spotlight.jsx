@@ -246,6 +246,38 @@ const Spotlight = () => {
       })}
       className="swiper"
     >
+       <SwiperSlide>
+              <div className="spotlight-item">
+              <h1 className="spotlight-number">R</h1>
+                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/cJvUJEEQ86LSjl4gFLkYpdCJC96.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0rem 1rem 2rem rgba(70, 49, 0, 0.566))'}}/>
+                
+                <div className="spotlight-content">
+                                
+                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="http://image.tmdb.org/t/p/w500/eTWOGyx6CbsR4ItUFssyCqAx9ej.png"/></h2>
+                
+                  
+                 
+                  <div className="spotty">
+                  <p className="spotlight-genres">
+                    <span className="genre a">ACTION</span>
+                    <span className="genre a">WAR</span>
+                   
+                  </p>
+                  <h5 className="genre a"> MOVIE | 11 APR 2025 </h5> <h5 className="genre a"> 71%</h5>
+                  </div>
+                  <p className="spotlight-overview">
+                 A platoon of Navy SEALs embarks on a dangerous mission in Ramadi, Iraq, with the chaos and brotherhood of war retold through their memories of the event.
+
+
+</p>
+                  <div className="spotty">
+                  <Button className="spotlight-watch-btn" onClick={() => navigate('/movie/1241436')}>  <i className='bx bx-info-circle'></i></Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer(1241436, "WARFARE")}>  <i className='bx bx-play'></i> Watch Now </Button>
+                  </div>
+                  </div>
+              </div>
+            </SwiperSlide> 
+       
      <SwiperSlide>
   <div className="spotlight-item">
     <h1 className="spotlight-number">TV-MA</h1>
@@ -677,37 +709,7 @@ Mufasa, a cub lost and alone, meets a sympathetic lion named Taka, the heir to a
                    </div>
               </div>
             </SwiperSlide>
-           <SwiperSlide>
-              <div className="spotlight-item">
-              <h1 className="spotlight-number">R</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/sGHvhL3l1XNdETNDHlLzoy6i4cQ.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0rem 1rem 2rem rgba(117, 0, 0, 0.35))'}}/>
-                
-                <div className="spotlight-content">
-                                
-                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/w500/4ErxI9hrCWYewkZODZHOwmn43xe.png"/></h2>
-                
-                  
-                 
-                  <div className="spotty">
-                  <p className="spotlight-genres">
-                    <span className="genre a">HORROR</span>
-                    <span className="genre a">COMEDY</span>
-                    <span className="genre a">MYSTERY</span>
-                  </p>
-                  <h5 className="genre a"> MOVIE | 21 FEB 2025 </h5> <h5 className="genre a"> 60%</h5>
-                  </div>
-                  <p className="spotlight-overview">
-                  When twin brothers find a mysterious wind-up monkey, a series of outrageous deaths tear their family apart. Twenty-five years later, the monkey begins a new killing spree forcing the estranged brothers to confront the cursed toy.
-
-</p>
-                  <div className="spotty">
-                  <Button className="spotlight-watch-btn" onClick={() => navigate('/movie/1124620')}>  <i className='bx bx-info-circle'></i></Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 1124620, "the monkey")}>  <i className='bx bx-play'></i> Watch Now </Button>
-                  </div>
-                  </div>
-              </div>
-            </SwiperSlide> 
-       
+          
       <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">PG-13</h1>
@@ -899,7 +901,7 @@ Former high school lab partners Marshall and Frances begin to unravel a conspira
             <div className="conconwa">
             {history.length > 0 && (
               <div className="spacegia">
-                 {history.length > 10 && (
+                 {history.length > 6 && (
       <div className="alignerbutts">
       <button className="leftgia" onClick={() => handleScrollLeft(historyRef)}>
         <i className="bx bx-left-arrow-alt" style={{fontSize : '25px'}}></i>
