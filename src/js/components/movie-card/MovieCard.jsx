@@ -116,7 +116,7 @@ useEffect(() => {
   const saveShow = async (e) => {
     e.stopPropagation();
     if (!user) {
-      toast.error('Please log in to save a movie');
+      toast.error('Access Denied , Please logIn to add this to your Watchlist');
       return;
     }
     await addToWatchlist(user.uid, item.id.toString(), {
