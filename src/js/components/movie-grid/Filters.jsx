@@ -365,14 +365,14 @@ const Filters = () => {
                   }}
                   theme={(theme) => ({
                     ...theme,
-                    zIndex: 1000,
-                    position: "relative",
+                   
+                   
                     borderRadius: 10,
                     colors: {
                       ...theme.colors,
                       primary25: "#ffffff2a",
                       primary: "#ffffff1a",
-                      neutral0: "#000000",
+                      neutral0: "#0000e4",
                       neutral5: "grey",
                       neutral10: "#38383879",
                       neutral20: "#ffffff5a",
@@ -410,7 +410,7 @@ const Filters = () => {
                         ...theme.colors,
                         primary25: "#ffffff2a",
                         primary: "#ffffff1a",
-                        neutral0: "#000000",
+                        neutral0: "#0000e4",
                         neutral5: "grey",
                         neutral10: "#38383879",
                         neutral20: "#ffffff5a",
@@ -448,7 +448,7 @@ const Filters = () => {
                         ...theme.colors,
                         primary25: "#ffffff2a",
                         primary: "#ffffff1a",
-                        neutral0: "#000000",
+                        neutral0: "#0000e4",
                         neutral5: "grey",
                         neutral10: "#38383879",
                         neutral20: "#ffffff5a",
@@ -474,7 +474,7 @@ const Filters = () => {
 
               {/* <h3 className="formtitle">Keywords</h3> */}
               {/* <input type="text" value={draftKeywords} onChange={(e) => setDraftKeywords(e.target.value)} placeholder="e.g., action, adventure" /> */}
-              <h3 className="formtitle">SEARCH</h3>
+              <h3 className="formtitle">Filter</h3>
               <div className="cbut">
                 <Button type="submit">Search</Button>
                 <OutlineButton type="button" onClick={handleClearFilters}>
