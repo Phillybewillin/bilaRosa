@@ -1,18 +1,6 @@
 @use '../../scss/' as *;
 
-.custom-select-menu {
-  background-color: rgba(255, 255, 255, 0.043);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-   z-index: 999 !important;
-   scrollbar-width: thin;
-   scrollbar-color: rgba(255, 255, 255, 0.078) rgba(0, 0, 0, 0)
-}
-.custom-select-option:hover {
- // background-color: rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-  //border-radius: 5px;
-}
+
 
 .blurred-toast {
   background-color: rgba(0, 0, 0, 0.4);
@@ -150,6 +138,20 @@
     justify-content: start;
     padding: .5rem;
     z-index: 50;
+
+  .custom-select-menu {
+  background-color: rgba(255, 255, 255, 0.043) ;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  // z-index: 999 !important;
+   scrollbar-width: thin;
+   scrollbar-color: rgba(255, 255, 255, 0.078) rgba(0, 0, 0, 0)
+}
+.custom-select-option:hover {
+ // background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  //border-radius: 5px;
+}
 
     @include mobile{
         font-size: .95rem;
