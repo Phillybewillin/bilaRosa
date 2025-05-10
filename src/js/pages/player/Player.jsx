@@ -65,6 +65,10 @@ export default function Player() {
   
  ];
   
+  const errorCountRef = useRef({});
+
+  const isOnline = () => navigator.onLine;
+  
   // -------------------------------
   // LOCAL STORAGE & TIMING
   // -------------------------------
@@ -277,9 +281,6 @@ export default function Player() {
   
   
 
-  const errorCountRef = useRef({});
-
-  const isOnline = () => navigator.onLine;
 
   const handleIframeError = useCallback(
     debounce((reason = "unknown") => {
@@ -325,7 +326,7 @@ export default function Player() {
         toast.error("All sources failed. Please try again later.");
       }
     }, 500),
-    [iframeUrl, options, triedSources]
+    [options, triedSources]
   );
   
 
@@ -366,7 +367,7 @@ export default function Player() {
       iframe.removeEventListener("error", onError);
       clearTimeout(timeout);
     };
-  }, [iframeUrl]);
+  }, []);
 
   // Listen to postMessage errors from iframe
   useEffect(() => {
@@ -384,7 +385,7 @@ export default function Player() {
 
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
-  }, [iframeUrl]);
+  }, []);
 
 
 
