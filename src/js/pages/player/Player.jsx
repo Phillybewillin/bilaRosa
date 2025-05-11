@@ -44,16 +44,17 @@ export default function Player() {
   const [iframeUrl, setIframeUrl] = useState("");
   const [triedSources, setTriedSources] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
+  
   const options = [
    { value: "https://vidjoy.pro/embed/", label: "DURIAN" },
    { value: "https://moviesapi.club/", label: "GRANADILLA" },
    { value: "https://player.vidsrc.co/embed/", label: "MANGOSTEEN" },
    { value: "https://vidfast.pro/", label: " CANTALOUPE" },
-   { value: "https://vidora.su/", label: "DRAGONFRUIT" },
+   { value: "https://vidsrc.rip/embed/", label: "PERSIMMON" },
    { value: "https://player.autoembed.cc/embed/", label: "STRAWBERRY"},
    { value: "https://vidzee.wtf/", label: "TANGERINE" },
    { value: "https://vidzee.wtf/2", label: "TANGERINE 4K" },
-   { value: "https://vidsrc.rip/embed/", label: "PERSIMMON" },
+   { value: "https://vidora.su/", label: "DRAGONFRUIT" },
    { value: "https://vidlink.pro/", label: "PINEBERRY" },
    { value: "https://player.videasy.net/", label: "APPLE 4K"},
    { value: "https://vidsrc.me/embed/", label: "KIWI" },
@@ -97,7 +98,7 @@ export default function Player() {
   }, [displayMode]);
   
   const toggleEpisodeLayout = () => {
-    setEpisodeLayoutMode((prev) => (prev + 1) % 3);
+    setEpisodeLayoutMode((prev) => (prev + 1) % 4);
   };
   
   const toggleDisplayMode = () => {
@@ -142,7 +143,7 @@ export default function Player() {
       }
       window.removeEventListener("resize", updateArrowVisibility);
     };
-  }, [seasons , currentSeason , currentEpisode , season_number , episode_number ,displayMode]);
+  }, [seasons , currentSeason , currentEpisode , season_number , episode_number ,displayMode , episodeLayoutMode]);
 
   useEffect(() => {
     updateArrowVisibility();
@@ -157,7 +158,7 @@ export default function Player() {
       }
       window.removeEventListener("resize", updateArrowVisibility);
     };
-  }, [episodes , currentSeason , currentEpisode , season_number , episode_number ]);
+  }, [episodes , currentSeason , currentEpisode , season_number , episode_number , episodeLayoutMode , displayMode ]);
 
   const scrollLeft = () => {
     if (seasonsContainerRef.current) {
@@ -336,7 +337,7 @@ export default function Player() {
       ? handleIframeSrc()
       : handlemovieIframeSrc();
     setIframeUrl(fullSrc);
-  }, [season_number, episode_number, displayMode, id, currentSeason, currentEpisode]);
+  }, [season_number, episode_number, id, currentSeason, currentEpisode]);
 
   // Handle iframe load/error/timeout
   useEffect(() => {
@@ -346,7 +347,7 @@ export default function Player() {
     const timeout = setTimeout(() => {
       console.warn("Iframe load timeout");
       handleIframeError();
-    }, 10000); // 10s timeout
+    }, 6000); // 10s timeout
 
     const onLoad = () => {
       clearTimeout(timeout);
