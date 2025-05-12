@@ -101,10 +101,14 @@ const Filters = () => {
     { value: "release_date.asc", label: "Release Date Ascending" },
     { value: "revenue.desc", label: "Revenue Descending" },
     { value: "revenue.asc", label: "Revenue Ascending" },
+      ...(category === 'movie' ? [
     { value: "primary_release_date.desc", label: "Primary Release Date Descending" }, // Movie specific
-    { value: "primary_release_date.asc", label: "Primary Release Date Ascending" },   // Movie specific
+    { value: "primary_release_date.asc", label: "Primary Release Date Ascending" }    // Movie specific
+  ] : []),
+  ...(category === 'tv' ? [
     { value: "first_air_date.desc", label: "First Air Date Descending" },       // TV specific
-    { value: "first_air_date.asc", label: "First Air Date Ascending" },        // TV specific
+    { value: "first_air_date.asc", label: "First Air Date Ascending" }          // TV specific
+  ] : [])
   ];
 
   // Process URL query parameters once.
@@ -315,7 +319,8 @@ const Filters = () => {
             {isMinimized ? "Show Filters" : "Hide Filters"}
           </Button>
         </div>
-        <div className="backback">
+        <div className={`backback ${isMinimized ? 'closed' : ''}`}>
+
         {!isMinimized && (
           <>
             <div className="bigmovie">
@@ -341,7 +346,7 @@ const Filters = () => {
                 <h3 className="formtitle">COUNTRIES</h3>
            
                 <Select
-                  className="select"
+                  
                   value={draftSelectedCountry}
                   onChange={(selectedOption) => setDraftSelectedCountry(selectedOption)}
                   options={countryOptions}
