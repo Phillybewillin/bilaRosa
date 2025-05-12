@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect ,useCallback  } from "react";
+import { useRef, useState, useEffect ,useCallback, use  } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import axios from "axios";
@@ -44,17 +44,16 @@ export default function Player() {
   const [iframeUrl, setIframeUrl] = useState("");
   const [triedSources, setTriedSources] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
-  
   const options = [
    { value: "https://vidjoy.pro/embed/", label: "DURIAN" },
    { value: "https://moviesapi.club/", label: "GRANADILLA" },
    { value: "https://player.vidsrc.co/embed/", label: "MANGOSTEEN" },
    { value: "https://vidfast.pro/", label: " CANTALOUPE" },
-   { value: "https://vidsrc.rip/embed/", label: "PERSIMMON" },
+   { value: "https://vidora.su/", label: "DRAGONFRUIT" },
    { value: "https://player.autoembed.cc/embed/", label: "STRAWBERRY"},
    { value: "https://vidzee.wtf/", label: "TANGERINE" },
    { value: "https://vidzee.wtf/2", label: "TANGERINE 4K" },
-   { value: "https://vidora.su/", label: "DRAGONFRUIT" },
+   { value: "https://vidsrc.rip/embed/", label: "PERSIMMON" },
    { value: "https://vidlink.pro/", label: "PINEBERRY" },
    { value: "https://player.videasy.net/", label: "APPLE 4K"},
    { value: "https://vidsrc.me/embed/", label: "KIWI" },
@@ -65,10 +64,6 @@ export default function Player() {
     { value: "https://player.autoembed.cc/", label: "WATERMELON" },
   
  ];
-  
-  const errorCountRef = useRef({});
-
-  const isOnline = () => navigator.onLine;
   
   // -------------------------------
   // LOCAL STORAGE & TIMING
@@ -98,7 +93,8 @@ export default function Player() {
   }, [displayMode]);
   
   const toggleEpisodeLayout = () => {
-    setEpisodeLayoutMode((prev) => (prev + 1) % 4);
+setEpisodeLayoutMode((prev) => (prev % 3) + 1);
+
   };
   
   const toggleDisplayMode = () => {
@@ -143,7 +139,7 @@ export default function Player() {
       }
       window.removeEventListener("resize", updateArrowVisibility);
     };
-  }, [seasons , currentSeason , currentEpisode , season_number , episode_number ,displayMode , episodeLayoutMode]);
+  }, [seasons , currentSeason , currentEpisode , season_number , episode_number ,displayMode]);
 
   useEffect(() => {
     updateArrowVisibility();
@@ -158,7 +154,7 @@ export default function Player() {
       }
       window.removeEventListener("resize", updateArrowVisibility);
     };
-  }, [episodes , currentSeason , currentEpisode , season_number , episode_number , episodeLayoutMode , displayMode ]);
+  }, [episodes , currentSeason , currentEpisode , season_number , episode_number ]);
 
   const scrollLeft = () => {
     if (seasonsContainerRef.current) {
@@ -282,6 +278,9 @@ export default function Player() {
   
   
 
+  const errorCountRef = useRef({});
+
+  const isOnline = () => navigator.onLine;
 
   const handleIframeError = useCallback(
     debounce((reason = "unknown") => {
@@ -320,24 +319,75 @@ export default function Player() {
       }
   
       if (nextOption) {
-        toast.info(`Error detected . Switching server to ${nextOption.label}`);
+        toast.info(`Error detected (${reason}). Switching server to ${nextOption.label}`);
         setSelectedOption(nextOption);
         setIframeUrl(nextOption.value);
       } else {
         toast.error("All sources failed. Please try again later.");
       }
     }, 500),
-    [options, triedSources]
+    [iframeUrl, options, triedSources]
   );
   
 
-  // Assign iframe URL on mount or when deps change
-  useEffect(() => {
-    const fullSrc = season_number && episode_number === "tv"
-      ? handleIframeSrc()
-      : handlemovieIframeSrc();
-    setIframeUrl(fullSrc);
-  }, [season_number, episode_number, id, currentSeason, currentEpisode]);
+useEffect(() => {
+  const handleKeyDown = (e) => {
+    const key = e.key.toLowerCase();
+    
+    // Shift + N → Next Episode
+    if (e.shiftKey && key === "n") {
+      e.preventDefault();
+
+       document.body.focus();
+   
+      if (currentEpisode < totalEpisodes) {
+        toast.info(`Playing Next Episode: ${currentEpisode + 1}`);
+        handleQuickEpisodeClickNext(currentEpisode + 1);
+      } else if (currentSeason < totalseasons) {
+        toast.info(`Playing Next Season: ${currentSeason + 1} Episode 1`);
+        handleQuickSeasonClickNext(currentSeason + 1);
+      } else {
+        toast.info("You’re at the final episode and season.");
+      }
+    }
+
+    // Shift + P → Previous Episode
+    if (e.shiftKey && key === "p") {
+      e.preventDefault();
+       const iframe = document.getElementById("my_iframe");
+      if (document.activeElement === iframe) {
+        iframe.blur(); // remove focus from iframe
+      }
+      if (currentEpisode > 1) {
+        toast.info(`Playing Previous Episode: ${currentEpisode - 1}`);
+        handleQuickEpisodeClickNext(currentEpisode - 1);
+      } else if (currentSeason > 1) {
+        toast.info(`Playing Previous Season: ${currentSeason - 1}`);
+        handleQuickSeasonClickNext(currentSeason - 1);
+      } else {
+        toast.info("You’re at the first episode and season.");
+      }
+    }
+
+    // Shift + S → Next Season
+    if (e.shiftKey && key === "s") {
+      e.preventDefault();
+      if (currentSeason < totalseasons) {
+        toast.info(`Jumped to Season ${currentSeason + 1}`);
+        handleQuickSeasonClickNext(currentSeason + 1);
+      } else {
+        toast.info("You’re already at the final season.");
+      }
+    }
+
+    // 0 → Jump to Episode 1 (e.g., TV remote)
+
+  };
+
+  window.addEventListener("keydown", handleKeyDown);
+  return () => window.removeEventListener("keydown", handleKeyDown);
+}, [currentEpisode, totalEpisodes, currentSeason, totalseasons]);
+ 
 
   // Handle iframe load/error/timeout
   useEffect(() => {
@@ -347,9 +397,10 @@ export default function Player() {
     const timeout = setTimeout(() => {
       console.warn("Iframe load timeout");
       handleIframeError();
-    }, 6000); // 10s timeout
+    }, 10000); // 10s timeout
 
     const onLoad = () => {
+      //setLoading(false);
       clearTimeout(timeout);
       console.log("Iframe loaded successfully");
     };
@@ -368,7 +419,7 @@ export default function Player() {
       iframe.removeEventListener("error", onError);
       clearTimeout(timeout);
     };
-  }, []);
+  }, [iframeUrl]);
 
   // Listen to postMessage errors from iframe
   useEffect(() => {
@@ -386,7 +437,7 @@ export default function Player() {
 
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
-  }, []);
+  }, [iframeUrl]);
 
 
 
@@ -534,6 +585,8 @@ export default function Player() {
       //episode next 
 
       const handleQuickEpisodeClickNext = (episodeNumber, episodeUrl = null) => {
+        setLoading(true); // show loading before anything changes
+
         const url = new URL(window.location.href);
         url.pathname = url.pathname.replace(/\/\d+$/, `/${episodeNumber}`);
         window.history.pushState({}, "", url.toString());
@@ -561,11 +614,14 @@ export default function Player() {
         window.scrollTo({ top: 0, behavior: "smooth" });
         setCurrentEpisode(episodeNumber);
         setbgChanged(apiConfig.w200Image(episodeUrl) || apiConfig.w200Image(itemData.backdrop_path));
+        setLoading(false);
       };
     
      
     
       const handleQuickSeasonClickNext = (seasonNumber) => {
+        setLoading(true); // show loading before anything changes
+
         const url = new URL(window.location.href);
         const pathnameParts = url.pathname.split("/");
         pathnameParts[pathnameParts.length - 2] = seasonNumber;
@@ -588,6 +644,7 @@ export default function Player() {
           watchHistoryObj[id][seasonNumber].push(1);
         }
         localStorage.setItem("watchHistory", JSON.stringify(watchHistoryObj));
+        setLoading(false);
       };
     
       
@@ -599,6 +656,7 @@ export default function Player() {
  
 
   const handleSelect = (selectedOption) => {
+     setLoading(true); // show loading before anything changes
       if (itemData?.id) {
       localStorage.setItem(
         `lastSelectedOption_${itemData.id}`,
@@ -619,6 +677,7 @@ export default function Player() {
     setSelectedOption(selectedOption);
     setIframeUrl(selectedOption.value);
     window.scrollTo({ top: 0, behavior: "smooth" });
+    setLoading(false);
   };
   
 
@@ -655,9 +714,7 @@ export default function Player() {
   // -------------------------------
   
 
-  const handleIframeLoad = () => {
-    setLoading(false);
-  };
+ 
 
   const handleIframeSrc = () => {
     let src = "";
@@ -702,6 +759,7 @@ export default function Player() {
     } else {
       src = iframeUrl;
     }
+   
     return src;
   };
 
@@ -865,7 +923,7 @@ useEffect(() => {
   // RENDERING EPISODES (including layout toggle)
   // -------------------------------
   const renderEpisodes = () => {
-    if (episodeLayoutMode === 0) {
+    if (episodeLayoutMode === 1) {
       // Image layout: render episodes as images only
       return (
         <div
@@ -935,7 +993,7 @@ useEffect(() => {
           </ul>
         </div>
       );
-    } else if (episodeLayoutMode === 1) {
+    } else if (episodeLayoutMode === 2) {
       // Descriptive layout: show episode number, name, etc.
       return (
         <div className="episode-selector descriptive-layout">
@@ -1045,6 +1103,10 @@ useEffect(() => {
     }
   };
 
+   const handleIframeLoad = () => {
+    setLoading(false);
+  };
+
   // -------------------------------
   // RENDERING THE COMPONENTS
   // -------------------------------
@@ -1052,29 +1114,31 @@ useEffect(() => {
     <ErrorBoundary>
       <>
         <ToastContainer
-           toastClassName="blurred-toast"
-           bodyClassName="toast-body"
+          toastClassName="blurred-toast"
+          bodyClassName="toast-body"
           theme="dark"
-          fontSize="11px"
+          //fontSize="11px"
           position="bottom-right"
           autoClose={8000}
           hideProgressBar={false}
           newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
+          closeOnClick={true}
+          //rtl={false}
           pauseOnFocusLoss={false}
           draggable={false}
-          pauseOnHover={false}
-         
+          pauseOnHover={true}
+          icon={false}
         />
       <div className="abocont">
         {/* Persistent iframe container (always rendered) */}
         <div className={`persistent-iframe-container ${displayMode}`}>
           {Loading ? (
-            <div>Loading...</div>
-          ) : season_number && episode_number ? (
+         <div className="loading">
+    <img src={logo} alt="MOVIEPLUTO" className="loading-pulse" />
+  </div>
+ ) : season_number && episode_number ? (
             <iframe
-              key="persistentIframe" // constant key to avoid remounts
+              //key={iframeUrl} // constant key to avoid remounts
               className="episodes__iframe"
               id="my_iframe"
               src={handleIframeSrc()}
@@ -1090,7 +1154,7 @@ useEffect(() => {
             />
           ) : (
             <iframe
-              key="persistentIframe"
+              //key={iframesrc}
               src={handlemovieIframeSrc()}
              // style={{ borderRadius : "15px" }}
              id="my_iframe"
@@ -1101,7 +1165,7 @@ useEffect(() => {
               frameBorder="0"
               allowFullScreen
               referrerPolicy="origin"
-              onLoad={handleIframeLoad}
+              onLoad={() => handleIframeLoad()}
               onError={handleIframeError}
             />
           )}
@@ -1200,7 +1264,7 @@ useEffect(() => {
                     <button onClick={toggleEpisodeLayout}>
                       {episodeLayoutMode === 1 ? (
                         <i className="bx bx-image"></i>
-                      ) : episodeLayoutMode === 0 ? (
+                      ) : episodeLayoutMode === 2 ? (
                         <i className="bx bxs-grid"></i>
                       ) : (
                         <i className="bx bx-list-ul"></i>
@@ -1490,9 +1554,9 @@ useEffect(() => {
               <div className="layout-toggles">
                 {category === "tv" && (
                   <button onClick={toggleEpisodeLayout}>
-                    {episodeLayoutMode === 0 ? (
+                    {episodeLayoutMode === 1 ? (
                       <i className="bx bx-image"></i>
-                    ) : episodeLayoutMode === 1 ? (
+                    ) : episodeLayoutMode === 2 ? (
                       <i className="bx bxs-grid"></i>
                     ) : (
                       <i className="bx bx-list-ul"></i>
