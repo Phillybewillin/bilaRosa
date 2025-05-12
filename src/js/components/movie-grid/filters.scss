@@ -13,6 +13,38 @@
   line-height: 1.4;
 }
 
+/* Prevent Firefox from clipping or mispositioning react-select menus */
+.custom-select__menu {
+  z-index: 9999 !important;
+  position: absolute !important;
+  overflow: hidden;
+  padding-bottom: 3rem;
+  max-height: 250px;
+  background-color: rgb(19, 19, 19);
+}
+
+.custom-select__option {
+  //min-height: 40px;
+  border-bottom: #9f9f9f23 1px solid;
+}
+
+.custom-select-menu {
+  background-color: rgba(67, 67, 67, 0.413);
+  backdrop-filter: blur(15px);
+  height: 240px !important;
+  overflow: hidden;
+  margin-bottom: 5rem;
+  -webkit-backdrop-filter: blur(15px);
+ 
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.078) rgba(0, 0, 0, 0)
+}
+.custom-select-option:hover {
+ // background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  //border-radius: 5px;
+}
+
 
 .filters {
    // margin-top: 3rem;
@@ -24,7 +56,7 @@
     border-radius: 10px;
     position: relative;
     gap: 1rem;
-
+    
  
     @include tablet {
         padding: .5rem;
@@ -139,19 +171,7 @@
     padding: .5rem;
     z-index: 50;
 
-  .custom-select-menu {
-  background-color: rgba(255, 255, 255, 0.043) ;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  // z-index: 999 !important;
-   scrollbar-width: thin;
-   scrollbar-color: rgba(255, 255, 255, 0.078) rgba(0, 0, 0, 0)
-}
-.custom-select-option:hover {
- // background-color: rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-  //border-radius: 5px;
-}
+ 
 
     @include mobile{
         font-size: .95rem;
