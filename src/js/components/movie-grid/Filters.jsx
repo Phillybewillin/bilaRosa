@@ -6,39 +6,64 @@ import "./filters.scss";
 import Button, { OutlineButton } from "../button/Button";
 import { ToastContainer } from "react-toastify";
 import { useNavigate, useLocation } from "react-router";
-import Select from "react-select";
+import Select  from "react-select";
+import CreatableSelect from "react-select/creatable";
+
 
 const Filters = () => {
   document.title = "Filters • MoviePluto";
 
   // List of countries for react-select
-  const [countryOptions] = useState([
-    { value: "US", label: "United States" },
-    { value: "CA", label: "Canada" },
-    { value: "MX", label: "Mexico" },
-    { value: "GB", label: "United Kingdom" },
-    { value: "FR", label: "France" },
-    { value: "DE", label: "Germany" },
-    { value: "JP", label: "Japan" },
-    { value: "IN", label: "India" },
-    { value: "AU", label: "Australia" },
-    { value: "BR", label: "Brazil" },
-    { value: "IT", label: "Italy" },
-    { value: "RU", label: "Russia" },
-    { value: "KR", label: "South Korea" },
-    { value: "ES", label: "Spain" },
-    { value: "AR", label: "Argentina" },
-    { value: "NL", label: "Netherlands" },
-    { value: "NG", label: "Nigeria" },
-    { value: "SE", label: "Sweden" },
-    { value: "PL", label: "Poland" },
-    { value: "ID", label: "Indonesia" },
-    { value: "ZA", label: "South Africa" },
-    { value: "TH", label: "Thailand" },
-    { value: "EG", label: "Egypt" },
-    { value: "CO", label: "Colombia" },
-    { value: "KE", label: "Kenya" },
-  ]);
+ const [countryOptions] = useState([
+  { value: "US", label: "United States" },
+  { value: "GB", label: "United Kingdom" },
+  { value: "CA", label: "Canada" },
+  { value: "FR", label: "France" },
+  { value: "DE", label: "Germany" },
+  { value: "IT", label: "Italy" },
+  { value: "ES", label: "Spain" },
+  { value: "RU", label: "Russia" },
+  { value: "JP", label: "Japan" },
+  { value: "KR", label: "South Korea" },
+  { value: "IN", label: "India" },
+  { value: "CN", label: "China" },
+  { value: "MX", label: "Mexico" },
+  { value: "BR", label: "Brazil" },
+  { value: "AR", label: "Argentina" },
+  { value: "AU", label: "Australia" },
+  { value: "NL", label: "Netherlands" },
+  { value: "SE", label: "Sweden" },
+  { value: "PL", label: "Poland" },
+  { value: "ID", label: "Indonesia" },
+  { value: "TH", label: "Thailand" },
+  { value: "PH", label: "Philippines" },
+  { value: "TR", label: "Turkey" },
+  { value: "EG", label: "Egypt" },
+  { value: "NG", label: "Nigeria" },
+  { value: "ZA", label: "South Africa" },
+  { value: "CO", label: "Colombia" },
+  { value: "KE", label: "Kenya" },
+  { value: "DK", label: "Denmark" },
+  { value: "FI", label: "Finland" },
+  { value: "NO", label: "Norway" },
+  { value: "BE", label: "Belgium" },
+  { value: "CH", label: "Switzerland" },
+  { value: "HK", label: "Hong Kong" },
+  { value: "SG", label: "Singapore" },
+  { value: "MY", label: "Malaysia" },
+  { value: "NZ", label: "New Zealand" },
+  { value: "IL", label: "Israel" },
+  { value: "IE", label: "Ireland" },
+  { value: "AT", label: "Austria" },
+  { value: "GR", label: "Greece" },
+  { value: "PT", label: "Portugal" },
+  { value: "CZ", label: "Czech Republic" },
+  { value: "HU", label: "Hungary" },
+  { value: "UA", label: "Ukraine" },
+  { value: "SA", label: "Saudi Arabia" },
+  { value: "AE", label: "United Arab Emirates" },
+]);
+
 
   // Final states used for fetching items.
   const [category, setCategory] = useState("movie"); // default category
@@ -311,6 +336,159 @@ const Filters = () => {
             </div>
 
             <form onSubmit={handleFormSubmit}>
+               <div className="lent">
+                <div className="gen">
+                <h3 className="formtitle">COUNTRIES</h3>
+           
+                <Select
+                  className="select"
+                  value={draftSelectedCountry}
+                  onChange={(selectedOption) => setDraftSelectedCountry(selectedOption)}
+                  options={countryOptions}
+                  placeholder="Select Country"
+                  isClearable
+                  classNamePrefix="custom-select"
+                   styles={{
+    menu: (base) => ({
+      ...base,
+      zIndex: 9999,
+    }),
+    menuList: (base) => ({
+      ...base,
+      maxHeight: '250px',
+      overflowY: 'auto',
+    }),
+  }}
+                  theme={(theme) => ({
+                    ...theme,
+                   
+                   
+                    borderRadius: 10,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "#ffffff2a",
+                      primary: "#ffffff1a",
+                      neutral0: "#00000e4",
+                      neutral5: "grey",
+                      neutral10: "#38383879",
+                      neutral20: "#ffffff5a",
+                      neutral30: "red",
+                      neutral40: "red",
+                      neutral50: "#a9a9a9",
+                      neutral60: "red",
+                      neutral70: "#696969",
+                      neutral80: "#ffffff5a",
+                      neutral90: "#303030",
+                    },
+                  })}
+                />
+              </div>
+
+              <br />
+              <div className="gensz">
+               
+                <div className="gen">
+                <h3 className="formtitle">YEAR</h3>
+                  <CreatableSelect
+                   classNamePrefix="custom-select"
+                    styles={{
+    menu: (base) => ({
+      ...base,
+      zIndex: 9999,
+    }),
+    menuList: (base) => ({
+      ...base,
+      maxHeight: '250px',
+      overflowY: 'auto',
+    }),
+  }}
+  
+  value={draftSelectedYear}
+  onChange={(selectedOption) => setDraftSelectedYear(selectedOption)}
+  options={yearsOptions}
+  placeholder="Type or Select Year"
+  isClearable
+  isValidNewOption={(inputValue) => /^\d{4}$/.test(inputValue)}
+  onCreateOption={(inputValue) => {
+    if (/^\d{4}$/.test(inputValue)) {
+      const newOption = { value: inputValue, label: inputValue };
+      setYearsOptions((prev) => [newOption, ...prev]);
+      setDraftSelectedYear(newOption);
+    }
+  }}
+  theme={(theme) => ({
+    ...theme,
+    borderRadius: 10,
+    colors: {
+      ...theme.colors,
+      primary25: "#ffffff2a",
+      primary: "#ffffff1a",
+      neutral0: "#00000e4",
+      neutral5: "grey",
+      neutral10: "#38383879",
+      neutral20: "#ffffff5a",
+      neutral30: "red",
+      neutral40: "red",
+      neutral50: "#a9a9a9",
+      neutral60: "red",
+      neutral70: "#696969",
+      neutral80: "#ffffff5a",
+      neutral90: "#303030",
+    },
+  })}
+/>
+
+                </div>
+              </div>
+              <br />
+
+              <div className="gensz">
+               
+                <div className="gen">
+                <h3 className="formtitle">SORT BY</h3>
+                  <Select
+                   classNamePrefix="custom-select"
+                    styles={{
+    menu: (base) => ({
+      ...base,
+      zIndex: 9999,
+    }),
+    menuList: (base) => ({
+      ...base,
+      maxHeight: '250px',
+      overflowY: 'auto',
+    }),
+  }}
+
+                    value={{ value: draftSortBy, label: sortByOptions.find(option => option.value === draftSortBy)?.label || "Popularity Descending" }}
+                    onChange={(selectedOption) => setDraftSortBy(selectedOption?.value || "popularity.desc")}
+                    options={sortByOptions}
+                    placeholder="Sort By"
+                    theme={(theme) => ({
+                      ...theme,
+                      borderRadius: 10,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#ffffff2a",
+                        primary: "#ffffff1a",
+                        neutral0: "#00000e4",
+                        neutral5: "grey",
+                        neutral10: "#38383879",
+                        neutral20: "#ffffff5a",
+                        neutral30: "red",
+                        neutral40: "red",
+                        neutral50: "#a9a9a9",
+                        neutral60: "red",
+                        neutral70: "#696969",
+                        neutral80: "#ffffff5a",
+                        neutral90: "#303030",
+                      },
+                    })}
+                    
+                  />
+                </div>
+              </div>
+                </div>
               <h3 className="formtitle">GENRES</h3>
               <div className="gen">
                 {genres.map((genre) => (
@@ -347,124 +525,8 @@ const Filters = () => {
               </div>
 
               <br />
-              <h3 className="formtitle">FILTER</h3>
-                <div className="lent">
-                <div className="gen">
-                <h3 className="formtitle">COUNTRIES</h3>
-           
-                <Select
-                  className="select"
-                  value={draftSelectedCountry}
-                  onChange={(selectedOption) => setDraftSelectedCountry(selectedOption)}
-                  options={countryOptions}
-                  placeholder="Select Country"
-                  isClearable
-                  classNames={{
-                    menu: () => 'custom-select-menu',
-                    option: () => 'custom-select-option',
-                  }}
-                  theme={(theme) => ({
-                    ...theme,
-                   
-                   
-                    borderRadius: 10,
-                    colors: {
-                      ...theme.colors,
-                      primary25: "#ffffff2a",
-                      primary: "#ffffff1a",
-                      neutral0: "#000000e4",
-                      neutral5: "grey",
-                      neutral10: "#38383879",
-                      neutral20: "#ffffff5a",
-                      neutral30: "red",
-                      neutral40: "red",
-                      neutral50: "#a9a9a9",
-                      neutral60: "red",
-                      neutral70: "#696969",
-                      neutral80: "#ffffff5a",
-                      neutral90: "#303030",
-                    },
-                  })}
-                />
-              </div>
-
-              <br />
-              <div className="gensz">
+              
                
-                <div className="gen">
-                <h3 className="formtitle">YEAR</h3>
-                  <Select
-                   classNames={{
-                    menu: () => 'custom-select-menu',
-                    option: () => 'custom-select-option',
-                  }}
-                    value={draftSelectedYear}
-                    onChange={(selectedOption) => setDraftSelectedYear(selectedOption)}
-                    options={yearsOptions}
-                    placeholder="Select Year"
-                    isClearable
-                    theme={(theme) => ({
-                      ...theme,
-                      borderRadius: 10,
-                      colors: {
-                        ...theme.colors,
-                        primary25: "#ffffff2a",
-                        primary: "#ffffff1a",
-                        neutral0: "#000000e4",
-                        neutral5: "grey",
-                        neutral10: "#38383879",
-                        neutral20: "#ffffff5a",
-                        neutral30: "red",
-                        neutral40: "red",
-                        neutral50: "#a9a9a9",
-                        neutral60: "red",
-                        neutral70: "#696969",
-                        neutral80: "#ffffff5a",
-                        neutral90: "#303030",
-                      },
-                    })}
-                  />
-                </div>
-              </div>
-              <br />
-
-              <div className="gensz">
-               
-                <div className="gen">
-                <h3 className="formtitle">SORT BY</h3>
-                  <Select
-                   classNames={{
-                    menu: () => 'custom-select-menu',
-                    option: () => 'custom-select-option',
-                  }}
-                    value={{ value: draftSortBy, label: sortByOptions.find(option => option.value === draftSortBy)?.label || "Popularity Descending" }}
-                    onChange={(selectedOption) => setDraftSortBy(selectedOption?.value || "popularity.desc")}
-                    options={sortByOptions}
-                    placeholder="Sort By"
-                    theme={(theme) => ({
-                      ...theme,
-                      borderRadius: 10,
-                      colors: {
-                        ...theme.colors,
-                        primary25: "#ffffff2a",
-                        primary: "#ffffff1a",
-                        neutral0: "#000000e4",
-                        neutral5: "grey",
-                        neutral10: "#38383879",
-                        neutral20: "#ffffff5a",
-                        neutral30: "red",
-                        neutral40: "red",
-                        neutral50: "#a9a9a9",
-                        neutral60: "red",
-                        neutral70: "#696969",
-                        neutral80: "#ffffff5a",
-                        neutral90: "#303030",
-                      },
-                    })}
-                  />
-                </div>
-              </div>
-                </div>
               <br />
 
               {/* --- ADDED: Other Potential Filters --- */}
