@@ -72,8 +72,8 @@
     font-weight: 300;
     //background-color: #16001d;
     padding: 2rem;
-    border: 1px solid rgba(255, 192, 203, 0.429);
-    clip-path: polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 85% 15%, 100% 15%, 100% 85%, 85% 85%, 85% 100%, 15% 100%, 15% 85%, 0% 85%);
+    //border: 1px solid rgba(255, 192, 203, 0.429);
+    //clip-path: polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 85% 15%, 100% 15%, 100% 85%, 85% 85%, 85% 100%, 15% 100%, 15% 85%, 0% 85%);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
   }
@@ -132,14 +132,26 @@
 .toggle-filters{
     margin-bottom: 1rem;
 }
-.backback{
-    background-color: #101010;
-    filter: drop-shadow(0 0 3rem rgba(132, 132, 132, 0.448));
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 20px;
-    transition: all 2s ease-in-out;
+.backback {
+  background-color: #101010;
+  filter: drop-shadow(0 0 3rem rgba(132, 132, 132, 0.448));
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  overflow: hidden;
+  max-height: 1000px; /* enough to hold full content */
+  opacity: 1;
+  transition: max-height 0.6s ease-out, opacity 0.4s ease;
 }
+
+.backback.closed {
+  max-height: 0;
+  opacity: 0;
+  padding: 0 1rem; /* keep horizontal padding */
+  margin-bottom: 0;
+  transition: max-height 0.6s ease-in, opacity 0.4s ease;
+}
+
 .righters{
     position: sticky;
     top: 0rem;
@@ -209,6 +221,10 @@
     font-size: .9rem;
 }
 
+}
+.select{
+    //background-color: rgb(79, 25, 42);
+    border: 1px solid rgb(255, 180, 203);
 }
 
 .genrezzx{
