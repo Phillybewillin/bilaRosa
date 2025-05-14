@@ -360,7 +360,7 @@ const Filters = () => {
     }),
     menuList: (base) => ({
       ...base,
-      backgroundColor: rgb(19, 19, 19),
+      backgroundColor: "rgb(19, 19, 19)",
       maxHeight: '250px',
       overflowY: 'auto',
     }),
@@ -405,7 +405,7 @@ const Filters = () => {
     menuList: (base) => ({
       ...base,
       maxHeight: '250px',
-      backgroundColor: rgb(19, 19, 19),
+      backgroundColor: "rgb(19, 19, 19)",
       overflowY: 'auto',
     }),
   }}
@@ -462,7 +462,7 @@ const Filters = () => {
     }),
     menuList: (base) => ({
       ...base,
-      backgroundColor: rgb(19, 19, 19),
+      backgroundColor: "rgb(19, 19, 19)",
       maxHeight: '250px',
       overflowY: 'auto',
     }),
