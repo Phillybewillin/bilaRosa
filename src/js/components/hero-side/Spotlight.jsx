@@ -248,6 +248,35 @@ const Spotlight = () => {
     >
        <SwiperSlide>
               <div className="spotlight-item">
+                <h1 className="spotlight-number">PG-13</h1>
+                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/56lv8d5yst1SBhw1uR3iGFd1R43.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgba(119, 126, 69, 0.6))'}}/>
+                
+                <div className="spotlight-content">
+                
+            
+                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/w500/5gFN6sNEuzTwx2BY2BrN795JwZl.png"/></h2>
+                
+              
+                 
+                  <div className="spotty">
+                  <p className="spotlight-genres">
+                    <span className="genre a">FAMILY</span>
+                    <span className="genre a">COMEDY</span>
+                    <span className="genre a">ADVENTURE</span>
+                    <span className="genre a">FANTASY</span>
+                  </p>
+                  <h5 className="genre a"> MOVIE | 04 APR 2025 </h5> <h5 className="genre a"> 63%</h5>
+               </div>
+                  
+                  <p className="spotlight-overview">Four misfits find themselves struggling with ordinary problems when they are suddenly pulled through a mysterious portal into the Overworld: a bizarre, cubic wonderland that thrives on imagination. To get back home, they'll have to master this world red.</p>
+                  <div className="spotty">
+                  <Button className="spotlight-watch-btn" onClick={() => navigate('/movie/950387')}> <i className='bx bx-info-circle'></i> </Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 950387 , "a minecraft movie")}>  <i className='bx bx-play'></i> Watch Now</Button></div>
+                  </div>
+                 </div>
+            </SwiperSlide>
+       <SwiperSlide>
+              <div className="spotlight-item">
               <h1 className="spotlight-number">R</h1>
                 <img loading='lazy' src={'https://image.tmdb.org/t/p/original/cJvUJEEQ86LSjl4gFLkYpdCJC96.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0rem 1rem 2rem rgba(70, 49, 0, 0.566))'}}/>
                 
@@ -277,6 +306,78 @@ const Spotlight = () => {
                   </div>
               </div>
             </SwiperSlide> 
+       <SwiperSlide>
+              <div className="spotlight-item">
+                <h1 className="spotlight-number">PG-13</h1>
+                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/aNGSebwLq22omoHCGQWIFuVgz5n.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgba(176, 152, 96, 0.4))'}}/>
+                
+                <div className="spotlight-content">
+                
+            
+                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/w500/6kVPQPfVGRBhybtDVNrqhtrsTIH.png"/></h2>
+                
+              
+                 
+                  <div className="spotty">
+                  <p className="spotlight-genres">
+                    <span className="genre a">FAMILY</span>
+                    <span className="genre a">HORROR</span>
+                    <span className="genre a">ADVENTURE</span>
+                    <span className="genre a">FANTASY</span>
+                  </p>
+                  <h5 className="genre a"> MOVIE | 31 MAR 2025 </h5> <h5 className="genre a"> 46%</h5>
+               </div>
+                  
+                  <p className="spotlight-overview">Four misfits find themselves struggling with ordinary problems when they are suddenly pulled through a mysterious portal into the Overworld: a bizarre, cubic wonderland that thrives on imagination. To get back home, they'll have to master this world red.</p>
+                  <div className="spotty">
+                  <Button className="spotlight-watch-btn" onClick={() => navigate('/movie/447273')}> <i className='bx bx-info-circle'></i> </Button>
+                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 447273 , "SNOWWHITE")}>  <i className='bx bx-play'></i> Watch Now</Button></div>
+                  </div>
+                 </div>
+            </SwiperSlide>
+      <SwiperSlide>
+  <div className="spotlight-item">
+    <h1 className="spotlight-number">TV-MA</h1>
+    <img
+      loading="lazy"
+      src="https://image.tmdb.org/t/p/original/3hPKf2eriMi6B2L5brfQH0A7MNe.jpg"
+      alt="ANDOR"
+      className="spotlight-image"
+      style={{ filter: 'drop-shadow(0 0 3rem rgba(77, 77, 77, 0.59))' }}
+    />
+    <div className="spotlight-content">
+      <h2 className="spotlight-name">
+        <img
+          loading="lazy"
+          className="spotim"
+          src="https://image.tmdb.org/t/p/w500/xwuSAZHLsalFcOut36SDvBPDhZO.png"
+          alt="ANDOR logo"
+        />
+      </h2>
+      <div className="spotty">
+        <p className="spotlight-genres">
+          <span className="genre a">ACTION</span>
+          <span className="genre a">DRAMA</span>
+          <span className="genre a">SCI-FI & FANTASY</span>
+        </p>
+        <h5 className="genre a">TV | 04 DEC 2023</h5>
+        <h5 className="genre a">83%</h5>
+      </div>
+      <p className="spotlight-overview">
+        In an era filled with danger, deception and intrigue, Cassian Andor will discover the difference he can make in the struggle against the tyrannical Galactic Empire...
+      </p>
+      <div className="spotty">
+        <Button className="spotlight-watch-btn" onClick={() => navigate('/tv/83867')}>
+          <i className="bx bx-info-circle"></i>
+        </Button>
+        <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(83867, "ANDOR", 1, 1)}>
+          <i className="bx bx-play"></i> Watch Now
+        </Button>
+      </div>
+    </div>
+  </div>
+</SwiperSlide>
+
        
      <SwiperSlide>
   <div className="spotlight-item">
@@ -404,48 +505,6 @@ const Spotlight = () => {
   </div>
 </SwiperSlide>
 
-<SwiperSlide>
-  <div className="spotlight-item">
-    <h1 className="spotlight-number">TV-MA</h1>
-    <img
-      loading="lazy"
-      src="https://image.tmdb.org/t/p/original/3hPKf2eriMi6B2L5brfQH0A7MNe.jpg"
-      alt="ANDOR"
-      className="spotlight-image"
-      style={{ filter: 'drop-shadow(0 0 3rem rgba(77, 77, 77, 0.59))' }}
-    />
-    <div className="spotlight-content">
-      <h2 className="spotlight-name">
-        <img
-          loading="lazy"
-          className="spotim"
-          src="https://image.tmdb.org/t/p/w500/xwuSAZHLsalFcOut36SDvBPDhZO.png"
-          alt="ANDOR logo"
-        />
-      </h2>
-      <div className="spotty">
-        <p className="spotlight-genres">
-          <span className="genre a">ACTION</span>
-          <span className="genre a">DRAMA</span>
-          <span className="genre a">SCI-FI & FANTASY</span>
-        </p>
-        <h5 className="genre a">TV | 04 DEC 2023</h5>
-        <h5 className="genre a">83%</h5>
-      </div>
-      <p className="spotlight-overview">
-        In an era filled with danger, deception and intrigue, Cassian Andor will discover the difference he can make in the struggle against the tyrannical Galactic Empire...
-      </p>
-      <div className="spotty">
-        <Button className="spotlight-watch-btn" onClick={() => navigate('/tv/83867')}>
-          <i className="bx bx-info-circle"></i>
-        </Button>
-        <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(83867, "ANDOR", 1, 1)}>
-          <i className="bx bx-play"></i> Watch Now
-        </Button>
-      </div>
-    </div>
-  </div>
-</SwiperSlide>
 
      <SwiperSlide>
               <div className="spotlight-item">
@@ -477,36 +536,7 @@ const Spotlight = () => {
                  </div>
               </div>
      </SwiperSlide>
-     <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">R</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/9KSGUPHZpqhqkRXE2eebu701ONU.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(176, 28, 48, 0.3))'}}/>
-                
-                <div className="spotlight-content">
-                               
-                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/original/qCBgsC4rM1szdtRt2AoB07KoGpA.png"/></h2>
-                  
-              
-                
-                  <div className="spotty">
-                  <p className="spotlight-genres">
-                    
-                    <span className="genre a">DRAMA</span>
-                    <span className="genre a">FANTASY</span>
-                    <span className="genre a">HORROR</span>
-
-                  </p>
-                  <h5 className="genre a"> MOVIE | 21 MAR 2025 </h5> <h5 className="genre a"> 67%</h5>
-               </div>
-                  
-                  <p className="spotlight-overview">A gothic tale of obsession between a haunted young woman and the terrifying vampire infatuated with her, causing untold horror in its wake.</p>
-                  <div className="spotty">
-                  <Button className="spotlight-watch-btn" onClick={() => navigate('/movie/931349')}><i className='bx bx-info-circle'></i> </Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 931349, "ash")}>  <i className='bx bx-play'></i> Watch Now</Button>
-                  </div>
-                 </div>
-              </div>
-            </SwiperSlide>
+   
            
        <SwiperSlide>
               <div className="spotlight-item">
@@ -567,59 +597,8 @@ const Spotlight = () => {
                   </div>
               </div>
         </SwiperSlide> 
-        <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">R</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/a4FjjSKOHcUW6gtEYruc3o4fLIw.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(103, 81, 50, 0.34))'}}/>
-                
-                <div className="spotlight-content">
-                              
-                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/original/iPITIm26Qpt5dFhaLIXxCg7z7zy.png"/></h2>
-                    <div className="spotty">
-                       
-                   <p className="spotlight-genres">
-                       <span className="genre a">DRAMA</span>
-                    </p>    
-               
-                    <h5 className="genre a"> MOVIE | 20 DEC 2024 </h5> <h5 className="genre a"> 59%</h5>
-                    </div>
-                  <p className="spotlight-overview"> Escaping post-war Europe, visionary architect László Toth arrives in America to rebuild his life, his work, and his marriage to his wife Erzsébet after being forced apart during wartime by shifting borders and regimes. On his own in a strange new country, </p>
-                  <div className="spotty">
-                  <Button className="spotlight-watch-btn" onClick={() => navigate('/movie/1045938')}><i className='bx bx-info-circle'></i> </Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer(1045938, " g20")}>  <i className='bx bx-play'></i> Watch Now </Button>
-                  </div>
-                    </div>
-              </div>
-            </SwiperSlide> 
-            <SwiperSlide>
-              <div className="spotlight-item">
-              <h1 className="spotlight-number">R</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/8eBj4WgFTsQOb8Moicf0I9sBgDE.jpg'} alt='D2' className="spotlight-image" style={{filter: 'drop-shadow(0 0 2rem rgba(65, 107, 179, 0.36))'}}/>
-                
-                <div className="spotlight-content">
-                                
-                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/original/4ClU26cEqeEYTj6Da7ADgO5HVUq.png"/></h2>
-                
-                  <div className="spotty">
-                  <p className="spotlight-genres">
-                    <span className="genre a">ACTION</span>
-                    <span className="genre a">ADVENTURE</span>
-                    <span className="genre a">COMEDY</span>
-                  </p>
-                  <h5 className="genre a"> MOVIE | 13 MAR 2024 </h5> <h5 className="genre a"> 69%</h5>
-                </div>
-                  <p className="spotlight-overview">
-
-Mufasa, a cub lost and alone, meets a sympathetic lion named Taka, the heir to a royal bloodline. The chance meeting sets in motion an expansive journey of a group of misfits searching for their destiny.
-
-</p>
-                  <div className="spotty">
-                  <Button className="spotlight-watch-btn" onClick={() => navigate('/movie/1195506')}>  <i className='bx bx-info-circle'></i> </Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer(1195506, "MR FEEL NO PAIN")}>  <i className='bx bx-play'></i> Watch Now </Button>
-                  </div>
-                  </div>
-              </div>
-            </SwiperSlide> 
+     
+          
       <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">TV-MA</h1>
@@ -710,38 +689,8 @@ Mufasa, a cub lost and alone, meets a sympathetic lion named Taka, the heir to a
               </div>
             </SwiperSlide>
           
-      <SwiperSlide>
-              <div className="spotlight-item">
-                <h1 className="spotlight-number">PG-13</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/qfAfE5auxsuxhxPpnETRAyTP5ff.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgba(211, 54, 54, 0.3))'}}/>
-                
-                <div className="spotlight-content">
-                
-            
-                  <h2 className="spotlight-name"><img loading='lazy' className="spotim" src="https://image.tmdb.org/t/p/original/5nzUYEgvDqrDWTCD1Bf4uX6S5I3.png"/></h2>
-                
-              
-                 
-                  <div className="spotty">
-                  <p className="spotlight-genres">
-                    <span className="genre a">ACTION</span>
-                    <span className="genre a">DRAMA</span>
-                    <span className="genre a">THRILLER</span>
-                    <span className="genre a">SCIENCE FICTION</span>
-                  </p>
-                  <h5 className="genre a"> MOVIE | 02 FEB 2025 </h5> <h5 className="genre a"> 62%</h5>
-               </div>
-                  
-                  <p className="spotlight-overview">After meeting with newly elected U.S. President Thaddeus Ross, Sam finds himself in the middle of an international incident. He must discover the reason behind a nefarious global plot before the true mastermind has the entire world seeing red.</p>
-                  <div className="spotty">
-                  <Button className="spotlight-watch-btn" onClick={() => navigate('/movie/822119')}> <i className='bx bx-info-circle'></i> </Button>
-                  <Button className="spotlight-watch-btn" onClick={() => handlePlayer( 822119 , "CAPTAIN AMERICA BRAVE NEW WORLD")}>  <i className='bx bx-play'></i> Watch Now</Button></div>
-                  </div>
-                 </div>
-            </SwiperSlide>
-           
-        
-          
+     
+
             
             <SwiperSlide>
               <div className="spotlight-item">
