@@ -249,7 +249,7 @@ const Spotlight = () => {
        <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">PG-13</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/56lv8d5yst1SBhw1uR3iGFd1R43.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgba(119, 126, 69, 0.6))'}}/>
+                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/56lv8d5yst1SBhw1uR3iGFd1R43.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgba(119, 126, 69, 0.3))'}}/>
                 
                 <div className="spotlight-content">
                 
@@ -309,7 +309,7 @@ const Spotlight = () => {
        <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">PG-13</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/aNGSebwLq22omoHCGQWIFuVgz5n.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgba(176, 152, 96, 0.4))'}}/>
+                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/aNGSebwLq22omoHCGQWIFuVgz5n.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgba(176, 152, 96, 0.3))'}}/>
                 
                 <div className="spotlight-content">
                 
@@ -387,7 +387,7 @@ const Spotlight = () => {
       src="https://image.tmdb.org/t/p/w1280/zz6DywhCTRHxrRXCjXU71edNOUX.jpg"
       alt="Death of a Unicorn"
       className="spotlight-image"
-      style={{ filter: 'drop-shadow(0 0 3rem rgba(255, 255, 255, 0.52))' }}
+      style={{ filter: 'drop-shadow(0 0 3rem rgba(255, 255, 255, 0.32))' }}
     />
     <div className="spotlight-content">
       <h2 className="spotlight-name">
