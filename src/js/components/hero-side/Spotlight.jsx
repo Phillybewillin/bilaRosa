@@ -246,6 +246,47 @@ const Spotlight = () => {
       })}
       className="swiper"
     >
+         <SwiperSlide>
+  <div className="spotlight-item">
+    <h1 className="spotlight-number">TV-MA</h1>
+    <img
+      loading="lazy"
+      src="https://image.tmdb.org/t/p/original/78NtUwwo3lhH7QGh4vG3U1qK1mc.jpg"
+      alt="ldr"
+      className="spotlight-image"
+      style={{ filter: 'drop-shadow(0 0 3rem rgba(77, 77, 77, 0.49))' }}
+    />
+    <div className="spotlight-content">
+      <h2 className="spotlight-name">
+        <img
+          loading="lazy"
+          className="spotim"
+          src="https://image.tmdb.org/t/p/original/QRyBVJUv9WY6u14scmG4ZD8VVG.png"
+          alt="LDR logo"
+        />
+      </h2>
+      <div className="spotty">
+        <p className="spotlight-genres">
+          <span className="genre a">ANIMATION</span>
+          <span className="genre a">DRAMA</span>
+          <span className="genre a">SCI-FI & FANTASY</span>
+        </p>
+        <h5 className="genre a">TV | 04 DEC 2023</h5>
+        <h5 className="genre a">83%</h5>
+      </div>
+      <p className="spotlight-overview">
+       THE threesome you have been waiting for</p>
+      <div className="spotty">
+        <Button className="spotlight-watch-btn" onClick={() => navigate('/tv/86831')}>
+          <i className="bx bx-info-circle"></i>
+        </Button>
+        <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(86831, "Ldr", 1, 1)}>
+          <i className="bx bx-play"></i> Watch Now
+        </Button>
+      </div>
+    </div>
+  </div>
+</SwiperSlide>
        <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">PG-13</h1>
