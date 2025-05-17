@@ -16,134 +16,7 @@
 
 
 
-.movie-modal {
-  position: absolute;
-  width: 330px;
-  height: 250px;
-  //transform: translate(-56%, 0%);
-  background: #000000b9;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 12px;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
-  z-index: 1000 !important;
-  overflow: hidden;
-  // opacity: 0;
-  //transform: scale(0.9);
-  //animation: modalIn 0.25s ease-out forwards;
 
-  
- 
-
-  img {
-    width: 100%;
-    height: 70%;
-    display: block;
-    object-fit: cover;
-  }
-  h2{
-    position: absolute;
-    bottom: 5rem;
-    filter: drop-shadow(-2px 4px 5px rgb(0, 0, 0));
-
-    @include mobile {
-      font-size: 3rem;
-      bottom: 12rem;
-    }
-  }
-
-  .modaldetails {
-    padding: 16px;
-    color: #fff;
-
-    .modal-row {
-      //position: absolute;
-      top: -5px;
-      display: flex;
-      align-items: center;
-      margin-bottom: 1px;
-      @include mobile {
-      top: 2px;
-      margin-bottom: 2rem;
-      }
-      &.controls {
-        position: relative;
-
-        .icon-btn {
-          background: none;
-          border: 3px solid #ffffff9d;
-          border-radius: 50%;
-          color: white;
-          cursor: pointer;
-          scale: 1.2;
-          font-size: 1.2rem;
-          margin-right: 12px;
-          padding: 4px;
-
-          @include mobile {
-            scale: 1.7;
-            margin-right: 2rem;
-          }
-
-          &:hover {
-            border-color: #fff;
-          }
-
-          &.play-btn {
-            scale: 1.2;
-            background-color: #fff;
-            color: #141414;
-            @include mobile {
-              scale: 1.7;
-             
-            }
-            &:hover {
-              //opacity: 0.8;
-              border-color: black;
-            }
-          }
-
-          &.close-btn {
-            position: absolute;
-            right: -10px;
-            border: 3px solid #fff;
-            border-radius: 50%;
-            top: 5px;
-            color: #fff;
-          }
-        }
-      }
-
-      &.info {
-        gap: 5px;
-        span {
-          margin-right: 1px;
-          font-size: 0.8rem;
-          font-weight: 500;
-          @include mobile {
-            font-size: 1.2rem;
-            //margin-right: 2rem;
-          }
-        }
-        
-      }
-
-      &.extra {
-        margin-top: -1.4rem;
-        /* Placeholder for future content */
-        .overviewmodal{
-          text-overflow: ellipsis;
-          overflow: hidden;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          line-clamp: 2;
-          box-orient: vertical;
-        }
-      }
-    }
-  }
-}
 .movie-card {
   cursor: pointer;
   display: inline-block;
@@ -457,8 +330,10 @@
   position: fixed;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
-  background: rgba(0, 0, 0, 0.158);
-  z-index: 900;
+  background: rgba(0, 0, 0, 0.548);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 100;
 }
 
 /* Animations */
@@ -502,13 +377,226 @@
   }
 }
 
+.movie-modal {
+  position: absolute;
+  width: 335px;
+  height: 260px;
+  //transform: translate(-56%, 0%);
+  background: #00000094;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.642);
+  //z-index: 1000 !important;
+  overflow: hidden;
+  // opacity: 0;
+  //transform: scale(0.9);
+  //animation: modalIn 0.25s ease-out forwards;
+ .choicesmod {
+  position: absolute;
+  z-index: 10;
+  //justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000c9;
+ 
+  cursor: pointer;
 
+  .video-wrapper {
+    position: relative;
+    width: 100%; // or 100% if you want edge-to-edge
+    padding-top: 56.25%; // 16:9 aspect ratio
+    //margin-bottom: 25px;
+    height: 0;
+    border-radius: 0px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.774);
+  }
+  .cancel{
+    background-color: #ffffff20;
+    padding: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #ffffff40;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 100;
+
+    &:hover{
+      border: 2px solid #ff0000e9;
+    }
+  }
+
+  .videoframemod {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    
+  }
+}
+
+  
+ 
+
+  img {
+    width: 100%;
+    height: 60%;
+    display: block;
+    object-fit: cover;
+    filter: brightness(.75);
+  }
+  h2{
+    position: absolute;
+    bottom: 1rem;
+    //filter: drop-shadow(-2px 4px 5px rgb(0, 0, 0));
+    font-size: 1.4rem;
+    @include mobile {
+      font-size: 3rem;
+      bottom: 12rem;
+    }
+  }
+  p{
+    // position: absolute;
+     //bottom: 3rem;
+     color: #8d8d8d97;
+       font-size: 0.7rem;
+        margin-top: -5px;
+        margin-bottom: 3px;
+         text-overflow: ellipsis;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          line-clamp: 2;
+          box-orient: vertical;
+          transition: all 0.5s ease-in-out;
+
+          &:hover{
+            color: #fff;
+            cursor: row-resize;
+           
+          }
+          @include mobile {
+            //display: none;
+            margin-bottom: 2rem;
+            color: #e2e2e2bf;
+            font-size: 1.2rem;
+          }
+    
+  }
+
+  
+  .modaldetails {
+    padding: 10px;
+    color: #fff;
+
+    .modal-row {
+      position: absolute;
+      top: 5px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 1px;
+      @include mobile {
+      top: 2px;
+      margin-bottom: 2rem;
+      }
+      &.controls {
+        position: relative;
+
+        .icon-btn {
+          background: none;
+          border: 3px solid #ffffff3e;
+          border-radius: 50%;
+          color: white;
+          cursor: pointer;
+          scale: 1.2;
+          font-size: 1.2rem;
+          margin-right: 12px;
+          padding: 4px;
+
+          @include mobile {
+            scale: 1.7;
+            margin-right: 2rem;
+          }
+
+          &:hover {
+            border-color: #fff;
+          }
+
+          &.play-btn {
+            scale: 1.2;
+            background-color: #fff;
+            color: #141414;
+            @include mobile {
+              scale: 1.7;
+             
+            }
+            &:hover {
+              //opacity: 0.8;
+              border-color: black;
+            }
+          }
+
+          &.close-btn {
+            position: absolute;
+            right: -10px;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            top: 5px;
+            color: #fff;
+          }
+        }
+      }
+
+      &.info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 5px;
+        span {
+          margin-right: 1px;
+          font-size: 0.8rem;
+          font-weight: 500;
+          @include mobile {
+            font-size: 1.2rem;
+            //margin-right: 2rem;
+          }
+        }
+        
+      }
+
+      &.extra {
+        margin-top: -1.4rem;
+        /* Placeholder for future content */
+        .overviewmodal{
+          text-overflow: ellipsis;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          line-clamp: 2;
+          box-orient: vertical;
+        }
+      }
+    }
+  }
+}
 /* Base modal */
 .movie-modal {
-  z-index: 1000 !important;
+  z-index: 1000 ;
   touch-action: none;
   overflow: hidden;
-  background: #000000cd;
+  background: #000000a9;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 10px;
@@ -532,8 +620,9 @@
   /* Mobile bottom sheet (unchanged) */
   &.mobile {
     position: fixed;
+    z-index: 101;
     bottom: 0; left: 0;
-    width: 100%; height: 50vh;
+    width: 100%; height: 45vh;
     border-radius: 15px 15px 0 0;
     transform: translateY(100%);
     animation: slideUp 0.35s ease-out forwards;
@@ -553,7 +642,7 @@
 
   h2 {
     position: absolute;
-    bottom: 5rem;
+    bottom: 5.3rem;
     filter: drop-shadow(-2px 4px 5px rgba(0,0,0,0.8));
     @include mobile {
       font-size: 3rem;
@@ -562,7 +651,7 @@
   }
 
   .modaldetails {
-    padding: 16px;
+    padding: 10px;
     color: #fff;
 
     .modal-row {
@@ -578,14 +667,14 @@
 
         .icon-btn {
           background: none;
-          border: 3px solid rgba(255,255,255,0.6);
+          border: 3px solid rgba(255, 255, 255, 0.413);
           border-radius: 50%;
           color: #fff;
           cursor: pointer;
           font-size: 1.2rem;
-          margin-right: 12px;
+          margin-right: 10px;
           padding: 4px;
-          scale: 1.2;
+          scale: 1.1;
           @include mobile {
             scale: 1.7;
             margin-right: 2rem;
@@ -594,39 +683,113 @@
           &:hover { border-color: #fff; }
 
           &.play-btn {
-            background: #fff;
+            background: #e2e2e2;
             color: #141414;
-            scale: 1.2;
-            @include mobile { scale: 1.7; }
+            scale: 1.1;
+            @include mobile { scale: 1.7; margin-left: .5rem;}
           }
 
           &.close-btn {
             position: absolute;
             right: -10px;
-            top: 2px;
+            top: 0px;
 
             border-color: #890000bb;
             @include mobile { top: 5px; }
-            &:hover { border-color: #f00000; transform: rotateY(180deg);}
+            &:hover { border-color: #f00000; transform: rotateX(180deg);}
           }
-        }
+         
       }
+       .icon-btn {
+  
+
+  &[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 100;
+  }
+
+  &:hover::after,
+  &:focus-visible::after {
+    opacity: 1;
+  }
+
+  // Mobile tap visual feedback
+  &:active {
+    transform: scale(0.95);
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+  }
+}
+
+        }
 
       &.info {
-        gap: 5px;
-        span {
-          font-size: 0.8rem;
-          font-weight: 500;
-          @include mobile { font-size: 1.2rem; }
+        display: flex;
+        align-content: center;
+        position: absolute;
+        bottom: 0;
+        left: 2px;
+        //align-items: center;
+        //justify-items: center;
+        //flex-wrap: wrap;
+        justify-content: space-between;
+        width: 99%;
+        //height: 30px;
+        overflow: auto;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+          display: none;
         }
+        gap: 10px;
+        .inforight{
+          display: flex;
+          //flex-direction: column;
+          align-items: center;
+
+          //justify-content: space-between;
+          gap: 1px;
+        }
+        span {
+          white-space: nowrap ;
+          font-size: 0.72rem;
+          background-color: #ffffff0e;
+          color: #ededed;
+          padding: 5.5px 8px;
+          border-radius: 5px;
+          //font-weight: 500;
+          &:hover{
+            background-color: #ffffff;
+            color: black;
+          }
+         
+          font-weight: 500;
+          @include mobile { 
+            font-size: 1.3rem; 
+            
+          }
+        }
+        
         .inCinema{
           display: flex;
           align-items: center;
-         
+          white-space: nowrap;
           background-color: rgba(255, 255, 255, 0.091);
-          padding:  8px;
-          border-radius: 10px 10px 0px 0px;
-          font-size: .8rem;
+          padding: 5px 8px;
+          border-radius: 5px;
+          font-size: .7rem;
           font-weight: 300;
 
           @include mobile{
@@ -640,6 +803,8 @@
       &.extra {
         margin-top: -1.4rem;
         .overviewmodal {
+          font-size: 0.8rem;
+          font-weight: 300;
           display: -webkit-box;
           line-clamp: 2;
           -webkit-line-clamp: 2;
