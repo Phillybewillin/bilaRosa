@@ -5,6 +5,7 @@ import './movie-card.scss';
 import PropTypes from 'prop-types';
 import apiConfig from '../../api/apiConfig';
 import { UserAuth } from '../../context/AuthContext';
+import tmdbApi from '../../api/tmdbApi';
 import { useFirestore } from '../../Firestore';
 import { toast } from 'react-toastify';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
@@ -26,7 +27,9 @@ const MovieCard = React.memo(({ item = {}, category }) => {
   const [showModal, setShowModal]         = useState(false);
   const [isClosing, setIsClosing]         = useState(false);
   const [modalPos, setModalPos]           = useState({ top: 0, left: 0 });
-  const [isMobile, setIsMobile]           = useState(window.innerWidth < 1000);
+  const [isMobile, setIsMobile]           = useState(window.innerWidth < 800);
+  const [videos , setVideos] = useState([]);
+    const [choice, setChoice] = useState(false);
 
   // viewport
   useEffect(() => {
@@ -67,23 +70,74 @@ useEffect(() => {
   }, [user, item, checkIfInWatchlist]);
 
   // handle close (with mobile animation)
- const triggerClose = () => {
-  setIsClosing(true);
+  const triggerClose = () => {
+    
+      setIsClosing(true);
+      setTimeout(() => {
+        setIsClosing(false);
+        setShowModal(false);
+      }, 250);
+   
+  };
+ const getVideos = async () => {
+  try {
+    const res = await tmdbApi.getVideos(category, item.id);
+    const trailer = res.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+    if (trailer) {
+      setVideos(trailer.key);
+      setChoice(true); // show iframe
+    } else {
+      toast.error('No trailer found');
+      setVideos(null);
+      setChoice(false);
+    }
+  } catch (err) {
+    console.error('Failed to fetch trailer:', err);
+    setVideos(null);
+    setChoice(false);
+  }
+};
 
-  setTimeout(() => {
-    setIsClosing(false);
-    setShowModal(false);
-  }, isMobile ? 190 : 250); // Faster close on mobile, debounced on desktop
+const cancelwatchTrailer = (e) => {
+  e.stopPropagation();
+  setChoice(false);
+  setVideos(null);
 };
 
 
   // ESC to close
   useEffect(() => {
-    if (!showModal) return;
-    const onKey = (e) => { if (e.key === 'Escape') triggerClose(); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [showModal, isMobile]);
+  if (!showModal) return;
+
+  const onKey = (e) => {
+    if (e.key === 'Escape') triggerClose();
+  };
+
+  const onPopState = () => {
+    if (isMobile && showModal) {
+      triggerClose();
+    }
+  };
+
+  window.addEventListener('keydown', onKey);
+  window.addEventListener('popstate', onPopState);
+
+  // Push a dummy state to history when modal opens (enables back gesture)
+  if (isMobile) {
+    history.pushState({ modalOpen: true }, '');
+  }
+
+  return () => {
+    window.removeEventListener('keydown', onKey);
+    window.removeEventListener('popstate', onPopState);
+
+    // Go back one step if the modal was open (cleanup pushed state)
+    if (isMobile) {
+      history.back();
+    }
+  };
+}, [showModal, isMobile]);
+
 
   // lock scroll on mobile
   useEffect(() => {
@@ -116,7 +170,7 @@ useEffect(() => {
   const saveShow = async (e) => {
     e.stopPropagation();
     if (!user) {
-      toast.error('Access Denied , Please logIn to add this to your Watchlist');
+      toast.error('Please log in to save a movie');
       return;
     }
     await addToWatchlist(user.uid, item.id.toString(), {
@@ -203,6 +257,10 @@ const cinemaStatus = inCinema(new Date(item.release_date || item.first_air_date)
      };
     
      const handleMouseLeave = (e) => {
+      if(choice){
+        setChoice(false);
+        setVideos(null);
+      }
       if (isMobile) return;
       const to = e.relatedTarget;
       // Check if to is not null before calling contains
@@ -237,6 +295,23 @@ const cinemaStatus = inCinema(new Date(item.release_date || item.first_air_date)
 
   if (item.title === 'Conclave') return null;
 
+  const genreMap = {
+  movie: {
+    28: 'Action', 12: 'Adventure', 16: 'Animation', 35: 'Comedy',
+    80: 'Crime', 99: 'Documentary', 18: 'Drama', 10751: 'Family',
+    14: 'Fantasy', 36: 'History', 27: 'Horror', 10402: 'Music',
+    9648: 'Mystery', 10749: 'Romance', 878: 'Sci-Fi', 10770: 'TV Movie',
+    53: 'Thriller', 10752: 'War', 37: 'Western'
+  },
+  tv: {
+    10759: 'Action & Adventure', 16: 'Animation', 35: 'Comedy',
+    80: 'Crime', 99: 'Documentary', 18: 'Drama', 10751: 'Family',
+    10762: 'Kids', 9648: 'Mystery', 10763: 'News', 10764: 'Reality',
+    10765: 'Sci-Fi & Fantasy', 10766: 'Soap', 10767: 'Talk',
+    10768: 'War & Politics', 37: 'Western'
+  }
+};
+
   return (
     <>
       {showModal && isMobile && (
@@ -265,7 +340,7 @@ const cinemaStatus = inCinema(new Date(item.release_date || item.first_air_date)
             style={{ backgroundImage: `url(${bg})` }}
           />
         )}
-
+           
         {showModal && (
           <div
             ref={modalRef}
@@ -276,6 +351,23 @@ const cinemaStatus = inCinema(new Date(item.release_date || item.first_air_date)
             onTouchStart={isMobile ? onTouchStart : null}
             onTouchMove={isMobile ? onTouchMove : null}
           >
+            {choice && videos && (
+  <div className="choicesmod" onClick={cancelwatchTrailer}>
+  <div className="video-wrapper">
+    <iframe
+      className="videoframemod"
+      src={`https://www.youtube.com/embed/${videos}?autoplay=1`}
+      title={item.name}
+      allowFullScreen
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      referrerPolicy="strict-origin-when-cross-origin"
+    />
+  </div>
+  <div className="cancel" onClick={cancelwatchTrailer}><i className="bx bx-x"></i></div>
+</div>
+
+)}
+
             <img
               src={apiConfig.w1280Image(item.backdrop_path || item.poster_path)}
               alt={item.title}
@@ -283,46 +375,84 @@ const cinemaStatus = inCinema(new Date(item.release_date || item.first_air_date)
             />
             <div className="modaldetails">
               <h2>{item.title || item.name}</h2>
-
-              <div className="modal-row controls">
-                <button
-                  className="icon-btn play-btn"
-                  onClick={() => handlePlayer(item.id, item.title || item.name, category)}
-                >
-                  <i className="bx bx-play" />
-                </button>
-                <button className="icon-btn watchlist-btn" onClick={saveShow}>
-                  {isInWatchlist ? (
-                    <i className="bx bxs-bookmark-plus" />
-                  ) : (
-                    <i className="bx bx-bookmark-plus" />
-                  )}
-                </button>
-                <button className="icon-btn info-btn" onClick={()=> goToDetails( item.id, category, item.title, item.poster_path)}>
-                  <i className="bx bx-info-square" />
-                </button>
-                <button className="icon-btn close-btn" onClick={triggerClose}>
-                  <i className="bx bx-x" />
-                </button>
-              </div>
-
+              
+              <p>{item.overview}</p>
               <div className="modal-row info">
-                <span className="typeg">{category === 'tv' ? 'Show' : 'Movie'}</span>
-                <div className="space">•</div>
-                <span className="rating" style={{ color: getColor(votePct) }}>
-                  {votePct.toFixed(0)}%
-                </span>
-                <div className="space">•</div>
+                <div className="genremenuholder">
+            {item.genre_ids?.map(id => (
+              <span
+                key={id}
+                className="genremenutag"
+              >
+                {genreMap[category]?.[id] || 'Unknown'}
+              </span>
+            ))}
+          </div>
+          <div className="inforight">
+                
                 <span className="year">{year}</span>
-                {cinemaStatus && <div className="space">•</div>}
-                { cinemaStatus && <div className="inCinema">
+                 { cinemaStatus && <div className="inCinema">
                    { cinemaStatus}
                 </div>}
+                
+               <span className="rating" style={{ color: getColor(votePct) }}>
+                  {votePct.toFixed(0)}%
+              </span>
+          </div>
+              
+                
                  </div>
+              <div className="modal-row controls">
+  <button
+    className="icon-btn play-btn"
+    data-tooltip="Play"
+    onClick={() => handlePlayer(item.id, item.title || item.name, category)}
+  >
+    <i className="bx bx-play" />
+  </button>
+
+  <button
+    className="icon-btn trailer-btn"
+    data-tooltip="Watch Trailer"
+    onClick={getVideos}
+  >
+    <i className='bx bx-joystick-alt'></i>
+  </button>
+
+  <button
+    className="icon-btn watchlist-btn"
+    data-tooltip={isInWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
+    onClick={saveShow}
+  >
+    {isInWatchlist ? (
+      <i className="bx bxs-bookmark-plus" />
+    ) : (
+      <i className="bx bx-bookmark-plus" />
+    )}
+  </button>
+
+  <button
+    className="icon-btn info-btn"
+    data-tooltip="More Info"
+    onClick={() => goToDetails(item.id, category, item.title, item.poster_path)}
+  >
+    <i className="bx bx-info-square" />
+  </button>
+
+  <button
+    className="icon-btn close-btn"
+    data-tooltip="Close"
+    onClick={triggerClose}
+  >
+    <i className="bx bx-x" />
+  </button>
+</div>
+
+
+              
 
               <div className="modal-row extra" >
-              {isMobile && <div className="overviewmodal">{item.overview}</div>}
-              </div>
+                </div>
             </div>
           </div>
         )}
