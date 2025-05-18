@@ -453,7 +453,11 @@
     height: 60%;
     display: block;
     object-fit: cover;
-    filter: brightness(.75);
+    filter: brightness(.82);
+
+    @include mobile {
+      filter: brightness(.9);
+    }
   }
   h2{
     position: absolute;
@@ -462,7 +466,7 @@
     font-size: 1.4rem;
     @include mobile {
       font-size: 3rem;
-      bottom: 12rem;
+      bottom: 10rem;
     }
   }
   p{
@@ -488,9 +492,9 @@
           }
           @include mobile {
             //display: none;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             color: #e2e2e2bf;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
           }
     
   }
@@ -638,6 +642,10 @@
     object-fit: cover;
     display: block;
     cursor: pointer;
+
+    @include mobile {
+      height: 60%;
+    }
   }
 
   h2 {
@@ -645,8 +653,8 @@
     bottom: 5.3rem;
     filter: drop-shadow(-2px 4px 5px rgba(0,0,0,0.8));
     @include mobile {
-      font-size: 3rem;
-      bottom: 13rem;
+      font-size: 2.4rem;
+      bottom: 15.5rem;
     }
   }
 
@@ -754,6 +762,10 @@
           display: none;
         }
         gap: 10px;
+         @include mobile { 
+            position: relative;
+            
+          }
         .inforight{
           display: flex;
           //flex-direction: column;
@@ -777,7 +789,7 @@
          
           font-weight: 500;
           @include mobile { 
-            font-size: 1.3rem; 
+            font-size: 1.1rem; 
             
           }
         }
