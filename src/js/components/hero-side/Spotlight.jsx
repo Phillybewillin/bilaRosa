@@ -290,7 +290,7 @@ const Spotlight = () => {
        <SwiperSlide>
               <div className="spotlight-item">
                 <h1 className="spotlight-number">PG-13</h1>
-                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/56lv8d5yst1SBhw1uR3iGFd1R43.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgba(119, 126, 69, 0.3))'}}/>
+                <img loading='lazy' src={'https://image.tmdb.org/t/p/original/2Nti3gYAX513wvhp8IiLL6ZDyOm.jpg'} alt='D2' className="spotlight-image"  style={{filter: 'drop-shadow(0 0 1.5rem rgba(107, 160, 178, 0.49))'}}/>
                 
                 <div className="spotlight-content">
                 
@@ -316,6 +316,49 @@ const Spotlight = () => {
                   </div>
                  </div>
             </SwiperSlide>
+      <SwiperSlide>
+  <div className="spotlight-item">
+    <h1 className="spotlight-number">TV-MA</h1>
+    <img
+      loading="lazy"
+      src="https://image.tmdb.org/t/p/original/svdtJsa1ZhZ31zcc5XGEMbbI52j.jpg"
+      alt="ANDOR"
+      className="spotlight-image"
+      style={{ filter: 'drop-shadow(0 0 3rem rgba(77, 77, 77, 0.49))' }}
+    />
+    <div className="spotlight-content">
+      <h2 className="spotlight-name">
+        <img
+          loading="lazy"
+          className="spotim"
+          src="https://image.tmdb.org/t/p/w500/5wBrB7sD8k4LrexaHy89nL2Fcnh.png"
+          alt="logo"
+        />
+      </h2>
+      <div className="spotty">
+        <p className="spotlight-genres">
+          <span className="genre a">COMEDY</span>
+         
+          <span className="genre a">SCI-FI & FANTASY</span>
+        </p>
+        <h5 className="genre a">TV | 05 MAY 2025</h5>
+        <h5 className="genre a">72%</h5>
+      </div>
+      <p className="spotlight-overview">
+      In a high-tech future, a rogue security robot secretly gains free will. To stay hidden, it reluctantly joins a new mission protecting scientists on a dangerous planet...even though it just wants to binge soap operas.
+
+  </p>
+      <div className="spotty">
+        <Button className="spotlight-watch-btn" onClick={() => navigate('/tv/241554')}>
+          <i className="bx bx-info-circle"></i>
+        </Button>
+        <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(241554, "murder bot", 1, 1)}>
+          <i className="bx bx-play"></i> Watch Now
+        </Button>
+      </div>
+    </div>
+  </div>
+</SwiperSlide>
        <SwiperSlide>
               <div className="spotlight-item">
               <h1 className="spotlight-number">R</h1>
