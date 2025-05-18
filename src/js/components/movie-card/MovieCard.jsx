@@ -104,17 +104,27 @@ const cancelwatchTrailer = (e) => {
   setVideos(null);
 };
 
+const hasModalHistoryEntry = useRef(false);
 
   // ESC to close
-  useEffect(() => {
+
+ // at the top of your component
+const pushedModalState = useRef(false);
+const skipBack = useRef(false);
+
+// ... 
+
+// ESC / back‑swipe handler
+useEffect(() => {
   if (!showModal) return;
 
-  const onKey = (e) => {
+  const onKey = e => {
     if (e.key === 'Escape') triggerClose();
   };
 
   const onPopState = () => {
-    if (isMobile && showModal) {
+    // user hit the native back gesture
+    if (isMobile && showModal && history.state?.modalOpen) {
       triggerClose();
     }
   };
@@ -122,21 +132,24 @@ const cancelwatchTrailer = (e) => {
   window.addEventListener('keydown', onKey);
   window.addEventListener('popstate', onPopState);
 
-  // Push a dummy state to history when modal opens (enables back gesture)
   if (isMobile) {
     history.pushState({ modalOpen: true }, '');
+    pushedModalState.current = true;
   }
 
   return () => {
     window.removeEventListener('keydown', onKey);
     window.removeEventListener('popstate', onPopState);
 
-    // Go back one step if the modal was open (cleanup pushed state)
-    if (isMobile) {
+    // only go back if we pushed before *and* we're not in the middle of a real navigation
+    if (isMobile && pushedModalState.current && !skipBack.current && history.state?.modalOpen) {
       history.back();
     }
+    pushedModalState.current = false;
+    skipBack.current = false;
   };
 }, [showModal, isMobile]);
+
 
 
   // lock scroll on mobile
@@ -187,6 +200,9 @@ const cancelwatchTrailer = (e) => {
 
   // details
   const goToDetails = (id,category, title, poster_path) => {
+     skipBack.current = true;
+    setShowModal(false);
+
     let continueWatching = JSON.parse(localStorage.getItem('ContinueWatching')) || [];
     if (!Array.isArray(continueWatching)) {
         continueWatching = [];
@@ -221,7 +237,10 @@ const cinemaStatus = inCinema(new Date(item.release_date || item.first_air_date)
 
   // player
   const handlePlayer = (id, name, type) => {
+
     if (!id || !name) return;
+     skipBack.current = true;
+    setShowModal(false);
     const detailslug = encodeURIComponent(name.trim().replace(/ /g, "-").toLowerCase());
     const path = `/watch/${detailslug}/${id}${type === 'tv' ? '/1/1' : ''}`;
     navigate(path);
