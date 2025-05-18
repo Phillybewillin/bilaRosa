@@ -251,10 +251,10 @@ const Spotlight = () => {
     <h1 className="spotlight-number">TV-MA</h1>
     <img
       loading="lazy"
-      src="https://image.tmdb.org/t/p/original/78NtUwwo3lhH7QGh4vG3U1qK1mc.jpg"
+      src="https://image.tmdb.org/t/p/original/nBrkOZyI75artyizuBFeya48KbO.jpg"
       alt="ldr"
       className="spotlight-image"
-      style={{ filter: 'drop-shadow(0 0 3rem rgba(77, 77, 77, 0.49))' }}
+      style={{ filter: 'drop-shadow(0 0 3rem rgba(241, 86, 255, 0.269)' }}
     />
     <div className="spotlight-content">
       <h2 className="spotlight-name">
@@ -272,10 +272,10 @@ const Spotlight = () => {
           <span className="genre a">SCI-FI & FANTASY</span>
         </p>
         <h5 className="genre a">TV | 04 DEC 2023</h5>
-        <h5 className="genre a">83%</h5>
+        <h5 className="genre a">82%</h5>
       </div>
       <p className="spotlight-overview">
-       THE threesome you have been waiting for</p>
+       The threesome you have been waiting for</p>
       <div className="spotty">
         <Button className="spotlight-watch-btn" onClick={() => navigate('/tv/86831')}>
           <i className="bx bx-info-circle"></i>
