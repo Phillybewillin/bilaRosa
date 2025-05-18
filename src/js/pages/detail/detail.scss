@@ -937,27 +937,28 @@
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   height: auto;
-  background-color: #00000070;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 20px;
+  //background-color: #00000070;
+background: linear-gradient(to top, rgba(0, 0, 0, 0.589), rgba(0, 0, 0, 0));
+  padding: 10px;
+  gap: 10px;
+  overflow: auto;
   break-inside: avoid;
   //margin:  5px;
-  columns: 7;
+  display: flex;
     
     
     @include tablet {
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
    
-     columns: 5;
+   //  columns: 5;
     
   }
 
   @include mobile {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    columns: 3;
+    //columns: 3;
   
   }
   
@@ -991,6 +992,33 @@
   }
 }
 
+.loading {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  ///background-color: rgba(0, 0, 0, 0.438); /* Optional, but helps hide old iframe */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-pulse {
+  width: 150px;
+  height: auto;
+  animation: pulseFade 1.2s ease-in-out infinite;
+}
+
+@keyframes pulseFade {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
 .videoframe {
   width: 65%;
   height: 70%;
