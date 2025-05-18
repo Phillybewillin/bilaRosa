@@ -11,6 +11,7 @@ import './detail.scss';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
+import logo from "../../assets/LOGGO3.png";
 const MovieCard = React.lazy(() => import('../../components/movie-card/MovieCard'));
 const Seasons = React.lazy(() => import('./Seasons'));
 const CastList = React.lazy(() => import('./CastList'));
@@ -146,8 +147,9 @@ const Detail = () => {
   }, [category, id ]);
 
   useEffect(() => {
-    document.title = `${item?.title || item?.name || "MOVIEPLUTO" } - MOVIEPLUTO`;
+    document.title = `${item?.title || item?.name} - Watch it on ZillaXR`;
     scrollToTop();
+    
     //console.log('items:', items);
   }, [category, id , item]);
    
@@ -411,41 +413,27 @@ const ringStyle = {
 
     return notLoaded ? (
 
-      <motion.div
-        initial={{ opacity: 1 }}
-        animate={{ opacity: 0 }}
-        exit={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-      >
-        <SkeletonTheme  baseColor='#ffffff11'  highlightColor="#0d0d0d6c" speed={2} direction='rtl'>
-        <Skeleton height={300}  width={900}  className='banner' style={{ margin: '5px' }}/>
-       
-        <div className="detail-container">
-          
-        <Skeleton height={60}  width={300} style={{ margin: '5px' }} className='postertitle'/>
-        
-          <Skeleton  width={60} style={{ margin: '5px' }} />
-          <Skeleton  height={10} width={900} style={{ margin: '10px' }} />
-          <Skeleton width={60} style={{ margin: '5px ' }} />
-          <div className="slyy"  style={{ margin: '10px'  ,display:'flex' ,flexDirection:'row', gap:'10px'}}>
-          <Skeleton width={60} style={{ margin: '10px 0' }} />
-          <Skeleton width={60} style={{ margin: '10px 0' }} />
-          <Skeleton width={60} style={{ margin: '10px 0' }} />
-          </div>
-          <Skeleton height={30} width={900} style={{ margin: '10px' }} />
-          
-        </div>
-      </SkeletonTheme>
-      </motion.div>
-      
-    ) : (
-        <>
-        <motion.div
+     <motion.div
+        key="loader"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 1.5 }}
-      > 
+        transition={{ duration: 1.2 }}
+      >
+        <div className="loading">
+          <img src={logo} alt="MOVIEPLUTO" className="loading-pulse" />
+        </div>
+      </motion.div>
+    ) : (
+      <>
+      <motion.div
+        key="content"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1.2 }}
+      >
+        
        
         <div className="bigman">
            {
