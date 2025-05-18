@@ -20,7 +20,7 @@
 .movie-card {
   cursor: pointer;
   display: inline-block;
-  width: 170px;
+  width: 165px;
   height: 250px;
   overflow: hidden;
   //margin-left:3px;
@@ -799,7 +799,7 @@
         span {
           white-space: nowrap ;
           font-size: 0.72rem;
-          background-color: #ffffff17;
+          //background-color: rgba(241, 86, 255, 0.269);
           color: #ffffff;
           //backdrop-filter: hue-rotate(80%) ;
           padding: 5.5px 8px;
@@ -811,9 +811,9 @@
             color: black;
           }
          
-          //font-weight: 500;
+          font-weight: 500;
           @include mobile { 
-            font-size: 1rem; 
+            font-size: 1.1rem; 
             
           }
         }
