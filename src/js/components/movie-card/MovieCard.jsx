@@ -124,7 +124,7 @@ useEffect(() => {
 
   const onPopState = () => {
     // user hit the native back gesture
-    if (isMobile && showModal && history.state?.modalOpen) {
+    if (isMobile && showModal) {
       triggerClose();
     }
   };
