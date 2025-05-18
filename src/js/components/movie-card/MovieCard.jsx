@@ -124,7 +124,7 @@ useEffect(() => {
 
   const onPopState = () => {
     // user hit the native back gesture
-    if (isMobile && showModal) {
+    if (isMobile && showModal && history.state?.modalOpen) {
       triggerClose();
     }
   };
@@ -266,9 +266,9 @@ const cinemaStatus = inCinema(new Date(item.release_date || item.first_air_date)
        showTimerRef.current = setTimeout(() => {
          const rect = containerRef.current.getBoundingClientRect();
          const modalW = 300;
-         let leftOffset = rect.width - 170;
+         let leftOffset = rect.width - 167;
          if (rect.left + rect.width + modalW + 10 > window.innerWidth) {
-           leftOffset = -modalW + 145;
+           leftOffset = -modalW + 132;
          }
          setModalPos({ top: 0, left: leftOffset });
          setShowModal(true);
