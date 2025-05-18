@@ -147,7 +147,11 @@ const Detail = () => {
   }, [category, id ]);
 
   useEffect(() => {
-    document.title = `${item?.title || item?.name} - Watch it on ZillaXR`;
+    if(!item?.title){
+       document.title = ` Loading... - Watch It on MoviePluto`;
+    };
+    
+    document.title = `${item?.title || item?.name } - Watch It on MoviePluto`;
     scrollToTop();
     
     //console.log('items:', items);
@@ -317,6 +321,28 @@ const Detail = () => {
     const cancelwatchTrailer = () => {
         setChoice(false);
     }
+
+     useEffect(() => {
+      const handleEsc = (event) => {
+        if (event.key === 'Escape') {
+          cancelwatchTrailer();
+        };
+      };
+    
+      const handlePopState = () => {
+        cancelwatchTrailer();
+      };
+    
+      document.addEventListener('keydown', handleEsc);
+      window.history.pushState({ modal: true }, '');
+      window.addEventListener('popstate', handlePopState);
+    
+      return () => {
+        document.removeEventListener('keydown', handleEsc);
+        window.removeEventListener('popstate', handlePopState);
+        if (window.history.state?.modal) window.history.back();
+      };
+    }, []);
    
       
     const [timeLeft, setTimeLeft] = useState('');
@@ -404,7 +430,7 @@ for (let i = 0; i < bubbleCount; i++) {
     />
   );
 }
-
+console.log("item",item)
 // Create the ring fill using a conic gradient.
 const color = getColor(votePercentage.toFixed(0));
 const ringStyle = {
@@ -590,28 +616,20 @@ const ringStyle = {
 
                                  
                            </div>
-                           <div className="castdiv">
-                            <div className="one">
-                            <h4 className='titledetailz'>THE CAST</h4>
-                                      
-                            </div>
-                       
-                                       <div className="castdix">
-                                      
+     
                               
-                                            <Suspense fallback={null}>
-                                            <CastList id={item.id}/>
-                                            </Suspense>
                                             
                                             
-                                       </div>
-                                       
-                        </div>
+
                         </div>
 
                      
                            
                        </div>
+                       
+                       <Suspense fallback={null}>
+                               <CastList id={item.id}/>
+                         </Suspense>
                        {
                         choice && (
                             <div className="choices" onClick={cancelwatchTrailer}>
@@ -655,7 +673,7 @@ const ringStyle = {
                        }
                       
                        
-                       <ToastContainer theme='dark' position="top-right" autoClose={4000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#ffffff' , color : 'white', borderRadius : '5px'}}/>
+                       <ToastContainer   theme='dark' position="bottom-right" autoClose={4000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={true} backdrop={true} progressStyle={{ backgroundColor: '#ffffff' , color : 'white', borderRadius : '5px'}}/>
            
                     </>
                 )
