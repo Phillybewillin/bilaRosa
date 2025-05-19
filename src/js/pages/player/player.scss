@@ -422,7 +422,7 @@
     top: -1.4rem;
     position: absolute;
     margin: 1rem .5rem;
-    width: 190px;
+    width: 180px;
     //display: none;
   }
 }
@@ -867,22 +867,22 @@
     z-index: 1000 ! important;
     position: absolute;
     top: -15px;
-    right: 5px;
+    right: 0px;
     align-items:  center;
     justify-content: space-between;
     flex-direction: row;
    gap: 20px;
    text-align: end;
    text-wrap: wrap;
-    border-radius: 15px;
+    border-radius: 20px 40px 40px 40px;
     width: 40%;
     font-size: .8rem ;
-    font-weight: 300;
-    background-color: #ffffff11;
+    //font-weight: 300;
+    background-color: #ffffff0b;
     //backdrop-filter: blur(10px);
-    padding: 0px;
+    //padding: 0px;
     cursor: pointer;
-    padding-right: .5rem;
+    padding-right: .1rem;
    transition: all .4s ease-in-out;
   
   }
@@ -901,12 +901,13 @@
   flex-direction: row;
  gap: 20px;
  text-align: end;
+ overflow: hidden;
  text-wrap: wrap;
-  border-radius: 15px;
+  border-radius: 5px;
   width: 50%;
   font-size: .8rem ;
   font-weight: 300;
-  background-color: #ffffff11;
+  background-color: #ffffff09;
   //backdrop-filter: blur(10px);
   padding: 0px;
   cursor: pointer;
@@ -917,11 +918,12 @@
 
 .rearoimg{
   width: auto;
-  max-height: 55px;
+  max-height: 50px;
+  filter: brightness(.5);
   min-height: auto;
   object-fit: cover;
   
-  border-radius: 10px 0 0 15px;
+  border-radius: 10px 0 0 10px;
 }
 .rearo:hover{
   scale: .95;
@@ -1184,12 +1186,14 @@
   align-items: center;
   z-index: -1;
   
-  filter: blur(100px) brightness(.4);
+  filter:  brightness(.45) blur(100px);
+  -webkit-filter: brightness(.45)  blur(100px);
   
 }
 .haxnoititle{
-  padding-left: 6px;
-  margin-bottom: -10px;
+  padding-left: 7px;
+  color: gray;
+  margin-bottom: -11px;
 }
 .zsa{
   position: relative;
@@ -1199,19 +1203,19 @@
   position: absolute;
   top: .5rem;
   left: .5rem;
-  border-radius: 15px;
+  //border-radius: 12px;
   padding: .1rem .3rem;
   //background-color: red;
   min-width: 68% !important;
   //max-width: 100% !important;
-  height: calc(100vh - 11rem);
+  height: calc(100vh - 12rem);
 
   z-index: 1000 !important;
-  border-radius: 10px;
+  border-radius: 7px;
   //bottom: calc(100vh - 33.4rem);
   
   .episodes__iframe{
-    border-radius: 17px;
+    border-radius: 12px;
     //height: calc(100vh - 12rem);
 
   }
