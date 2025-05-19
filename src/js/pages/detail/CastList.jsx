@@ -10,6 +10,11 @@ const CastList = (props) => {
   const [casts, setCast] = useState([]);
   const [crew, setCrew] = useState([]);
   const [modalData, setModalData] = useState(null);
+ const [dragY, setDragY] = useState(0);
+const [isDragging, setIsDragging] = useState(false);
+const [startY, setStartY] = useState(0);
+const isMobile = window.innerWidth <= 768; // tweak for breakpoint
+const threshold = 150;
 
   useEffect(() => {
     const getCredits = async () => {
@@ -54,15 +59,72 @@ const openModal = async (actor) => {
       known_for: sorted,
     });
 
-    console.log(res);
+   // console.log(res);
   } catch (err) {
     console.error(err);
   }
 };
+const [showModal, setShowModal] = useState(false);
 
 
 
-  const closeModal = () => setModalData(null);
+
+
+useEffect(() => {
+  if (modalData) {
+    setTimeout(() => setShowModal(true), 20);
+  }
+}, [modalData]);
+
+// ... inside your CastList component
+
+// Single effect to handle mount + open animation
+useEffect(() => {
+  if (modalData && isMobile) {
+    // mount hidden
+    setShowModal(false);
+    document.body.style.overflow = 'hidden';
+    // then in next tick, show
+    const id = setTimeout(() => setShowModal(true), 20);
+    return () => {
+      clearTimeout(id);
+      document.body.style.overflow = '';
+    };
+  }
+}, [modalData]);
+
+const closeModal = () => {
+  // trigger slide‑down
+  setShowModal(false);
+  // after transition, unmount
+  setTimeout(() => {
+    setModalData(null);
+    setDragY(0);
+  }, 350);
+};
+
+// Drag handlers unchanged
+const handleTouchStart = e => {
+  setStartY(e.touches[0].clientY);
+  setIsDragging(true);
+};
+const handleTouchMove = e => {
+  if (!isDragging) return;
+  const delta = e.touches[0].clientY - startY;
+  if (delta > 0) setDragY(delta);
+};
+const handleTouchEnd = () => {
+  setIsDragging(false);
+  if (dragY > threshold) {
+    closeModal();
+  } else {
+    // snap back to 0
+    setDragY(0);
+  }
+};
+
+ 
+
 
 useEffect(() => {
   if (!modalData) return;
@@ -105,7 +167,7 @@ useEffect(() => {
  closeModal();
 }, [props.id , category , casts]);
 
-  console.log('modalData', modalData);
+  //console.log('modalData', modalData);
   return (
 <>
  <div className="castlist">
@@ -167,16 +229,32 @@ useEffect(() => {
      {/* Modal */}
       {modalData && (
         <div className="modal-overlay" onClick={closeModal}>
-            
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <div className="modal-header">
+              <div
+  className={`modal-content ${isMobile ? 'mobile' : 'desktop'} ${showModal ? 'show' : 'hide'}`}
+  onClick={e => e.stopPropagation()}
+  onTouchStart={isMobile ? handleTouchStart : null}
+  onTouchMove={isMobile ? handleTouchMove : null}
+  onTouchEnd={isMobile ? handleTouchEnd : null}
+  style={
+        isDragging
+          ? {
+              transform: `translateY(${dragY}px)`,
+              transition: 'none',
+            }
+          : {}
+      }
+>
+  {isMobile && <div className="modal-closeline" onClick={closeModal}></div>}
+        
+
+               <div className="modal-header">
                 
               <img
                 src={apiConfig.w500Image(modalData.profile_path)}
                 alt={modalData.name}
                 className="modal-avatar"
               />
-              <h3>Name : {modalData.name}</h3>
+              <h3>{modalData.name}</h3>
                <h4> as {modalData.character || modalData.department}</h4>
                 <h3 className="modal-deps">Department: {modalData.known_for_department}</h3>
           
