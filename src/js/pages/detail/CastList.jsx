@@ -64,7 +64,9 @@ const openModal = async (actor) => {
 
   const closeModal = () => setModalData(null);
 
- useEffect(() => {
+useEffect(() => {
+  if (!modalData) return;
+
   const handleEsc = (event) => {
     if (event.key === 'Escape') {
       closeModal();
@@ -72,18 +74,16 @@ const openModal = async (actor) => {
   };
 
   const handlePopState = (event) => {
-    // Only close this modal if the popped state was ours
-    if (event.state?.modalA) {
+    // If we go back to a state without modalA, close the modal
+    if (!event.state?.modalA) {
       closeModal();
     }
   };
 
-  // Push Modal A's own state
   const currentState = window.history.state || {};
   const newState = { ...currentState, modalA: true };
   window.history.pushState(newState, '');
 
-  // Add listeners
   document.addEventListener('keydown', handleEsc);
   window.addEventListener('popstate', handlePopState);
 
@@ -91,12 +91,13 @@ const openModal = async (actor) => {
     document.removeEventListener('keydown', handleEsc);
     window.removeEventListener('popstate', handlePopState);
 
-    // Only pop history if we actually pushed it
     if (window.history.state?.modalA) {
       window.history.back();
     }
   };
-}, []);
+}, [modalData]);
+
+
 
 
 useEffect(() => {
