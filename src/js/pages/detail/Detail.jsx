@@ -322,27 +322,30 @@ const Detail = () => {
         setChoice(false);
     }
 
-     useEffect(() => {
-      const handleEsc = (event) => {
-        if (event.key === 'Escape') {
-          cancelwatchTrailer();
-        };
-      };
-    
-      const handlePopState = () => {
-        cancelwatchTrailer();
-      };
-    
-      document.addEventListener('keydown', handleEsc);
-      window.history.pushState({ modal: true }, '');
-      window.addEventListener('popstate', handlePopState);
-    
-      return () => {
-        document.removeEventListener('keydown', handleEsc);
-        window.removeEventListener('popstate', handlePopState);
-        if (window.history.state?.modal) window.history.back();
-      };
-    }, []);
+    useEffect(() => {
+  if (!choice) return;
+
+  const handleEsc = (event) => {
+    if (event.key === 'Escape') {
+      cancelwatchTrailer();
+    }
+  };
+
+  const handlePopState = () => {
+    cancelwatchTrailer();
+  };
+
+  document.addEventListener('keydown', handleEsc);
+  window.history.pushState({ modal: true }, '');
+  window.addEventListener('popstate', handlePopState);
+
+  return () => {
+    document.removeEventListener('keydown', handleEsc);
+    window.removeEventListener('popstate', handlePopState);
+    if (window.history.state?.modal) window.history.back();
+  };
+}, [choice]);
+
    
       
     const [timeLeft, setTimeLeft] = useState('');
@@ -673,7 +676,8 @@ const ringStyle = {
                        }
                       
                        
-                       <ToastContainer   theme='dark' position="bottom-right" autoClose={4000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={true} backdrop={true} progressStyle={{ backgroundColor: '#ffffff' , color : 'white', borderRadius : '5px'}}/>
+                       <ToastContainer   toastClassName="blurred-toast"
+         bodyClassName="toast-body" theme='dark' position="bottom-right" autoClose={4000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={true} backdrop={true} progressStyle={{ backgroundColor: '#ffffff' , color : 'white', borderRadius : '5px'}}/>
            
                     </>
                 )
