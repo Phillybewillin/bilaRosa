@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useRef } from "react";
 import { useParams } from "react-router-dom";
 import tmdbApi from "../../api/tmdbApi";
 import apiConfig from "../../api/apiConfig";
@@ -15,6 +15,8 @@ const [isDragging, setIsDragging] = useState(false);
 const [startY, setStartY] = useState(0);
 const isMobile = window.innerWidth <= 768; // tweak for breakpoint
 const threshold = 150;
+const modalRef = useRef(null);
+
 
   useEffect(() => {
     const getCredits = async () => {
@@ -104,21 +106,31 @@ const closeModal = () => {
 };
 
 // Drag handlers unchanged
-const handleTouchStart = e => {
+const handleTouchStart = (e) => {
   setStartY(e.touches[0].clientY);
   setIsDragging(true);
 };
-const handleTouchMove = e => {
-  if (!isDragging) return;
-  const delta = e.touches[0].clientY - startY;
-  if (delta > 0) setDragY(delta);
+
+const handleTouchMove = (e) => {
+  if (!isDragging || !modalRef.current) return;
+
+  const currentY = e.touches[0].clientY;
+  const deltaY = currentY - startY;
+
+  // Check if modal is scrolled to the top
+  const scrollTop = modalRef.current.scrollTop;
+
+  if (scrollTop <= 0 && deltaY > 0) {
+    e.preventDefault(); // prevent scrolling
+    setDragY(deltaY);
+  }
 };
+
 const handleTouchEnd = () => {
   setIsDragging(false);
   if (dragY > threshold) {
     closeModal();
   } else {
-    // snap back to 0
     setDragY(0);
   }
 };
@@ -230,6 +242,7 @@ useEffect(() => {
       {modalData && (
         <div className="modal-overlay" onClick={closeModal}>
               <div
+              ref={modalRef}
   className={`modal-content ${isMobile ? 'mobile' : 'desktop'} ${showModal ? 'show' : 'hide'}`}
   onClick={e => e.stopPropagation()}
   onTouchStart={isMobile ? handleTouchStart : null}
