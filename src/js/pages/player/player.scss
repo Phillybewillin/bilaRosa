@@ -268,7 +268,7 @@
   top: 7px;
   @include mobile {
     
-    top: -.4rem;
+    top: -.5rem;
     left: 75vw;
   }
 }
@@ -289,6 +289,7 @@
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
   color: rgb(255, 255, 255);
+  
 
  
   
@@ -299,19 +300,21 @@
  top: 0rem;
   z-index: 1 !important;
   cursor: pointer;
-  width: 45%;
+  width: 35%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 7px 10px ;
-  border-radius: 10px 0px 0px 10px;
-  background-color: #0000004f;
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
+  border-radius: 15px;
+  background-color: #0000001c;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
   color: rgb(255, 255, 255);
 
- 
+ .youtube-mode-layout &{
+    padding: 0px 30px ;
+  }
   
 }
 .watchnowblur{
@@ -474,8 +477,8 @@
 
 .hanoxi{
   font-size: 2rem;
-  font-weight: 600;
- max-width: 350px;
+  font-weight: 500;
+  max-width: 370px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -486,11 +489,12 @@
   justify-content: flex-start;
   align-items: first baseline;
   gap: .4rem;
-  margin: 1rem .5rem;
+  margin: .7rem .5rem;
 }
 .haxnoiep{
-  font-weight: 500;
-  color: #ffffffcd;
+  font-weight: 300;
+  color: #ffffff42;
+  text-rendering: optimizeLegibility;
 }
 .css-eueb69-menu{
   backdrop-filter: blur(15px);
@@ -562,7 +566,7 @@
   background-image: none !important;
   background-color: transparent !important;
 
-
+ 
   .episode_list{
     background-image: none !important;
     backdrop-filter: none !important;
@@ -638,6 +642,7 @@
       }
     }
   }
+
   // Right side: sidebar with controls and info
   .youtube-sidebar {
     //position: fixed;
@@ -668,6 +673,7 @@
       transition: all .4s ease;
     }
     
+    
     .episode_listimg{
       display: flex;
       overflow: auto;
@@ -684,9 +690,9 @@
       position: relative;
       display: flex;
       flex-direction: row !important;
-      gap: 20px !important;
+      gap: 10px !important;
       overflow: hidden;
-      text-align: end !important;
+      text-align: start !important;
       //margin-bottom: 2rem;
     }
     .sertop{
@@ -755,14 +761,14 @@
       //left: 0px;
       //bottom: 2px;
       color: white;
-      z-index: 1;
-      width:45% !important;
+      z-index: 0;
+      width:49% !important;
       height: 100% !important;
       text-align: end;
-      border-radius: 10px 0px 0px 10px !important;
+      border-radius: 15px !important;
       
-      backdrop-filter: grayscale(1) brightness(0.5) ;
-      -webkit-backdrop-filter: grayscale(1);
+      backdrop-filter:  brightness(0.5) ;
+      -webkit-backdrop-filter:  brightness(0.5);
     }
   
     .servers,
@@ -833,7 +839,7 @@
       background-color: #ffffff11 !important;
       border: none;
       padding: 9px 17px;
-      border-radius: 5px;
+      border-radius: 15px;
       color: white;
       cursor: pointer;
       font-size: 0.75rem;
@@ -849,32 +855,23 @@
     background-image: none !important;
     background-color: transparent !important;
   }
-  .episode_numberabo{
-    position: absolute;
-    bottom: 5px;
-    right: 0px;
-    background-color: #0000006f;
-    //backdrop-filter: blur(10px);
-    font-weight: 300;
-    padding: 4px 10px;
-    border-radius: 7px 4px 10px 7px;
-    font-size: .7rem;
-  }
+  
   .rearo{
     display: flex;
     margin: .2rem;
     //display: flex;
     z-index: 1000 ! important;
-    position: absolute;
-    top: -15px;
-    right: 0px;
+    //position: absolute;
+    //top: -15px;
+    //right: 0px;
     align-items:  center;
     justify-content: space-between;
     flex-direction: row;
    gap: 20px;
+  
    text-align: end;
    text-wrap: wrap;
-    border-radius: 20px 40px 40px 40px;
+    border-radius: 20px 40px 40px 70px;
     width: 40%;
     font-size: .8rem ;
     //font-weight: 300;
@@ -882,7 +879,7 @@
     //backdrop-filter: blur(10px);
     //padding: 0px;
     cursor: pointer;
-    padding-right: .1rem;
+    padding-right: .4rem;
    transition: all .4s ease-in-out;
   
   }
@@ -919,7 +916,7 @@
 .rearoimg{
   width: auto;
   max-height: 50px;
-  filter: brightness(.5);
+  filter: brightness(.7);
   min-height: auto;
   object-fit: cover;
   
@@ -947,18 +944,19 @@
 }
 .episode_numberabo{
   position: absolute;
-  z-index: 30;
+  z-index: 1;
   bottom: 5px;
-  right: 2px;
-  background-color: #ffffff13;
-  //backdrop-filter: blur(10px);
-  font-weight: 300;
-  padding: 4px 8px;
-  border-radius: 7px;
-  font-size: .74rem;
+  left: 5px;
+  width: max-content;
+  background-color: #00000020;
+  backdrop-filter: blur(10px);
+ font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: .7rem;
 }
 .episode_nameabo{
-  z-index: 30;
+  //z-index: 30;
   position: absolute;
   top: 5px;
   left: 1px;
@@ -997,23 +995,24 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    gap: 10px;
-    text-align: end;
+    gap: 5px;
+    text-align: start;
     //justify-content: space-between;
     overflow: hidden;
   }
   .episode_posterblur{
-    width: 66%;
+    width: 46%;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     z-index: -1;
+    display: none;
     filter: brightness(.34) blur(40px);
   }
   .episode_posterabos{
     height: 120px;
-    min-width: 45%;
+    max-width: 59% ;
     object-fit: cover;
     background-position: center;
     background-size: cover;
@@ -1024,21 +1023,26 @@
     padding: 0px;
     padding-right: .5rem;
     text-align: start;
-    background-color: #c9c9c915;
+    background-color: #c9c9c908;
     cursor: pointer;
     transition: all .3s ease-in-out;
     &:hover{
-      color: white;
-      opacity: .7;
+      color: rgb(215, 215, 215);
+      background-color: #8b8b8b1b;
+    }
+    &:active{
+      color: rgb(215, 215, 215);
+      background-color: #8b8b8b1b;
     }
     .episode_nameaboz {
-      z-index: 51;
-       text-align: end;
+      //z-index: 51;
+      margin-top: 20px;
+       text-align: start;
       color: white;
       //background-color: #00000015;
-      padding: 4px 0px;
+      padding: 2px 0px;
       border-radius: 5px;
-      font-size: .9rem;
+      font-size: .85rem;
       font-weight: 500;
       opacity: 1;
     }
@@ -1099,11 +1103,21 @@
   }
 }
 .episode_posterabos {
-  max-width: auto;
+  min-width: 35% ;
   height: 150px;
+  border-radius: 15px !important;
   //background-position: contain;
   background-size: contain;
   background-repeat: no-repeat;
+
+  .youtube-mode-layout & {
+    min-width: 48.8% ;
+    height: 150px;
+    border-radius: 15px !important;
+    //background-position: contain;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
 
 }
 
@@ -1193,11 +1207,11 @@
 .haxnoititle{
   padding-left: 7px;
   color: gray;
-  margin-bottom: -11px;
+  margin-bottom: -10px;
 }
 .zsa{
   position: relative;
-  margin-top: calc(100vh - 9.9rem);
+  margin-top: calc(100vh - 10.9rem);
 }
 .persistent-iframe-container.youtube{
   position: absolute;
@@ -1215,7 +1229,7 @@
   //bottom: calc(100vh - 33.4rem);
   
   .episodes__iframe{
-    border-radius: 12px;
+    border-radius: 17px;
     //height: calc(100vh - 12rem);
 
   }
@@ -1236,7 +1250,11 @@
   justify-content: center;
   align-items: center;
   z-index: 1000 !important;
-  
+  .episodes__iframe{
+    border-radius: 10px;
+    //height: calc(100vh - 12rem);
+
+  }
   @include mobile {
     position: fixed;
     top: 0;
