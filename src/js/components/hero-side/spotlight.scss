@@ -2,16 +2,18 @@
 
 .modalhome{
   position: fixed;
+  
   top: 0;
   left: 0;
   
   width: 100%;
   height: 6%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.699), rgba(0, 0, 0, 0));
-  display: flex;
+  background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+  display: none;
   align-items: center;
   justify-content: center;
   z-index: 10;
+
 
   @include mobile {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.936), rgba(0, 0, 0, 0));
@@ -20,32 +22,122 @@
   }
    
   }
+
+  .spotlight-backdropblur{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 60%;
+    filter: blur(50px) brightness(80%) saturate(200%);
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -1;
+    transform: scale(1.2);
+    transition: all .6s ease-in-out;
+  }
+
+  .spotlight-item {
+    padding: 1rem .5rem;
+
+  }
   .homenama{
     filter: drop-shadow(0 0 1rem #000000);
     color: rgb(255, 255, 255);
     font-size: 1rem;
     font-weight: 400;
   }
+  .caroselnav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: .5rem;
+   // background-color: #0000008a;
+    padding-left: 3.5rem;
+    height: 100%;
+    gap: 1rem;
+
+    @include mobile {
+      padding: 1rem;
+      //width: 99%;
+      padding-left: .3rem;
+    }
+    @include tablet {
+      padding: .5rem;
+      padding-left: 0rem;
+    }
+  }
+  .embla__buttons {
+    position: relative;
+    //top: 50%;
+    width: 100%;
+    display: flex;
+    pointer-events: none;
+  
+    .embla__button {
+      pointer-events: all;
+      background: rgba(253, 253, 253, 0.071);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      padding: 0.8rem;
+      margin: 0 .2rem;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background 0.3s;
+  
+      &:hover {
+        background: rgba(185, 185, 185, 0.217);
+      }
+
+      @include mobile {
+       margin: 0 .5rem;
+      }
+    }
+  }
+  
+  .embla__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.3rem;
+    margin-top: 1rem;
+  
+    .embla__dot {
+      width: 15px;
+      height: 7px;
+      border-radius: 20px;
+      background: #7777774b;
+      border: none;
+      cursor: pointer;
+      //scale: .95;
+      transition: all 0.5s ease-in-out;
+  
+      &.is-selected {
+        background: #ffffff;
+        //scale: 1;
+        width: 50px;
+        border-radius: 20px;
+      }
+    }
+  }
+  
 
 .spotlight {
     position: relative;
-    min-height: 100vh;
+    //min-height: 100vh;
     width: 100%;
-   background:linear-gradient(to bottom, rgba(0, 0, 0, 0.936), rgba(0, 0, 0, 0.927) 80% , rgba(0, 0, 0, 0) );
-    //overflow-x: hidden;
-    //z-index: 55;
-    //background-color: #fff;
+    background:linear-gradient(to bottom, rgba(0, 0, 0, 0.936), rgba(0, 0, 0, 0.927) 80% , rgba(0, 0, 0, 0) );
     //overflow-x: hidden;
     //z-index: 55;
     padding: .1rem;
-    border-radius: 10px;
-    margin-bottom: 2rem;
+   // border-radius: 10px;
+    margin-bottom: .5rem;
    // transition: all 1s ease-in;
 
     @include tablet {
-      margin-bottom: 0rem;
+      margin-bottom: 1rem;
         padding: 0;
-        min-height: 100%;
+        max-height: 100%;
     }
      
    .swiper-slide {
@@ -167,16 +259,16 @@ margin-bottom: 2rem;
 
 /* Change the size and color of all bullets to a larger size */
 .swiper-pagination-bullet {
-  width: 16px;
+  width: 15px;
   height: 5px;
   background-color: #ffffff;
   border-radius: 7px;
 
   @include mobile {
-    width: 10px;
-    height: 4px;
+    width: 7px;
+    height: 7px;
     background-color: #ffffff;
-    border-radius: 7px;
+    border-radius: 2px;
   }
 }
 }
@@ -228,6 +320,37 @@ margin-bottom: 2rem;
       display: none;
   }
 }
+/* Add to spotlight.scss or global CSS:*/
+.embla {
+  overflow: hidden;
+}
+.embla__container {
+  display: flex;
+  position: relative;
+}
+.embla__slide {
+  //grid-area: 1 / 1; 
+  //opacity: 0;
+  transition: opacity .3s ease;
+  pointer-events: none;
+  min-width: 100%;
+  height: 70vh;
+  padding: .2rem;
+  padding-left: 4rem;
+
+  @include mobile {
+    height: 40vh;
+    //width: 99%;
+    padding: 0rem;
+    padding-left: 0rem;
+  }
+}
+.embla__slide.is-selected {
+ // opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+
 
 .spotlight-number{
   position: absolute;
@@ -253,26 +376,29 @@ margin-bottom: 2rem;
     }
 }
 .spotim{
+  border-radius: 10px;
   max-width: 35%;
   height: 80px;
   object-fit: contain;
   padding: 4px;
 
   @include mobile {
-    max-width: 50%;
-    height: auto;
+    max-width: 30%;
+    height: 70px;
   }
 }
 .spotlight-name{
     display: flex;
-    align-items: center;
+    align-items: end;
+   
+    font-size: 1.2rem;
     padding-top: 15px;
     padding-left: .5rem;
     //background-color: rgba(0, 0, 0, 0.139);
     border-radius: 10px;
-    font-weight: 400;
+    
     @include mobile {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
     }
     @include tablet {
         font-size: 1.4rem;
@@ -280,13 +406,13 @@ margin-bottom: 2rem;
 }
 .spotlight-image{
     width : 100%;
-    height: 540px;
+    height: 75.9vh;
     object-fit: cover;
     background-size: cover;
     background-position: center;
     border-radius: 16px;
-    @include overlay();
-    //background-image: linear-gradient(180deg, transparent, rgb(0, 0, 0));
+   // @include overlay();
+   // background: linear-gradient(180deg, transparent, rgb(0, 0, 0));
     box-shadow: none; 
     
     
@@ -294,8 +420,9 @@ margin-bottom: 2rem;
         height: 500px;
     }
     @include mobile {
-      height: 600px;
-      border-radius: 2px;
+      height: 30vh;
+      padding: .5rem;
+      border-radius: 20px;
   }
 }
 .spotlight-content{
@@ -304,17 +431,17 @@ margin-bottom: 2rem;
     justify-content: center;
     flex-direction: column;
     position: absolute;
-    bottom: 1.2rem;
+    bottom: .1rem;
     //left: -.1px;
     padding-bottom: .8rem;
     //padding-top:calc(100vh - 25rem);
     margin-bottom: -0.36rem;
     //gap: .1rem;
-    width: 100%;
-    border-radius: 15px;
+    width: 94.8%;
+    //border-radius: 15px;
     border-top-left-radius: 0;
     //backdrop-filter: blur(100px);
-    background-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.929));
+    background-image: linear-gradient(180deg, transparent, rgb(0, 0, 0));
     font-size: smaller;
     font-weight: 300;
     //opacity: 0.7;
@@ -323,9 +450,10 @@ margin-bottom: 2rem;
       margin-bottom: .8rem;
     }
     @include mobile {
-      padding: 0 1rem;
-      padding-bottom: 1.8rem;
-      margin-bottom: -3.2rem;
+      //position: relative;
+      padding: 0 .2rem;
+     // padding-bottom: 9rem;
+      margin-bottom: -.5rem;
       border-radius: 0;
       //margin: 0 1rem;
       align-items: start;
@@ -334,10 +462,9 @@ margin-bottom: 2rem;
       //background-color: rgba(0, 0, 0, 0.664);
       //padding-top: calc(50vh - 14rem);
       width: 100%;
-      opacity: 0; // hide spotlight content by default
-      transition: opacity 0.2s ease-in-out;
+      opacity: 1; // hide spotlight content by default
+      transition: opacity 0.5s ease-in-out;
       font-size: small;
-      font-weight:500;
     }
     
 }
@@ -490,7 +617,7 @@ margin-bottom: 2rem;
     }
 }
 .spotlight-overview{
-  padding: .2rem .5rem;
+  padding: 0rem .5rem;
   margin: .3rem 1rem;
   max-width: 60%;
   //background-color: #0000004a;
@@ -503,16 +630,17 @@ margin-bottom: 2rem;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  line-clamp: 2;
+  line-clamp: 3;
   box-orient: vertical;
   
     @include tablet {
        //display: none;
-        width: 100%;
+       font-size: .8rem;
+        max-width: 100%;
         margin: .3rem;
-        font-size:xx-small;
+        //font-size:xx-small;
     }
    
     
@@ -521,15 +649,20 @@ margin-bottom: 2rem;
 .spotty{
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   padding-left: .5rem;
   //justify-content: center;
   font-size: x-small;
+  white-space: nowrap;
   font-weight: 300; 
   gap: 5px;
+
+  @include tablet {
+   padding-left: 0;
+  }
 }
 .genre {
-    margin-left: 10px;
+    margin-left: 5px;
     display: inline-block;
     padding: 5px 10px;
     margin: 1.5px;
