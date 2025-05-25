@@ -699,8 +699,8 @@ useEffect(() => {
     }
     
     if (!prioritizedValue || !options.find((option) => option.value === prioritizedValue)) {
-      toast.info("Defaulting to Granadilla");
-      prioritizedValue = options[0].value;
+      //toast.info("Defaulting to Granadilla");
+      prioritizedValue = options[3].value;
     }
     
     const selectedOpt = options.find((option) => option.value === prioritizedValue);
