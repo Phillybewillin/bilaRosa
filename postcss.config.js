@@ -8,7 +8,6 @@ export default {
       purgecss({
         content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
         safelist: [
-          /^swiper/,              // Swiper.js
           /^Toastify/,            // react-toastify
           //^react-select/,        // react-select
           ///^embla/,               // embla-carousel
