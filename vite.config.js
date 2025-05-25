@@ -23,9 +23,9 @@ export default defineConfig(({ mode }) => {
           'sitemap.xml',
         ],
         manifest: {
-          id: 'https://moviepluto.fun',
-          name: 'MoviePluto',
-          short_name: 'MoviePluto',
+          id: 'https://bearflix.fun',
+          name: 'BearFlix',
+          short_name: 'BearFlix',
           description: 'Stream  Movies and Series in 4K for Free',
 
           background_color: '#000000',
@@ -109,7 +109,7 @@ export default defineConfig(({ mode }) => {
         output: {
           manualChunks: {
             vendor: ['react', 'react-dom'],
-            swiper: ['swiper'],
+           
           },
         },
       },
