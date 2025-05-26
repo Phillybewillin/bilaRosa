@@ -246,6 +246,47 @@ const Spotlight = () => {
       })}
       className="swiper"
     > 
+         <SwiperSlide>
+  <div className="spotlight-item">
+    <h1 className="spotlight-number">TV-14</h1>
+    <img
+      loading="lazy"
+      src="https://image.tmdb.org/t/p/original/5YBfP6lyEAY0jIk1CYAoQA64q08.jpg"
+      alt="rm"
+      className="spotlight-image"
+      style={{ filter: 'drop-shadow(0 0 3rem rgba(200, 148, 214, 0.269)' }}
+    />
+    <div className="spotlight-content">
+      <h2 className="spotlight-name">
+        <img
+          loading="lazy"
+          className="spotim"
+          src="https://image.tmdb.org/t/p/w500/yX4zH78qqpIfBKvsxccy33bEZGO.png"
+          alt="logo"
+        />
+      </h2>
+      <div className="spotty">
+        <p className="spotlight-genres">
+          <span className="genre a">ANIMATION</span>
+          <span className="genre a">COMEDY</span>
+          <span className="genre a">SCI-FI & FANTASY</span>
+        </p>
+        <h5 className="genre a">TV | 04 DEC 2013</h5>
+        <h5 className="genre a">86%</h5>
+      </div>
+      <p className="spotlight-overview">
+       The twosome you have been waiting for</p>
+      <div className="spotty">
+        <Button className="spotlight-watch-btn" onClick={() => navigate('/tv/60625')}>
+          <i className="bx bx-info-circle"></i>
+        </Button>
+        <Button className="spotlight-watch-btn" onClick={() => handleEpisodeClick(60625, "Ldr", 1, 1)}>
+          <i className="bx bx-play"></i> Watch Now
+        </Button>
+      </div>
+    </div>
+  </div>
+</SwiperSlide>
        <SwiperSlide>
   <div className="spotlight-item">
     <h1 className="spotlight-number">12</h1>
@@ -254,7 +295,7 @@ const Spotlight = () => {
       src="https://image.tmdb.org/t/p/original/esKev4tSgF30FDTTZ30594IPOFL.jpg"
       alt="DROP"
       className="spotlight-image"
-      style={{ filter: 'drop-shadow(0 0 3rem rgba(222, 183, 118, 0.59))' }}
+      style={{ filter: 'drop-shadow(0 0 3rem rgba(222, 183, 118, 0.29))' }}
     />
     <div className="spotlight-content">
       <h2 className="spotlight-name">
@@ -267,7 +308,7 @@ const Spotlight = () => {
       </h2>
       <div className="spotty">
         <p className="spotlight-genres">
-          <span className="genre a">HORROR</span>
+          <span className="genre a">COMEDY</span>
           <span className="genre a">MYSTERY</span>
           <span className="genre a">THRILLER</span>
         </p>
