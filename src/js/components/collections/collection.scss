@@ -1,0 +1,201 @@
+// Collection.scss
+
+@use "../../scss/" as *;
+
+.collection-container {
+  padding: 0 2rem ;
+  min-height: 100vh;
+  opacity: 1;
+  margin-left: 1.5rem;
+  //background: #f7f7f7;
+  font-family: sans-serif;
+
+  @include mobile {
+    padding: 0 .5rem;
+    margin-left: 0;
+    margin-top: 2rem;
+  }
+}
+ .collection-main-title{
+    font-size: 4.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #e0e0e071;
+  }
+
+ .collection-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  width: 100%;
+ // background-color: #fff;
+  padding: 0 1rem;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0rem 0;
+    gap: 1rem;
+  }
+}
+
+
+.collection-search {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  width: 300px;
+  background-color: #111;
+  //border: 1px solid #444;
+  border-radius: 5px;
+  color: white;
+
+  @include mobile {
+    padding: 1.5rem 1rem;
+    width: 100%;
+  }
+}
+
+.collection-total {
+  font-size: 0.9rem;
+  color: #ccc;
+  background-color: #000000bf;
+}
+
+.collection-name-bar {
+  display: flex;
+  flex-wrap: wrap;
+ 
+   //backdrop-filter: blur(50px);
+  //border-radius: 0 0 6px 6px;
+  gap: 0.5rem;
+  padding: 1rem;
+
+  @include mobile {
+    padding: .3rem;
+  }
+}
+
+.collection-name-btn {
+  padding: 0.3rem 0.8rem;
+  background-color: #ffffff1b;
+  border: 1px solid #55555594;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+
+  @include mobile {
+    padding: 0.8rem 0.6rem;
+    border-radius: 10px;
+    font-size: .8rem;
+  }
+}
+.collection-name-btn.activecollection{
+  border-color: pink;
+}
+
+.collection-name-btn:hover {
+  background-color: #202020;
+}
+.stickytop{
+ 
+  min-width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  z-index: 1;
+  padding: 1rem .5rem;
+  background-color: #000000bf;
+  //backdrop-filter: blur(45px) saturate(180%);
+  height: 100px;
+}
+
+.colebar{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: .5rem 0rem;
+}
+.overviewcoll{
+  margin-top: .3rem;
+  border-top: 1px solid #ffffff1b;
+  font-size: .8rem;
+  padding-top: .3rem;
+  color: #ffffff8f;
+}
+.collection-name{
+  background-color: white;
+  color: black;
+  padding: .4rem .8rem;
+  border-radius: 6px;
+  font-size: .9rem;
+}
+.load-more-btn{
+  margin-top: 2rem;
+  padding: .5rem 1rem;
+  background-color: #ffffff1b;
+  border: 1px solid #55555594;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+}
+.collection {
+  margin-bottom: 1rem;
+ position: relative;
+ margin-left: 1rem;
+ //background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0));
+ //background:radial-gradient(circle, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0) 30%, rgb(0, 0, 0) 100%);
+/// overflow: hidden;
+ overflow-x: visible;
+
+ @include mobile {
+   margin-left: 0;
+ }
+  .collection-title {
+    position: sticky;
+    top: 1rem;
+    z-index: 10;
+    font-size: 2rem;
+    font-weight: normal;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    color: #ffffffde;
+  }
+ 
+.collectionbackblur{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(70px) brightness(.5) ;
+    z-index: -1;
+}
+  .movies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 1.5rem;
+
+    @include tablet {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    @include mobile {
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+  }
+
+  
+}
+.collectionloading-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
