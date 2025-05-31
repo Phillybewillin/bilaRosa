@@ -1,10 +1,16 @@
 .search-page-container {
     padding: 1.3rem;
-    padding-top: 6rem; /* Adjust to clear fixed header */
+    padding-top: 1rem; /* Adjust to clear fixed header */
     max-width: 100%;
     margin: 0 auto;
     min-height: 80vh; /* Ensure it takes up enough space */
+    padding-left: 4.5rem;
 
+    @include mobile {
+         padding-top: 6rem; /* Adjust to clear fixed header */
+   
+        padding-left: 1rem;
+    }
     .search-title {
         text-align: start;
         margin-bottom: 2rem;
@@ -120,4 +126,15 @@
   filter: blur(70px) brightness(.5) ;
   z-index: -1;
   transition: all 1s ease-in-out;
+}
+.advanced{
+    display: flex;
+
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+    @include mobile {
+      display: none;
+    }
 }
