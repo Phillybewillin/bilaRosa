@@ -1,0 +1,59 @@
+.actor-card {
+    position: relative;
+    padding-top: 142%; /* Aspect ratio for profile image (similar to poster) */
+    border-radius: 8px; /* border-radius equivalent */
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease;
+    cursor: pointer;
+    width: 150px;
+    background-color: #1a1a1a; /* background-color-dark equivalent */
+    
+    @include mobile {
+        padding-top: 140%;
+        width: 110px;
+    }
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    &__image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center top; /* Actors often have headshots, top alignment might be better */
+        border-radius: 8px; /* border-radius equivalent */
+    }
+
+    &__info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0));
+        padding: 0.5rem;
+        color: #fff;
+        text-align: center;
+
+        h3 {
+            margin: 0;
+            font-size: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        p {
+            margin: 0.2rem 0 0;
+            font-size: 0.8rem;
+            color: #b0b0b0; /* text-color-light equivalent */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
