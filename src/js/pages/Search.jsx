@@ -181,7 +181,7 @@ const Search = () => {
         }
 
         setFilteredResults(currentFiltered);
-    }, [filter, allSearchResults]);
+    }, [filter, allSearchResults , actorFilmographyId]);
 
 
     const handleInputChange = (e) => {
@@ -288,10 +288,12 @@ const Search = () => {
                             className="filter-btn"
                             onClick={() => {
                                 // Go back to general search
-                                //setSearchValue('');
+                                setSearchValue('');
                                 setActorFilmographyId(null);
+
                                 setActorFilmographyName('');
                                 setFilter('all');
+
                             }}
                         >
                             Back to Search
