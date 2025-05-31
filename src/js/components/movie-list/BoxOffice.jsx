@@ -27,7 +27,7 @@ const BoxOffice = () => {
     const [showCount, setShowCount] = useState(100);
     const [networkid ,setNetworkid] = useState(213);
     const [nettitle, setNettitle] = useState('Netflix');
-    const [backdrop, setBackdrop] = useState(netflix);
+    const [backdrop, setBackdrop] = useState('https://media.themoviedb.org/t/p/h60/wwemzKWzjKYJFfCeiB57q3r4Bcm.png');
     // Your TMDB API key
     const API_KEY = import.meta.env.VITE_TMDB_API_KEY; 
     const {user} = UserAuth();
@@ -149,7 +149,7 @@ const handleShowMoreClick = () => {
     className={`netflix ${networkid === 213 ? 'active' : ''}`}
     onClick={() => {setNetworkid(213); setNettitle('Netflix') ; setBackdrop('https://media.themoviedb.org/t/p/h60/wwemzKWzjKYJFfCeiB57q3r4Bcm.png')}}
   >
-    <img className="provimg" src={'https://media.themoviedb.org/t/p/h60/wwemzKWzjKYJFfCeiB57q3r4Bcm.png'} />
+    <img className="provimg" src={netflix} />
   </h5>
  
   <h5
