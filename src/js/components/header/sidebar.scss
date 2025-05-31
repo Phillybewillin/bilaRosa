@@ -6,8 +6,11 @@
     transform-origin: center;
     background-color: #ffffff13;
     border-radius: 0 10px 10px 0px;
+    display: flex;
+    justify-content: center;
     img{
-        width: 180px;
+      
+        width: 170px;
        // height: 40px
     }
 
@@ -24,9 +27,9 @@
     z-index: 11 !important;
     width: 60px;
     //backdrop-filter: blur(10px);
-    background: linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0.055));
+    background: linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0));
    
-    backdrop-filter: grayscale(100%)  blur(2px);
+    //backdrop-filter: grayscale(100%)  blur(2px);
             // z-index: 10003 !important;
     transition: all .5s ease-in-out;
 
@@ -105,7 +108,7 @@
      transition: all 0.3s ease-in-out;
      position: relative;
      i{
-       font-size: 1.5rem !important;
+       font-size: 1.6rem !important;
        font-weight: 200;
      }
      &::after{
@@ -125,8 +128,8 @@
      border-radius: 12px;
    }
    &.active::after ,&:hover::after{
-       width: 10%;
-       color: lawngreen;
+       width: 40%;
+       //color: lawngreen;
        
    }
    @include mobile {
@@ -213,6 +216,7 @@
     background-color: rgba(15, 15, 15, 0.756) !important;
     padding: .5rem;
     color: #ffffff !important;
+    display: none;
     transition: all .3s ease-in-out;
     &:hover{
         background-color: rgba(75, 75, 75, 0.87) !important;
@@ -229,12 +233,12 @@
     width: 100vw;
     height: 100vh;
    
-    background-color: #000000;
+    background-color: #000000b6;
     //width: 100%;
     //background-image: radial-gradient(transparent 2px, #000000ae 0);
     background-size: 4px 4px;
     //backdrop-filter: brightness(.5) grayscale(1) !important;
-    //backdrop-filter: blur(10px);
+    backdrop-filter: blur(3px);
 
     
 }
@@ -245,7 +249,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 1.9rem;
+    margin: 0rem;
   }
   
   .backdrop {
@@ -265,8 +269,9 @@
     margin-top: 50px;
     padding: 1rem;
     border-radius: 8px;
-    width: 90%;
+    width: 93%;
     height: max-content;
+    margin-left: 2rem;
     max-width:max-content;
     //box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
   }
@@ -354,13 +359,13 @@
 .clearsearch{
     position: absolute;
     top: auto;
-    right: .5rem;
+    right: .1rem;
     border: none;
     background-color: #1b1b1bf8;
-    padding: .8rem;
+    padding: .5rem;
     font-size: small;
     border: 2px solid #f4f4f440;
-    border-radius: 50%;
+    border-radius: 20%;
     //margin: 3px;
     cursor: pointer;
 }
@@ -515,4 +520,11 @@
     @include tablet {
         width: 50%;
     }
+}
+.discord-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+   height: 40px;
 }
