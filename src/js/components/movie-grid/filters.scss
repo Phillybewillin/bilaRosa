@@ -30,12 +30,12 @@
 
 .custom-select-menu {
   background-color: rgba(67, 67, 67, 0.413);
-  backdrop-filter: blur(15px);
+  //backdrop-filter: blur(15px);
   height: 240px !important;
   overflow: hidden;
   margin-bottom: 5rem;
-  -webkit-backdrop-filter: blur(15px);
- 
+  //-webkit-backdrop-filter: blur(15px);
+  
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.078) rgba(0, 0, 0, 0)
 }
@@ -51,11 +51,12 @@
     margin-left: 3.4rem;
     min-height: fit-content;
     height: 100%;
-    padding: .5rem;
+    padding: 0rem .5rem;
     //background-color: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     position: relative;
     gap: 1rem;
+
     
  
     @include tablet {
@@ -63,7 +64,8 @@
         margin-left: 4rem;
     }
     @include mobile {
-        padding: .5rem;
+       // margin-top: 4rem;
+        padding: 0rem;
         margin-left: 0;
     }
 }
@@ -84,6 +86,10 @@
     color: rgb(255, 255, 255);
     font-size: smaller;
     text-align: start;
+
+    @include mobile{
+        font-size: 1rem;
+    }
     //border-radius: 5px;
 }
 .bigmovie{
@@ -108,6 +114,9 @@
     margin: .5rem;
     border-radius: 10px;
     cursor: pointer;
+    i{
+        font-size: 1.5rem;
+    }
     &:hover{
         color: rgb(128, 127, 127);
     }
@@ -125,6 +134,10 @@
     margin: .5rem;
     border-radius: 10px;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
+     i{
+        font-size: 1.5rem;
+    }
     &:hover{
         color: rgb(128, 127, 127);
     }
@@ -132,16 +145,29 @@
 .toggle-filters{
     margin-bottom: 1rem;
 }
+.filtblur{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    //background-color: rgba(0, 0, 0, 0.808);
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    filter: blur(40px) brightness(0.2);
+}
 .backback {
-  background-color: #101010;
-  filter: drop-shadow(0 0 3rem rgba(132, 132, 132, 0.448));
+  background-color: #00000072;
+ // filter: drop-shadow(0 0 3rem rgba(132, 132, 132, 0.174));
   padding: 1rem;
   margin-bottom: 1rem;
-  border-radius: 10px;
+  border-radius: 20px;
   overflow: hidden;
   max-height: 1000px; /* enough to hold full content */
   opacity: 1;
-  transition: max-height 0.6s ease-out, opacity 0.4s ease;
+  transition: max-height 0.3s ease, opacity 0.4s ease;
 }
 
 .backback.closed {
@@ -149,43 +175,56 @@
   opacity: 0;
   padding: 0 1rem; /* keep horizontal padding */
   margin-bottom: 0;
-  transition: max-height 0.6s ease-in, opacity 0.4s ease;
+  transition: max-height 0.3s ease, opacity 0.4s ease;
 }
 
 .righters{
-    position: sticky;
-    top: 0rem;
-    z-index: 1;
+    position: relative;
+    //top: 0rem;
+   // z-index: 1;
     display: flex;
 
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     padding: 1.5rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
+   // z-index: 1000;
     font-weight: 100;
-//backdrop-filter: blur(20px);
-    background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(14, 14, 14, 0.014));
-    color: rgb(255, 255, 255);
+    border-radius: 0 0 10px 0px;
+   // backdrop-filter: blur(20px);
+   //-webkit-backdrop-filter: blur(20px);
+   // background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+    color: rgba(255, 255, 255, 0.829);
     width: 100%;
-    margin: 0rem 0;
+    margin-top: 1rem;
    // border-radius: 10px;
     cursor: pointer;
+     i{
+        font-size: 1.5rem;
+    }
+
+    @include mobile{
+      margin-top: 5rem;
+    }
 }
 
 .gen{
-    display: inline-flex;
+    display: flex;
     flex-wrap: wrap;
     font-size: .75rem;
     gap: .5rem;
     align-items: center;
     justify-content: start;
-    padding: .5rem;
+    padding: .5rem 0rem;
     z-index: 50;
+    margin: .3rem;
 
  
 
     @include mobile{
+        //overflow: visible;
+        gap: .4rem;
         font-size: .95rem;
     }
   
@@ -198,6 +237,9 @@
 .lent{
     display: flex;
     flex-wrap: wrap;
+    
+    //white-space: nowrap;
+   // overflow: auto;
 }
 .genrezz{
     cursor: pointer;
@@ -230,14 +272,15 @@
 .genrezzx{
     cursor: pointer;
    // background-color: rgb(14, 14, 14);
-    border: 1px solid rgb(80, 80, 80);
+    border: 1px solid rgba(160, 160, 160, 0.42);
     padding:  10px;
-    border-radius: 10px;
+    border-radius: 6px;
     display: flex;
     justify-content: space-between;
     
     font-size: .75rem;
     @include mobile{
+        padding: 8px;
         font-size: .85rem;
     }
 }
@@ -262,9 +305,7 @@
     }
 
     @include mobile {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+       grid-template-columns: repeat(auto-fill, minmax(min(100px, 100%), 1fr));
     
     }
     
@@ -280,14 +321,14 @@
 
 .checkbox-custom {
     display: inline-block;
-    width: 30px; /* Adjust size as needed */
-    height: 10px; /* Adjust size as needed */
+    width: 5px; /* Adjust size as needed */
+    height: 12px; /* Adjust size as needed */
     //border: 1px solid #d900ff; /* Red border */
-    background-color: #202020; /* Grey background */
+    background-color: #ffffff17; /* Grey background */
     position: relative;
     cursor: pointer;
-    border-radius: 10px;
-    margin-right: 10px; /* Space between checkbox and text */
+    border-radius: 2px;
+    margin-right: 5px; /* Space between checkbox and text */
 }
 
 .checkbox-custom::after {

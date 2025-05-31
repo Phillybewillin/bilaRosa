@@ -6,64 +6,64 @@ import "./filters.scss";
 import Button, { OutlineButton } from "../button/Button";
 import { ToastContainer } from "react-toastify";
 import { useNavigate, useLocation } from "react-router";
-import Select  from "react-select";
+import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
-
+import TrueFocus from "../reactbits/TrueFocus";
+import { motion, AnimatePresence } from "framer-motion"; // Import motion and AnimatePresence
 
 const Filters = () => {
   document.title = "Filters • MoviePluto";
 
   // List of countries for react-select
- const [countryOptions] = useState([
-  { value: "US", label: "United States" },
-  { value: "GB", label: "United Kingdom" },
-  { value: "CA", label: "Canada" },
-  { value: "FR", label: "France" },
-  { value: "DE", label: "Germany" },
-  { value: "IT", label: "Italy" },
-  { value: "ES", label: "Spain" },
-  { value: "RU", label: "Russia" },
-  { value: "JP", label: "Japan" },
-  { value: "KR", label: "South Korea" },
-  { value: "IN", label: "India" },
-  { value: "CN", label: "China" },
-  { value: "MX", label: "Mexico" },
-  { value: "BR", label: "Brazil" },
-  { value: "AR", label: "Argentina" },
-  { value: "AU", label: "Australia" },
-  { value: "NL", label: "Netherlands" },
-  { value: "SE", label: "Sweden" },
-  { value: "PL", label: "Poland" },
-  { value: "ID", label: "Indonesia" },
-  { value: "TH", label: "Thailand" },
-  { value: "PH", label: "Philippines" },
-  { value: "TR", label: "Turkey" },
-  { value: "EG", label: "Egypt" },
-  { value: "NG", label: "Nigeria" },
-  { value: "ZA", label: "South Africa" },
-  { value: "CO", label: "Colombia" },
-  { value: "KE", label: "Kenya" },
-  { value: "DK", label: "Denmark" },
-  { value: "FI", label: "Finland" },
-  { value: "NO", label: "Norway" },
-  { value: "BE", label: "Belgium" },
-  { value: "CH", label: "Switzerland" },
-  { value: "HK", label: "Hong Kong" },
-  { value: "SG", label: "Singapore" },
-  { value: "MY", label: "Malaysia" },
-  { value: "NZ", label: "New Zealand" },
-  { value: "IL", label: "Israel" },
-  { value: "IE", label: "Ireland" },
-  { value: "AT", label: "Austria" },
-  { value: "GR", label: "Greece" },
-  { value: "PT", label: "Portugal" },
-  { value: "CZ", label: "Czech Republic" },
-  { value: "HU", label: "Hungary" },
-  { value: "UA", label: "Ukraine" },
-  { value: "SA", label: "Saudi Arabia" },
-  { value: "AE", label: "United Arab Emirates" },
-]);
-
+  const [countryOptions] = useState([
+    { value: "US", label: "United States" },
+    { value: "GB", label: "United Kingdom" },
+    { value: "CA", label: "Canada" },
+    { value: "FR", label: "France" },
+    { value: "DE", label: "Germany" },
+    { value: "IT", label: "Italy" },
+    { value: "ES", label: "Spain" },
+    { value: "RU", label: "Russia" },
+    { value: "JP", label: "Japan" },
+    { value: "KR", label: "South Korea" },
+    { value: "IN", label: "India" },
+    { value: "CN", label: "China" },
+    { value: "MX", label: "Mexico" },
+    { value: "BR", label: "Brazil" },
+    { value: "AR", label: "Argentina" },
+    { value: "AU", label: "Australia" },
+    { value: "NL", label: "Netherlands" },
+    { value: "SE", label: "Sweden" },
+    { value: "PL", label: "Poland" },
+    { value: "ID", label: "Indonesia" },
+    { value: "TH", label: "Thailand" },
+    { value: "PH", label: "Philippines" },
+    { value: "TR", label: "Turkey" },
+    { value: "EG", label: "Egypt" },
+    { value: "NG", label: "Nigeria" },
+    { value: "ZA", label: "South Africa" },
+    { value: "CO", label: "Colombia" },
+    { value: "KE", label: "Kenya" },
+    { value: "DK", label: "Denmark" },
+    { value: "FI", label: "Finland" },
+    { value: "NO", label: "Norway" },
+    { value: "BE", label: "Belgium" },
+    { value: "CH", label: "Switzerland" },
+    { value: "HK", label: "Hong Kong" },
+    { value: "SG", label: "Singapore" },
+    { value: "MY", label: "Malaysia" },
+    { value: "NZ", label: "New Zealand" },
+    { value: "IL", label: "Israel" },
+    { value: "IE", label: "Ireland" },
+    { value: "AT", label: "Austria" },
+    { value: "GR", label: "Greece" },
+    { value: "PT", label: "Portugal" },
+    { value: "CZ", label: "Czech Republic" },
+    { value: "HU", label: "Hungary" },
+    { value: "UA", label: "Ukraine" },
+    { value: "SA", label: "Saudi Arabia" },
+    { value: "AE", label: "United Arab Emirates" },
+  ]);
 
   // Final states used for fetching items.
   const [category, setCategory] = useState("movie"); // default category
@@ -84,6 +84,7 @@ const Filters = () => {
   const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Added loading state
 
   // Flag to indicate URL parameters (if any) have been processed.
   const [paramsLoaded, setParamsLoaded] = useState(false);
@@ -101,14 +102,24 @@ const Filters = () => {
     { value: "release_date.asc", label: "Release Date Ascending" },
     { value: "revenue.desc", label: "Revenue Descending" },
     { value: "revenue.asc", label: "Revenue Ascending" },
-      ...(category === 'movie' ? [
-    { value: "primary_release_date.desc", label: "Primary Release Date Descending" }, // Movie specific
-    { value: "primary_release_date.asc", label: "Primary Release Date Ascending" }    // Movie specific
-  ] : []),
-  ...(category === 'tv' ? [
-    { value: "first_air_date.desc", label: "First Air Date Descending" },       // TV specific
-    { value: "first_air_date.asc", label: "First Air Date Ascending" }          // TV specific
-  ] : [])
+    ...(category === "movie"
+      ? [
+          {
+            value: "primary_release_date.desc",
+            label: "Primary Release Date Descending",
+          }, // Movie specific
+          {
+            value: "primary_release_date.asc",
+            label: "Primary Release Date Ascending",
+          }, // Movie specific
+        ]
+      : []),
+    ...(category === "tv"
+      ? [
+          { value: "first_air_date.desc", label: "First Air Date Descending" }, // TV specific
+          { value: "first_air_date.asc", label: "First Air Date Ascending" }, // TV specific
+        ]
+      : []),
   ];
 
   // Process URL query parameters once.
@@ -131,12 +142,20 @@ const Filters = () => {
         setDraftSelectedGenre(arr);
       }
       if (countryParam) {
-        setSelectedCountry(countryOptions.find(option => option.value === countryParam) || null);
-        setDraftSelectedCountry(countryOptions.find(option => option.value === countryParam) || null);
+        setSelectedCountry(
+          countryOptions.find((option) => option.value === countryParam) || null
+        );
+        setDraftSelectedCountry(
+          countryOptions.find((option) => option.value === countryParam) || null
+        );
       }
       if (yearParam) {
-        setSelectedYear(yearsOptions.find(option => option.value === yearParam) || null);
-        setDraftSelectedYear(yearsOptions.find(option => option.value === yearParam) || null);
+        setSelectedYear(
+          yearsOptions.find((option) => option.value === yearParam) || null
+        );
+        setDraftSelectedYear(
+          yearsOptions.find((option) => option.value === yearParam) || null
+        );
       }
       if (pageParam) {
         setCurrentPage(Number(pageParam));
@@ -164,7 +183,7 @@ const Filters = () => {
         console.error(error);
       }
     };
-    window.scrollTo({ top: 10, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
     fetchGenres();
   }, [category]);
 
@@ -173,6 +192,7 @@ const Filters = () => {
     if (!paramsLoaded) return;
 
     const fetchItems = async () => {
+      setIsLoading(true); // Set loading to true when fetching starts
       // Build the filters object.
       const filters = {
         include_adult: false,
@@ -214,11 +234,13 @@ const Filters = () => {
       const url = `https://api.themoviedb.org/3/discover/${category}?${paramsStr}`;
       try {
         const response = await axios.get(url, {
-          params: { api_key: apiConfig.apiKey }
+          params: { api_key: apiConfig.apiKey },
         });
         setItems(response.data.results);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false); // Set loading to false when fetching completes
       }
     };
 
@@ -234,8 +256,7 @@ const Filters = () => {
       queryParams.set("country", draftSelectedCountry.value);
     if (draftSelectedYear?.value)
       queryParams.set("year", draftSelectedYear.value);
-    if (draftSortBy)
-      queryParams.set("sort_by", draftSortBy);
+    if (draftSortBy) queryParams.set("sort_by", draftSortBy);
     if (category) queryParams.set("category", category);
     queryParams.set("page", page);
     // Replace encoded commas with literal commas.
@@ -298,20 +319,62 @@ const Filters = () => {
   const toggleFilters = () => {
     setIsMinimized(!isMinimized);
   };
+  const fbg =
+    items.length > 0
+      ? apiConfig.w200Image(items[0].backdrop_path || items[0].poster_path)
+      : null; // Corrected 'poster_path' to 'items[0].poster_path'
+
+  // Framer Motion variants for the filter panel
+  const filterPanelVariants = {
+    open: { opacity: 1, height: "auto", transition: { duration: 0.5 } },
+    closed: { opacity: 0, height: 0, transition: { duration: 0.5 } },
+  };
+
+  // Framer Motion variants for the movie grid items
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 },
+  };
 
   return (
     <>
       <div className="filters">
-      {items && items.length > 0 &&
+        <div
+          className="filtblur"
+          style={{ backgroundImage: `url(${fbg})` }}
+        ></div>
+        {items && items.length > 0 &&
           (category === "movie" ? (
             <div className="righters">
-              <h3>MOVIES</h3>
-              <i className="bx bx-movie"></i>
+              <TrueFocus
+                sentence="Explore Movies"
+                manualMode={true}
+                blurAmount={4}
+                borderColor="pink"
+                animationDuration={0.7}
+                pauseBetweenAnimations={1}
+              />
             </div>
           ) : (
             <div className="righters">
-              <h3>TV SHOWS</h3>
-              <i className="bx bx-tv"></i>
+              <TrueFocus
+                sentence="Explore TV Shows"
+                manualMode={true}
+                blurAmount={4}
+                borderColor="pink"
+                animationDuration={0.7}
+                pauseBetweenAnimations={1}
+              />
             </div>
           ))}
         <div className="toggle-filters">
@@ -319,259 +382,287 @@ const Filters = () => {
             {isMinimized ? "Show Filters" : "Hide Filters"}
           </Button>
         </div>
-        <div className={`backback ${isMinimized ? 'closed' : ''}`}>
 
-        {!isMinimized && (
-          <>
-            <div className="bigmovie">
-              <div
-                className={`lefter ${category === "movie" ? "select" : ""}`}
-                onClick={() => toggleCategory("movie")}
-              >
-                <h3>MOVIES</h3>
-                <i className="bx bx-movie"></i>
-              </div>
-              <div
-                className={`righter ${category === "tv" ? "select" : ""}`}
-                onClick={() => toggleCategory("tv")}
-              >
-                <h3>TV SHOWS</h3>
-                <i className="bx bx-tv"></i>
-              </div>
-            </div>
-
-            <form onSubmit={handleFormSubmit}>
-               <div className="lent">
-                <div className="gen">
-                <h3 className="formtitle">COUNTRIES</h3>
-           
-                <Select
-                  
-                  value={draftSelectedCountry}
-                  onChange={(selectedOption) => setDraftSelectedCountry(selectedOption)}
-                  options={countryOptions}
-                  placeholder="Select Country"
-                  isClearable
-                  classNamePrefix="custom-select"
-                   styles={{
-    menu: (base) => ({
-      ...base,
-      zIndex: 9999,
-    }),
-    menuList: (base) => ({
-      ...base,
-      backgroundColor: "rgb(19, 19, 19)",
-      maxHeight: '250px',
-      overflowY: 'auto',
-    }),
-  }}
-                  theme={(theme) => ({
-                    ...theme,
-                   
-                   
-                    borderRadius: 10,
-                    colors: {
-                      ...theme.colors,
-                      primary25: "#ffffff2a",
-                      primary: "#ffffff1a",
-                      neutral0: "#00000e4",
-                      neutral5: "grey",
-                      neutral10: "#38383879",
-                      neutral20: "#ffffff5a",
-                      neutral30: "red",
-                      neutral40: "red",
-                      neutral50: "#a9a9a9",
-                      neutral60: "red",
-                      neutral70: "#696969",
-                      neutral80: "#ffffff5a",
-                      neutral90: "#303030",
-                    },
-                  })}
-                />
-              </div>
-
-              <br />
-              <div className="gensz">
-               
-                <div className="gen">
-                <h3 className="formtitle">YEAR</h3>
-                  <CreatableSelect
-                   classNamePrefix="custom-select"
-                    styles={{
-    menu: (base) => ({
-      ...base,
-      zIndex: 9999,
-    }),
-    menuList: (base) => ({
-      ...base,
-      maxHeight: '250px',
-      backgroundColor: "rgb(19, 19, 19)",
-      overflowY: 'auto',
-    }),
-  }}
-  
-  value={draftSelectedYear}
-  onChange={(selectedOption) => setDraftSelectedYear(selectedOption)}
-  options={yearsOptions}
-  placeholder="Type or Select Year"
-  isClearable
-  isValidNewOption={(inputValue) => /^\d{4}$/.test(inputValue)}
-  onCreateOption={(inputValue) => {
-    if (/^\d{4}$/.test(inputValue)) {
-      const newOption = { value: inputValue, label: inputValue };
-      setYearsOptions((prev) => [newOption, ...prev]);
-      setDraftSelectedYear(newOption);
-    }
-  }}
-  theme={(theme) => ({
-    ...theme,
-    borderRadius: 10,
-    colors: {
-      ...theme.colors,
-      primary25: "#ffffff2a",
-      primary: "#ffffff1a",
-      neutral0: "#00000e4",
-      neutral5: "grey",
-      neutral10: "#38383879",
-      neutral20: "#ffffff5a",
-      neutral30: "red",
-      neutral40: "red",
-      neutral50: "#a9a9a9",
-      neutral60: "red",
-      neutral70: "#696969",
-      neutral80: "#ffffff5a",
-      neutral90: "#303030",
-    },
-  })}
-/>
-
+        {/* Framer Motion for the filter panel */}
+        <AnimatePresence>
+          {!isMinimized && (
+            <motion.div
+              className="backback"
+              variants={filterPanelVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+            >
+              <div className="bigmovie">
+                <div
+                  className={`lefter ${category === "movie" ? "select" : ""}`}
+                  onClick={() => toggleCategory("movie")}
+                >
+                  <h3>MOVIES</h3>
+                  <i className="bx bx-movie"></i>
+                </div>
+                <div
+                  className={`righter ${category === "tv" ? "select" : ""}`}
+                  onClick={() => toggleCategory("tv")}
+                >
+                  <h3>TV SHOWS</h3>
+                  <i className="bx bx-tv"></i>
                 </div>
               </div>
-              <br />
 
-              <div className="gensz">
-               
-                <div className="gen">
-                <h3 className="formtitle">SORT BY</h3>
-                  <Select
-                   classNamePrefix="custom-select"
-                    styles={{
-    menu: (base) => ({
-      ...base,
-      zIndex: 9999,
-    }),
-    menuList: (base) => ({
-      ...base,
-      backgroundColor: "rgb(19, 19, 19)",
-      maxHeight: '250px',
-      overflowY: 'auto',
-    }),
-  }}
+              <form onSubmit={handleFormSubmit}>
+                <div className="lent">
+                  <div className="gen">
+                    <h3 className="formtitle">COUNTRIES</h3>
 
-                    value={{ value: draftSortBy, label: sortByOptions.find(option => option.value === draftSortBy)?.label || "Popularity Descending" }}
-                    onChange={(selectedOption) => setDraftSortBy(selectedOption?.value || "popularity.desc")}
-                    options={sortByOptions}
-                    placeholder="Sort By"
-                    theme={(theme) => ({
-                      ...theme,
-                      borderRadius: 10,
-                      colors: {
-                        ...theme.colors,
-                        primary25: "#ffffff2a",
-                        primary: "#ffffff1a",
-                        neutral0: "#00000e4",
-                        neutral5: "grey",
-                        neutral10: "#38383879",
-                        neutral20: "#ffffff5a",
-                        neutral30: "red",
-                        neutral40: "red",
-                        neutral50: "#a9a9a9",
-                        neutral60: "red",
-                        neutral70: "#696969",
-                        neutral80: "#ffffff5a",
-                        neutral90: "#303030",
-                      },
-                    })}
-                    
-                  />
-                </div>
-              </div>
-                </div>
-              <h3 className="formtitle">GENRES</h3>
-              <div className="gen">
-                {genres.map((genre) => (
-                  <label
-                    className={`checkbox-label ${
-                      draftSelectedGenre.includes(genre.id) ? "checked" : ""
-                    }`}
-                    key={genre.id}
-                  >
-                    <div className="genrezzx">
-                      <input
-                        type="checkbox"
-                        value={genre.id}
-                        checked={draftSelectedGenre.includes(genre.id)}
-                        onChange={(e) => {
-                          const genreId = parseInt(e.target.value, 10);
-                          if (e.target.checked) {
-                            setDraftSelectedGenre([
-                              ...draftSelectedGenre,
-                              genreId
-                            ]);
-                          } else {
-                            setDraftSelectedGenre(
-                              draftSelectedGenre.filter((id) => id !== genreId)
-                            );
+                    <Select
+                      value={draftSelectedCountry}
+                      onChange={(selectedOption) =>
+                        setDraftSelectedCountry(selectedOption)
+                      }
+                      options={countryOptions}
+                      placeholder="Select Country"
+                      isClearable
+                      classNamePrefix="custom-select"
+                      styles={{
+                        menu: (base) => ({
+                          ...base,
+                          zIndex: 9999,
+                        }),
+                        menuList: (base) => ({
+                          ...base,
+                          maxHeight: "250px",
+                          overflowY: "auto",
+                        }),
+                      }}
+                      theme={(theme) => ({
+                        ...theme,
+                        borderRadius: 10,
+                        colors: {
+                          ...theme.colors,
+                          primary25: "#ffffff2a",
+                          primary: "#ffffff1a",
+                          neutral0: "#00000e4",
+                          neutral5: "grey",
+                          neutral10: "#38383879",
+                          neutral20: "#ffffff5a",
+                          neutral30: "red",
+                          neutral40: "red",
+                          neutral50: "#a9a9a9",
+                          neutral60: "red",
+                          neutral70: "#696969",
+                          neutral80: "#ffffff5a",
+                          neutral90: "#303030",
+                        },
+                      })}
+                    />
+                  </div>
+
+                  <br />
+                  <div className="gensz">
+                    <div className="gen">
+                      <h3 className="formtitle">YEAR</h3>
+                      <CreatableSelect
+                        classNamePrefix="custom-select"
+                        styles={{
+                          menu: (base) => ({
+                            ...base,
+                            zIndex: 9999,
+                          }),
+                          menuList: (base) => ({
+                            ...base,
+                            maxHeight: "250px",
+                            overflowY: "auto",
+                          }),
+                        }}
+                        value={draftSelectedYear}
+                        onChange={(selectedOption) =>
+                          setDraftSelectedYear(selectedOption)
+                        }
+                        options={yearsOptions}
+                        placeholder="Type or Select Year"
+                        isClearable
+                        isValidNewOption={(inputValue) =>
+                          /^\d{4}$/.test(inputValue)
+                        }
+                        onCreateOption={(inputValue) => {
+                          if (/^\d{4}$/.test(inputValue)) {
+                            const newOption = {
+                              value: inputValue,
+                              label: inputValue,
+                            };
+                            setYearsOptions((prev) => [newOption, ...prev]);
+                            setDraftSelectedYear(newOption);
                           }
                         }}
+                        theme={(theme) => ({
+                          ...theme,
+                          borderRadius: 10,
+                          colors: {
+                            ...theme.colors,
+                            primary25: "#ffffff2a",
+                            primary: "#ffffff1a",
+                            neutral0: "#00000e4",
+                            neutral5: "grey",
+                            neutral10: "#38383879",
+                            neutral20: "#ffffff5a",
+                            neutral30: "red",
+                            neutral40: "red",
+                            neutral50: "#a9a9a9",
+                            neutral60: "red",
+                            neutral70: "#696969",
+                            neutral80: "#ffffff5a",
+                            neutral90: "#303030",
+                          },
+                        })}
                       />
-                      <span className="checkbox-custom"></span>
-                      <span className="checkbox-text">{genre.name}</span>
                     </div>
-                  </label>
-                ))}
-              </div>
+                  </div>
+                  <br />
 
-              <br />
-              
-               
-              <br />
+                  <div className="gensz">
+                    <div className="gen">
+                      <h3 className="formtitle">SORT BY</h3>
+                      <Select
+                        classNamePrefix="custom-select"
+                        styles={{
+                          menu: (base) => ({
+                            ...base,
+                            zIndex: 9999,
+                          }),
+                          menuList: (base) => ({
+                            ...base,
+                            maxHeight: "250px",
+                            overflowY: "auto",
+                            zIndex: 9999,
+                          }),
+                        }}
+                        value={{
+                          value: draftSortBy,
+                          label:
+                            sortByOptions.find(
+                              (option) => option.value === draftSortBy
+                            )?.label || "Popularity Descending",
+                        }}
+                        onChange={(selectedOption) =>
+                          setDraftSortBy(
+                            selectedOption?.value || "popularity.desc"
+                          )
+                        }
+                        options={sortByOptions}
+                        placeholder="Sort By"
+                        theme={(theme) => ({
+                          ...theme,
+                          borderRadius: 10,
+                          colors: {
+                            ...theme.colors,
+                            primary25: "#ffffff2a",
+                            primary: "#ffffff1a",
+                            neutral0: "#00000e4",
+                            neutral5: "grey",
+                            neutral10: "#38383879",
+                            neutral20: "#ffffff5a",
+                            neutral30: "red",
+                            neutral40: "red",
+                            neutral50: "#a9a9a9",
+                            neutral60: "red",
+                            neutral70: "#696969",
+                            neutral80: "#ffffff5a",
+                            neutral90: "#303030",
+                          },
+                        })}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <h3 className="formtitle">GENRES</h3>
+                <div className="gen">
+                  {genres.map((genre) => (
+                    <label
+                      className={`checkbox-label ${
+                        draftSelectedGenre.includes(genre.id) ? "checked" : ""
+                      }`}
+                      key={genre.id}
+                    >
+                      <div className="genrezzx">
+                        <input
+                          type="checkbox"
+                          value={genre.id}
+                          checked={draftSelectedGenre.includes(genre.id)}
+                          onChange={(e) => {
+                            const genreId = parseInt(e.target.value, 10);
+                            if (e.target.checked) {
+                              setDraftSelectedGenre([
+                                ...draftSelectedGenre,
+                                genreId,
+                              ]);
+                            } else {
+                              setDraftSelectedGenre(
+                                draftSelectedGenre.filter(
+                                  (id) => id !== genreId
+                                )
+                              );
+                            }
+                          }}
+                        />
+                        <span className="checkbox-custom"></span>
+                        <span className="checkbox-text">{genre.name}</span>
+                      </div>
+                    </label>
+                  ))}
+                </div>
 
-              {/* --- ADDED: Other Potential Filters --- */}
-              {/* You can add more react-select components or other UI elements for these filters */}
-              {/* <h3 className="formtitle">Minimum Rating</h3> */}
-              {/* <input type="number" value={draftMinRating} onChange={(e) => setDraftMinRating(e.target.value)} placeholder="e.g., 7" /> */}
+                <br />
 
-              {/* <h3 className="formtitle">Keywords</h3> */}
-              {/* <input type="text" value={draftKeywords} onChange={(e) => setDraftKeywords(e.target.value)} placeholder="e.g., action, adventure" /> */}
-              <h3 className="formtitle">Filter</h3>
-              <div className="cbut">
-                <Button type="submit">Search</Button>
-                <OutlineButton type="button" onClick={handleClearFilters}>
-                  Clear Filters
-                </OutlineButton>
-              </div>
-            </form>
-          </>
-        )}
-        </div>
-        
-        <div className="movie-gridk">
-          {items && items.length === 0 ? (
-            <p className="formtitle">Try selecting some filters</p>
-          ) : (
-            items
-              .filter((item) => item.poster_path)
-              .map((item) => (
-                <MovieCard
-                  key={item.id}
-                  poster_path={item.poster_path}
-                  item={item}
-                  category={category}
-                />
-              ))
+    
+                <h3 className="formtitle">Filter</h3>
+                <div className="cbut">
+                  <Button type="submit">Search</Button>
+                  <OutlineButton type="button" onClick={handleClearFilters}>
+                    Clear Filters
+                  </OutlineButton>
+                </div>
+              </form>
+            </motion.div>
           )}
-        </div>
+        </AnimatePresence>
+
+        {/* Framer Motion for loading and movie grid */}
+        {isLoading ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="loading-indicator"
+          >
+            <div className="spinner"></div> {/* Basic spinner */}
+            <p>Loading items...</p>
+          </motion.div>
+        ) : (
+          <motion.div
+            className="movie-gridk"
+            variants={containerVariants}
+            initial="hidden"
+            animate="show"
+          >
+            {items && items.length === 0 ? (
+              <p className="formtitle">Try selecting some filters</p>
+            ) : (
+              items
+                .filter((item) => item.poster_path)
+                .map((item) => (
+                  <motion.div key={item.id} variants={itemVariants}>
+                    <MovieCard
+                      poster_path={item.poster_path}
+                      item={item}
+                      category={category}
+                    />
+                  </motion.div>
+                ))
+            )}
+          </motion.div>
+        )}
+
         <div className="lod">
           {items && items.length > 0 && (
             <Button className="btn" onClick={handleLoadMore}>
@@ -581,19 +672,18 @@ const Filters = () => {
         </div>
       </div>
       <ToastContainer
-         toastClassName="blurred-toast"
-         bodyClassName="toast-body"
-         theme="dark"
-         position="botton-right"
-         autoClose={2500}
-         hideProgressBar={false}
-         newestOnTop={false}
+        toastClassName="blurred-toast"
+        bodyClassName="toast-body"
+        theme="dark"
+        position="botton-right"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop={false}
         closeOnClick={false}
         rtl={false}
         pauseOnFocusLoss={false}
         draggable={false}
         pauseOnHover={false}
-       
       />
     </>
   );
