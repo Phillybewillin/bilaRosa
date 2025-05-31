@@ -1,37 +1,123 @@
-@use '../scss/' as *;
+.search-page-container {
+    padding: 1.3rem;
+    padding-top: 6rem; /* Adjust to clear fixed header */
+    max-width: 100%;
+    margin: 0 auto;
+    min-height: 80vh; /* Ensure it takes up enough space */
 
-.searchcontainer{
-  margin-top: 6rem;
-  padding: 10px;
+    .search-title {
+        text-align: start;
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+        color: #e0e0e0; /* text-color equivalent */
+    }
+
+    .search-input-wrapper {
+        position: relative;
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+         gap: 0.5rem;
+        input {
+            width: 100%;
+            padding-right: 3rem; /* Make space for clear button */
+            background-color: #ffffff1c; /* background-color-light equivalent */
+           // border: 1px solid #444; /* border-color equivalent */
+            color: #e0e0e0; /* text-color equivalent */
+            border-radius: 8px; /* border-radius equivalent */
+            padding:  1.7rem;
+            font-size: 1.4rem;
+
+            &:focus {
+                outline: none;
+                border-color: #e50914; /* main-color equivalent */
+            }
+        }
+
+        .clear-search-button {
+            //position: absolute;
+            border: 1px solid #444; /* border-color equivalent */
+            border-radius: 5px; /* border-radius equivalent */
+            padding: 1rem;
+            //right: 0.5rem;
+            cursor: pointer;
+            color: #e0e0e0; /* text-color equivalent */
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: #e50914; /* main-color equivalent */
+            }
+        }
+    }
+
+    .filter-buttons {
+        display: flex;
+        flex-wrap: wrap; /* Allow wrapping on small screens */
+        gap: 0.75rem; /* Reduced gap for better fit */
+       // justify-content: center;
+        margin-bottom: 2rem;
+
+        .filter-btn {
+            background-color: #ffffff21; /* secondary-color equivalent */
+            color: #e0e0e0; /* text-color equivalent */
+            border: 1px solid #44444438; /* border-color equivalent */
+            padding: 0.6rem 1.2rem; /* Slightly smaller padding */
+            border-radius: 5px; /* border-radius equivalent */
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+            font-size: 0.95rem; /* Slightly smaller font size */
+
+            &.active {
+                //background-color: #e50914; /* main-color equivalent */
+                border-color: #ffc4c7; /* main-color equivalent */
+                color: #fff;
+            }
+
+            &:hover:not(.active) {
+                background-color: #4a4a4a; /* Lighter hover of #333 */
+                border-color: #e50914; /* Border highlights on hover */
+            }
+        }
+    }
+
+    .loading-message, .no-results {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #e0e0e0; /* text-color equivalent */
+        margin-top: 2rem;
+    }
+
+    .search-results-grid {
+        display: flex;
+        //grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: .1rem 0;
+
+        @media (max-width: 768px) {
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.8rem;
+        }
+
+       
+    }
 }
-
-.searchtitle{
-  font-size: 1.2rem;
-  padding: 5px 10px;
-  margin: 10px;
-  border-left: 5px solid transparent;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-image: linear-gradient(to bottom, rgb(55, 0, 255), rgb(255, 0, 128)) 1;
- 
-}
-
-.movie-gridk{
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(230px, 100%), 1fr));
-  align-items: center;
-  gap: 8px;
-  
-  
-
-  @include tablet {
-      grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr));
-      left: 0;
-  }
-
-  @include mobile {
-      grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
-  
-  }
-  
+.backgrblur{
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(70px) brightness(.5) ;
+  z-index: -1;
+  transition: all 1s ease-in-out;
 }
