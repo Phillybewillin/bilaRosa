@@ -7,14 +7,14 @@ import Input from "../components/input/Input";
 import MovieCard from "../components/movie-card/MovieCard";
 import ActorCard from "../components/actor-card/ActorCard"; // Assuming ActorCard takes 'actor' prop
 import { motion, AnimatePresence } from "framer-motion";
-
+import TrueFocus from "../components/reactbits/TrueFocus";
 import './search.scss';
 
 const Search = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { user } = UserAuth(); // Assuming UserAuth is correctly set up
-
+   document.title = 'Search | MOVIES & TV SHOWS ';
     const [allSearchResults, setAllSearchResults] = useState([]); // Stores the raw 'multi' search results or actor filmography
     const [filteredResults, setFilteredResults] = useState([]); // Stores results after applying media type filter
     const [isLoading, setIsLoading] = useState(true);
@@ -221,6 +221,16 @@ const Search = () => {
 
     return (
         <div className="search-page-container">
+            <div className="advanced">
+                 <TrueFocus
+        sentence="Advanced Search"
+        manualMode={false}
+        blurAmount={4}
+        borderColor="yellow"
+        animationDuration={1.7}
+        pauseBetweenAnimations={1}
+      />
+            </div>
             {/* The background blur will now use the first movie/show result's poster for actor filmography too */}
             <div className="backgrblur" style={{ backgroundImage: `url(${apiConfig.w200Image(filteredResults[0]?.poster_path || filteredResults[0]?.profile_path)})` }}></div>
             <h1 className="search-title">{searchValue ? `Search results for "${actorFilmographyName ? actorFilmographyName : searchValue}"` : 'Search for movies, TV shows, or actors...'}</h1>
