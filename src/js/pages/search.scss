@@ -103,8 +103,9 @@
         padding: .1rem 0;
 
         @media (max-width: 768px) {
+            display: grid;
             grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 1rem;
+            gap: .8rem;
         }
 
         @media (max-width: 480px) {
