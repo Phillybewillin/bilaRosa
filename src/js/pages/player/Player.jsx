@@ -1300,12 +1300,12 @@ const renderEpisodes = () => {
           theme="dark"
           //fontSize="11px"
           position="bottom-right"
-          autoClose={8000}
+          autoClose={3000}
           hideProgressBar={false}
-          newestOnTop={false}
+          
           closeOnClick={true}
           //rtl={false}
-          pauseOnFocusLoss={false}
+         
           draggable={false}
           pauseOnHover={true}
           icon={false}
