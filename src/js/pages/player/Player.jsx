@@ -1207,7 +1207,7 @@ const renderEpisodes = () => {
                             .map((episode, index) => (
                                 <motion.li
                                     key={index}
-                                    className={`episodes_itemz ${ // Assuming this is correct from your original code. If it was 'episodez_itemz', revert.
+                                    className={`episodez_itemz ${ // Assuming this is correct from your original code. If it was 'episodez_itemz', revert.
                                         // ONLY ACTIVE IF IT'S THE CURRENT PLAYING EPISODE IN THE CURRENT PLAYING SEASON
                                         (currentEpisode === episode.episode_number && currentSeason === episode.season_number) ? "active" : ""
                                     } ${
