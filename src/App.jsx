@@ -1,10 +1,10 @@
-import  {Suspense} from 'react';
-import { Routes, Route,matchPath,useLocation} from 'react-router-dom';
+import { Suspense } from 'react';
+import { Routes, Route, matchPath, useLocation } from 'react-router-dom';
 import './App.scss';
 import Header from './js/components/header/Header';
 import Footer from './js/components/footer/Footer';
 import './js/assets/boxicons-2.1.4/css/boxicons.min.css';
-import Home from './js/pages/Home'; 
+import Home from './js/pages/Home';
 import Catalog from './js/pages/Catalog';
 import Detail from './js/pages/detail/Detail';
 import lazyWithPreload from 'react-lazy-with-preload';
@@ -13,92 +13,92 @@ import ContactPage from './js/pages/authpages/Contact';
 import Search from './js/pages/Search';
 import Player from './js/pages/player/Player';
 import Sidebar from './js/components/header/Sidebar';
-import {motion} from 'motion/react'
+import { AnimatePresence } from 'framer-motion'; // Import AnimatePresence
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import useAdControl from './js/hooks/useAdControl';
-//const Player = lazyWithPreload(() => import('./js/pages/player/Player'));
+import Collection from './js/components/collections/collections';
+import AnimatedPage from './js/components/animatedpage/AnimatedPage'; // Import the AnimatedPage component
+
+// Lazy-loaded components
 const Filters = lazyWithPreload(() => import('./js/components/movie-grid/Filters'));
-//const Login = lazyWithPreload(() => import('./js/pages/authpages/Login'));
 const Account = lazyWithPreload(() => import('./js/pages/authpages/Account'));
 const ProtectedRoutes = lazyWithPreload(() => import('./js/pages/ProtectedRoutes'));
 const Socials = lazyWithPreload(() => import('./js/pages/authpages/Socials'));
 const Info = lazyWithPreload(() => import('./js/pages/Infoz'));
-
 const DMCATakedownRequest = lazyWithPreload(() => import('./js/pages/authpages/Dmca'));
 
-//Player.preload();
+// Preload components
 Filters.preload();
 Account.preload();
 Socials.preload();
+
 const App = () => {
-    const location = useLocation();
-    useAdControl();
-    const hideHeaderPaths = [
-      "/watch/:title/:id",
-      "/watch/:title/:id/:season_number/:episode_number",
-      "/movie/:id", // assuming you only want to hide header for movie details
-      "/tv/:id",
-    ];
-  
-    // Check if the current location matches any of the hideHeaderPaths
-    const hideHeader = hideHeaderPaths.some(path =>
-      matchPath({ path, end: true }, location.pathname)
-    );
+  useAdControl();
+  const location = useLocation();
+
+  const hideHeaderPaths = [
+    "/watch/:title/:id",
+    "/watch/:title/:id/:season_number/:episode_number",
+    "/movie/:id",
+    "/tv/:id",
+  ];
+
+  const hideSidebar = hideHeaderPaths.some(path =>
+    matchPath({ path, end: true }, location.pathname)
+  );
+
+  const hideHeader = hideHeaderPaths.some(path =>
+    matchPath({ path, end: true }, location.pathname)
+  );
 
   return (
     <>
-     <ToastContainer theme="dark" toastClassName="blurred-toast"  bodyClassName="toast-body"  icon={false} position="bottom-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#1eff00', color: 'white', borderRadius: '10px' }} />
-   
+      <ToastContainer theme="dark" position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#1eff00', color: 'white', borderRadius: '10px' }} />
+
       <AuthContextProvider>
-      {!hideHeader && <Header />}
-      {!hideHeader && <Sidebar />}
-        <Routes>
-          <Route path="/" element={
-             <motion.div 
-             initial={{ opacity: 0}}
-             animate={{ opacity: 1 }}
-             exit={{ opacity: 0}}
-             transition={{ duration: 1.5 }}
-             //style={{ height: '100%' }}
-         >
-              <Home />
-              </motion.div>
-            } />
-          <Route path="/z/:category" element={<Catalog />} />
-          <Route path="/filter" element={  
-            <Suspense fallback={null}>
-              <Filters />
-            </Suspense>} />
-           
-            <Route path="/:category/:id" element={ 
-              
-                <Detail />
-              
-              } />
-        
-           
-            
-          <Route path="/search/:keyword" element={<Search />} />
-          <Route path="/watch/:title/:id" element= {<Player />} />
-         <Route path="/watch/:title/:id/:season_number/:episode_number" element={ <Suspense fallback={null}><Player /> </Suspense>} />
-         <Route path='/contact' element={ <Suspense fallback={null}><ContactPage/> </Suspense>} />
-           <Route path='/dmca' element={ <Suspense fallback={null}><DMCATakedownRequest/> </Suspense>} />
-          <Route path="/privacypolicy" element={ <Suspense fallback={null}><Socials /> </Suspense>} />
-          <Route path="/account" element={ <Suspense fallback={null}>
-            <ProtectedRoutes><Account /></ProtectedRoutes>
-          </Suspense>} />
-        
-          <Route path="/aboutzilla" element={ <Suspense fallback={null}><Info /></Suspense>} />
-         
-      
-        <Route path="*" element={<h1> You got lost somehow , Damn  a 404  </h1>} />
-        </Routes>
-        {!hideHeader && <Footer />}
-               </AuthContextProvider>
+        {!hideHeader && <Header />}
+        {!hideSidebar && <Sidebar />}
+        {/*
+          Wrap your Routes with AnimatePresence.
+          The 'key' prop on Routes (or directly on the element if you prefer)
+          is crucial for AnimatePresence to detect when a component is
+          being replaced. `location.pathname` is a common and effective key.
+          'mode="wait"' ensures the exiting page animates out before the new one enters.
+        */}
+        <div style={{ position: 'relative', minHeight: '100vh'  , overflowX: 'hidden' }}> {/* Parent container for absolute positioning */}
+          <AnimatePresence mode='wait'>
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<AnimatedPage><Home /></AnimatedPage>} />
+              <Route path="/z/:category" element={<AnimatedPage><Catalog /></AnimatedPage>} />
+              <Route path="/filter" element={
+                <AnimatedPage>
+                  <Suspense fallback={null}>
+                    <Filters />
+                  </Suspense>
+                </AnimatedPage>} />
+              <Route path='/collections' element={<AnimatedPage><Suspense fallback={null}><Collection /></Suspense></AnimatedPage>} />
+              <Route path="/:category/:id" element={<AnimatedPage><Detail/></AnimatedPage>} />
+              <Route path="/search" element={<AnimatedPage><Search /></AnimatedPage>} />
+              <Route path="/watch/:title/:id" element={<AnimatedPage><Player /></AnimatedPage>} />
+              <Route path="/watch/:title/:id/:season_number/:episode_number" element={<AnimatedPage><Suspense fallback={null}><Player /></Suspense></AnimatedPage>} />
+              <Route path='/contact' element={<AnimatedPage><Suspense fallback={null}><ContactPage /></Suspense></AnimatedPage>} />
+              <Route path='/dmca' element={<AnimatedPage><Suspense fallback={null}><DMCATakedownRequest /></Suspense></AnimatedPage>} />
+              <Route path="/privacypolicy" element={<AnimatedPage><Suspense fallback={null}><Socials /></Suspense></AnimatedPage>} />
+              <Route path="/account" element={
+                <AnimatedPage>
+                  <Suspense fallback={null}>
+                    <ProtectedRoutes><Account /></ProtectedRoutes>
+                  </Suspense>
+                </AnimatedPage>} />
+              <Route path="/aboutzilla" element={<AnimatedPage><Suspense fallback={null}><Info /></Suspense></AnimatedPage>} />
+              <Route path="*" element={<AnimatedPage><h1> You got lost somehow, Damn a 404 </h1></AnimatedPage>} />
+            </Routes>
+          </AnimatePresence>
+        </div>
+       
+      </AuthContextProvider>
     </>
   );
 };
 
 export default App;
-
