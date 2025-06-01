@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import apiConfig from '../../api/apiConfig';
-import './actorcard.scss'; // Create this SCSS file
+import './actorcard.scss';
 
 const ActorCard = ({ actor, onClick }) => {
     const profilePath = actor.profile_path ? apiConfig.w500Image(actor.profile_path) : 'https://via.placeholder.com/185x278?text=No+Image'; // Placeholder for missing image
@@ -11,7 +11,7 @@ const ActorCard = ({ actor, onClick }) => {
         <motion.div
             className="actor-card"
             onClick={() => onClick(actor.id, actor.name)}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.95 }}
         > 
         <h1>hello</h1>
