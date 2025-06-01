@@ -44,6 +44,8 @@ export default function Player() {
   const [iframeUrl, setIframeUrl] = useState("");
   const [triedSources, setTriedSources] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [collection, setCollection] = useState([]);
+
   const options = [
    { value: "https://vidjoy.pro/embed/", label: "DURIAN" },
    { value: "https://moviesapi.club/", label: "GRANADILLA" },
@@ -194,12 +196,23 @@ setEpisodeLayoutMode((prev) => (prev % 3) + 1);
     const response = await tmdbApi.detail(category, id, { params: {} });
     const similar = await tmdbApi.similar(category, id);
     setItemData(response);
+     //console.log(response);
     setReco(similar.results);
+    if (response.belongs_to_collection) {
+      const collectionId = response.belongs_to_collection.id;
+      fetch(`https://api.themoviedb.org/3/collection/${collectionId}?api_key=${apiConfig.apiKey}`)
+        .then((res) => res.json())
+        .then((collection) => {
+          setCollection(collection);
+          console.log('coll', collection);
+        })
+        .catch((err) => console.error('Failed to fetch collection:', err));
+    }
     if (category === "movie") {
       setbgChanged(response.backdrop_path);
     }
   };
-
+  
   useEffect(() => {
     getDetail();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -284,11 +297,11 @@ setEpisodeLayoutMode((prev) => (prev % 3) + 1);
 
   const handleIframeError = useCallback(
     debounce((reason = "unknown") => {
-      console.warn(`handleIframeError triggered by: ${reason}`);
+      //console.warn(`handleIframeError triggered by: ${reason}`);
   
       const currentOption = options.find(option => option.value === iframeUrl);
       if (currentOption?.label === "GRANADILLA") {
-        console.info("Error detected, but current source is GRANADILLA. Not switching.");
+        //console.info("Error detected, but current source is GRANADILLA. Not switching.");
         //toast.warn("Issue detected on GRANADILLA, but no failover is configured.");
         return;
       }
@@ -395,19 +408,19 @@ useEffect(() => {
     if (!iframe) return;
 
     const timeout = setTimeout(() => {
-      console.warn("Iframe load timeout");
+      //console.warn("Iframe load timeout");
       handleIframeError();
     }, 10000); // 10s timeout
 
     const onLoad = () => {
       //setLoading(false);
       clearTimeout(timeout);
-      console.log("Iframe loaded successfully");
+      //console.log("Iframe loaded successfully");
     };
 
     const onError = () => {
       clearTimeout(timeout);
-      console.warn("Iframe encountered a load error");
+      //console.warn("Iframe encountered a load error");
       handleIframeError();
     };
 
@@ -427,11 +440,11 @@ useEffect(() => {
       try {
         const originMatch = iframeUrl.includes(event.origin);
         if (originMatch && event.data?.type === "error") {
-          console.error("Iframe reported error:", event.data.message);
+          //console.error("Iframe reported error:", event.data.message);
           handleIframeError();
         }
       } catch (e) {
-        console.warn("Error parsing iframe message:", e);
+        //console.warn("Error parsing iframe message:", e);
       }
     };
 
@@ -469,7 +482,7 @@ useEffect(() => {
     await addToWatchlist(user?.uid, dataId, data);
     const isSetToWatchlist = await checkIfInWatchlist(user?.uid, dataId);
     setSaved(isSetToWatchlist);
-    //console.log(isSetToWatchlist, dataId, data);
+    ////console.log(isSetToWatchlist, dataId, data);
   };
 
  
@@ -699,8 +712,8 @@ useEffect(() => {
     }
     
     if (!prioritizedValue || !options.find((option) => option.value === prioritizedValue)) {
-      //toast.info("Defaulting to Granadilla");
-      prioritizedValue = options[3].value;
+      toast.info("Defaulting to Granadilla");
+      prioritizedValue = options[0].value;
     }
     
     const selectedOpt = options.find((option) => option.value === prioritizedValue);
@@ -876,7 +889,7 @@ const updatePlayerData = () => {
     // Update the entry for this id
     playerDataList[itemData.id] = dataToStore;
     localStorage.setItem("playerDataList", JSON.stringify(playerDataList));
-    //console.log("Updated playerDataList:", playerDataList);
+    ////console.log("Updated playerDataList:", playerDataList);
   }
 };
 
@@ -903,7 +916,7 @@ useEffect(() => {
 
   // Defensive checks
   if (idFromUrl !== id) {
-    console.warn("URL id does not match state id");
+    //console.warn("URL id does not match state id");
     return;
   }
 
@@ -1256,6 +1269,13 @@ useEffect(() => {
                     </div>
                   )
                 }
+                {
+                  category === "movie" && (
+                    <div className="haxnoiep">
+                     {itemData.release_date ? new Date(itemData.release_date).getFullYear() : null}
+                    </div>
+                  )
+                }
                
               </div>
               <div className="sertop">
@@ -1449,6 +1469,25 @@ useEffect(() => {
                   </div>
                   {renderEpisodes()}
                 </>
+              )}
+              {category === "movie" && (
+      
+                collection && (
+                 <div className="recommendationsfull">
+                  <div className="collectionholder"> 
+                    <h3 className="recoheadq">Collections </h3>
+                 
+                    {
+                      collection.parts && collection.parts.map((collection) => (
+                        <div className="collimg">
+                          <img src={apiConfig.w1280Image(collection.backdrop_path)} alt={collection.name} />
+                          <div className="collname">{collection.title} | {collection.release_date.split('-')[0]}</div>
+                        </div>    
+                     ))}
+                  </div>
+                </div>
+              )
+            
               )}
              
             </div>
@@ -1650,6 +1689,20 @@ useEffect(() => {
                 {renderEpisodes()}
               </>
             )}
+            {
+              collection && (
+                <div className="recommendationsfull">
+                  <h3 className="recohead">Collections </h3>
+                  <div className="recoholderfull">
+                    {
+                      collection.parts && collection.parts.map((collection) => (
+                          <MovieCard category={category} item={collection} />
+                        
+                     ))}
+                  </div>
+                </div>
+              )
+            }
             {reco && (
               <div className="recommendationsfull">
                 <h3 className="recohead">
@@ -1658,9 +1711,8 @@ useEffect(() => {
                 <div className="recoholderfull">
                    {Array.isArray(reco) &&
                     reco.map((recoc) => (
-                      <div className="mcardwrper" key={recoc.id}>
                         <MovieCard category={category} item={recoc} />
-                      </div>
+                     
                        ))}
                 </div>
               </div>
