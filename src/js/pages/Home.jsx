@@ -19,7 +19,7 @@ import { motion, AnimatePresence } from 'framer-motion'; // Import motion and An
 import Footer from '../components/footer/Footer';
 
 const Home = () => {
-  document.title = 'Home ~ Viva la Zilla';
+  document.title = 'Home | All Hail MoviePluto';
 
   // Top of your component
   const listRef = useRef(null); // Anime list
