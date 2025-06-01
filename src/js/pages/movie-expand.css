@@ -10,18 +10,8 @@
     box-sizing: border-box;
     overflow: hidden;
     margin-bottom: .5rem;
-}
 
-.carousel-wrapper h2 {
-    text-align: center;
-    color: #fff;
-    margin-bottom: 30px;
-    font-size: 2.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-/* Swiper container */
-.swiper {
+    .swiper {
     width: 100%;
     height: 100%; /* Fixed height for the carousel area */
     padding: 20px 0; /* Space for navigation/pagination */
@@ -123,6 +113,16 @@
     gap: 15px;
 }
 
+.carousel-wrapper h2 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Swiper container */
+
 .action-button {
     background: none;
     border: 4px solid #ffffff6f;
@@ -191,6 +191,10 @@
     background-color: var(--main-color, #e50914);
 }
 
+
+}
+
+
 /* Responsive adjustments */
 @media (max-width: 767px) { /* Adjust breakpoint for mobile (e.g., typically phones) */
     .swiper {
@@ -208,7 +212,7 @@
     /* Mobile: 100% width, no scaling/brightness difference */
     .swiper-slide {
         width: 100%; /* Full width on mobile */
-        height: 90%; /* Take full height of swiper */
+        height: 95%; /* Take full height of swiper */
         opacity: 1;
         filter: brightness(.8);
         transform: scale(1);
