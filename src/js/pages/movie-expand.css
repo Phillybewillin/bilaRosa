@@ -250,8 +250,10 @@
         width: 400px; /* Adjust width for smaller PC/tablet screens */
     }
     .swiper {
-        height: 350px;
+        height: 100%;
     }
+
+    
 }
 
 
