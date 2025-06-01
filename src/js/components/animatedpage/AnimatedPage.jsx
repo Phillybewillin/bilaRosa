@@ -32,7 +32,7 @@ const AnimatedPage = ({ children }) => {
       transition={pageTransition}
       // Essential for preventing layout shifts during exit animation
       // Make sure the parent container has position: relative and overflow: hidden
-      style={{ position: 'absolute', width: '100%', height: '100%' }}
+     // style={{ position: 'absolute', width: '100%', height: '100%' }}
     >
       {children}
     </motion.div>
