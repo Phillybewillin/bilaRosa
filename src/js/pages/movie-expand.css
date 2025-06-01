@@ -1,55 +1,267 @@
-.movie-list {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 5px;
-    
-  }
-  
-  .movie-container {
-    position: relative;
-    cursor: pointer;
-    transition: all 0.5s ease-in-out;
-    
+/* movie-expand.css */
 
- 
-  }
-  
-  .movie-image {
-    width: 200px;
-    height: 550px;
-    object-fit: cover;
-    background-size: cover;
-    transition: all 0.5s ease-in-out;
-    border-radius: 20px;
-
-  }
-  .expanded{
-    width: 1500px;
-  }
-  
-  .movie-container:hover .movie-image {
-    width: 1500px;
-    transition: all .5s ease-in-out;
-    object-fit: cover;
-  }
-  
-  .movie-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
+/* General container for the carousel */
+.carousel-wrapper {
     width: 100%;
-    height: 10%;
+    max-width: 1600px; /* Increased max-width to accommodate 600px slides + spacing */
+    margin: 40px auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin-bottom: .5rem;
+}
+
+.carousel-wrapper h2 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Swiper container */
+.swiper {
+    width: 100%;
+    height: 400px; /* Fixed height for the carousel area */
+    padding: 20px 0; /* Space for navigation/pagination */
+    box-sizing: border-box;
+    /* overflow: visible; /* Can be useful for effects like coverflow, but 'auto' slide width should handle it */
+}
+
+/* Individual Swiper slide - base styles (for inactive slides on PC) */
+.swiper-slide {
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;
-  
-  }
-  
-  .movie-container:hover .movie-overlay {
-    background-color: rgba(3, 3, 3, 0.637);
-    color: white;
+    width: 600px; /* Defined width for PC slides */
+    height: 80%; /* Defined height */
+    opacity: 0.7; /* Default lower opacity for inactive slides */
+    filter: brightness(0.5); /* Default lower brightness for inactive slides */
+    transform: scale(0.8); /* Default smaller scale for inactive slides */
+    transition: transform 0.4s ease, opacity 0.4s ease, filter 0.4s ease;
+    border-radius: 15px;
+    overflow: hidden; /* Ensure content doesn't spill */
+
+    
+}
+
+/* Styles for the actively centered slide (PC) */
+/* Using the custom class 'active-slide-custom' from JS */
+.swiper-slide.swiper-slide-active{
+    opacity: 1; /* Full opacity for active slide */
+    filter: brightness(1); /* Full brightness for active slide */
+    transform: scale(1); /* Normal scale for active slide */
+    z-index: 2; /* Ensure active slide is above others */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7); /* More prominent shadow for active slide */
+}
+
+/* Content wrapper inside SwiperSlide */
+.swiper-slide-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Shadow here for the card */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: #fff;
+    text-align: center;
+}
+.swiper-pagination-bullet {
+    background-color: rgba(255, 255, 255, 0.128) !important;
     opacity: 1;
-    transition: all .5s ease-out;
-  }
   
+}
+.swiper-pagination-bullet-active {
+    background-color: #fff !important;
+}
+
+.slide-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    
+}
+
+.slide-overlay {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(to top, rgb(0, 0, 0) 0% , rgba(0, 0, 0, 0.5) 40%, rgba(0, 0, 0, 0) 100%);
+    padding: 20px 10px 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    height: 100%;
+    min-height: 80px;
+    opacity: 1; /* Always visible */
+}
+
+.slide-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+}
+
+.slide-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.action-button {
+    background: none;
+    border: 4px solid #ffffff6f;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    color: #ffffff98;
+    font-size: 2.2rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: flex;
+     padding: 8px;
+   
+    align-items: center;
+    justify-content: center;
+
+    i{
+       
+      font-size: 1.3rem;
+    }
+}
+
+
+/* Swiper navigation arrows */
+.swiper-button-next,
+.swiper-button-prev {
+    color: #fff;
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.7));
+    font-size: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 100%;
+     /* background-color: rgba(0, 0, 0, 0.3); */
+    /* border-radius: 50%; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swiper-button-prev {
+    left: 0px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+   
+}
+.swiper-button-next {
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+   
+    right: 0px;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 1.5rem;
+}
+
+/* Swiper pagination dots */
+.swiper-pagination-bullet {
+    background-color: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+    width: 10px;
+    height: 10px;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: var(--main-color, #e50914);
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) { /* Adjust breakpoint for mobile (e.g., typically phones) */
+    .swiper {
+        height: 300px;
+        padding: 10px 0;
+    }
+    .carousel-wrapper {
+        padding: 0 0px;
+    }
+    .carousel-wrapper h2 {
+        font-size: 1.7rem;
+    }
+
+    /* Mobile: 100% width, no scaling/brightness difference */
+    .swiper-slide {
+        width: 100%; /* Full width on mobile */
+        height: 90%; /* Take full height of swiper */
+        opacity: 1;
+        filter: brightness(.8);
+        transform: scale(1);
+        box-shadow: none;
+        border-radius: 0px;
+    }
+    .swiper-slide.active-slide-custom { /* Reset active styles on mobile */
+        transform: scale(1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Keep a subtle shadow */
+    }
+    
+   
+   
+    .slide-title {
+        font-size: 1.5rem;
+    }
+    .action-button {
+        font-size: 1.8rem;
+    }
+    .swiper-button-next,
+    .swiper-button-prev {
+        width: 40px;
+        height: 100%;
+        font-size: 1.5rem;
+    }
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+        font-size: 1.2rem;
+    }
+}
+
+/* For screens between 768px and 1023px (tablets and smaller laptops) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .swiper-slide {
+        width: 400px; /* Adjust width for smaller PC/tablet screens */
+    }
+    .swiper {
+        height: 350px;
+    }
+}
+
+
+/* Loading/Error/No Movies message styles */
+.loading-message,
+.error-message,
+.no-movies-message {
+    text-align: center;
+    color: #ccc;
+    font-size: 1.2rem;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+/* Define a main color variable if not already defined globally */
+:root {
+    --main-color: #e50914; /* Netflix red example */
+    --text-color: #f5f5f5; /* Light text for dark backgrounds */
+}
