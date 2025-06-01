@@ -235,11 +235,35 @@
   }
   
 }
+.episodez_itemz{
+  display: inline-flex;
+  align-items: center;
+   position: relative;
+   width: 100%;
+  height:37px;
+  background-color: #ffffff05;
+  //border: 1px solid rgb(38, 38, 38);
+  padding: 12px 20px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  flex-direction: row;
+  gap: 20px;
+  cursor: pointer;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  transition: all .3s ease-in-out;
+  @include mobile {
+    width: 100%;
+    font-size: 11px;
+  }
+}
 .episodes_itemz{
   display: inline-flex;
   align-items: center;
    position: relative;
    width: 100%;
+ // height:37px;
   //background-color: #18181887;
   //border: 1px solid rgb(38, 38, 38);
   padding: 12px 20px;
@@ -300,7 +324,7 @@
  top: 0rem;
   z-index: 1 !important;
   cursor: pointer;
-  width: 35%;
+  width: 49%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -575,10 +599,12 @@
   }
 
   .episodes_itemz{
+
     background-color: rgba(255, 255, 255, 0.084);
   }
     
 }
+
 
 .episode-selector.image-layout {
   transition: all .4s ease;
@@ -592,6 +618,7 @@
     -webkit-backdrop-filter: none !important;
     background-color: transparent !important;
   }
+  
   .episodes_itemz{
     background-color: rgba(255, 255, 255, 0.084);
   }
