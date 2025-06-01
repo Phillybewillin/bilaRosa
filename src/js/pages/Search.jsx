@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 import { useState, useEffect, useCallback, useRef } from "react";
 import Input from "../components/input/Input";
-import MovieCard from "../components/movie-card/MovieCard";
+import MovieCard from "../components/movie-card/MovieCard"; 
 import ActorCard from "../components/actor-card/ActorCard"; // Assuming ActorCard takes 'actor' prop
 import { motion, AnimatePresence } from "framer-motion";
 import TrueFocus from "../components/reactbits/TrueFocus";
