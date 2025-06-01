@@ -14,7 +14,7 @@ const Search = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { user } = UserAuth(); // Assuming UserAuth is correctly set up
-   document.title = 'Search | MOVIES & TV SHOWS ';
+    document.title = 'Search | Movies & Tv-Shows ';
     const [allSearchResults, setAllSearchResults] = useState([]); // Stores the raw 'multi' search results or actor filmography
     const [filteredResults, setFilteredResults] = useState([]); // Stores results after applying media type filter
     const [isLoading, setIsLoading] = useState(true);
