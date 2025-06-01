@@ -357,7 +357,7 @@ const Filters = () => {
           (category === "movie" ? (
             <div className="righters">
               <TrueFocus
-                sentence="Explore Movies"
+                sentence="Filter Movies"
                 manualMode={true}
                 blurAmount={4}
                 borderColor="pink"
@@ -368,7 +368,7 @@ const Filters = () => {
           ) : (
             <div className="righters">
               <TrueFocus
-                sentence="Explore TV Shows"
+                sentence="Filter Shows"
                 manualMode={true}
                 blurAmount={4}
                 borderColor="pink"
