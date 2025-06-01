@@ -13,13 +13,18 @@
     }
 
     @include mobile {
-        margin: 0;
+        margin-top: 0rem;
         margin-left: 0;
     }
 }
+.section_search{
+    @include mobile{
+        margin-top: -4.6rem;
+    }
+}
 .movie-grid {
-   padding-left: .0rem;
-   gap: .1em;
+    padding-left: .0rem;
+    gap: .1em;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(150px, 100%), 1fr));
     align-items: center;
@@ -38,14 +43,8 @@
     }
 
     @include mobile {
-        padding: 0rem;
-       display: flex;
-       gap: 1rem;
-       //flex-direction: column;
-       flex-wrap: wrap;
-       align-items: center;
-       justify-content: center;
-       // grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));   
+       
+    grid-template-columns: repeat(auto-fill, minmax(min(100px, 100%), 1fr));   
     }
     
     &__loadmore {
@@ -91,21 +90,38 @@
 
 .label{
     display: flex;
-    text-align: center;
-    flex-direction: column;
+    justify-content: flex-start;
     //align-items: center;
     gap: 5px;
-    padding: 5px;
+    padding: 7px;
+    padding-top: 2rem;
+    padding-left: 1rem;
 
 
     @include mobile {
-        display: flex;
+        display: none;
         justify-content: flex-start;
         flex-direction: column;
         align-items: flex-start;
         gap: 5px;
+         padding-top: 0rem;
+    padding-left: 2rem;
+    margin: 0rem 1rem;
         padding: 5px;
+        
+
     }
+}
+.labelp{
+    display: none;
+
+    @include mobile {
+        display: block;
+        margin-top: -.5rem;
+        justify-self: flex-start;
+        padding: 1.3rem;
+    }
+    
 }
 .mb2x{
     position: sticky;
@@ -201,6 +217,11 @@
     display: flex;
     align-items: center;
     width: 100%;
+    overflow: auto;
+    scrollbar-width: none;  /* Firefox */
+    &::-webkit-scrollbar {
+        display: none;
+    }
     //background-color: #b40303a2;
     padding: .2rem;
     border-radius: 10px;
@@ -236,17 +257,18 @@
         //background-color: #00000034;
         //color: rgba(255, 255, 255, 0.34);
         //height: 25px;
-        font-size: 9px;
+        white-space: nowrap;
+        font-size: 10px;
     }
 
 }
 .select-option:hover{
-    border: 1px solid rgba(255, 192, 203, 0.735);
+    border: 1.5px solid rgba(255, 192, 203, 0.735);
     //background-color: rgba(255, 255, 255, 0.178);
     color: rgb(180, 170, 170);
 }
 .selected{
-    border: 1px solid rgba(255, 192, 203, 0.662);
+    border: 1.5px solid rgba(252, 252, 252, 0.662);
    // background-color:rgba(255, 255, 255, 0.155);
    
     @include mobile{
