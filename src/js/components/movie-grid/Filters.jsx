@@ -357,7 +357,7 @@ const Filters = () => {
           (category === "movie" ? (
             <div className="righters">
               <TrueFocus
-                sentence="Filter Movies"
+                sentence="Explore Movies"
                 manualMode={true}
                 blurAmount={4}
                 borderColor="pink"
@@ -368,7 +368,7 @@ const Filters = () => {
           ) : (
             <div className="righters">
               <TrueFocus
-                sentence="Filter Shows"
+                sentence="Explore TV Shows"
                 manualMode={true}
                 blurAmount={4}
                 borderColor="pink"
@@ -433,6 +433,11 @@ const Filters = () => {
                           ...base,
                           maxHeight: "250px",
                           overflowY: "auto",
+                          backdropFilter: "blur(10px)",
+                            WebkitBackdropFilter: "blur(10px)",
+                            backgroundColor: "rgba(0, 0, 0, 0.5)",
+                            borderRadius: "10px",
+                         
                         }),
                       }}
                       theme={(theme) => ({
@@ -473,6 +478,11 @@ const Filters = () => {
                             ...base,
                             maxHeight: "250px",
                             overflowY: "auto",
+                            backdropFilter: "blur(10px)",
+                            WebkitBackdropFilter: "blur(10px)",
+                            backgroundColor: "rgba(0, 0, 0, 0.5)",
+                            borderRadius: "10px",
+                         
                           }),
                         }}
                         value={draftSelectedYear}
@@ -534,7 +544,10 @@ const Filters = () => {
                             ...base,
                             maxHeight: "250px",
                             overflowY: "auto",
-                            zIndex: 9999,
+                            backdropFilter: "blur(10px)",
+                            WebkitBackdropFilter: "blur(10px)",
+                            backgroundColor: "rgba(0, 0, 0, 0.5)",
+                            borderRadius: "10px",
                           }),
                         }}
                         value={{
@@ -679,7 +692,7 @@ const Filters = () => {
         autoClose={2500}
         hideProgressBar={false}
         newestOnTop={false}
-        closeOnClick={false}
+        closeOnClick={true}
         rtl={false}
         pauseOnFocusLoss={false}
         draggable={false}
