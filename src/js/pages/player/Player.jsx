@@ -14,6 +14,8 @@ import { UserAuth } from "../../context/AuthContext";
 import { useFirestore } from "../../Firestore";
 import tmdbApi from "../../api/tmdbApi";
 import MovieCard from "../../components/movie-card/MovieCard";
+import { motion , AnimatePresence } from "framer-motion";
+
 
 export default function Player() {
   const { title, id, season_number, episode_number } = useParams();
@@ -583,7 +585,7 @@ useEffect(() => {
       const handleSeasonClick = (seasonNumber) => {
         setPreviewSeason(seasonNumber); // only previewed
         fetchEpisodes(id, seasonNumber);
-      
+        
         // Optional: preload watch history (for visual cues)
         const watchHistory = localStorage.getItem("watchHistory");
         let watchHistoryObj = watchHistory ? JSON.parse(watchHistory) : {};
@@ -712,8 +714,8 @@ useEffect(() => {
     }
     
     if (!prioritizedValue || !options.find((option) => option.value === prioritizedValue)) {
-      toast.info("Defaulting to Granadilla");
-      prioritizedValue = options[0].value;
+      //toast.info("Defaulting to Granadilla");
+      prioritizedValue = options[4].value;
     }
     
     const selectedOpt = options.find((option) => option.value === prioritizedValue);
@@ -935,186 +937,352 @@ useEffect(() => {
   // -------------------------------
   // RENDERING EPISODES (including layout toggle)
   // -------------------------------
-  const renderEpisodes = () => {
-    if (episodeLayoutMode === 1) {
-      // Image layout: render episodes as images only
-      return (
-        <div
-          className="episode-selector image-layout"
-          style={{
-            backgroundImage: `url(${bgChanged})`,
-            backgroundSize: "cover",
-          }}
-        >
-          {displayMode === 'normal' && showLeftArrowEpisodes && (
-            <div
-              className="arrow left-arrow"
-              onClick={scrollLeftep}
-            >
-              
-              <i className="bx bx-left-arrow-alt" style={{ fontSize: "2rem" }}></i>
-            </div>
-          )}          
-          {displayMode === 'normal' && showRightArrowEpisodes && (
-            <div
-              className="arrow right-arrow"
-              onClick={scrollRightep}
-            >
-              <i className="bx bx-right-arrow-alt" style={{ fontSize: "2rem" }}></i>
-            </div>
-          )
 
-          }
-          
-          <ul className="episode_listimg" ref={episodesContainerRef}>
-            {episodes
-              .filter((episode) => new Date(episode.air_date) <= new Date())
-              .map((episode, index) => (
-                <li
-                  key={index}
-                  className={`episodes_itemzimg ${
-                    currentEpisode == episode.episode_number ? "active" : ""
-                  } ${watchedEpisodes.includes(episode.episode_number) ? " watchedd" : ""}`}
-                  onClick={() =>
-                    handleEpisodeClick(episode.episode_number, episode.still_path)
-                  }
+
+// Assuming apiConfig is defined elsewhere
+// import apiConfig from '../api/apiConfig'; // Example import
+
+
+const renderEpisodes = () => {
+        // Define common variants for items (like list items)
+        const itemVariants = {
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0 },
+            exit: { opacity: 0, y: -20 }, // For items exiting
+        };
+
+        // Define variants for elements that appear/disappear (like play/watched badges)
+        const badgeVariants = {
+            hidden: { opacity: 0, scale: 0.5 },
+            visible: { opacity: 1, scale: 1 },
+            exit: { opacity: 0, scale: 0.5 },
+        };
+
+        // Define variants for layout transitions (e.g., when switching episodeLayoutMode)
+        const layoutVariants = {
+            initial: { opacity: 0, y: 50 },
+            animate: { opacity: 1, y: 0 },
+            exit: { opacity: 0, y: -50 },
+        };
+
+        if (episodeLayoutMode === 1) {
+            // Image layout: render episodes as images only
+            return (
+                <motion.div // Animate the container when layout mode changes
+                    className="episode-selector image-layout"
+                    style={{
+                        backgroundImage: `url(${bgChanged})`,
+                        backgroundSize: "cover",
+                    }}
+                    variants={layoutVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit" // Animate out when mode changes
                 >
-                  <div className="hose">
-                    {currentEpisode == episode.episode_number && (
-                      <div className="watchnowblur">
-                        <i className="bx bx-play" style={{ fontSize: "3rem" }}></i>
-                      </div>
-                    )}
-                    {watchedEpisodes.includes(episode.episode_number) && (
-                      <>
-                        <div className="watchede-badgeimg">
-                          <i className="bx bx-check-double" style={{ fontSize: "3rem" }}></i>
-                        </div>
-                      </>
-                    )}
-                    <img
-                      className="episode_posterimg"
-                      src={apiConfig.w500Image(episode.still_path)}
-                      alt={`Episode ${episode.episode_number} poster`}
-                      style={{ borderRadius: "10px", position: "relative" }}
-                    />
-                    <p className="episode_nameabo">{episode.name}</p>
-                    <p className="episode_numberabo">Episode {episode.episode_number}</p>
-                  </div>
-                </li>
-              ))}
-          </ul>
-        </div>
-      );
-    } else if (episodeLayoutMode === 2) {
-      // Descriptive layout: show episode number, name, etc.
-      return (
-        <div className="episode-selector descriptive-layout">
-          <ul className="episode_list">
-            {episodes
-              .filter((episode) => new Date(episode.air_date) <= new Date())
-              .map((episode, index) => (
-                <li
-                  key={index}
-                  className={`episodes_itemz ${
-                    currentEpisode == episode.episode_number ? "active" : ""
-                  } ${watchedEpisodes.includes(episode.episode_number) ? " watchedd" : ""}`}
-                  onClick={() =>
-                    handleEpisodeClick(episode.episode_number, episode.still_path)
-                  }
+                    <AnimatePresence> {/* For the arrows */}
+                        {displayMode === 'normal' && showLeftArrowEpisodes && (
+                            <motion.div // Animate the left arrow
+                                className="arrow left-arrow"
+                                onClick={scrollLeftep}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                <i className="bx bx-left-arrow-alt" style={{ fontSize: "2rem" }}></i>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    <AnimatePresence> {/* For the arrows */}
+                        {displayMode === 'normal' && showRightArrowEpisodes && (
+                            <motion.div // Animate the right arrow
+                                className="arrow right-arrow"
+                                onClick={scrollRightep}
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: 20 }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                <i className="bx bx-right-arrow-alt" style={{ fontSize: "2rem" }}></i>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    <motion.ul
+                        className="episode_listimg"
+                        ref={episodesContainerRef}
+                        variants={{
+                            visible: {
+                                transition: {
+                                    staggerChildren: 0.05
+                                }
+                            }
+                        }}
+                        initial="hidden"
+                        animate="visible"
+                    >
+                        {episodes
+                            .filter((episode) => new Date(episode.air_date) <= new Date())
+                            .map((episode, index) => (
+                                <motion.li // Animate each list item
+                                    key={index}
+                                    className={`episodes_itemzimg ${
+                                        // ONLY ACTIVE IF IT'S THE CURRENT PLAYING EPISODE IN THE CURRENT PLAYING SEASON
+                                        (currentEpisode === episode.episode_number && currentSeason === episode.season_number) ? "active" : ""
+                                    } ${
+                                        // ONLY WATCHED IF IT'S IN THE WATCHED LIST AND BELONGS TO THE PREVIEWED SEASON
+                                        (watchedEpisodes.includes(episode.episode_number))? " watchedd" : ""
+                                    }`}
+                                    onClick={() =>
+                                        handleEpisodeClick(episode.episode_number, episode.still_path)
+                                    }
+                                    variants={itemVariants}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    layout
+                                >
+                                    <div className="hose">
+                                        <AnimatePresence> {/* For play button overlay */}
+                                            {/* ONLY SHOW PLAY OVERLAY IF IT'S THE CURRENT PLAYING EPISODE AND SEASON */}
+                                            {(currentEpisode === episode.episode_number && currentSeason === episode.season_number) && (
+                                                <motion.div
+                                                    className="watchnowblur"
+                                                    variants={badgeVariants}
+                                                    initial="hidden"
+                                                    animate="visible"
+                                                    exit="exit"
+                                                >
+                                                    <i className="bx bx-play" style={{ fontSize: "3rem" }}></i>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+
+                                        <AnimatePresence> {/* For watched badge */}
+                                            {/* ONLY SHOW WATCHED BADGE IF IT'S IN THE WATCHED LIST AND BELONGS TO THE PREVIEWED SEASON */}
+                                            {watchedEpisodes.includes(episode.episode_number) && currentSeason  === episode.season_number && (
+                                                <motion.div
+                                                    className="watchede-badgeimg"
+                                                    variants={badgeVariants}
+                                                    initial="hidden"
+                                                    animate="visible"
+                                                    exit="exit"
+                                                >
+                                                    <i className="bx bx-check-double" style={{ fontSize: "3rem" }}></i>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+
+                                        <img
+                                            className="episode_posterimg"
+                                            src={apiConfig.w500Image(episode.still_path)}
+                                            alt={`Episode ${episode.episode_number} poster`}
+                                            style={{ borderRadius: "10px", position: "relative" }}
+                                        />
+                                        <p className="episode_nameabo">{episode.name}</p>
+                                        <p className="episode_numberabo">Episode {episode.episode_number}</p>
+                                    </div>
+                                </motion.li>
+                            ))}
+                    </motion.ul>
+                </motion.div>
+            );
+        } else if (episodeLayoutMode === 2) {
+            // Descriptive layout: show episode number, name, etc.
+            return (
+                <motion.div
+                    className="episode-selector descriptive-layout"
+                    variants={layoutVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
                 >
-                  <div className="holderlay2" style={{position: "relative"}}>
-                    <img className="episode_posterblur" src={apiConfig.w200Image(episode.still_path)} alt="" />
-                    <img
-                      className="episode_posterabos"
-                      src={apiConfig.w500Image(episode.still_path)}
-                      alt=""
-                      style={{ borderRadius: "10px 0 0 10px", position: "relative" }}
-                    />
-                    <div className="episode_info">
-                      <strong className="episode_numberabo">Episode {episode.episode_number}</strong>
-                      <p className="episode_nameaboz">{episode.name}</p>
-                      <p className="episode_overviewabo">{episode.overview}</p>
-                    </div>
-                    {currentEpisode == episode.episode_number && (
-                      <div className="watchnow left">
-                        <i className="bx bx-play" style={{ fontSize: "3rem" }}></i>
-                      </div>
-                    )}
-                    {watchedEpisodes.includes(episode.episode_number) && (
-                      <>
-                        <div className="watchede-badgek">
-                          <i className="bx bx-check-double" style={{ fontSize: "3rem", color: "white" }}></i>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </li>
-              ))}
-          </ul>
-        </div>
-      );
-    } else {
-      // Default layout: original layout with backdrop episode image
-      return (
-        <div
-          className="episode-selector current-layout"
-          style={{
-            backgroundImage: `url(${bgChanged})`,
-            backgroundSize: "cover",
-          }}
-        >
-          <ul className="episode_list">
-            {episodes
-              .filter((episode) => new Date(episode.air_date) <= new Date())
-              .map((episode, index) => (
-                <li
-                  key={index}
-                  className={`episodes_itemz ${
-                    currentEpisode == episode.episode_number ? "active" : ""
-                  } ${watchedEpisodes.includes(episode.episode_number) ? " watchedd" : ""}`}
-                  onClick={() =>
-                    handleEpisodeClick(episode.episode_number, episode.still_path)
-                  }
+                    <motion.ul
+                        className="episode_list"
+                        variants={{
+                            visible: {
+                                transition: {
+                                    staggerChildren: 0.05
+                                }
+                            }
+                        }}
+                        initial="hidden"
+                        animate="visible"
+                    >
+                        {episodes
+                            .filter((episode) => new Date(episode.air_date) <= new Date())
+                            .map((episode, index) => (
+                                <motion.li
+                                    key={index}
+                                    className={`episodes_itemz ${
+                                        // ONLY ACTIVE IF IT'S THE CURRENT PLAYING EPISODE IN THE CURRENT PLAYING SEASON
+                                        (currentEpisode === episode.episode_number && currentSeason === episode.season_number) ? "active" : ""
+                                    } ${
+                                        // ONLY WATCHED IF IT'S IN THE WATCHED LIST AND BELONGS TO THE PREVIEWED SEASON
+                                        (watchedEpisodes.includes(episode.episode_number) && currentSeason === episode.season_number) ? " watchedd" : ""
+                                    }`}
+                                    onClick={() =>
+                                        handleEpisodeClick(episode.episode_number, episode.still_path)
+                                    }
+                                    variants={itemVariants}
+                                    whileHover={{ x: 5 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    layout
+                                >
+                                    <div className="holderlay2" style={{ position: "relative" }}>
+                                        <img className="episode_posterblur" src={apiConfig.w200Image(episode.still_path)} alt="" />
+                                        <img
+                                            className="episode_posterabos"
+                                            src={apiConfig.w500Image(episode.still_path)}
+                                            alt=""
+                                            style={{ borderRadius: "10px 0 0 10px", position: "relative" }}
+                                        />
+                                        <div className="episode_info">
+                                            <strong className="episode_numberabo">Episode {episode.episode_number}</strong>
+                                            <p className="episode_nameaboz">{episode.name}</p>
+                                            <p className="episode_overviewabo">{episode.overview}</p>
+                                        </div>
+                                        <AnimatePresence> {/* For play button overlay */}
+                                            {/* ONLY SHOW PLAY OVERLAY IF IT'S THE CURRENT PLAYING EPISODE AND SEASON */}
+                                            {(currentEpisode === episode.episode_number && currentSeason === episode.season_number) && (
+                                                <motion.div
+                                                    className="watchnow left"
+                                                    variants={badgeVariants}
+                                                    initial="hidden"
+                                                    animate="visible"
+                                                    exit="exit"
+                                                >
+                                                    <i className="bx bx-play" style={{ fontSize: "3rem" }}></i>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                        <AnimatePresence> {/* For watched badge */}
+                                            {/* ONLY SHOW WATCHED BADGE IF IT'S IN THE WATCHED LIST AND BELONGS TO THE PREVIEWED SEASON */}
+                                            {watchedEpisodes.includes(episode.episode_number) && currentSeason === episode.season_number && (
+                                                <motion.div
+                                                    className="watchede-badgek"
+                                                    variants={badgeVariants}
+                                                    initial="hidden"
+                                                    animate="visible"
+                                                    exit="exit"
+                                                >
+                                                    <i className="bx bx-check-double" style={{ fontSize: "3rem", color: "white" }}></i>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                </motion.li>
+                            ))}
+                    </motion.ul>
+                </motion.div>
+            );
+        } else {
+            // Default layout: original layout with backdrop episode image
+            return (
+                <motion.div
+                    className="episode-selector current-layout"
+                    style={{
+                        backgroundImage: `url(${bgChanged})`,
+                        backgroundSize: "cover",
+                    }}
+                    variants={layoutVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
                 >
-                  {watchedEpisodes.includes(episode.episode_number) && (
-                    <>
-                      <div className="imdsdi">
-                        <img
-                          style={{
-                            borderRadius: "0px 10px 10px 0px",
-                            width: "100%",
-                            height: "90%",
-                            objectFit: "cover",
-                          }}
-                          className="episode-posterue"
-                          src={apiConfig.w200Image(episode.still_path)}
-                          alt={`Episode ${episode.episode_number} poster`}
-                        />
-                      </div>
-                    </>
-                  )}
-                  E{episode.episode_number} <div className="s"></div>
-                  {episode.name}
-                  {currentEpisode == episode.episode_number && (
-                    <div className="watchnow">
-                      <i className="bx bx-play"></i>
-                    </div>
-                  )}
-                  {watchedEpisodes.includes(episode.episode_number) && (
-                    <>
-                      <div className="watchede-badge2">
-                        <i className="bx bx-check-double"></i>
-                      </div>
-                    </>
-                  )}
-                </li>
-              ))}
-          </ul>
-        </div>
-      );
-    }
-  };
+                    <motion.ul
+                        className="episode_list"
+                        variants={{
+                            visible: {
+                                transition: {
+                                    staggerChildren: 0.05
+                                }
+                            }
+                        }}
+                        initial="hidden"
+                        animate="visible"
+                    >
+                        {episodes
+                            .filter((episode) => new Date(episode.air_date) <= new Date())
+                            .map((episode, index) => (
+                                <motion.li
+                                    key={index}
+                                    className={`episodes_itemz ${ // Assuming this is correct from your original code. If it was 'episodez_itemz', revert.
+                                        // ONLY ACTIVE IF IT'S THE CURRENT PLAYING EPISODE IN THE CURRENT PLAYING SEASON
+                                        (currentEpisode === episode.episode_number && currentSeason === episode.season_number) ? "active" : ""
+                                    } ${
+                                        // ONLY WATCHED IF IT'S IN THE WATCHED LIST AND BELONGS TO THE PREVIEWED SEASON
+                                        (watchedEpisodes.includes(episode.episode_number) && previewSeason === episode.season_number) ? " watchedd" : ""
+                                    }`}
+                                    onClick={() =>
+                                        handleEpisodeClick(episode.episode_number, episode.still_path)
+                                    }
+                                    variants={itemVariants}
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    layout
+                                >
+                                    {/* ONLY SHOW WATCHED IMAGE OVERLAY IF IT'S IN THE WATCHED LIST AND BELONGS TO THE PREVIEWED SEASON */}
+                                    {watchedEpisodes.includes(episode.episode_number) && currentSeason === episode.season_number && (
+                                        <AnimatePresence>
+                                            <motion.div
+                                                className="imdsdi"
+                                                variants={badgeVariants}
+                                                initial="hidden"
+                                                animate="visible"
+                                                exit="exit"
+                                            >
+                                                <img
+                                                    style={{
+                                                        borderRadius: "0px 10px 10px 0px",
+                                                        width: "100%",
+                                                        height: "90%",
+                                                        objectFit: "cover",
+                                                    }}
+                                                    className="episode-posterue"
+                                                    src={apiConfig.w200Image(episode.still_path)}
+                                                    alt={`Episode ${episode.episode_number} poster`}
+                                                />
+                                            </motion.div>
+                                        </AnimatePresence>
+                                    )}
+                                    E{episode.episode_number} <div className="s"></div>
+                                    {episode.name}
+                                    <AnimatePresence> {/* For play button */}
+                                        {/* ONLY SHOW PLAY OVERLAY IF IT'S THE CURRENT PLAYING EPISODE AND SEASON */}
+                                        {(currentEpisode === episode.episode_number && currentSeason === episode.season_number) && (
+                                            <motion.div
+                                                className="watchnow"
+                                                variants={badgeVariants}
+                                                initial="hidden"
+                                                animate="visible"
+                                                exit="exit"
+                                            >
+                                                <i className="bx bx-play"></i>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                    <AnimatePresence> {/* For watched badge */}
+                                        {/* ONLY SHOW WATCHED BADGE IF IT'S IN THE WATCHED LIST AND BELONGS TO THE PREVIEWED SEASON */}
+                                        {watchedEpisodes.includes(episode.episode_number) && currentSeason === episode.season_number && (
+                                            <motion.div
+                                                className="watchede-badge2"
+                                                variants={badgeVariants}
+                                                initial="hidden"
+                                                animate="visible"
+                                                exit="exit"
+                                            >
+                                                <i className="bx bx-check-double"></i>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </motion.li>
+                            ))}
+                    </motion.ul>
+                </motion.div>
+            );
+        }
+    };
 
    const handleIframeLoad = () => {
     setLoading(false);
