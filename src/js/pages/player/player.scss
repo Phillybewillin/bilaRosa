@@ -1154,24 +1154,24 @@
   gap: 10px;
 }
 .recohead{
-  padding: 1rem .3rem;
+  padding: 1rem .5rem;
   text-align: start;
-  color: rgb(164, 164, 164);
-  font-size: 2rem;
-  font-weight: 600;
+  color: rgba(255, 255, 255, 0.863);
+  font-size: 1.6rem;
+  font-weight: 400;
   //sborder-radius: 10px;
  // border-top: 1px solid #fffdfd20;
 }
 .recoheadtube{
   padding: .5rem .6rem;
-  text-align: center;
+  text-align: start;
   color: rgb(206, 206, 206);
-  font-size: 1.5rem;
-  font-weight: 600;
-  border-radius: 15px;
- // max-width: inherit;
+  font-size: 1.3rem;
+  font-weight: 400;
+  border-radius: 10px;
+  max-width: max-content;
  // background-color: #ffffff07;
-  margin: 10px;
+  margin: 10px 0;
   border: 1px solid #fffdfd20;
 }
 
@@ -1206,7 +1206,7 @@
 }
 .haxnoititle{
   padding-left: 7px;
-  color: gray;
+  color: rgba(255, 255, 255, 0.269);
   margin-bottom: -10px;
 }
 .zsa{
@@ -1327,5 +1327,33 @@
   &:hover{
     background: linear-gradient(to left, #242424, #00000008);
     backdrop-filter: grayscale(1);
+  }
+}
+
+.collectionholder{
+  padding: 1rem;
+}
+
+.collimg{
+ img{
+  width: 360px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  &:hover{
+    scale: .95;
+  }
+ }
+}
+.collname{
+  color: #fff;
+  font-size: .9rem;
+  cursor: pointer;
+  padding: .4rem 0;
+  transition: all .3s ease-in-out;
+  &:hover{
+    scale: .95;
   }
 }
