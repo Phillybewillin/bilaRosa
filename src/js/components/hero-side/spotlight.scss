@@ -29,9 +29,9 @@
 
 .spotlight {
     position: relative;
-    min-height: 100vh;
+    //min-height: 50vh;
     width: 100%;
-   background:linear-gradient(to bottom, rgba(0, 0, 0, 0.936), rgba(0, 0, 0, 0.927) 80% , rgba(0, 0, 0, 0) );
+   //background:linear-gradient(to bottom, rgba(0, 0, 0, 0.936), rgba(0, 0, 0, 0.927) 80% , rgba(0, 0, 0, 0) );
     //overflow-x: hidden;
     //z-index: 55;
     //background-color: #fff;
@@ -39,13 +39,13 @@
     //z-index: 55;
     padding: .1rem;
     border-radius: 10px;
-    margin-bottom: 2rem;
+    margin-bottom: 0rem;
    // transition: all 1s ease-in;
 
     @include tablet {
       margin-bottom: 0rem;
         padding: 0;
-        min-height: 100%;
+        //min-height: 100%;
     }
      
    .swiper-slide {
@@ -76,8 +76,12 @@
       opacity: 1;
       transition: opacity 0.5s ease;
       pointer-events: none;
-      border-radius: 19px;
+      border-radius: 15px;
       z-index: 1; // Make sure it sits above the image
+
+      @include mobile {
+        display: none;
+      }
     }
     @include tablet {
       padding-top: .3rem;
@@ -279,6 +283,10 @@ margin-bottom: 2rem;
     }
 }
 .spotlight-image{
+  position: absolute;
+    top: 0;
+    left: 0;
+
     width : 100%;
     height: 540px;
     object-fit: cover;
@@ -304,7 +312,7 @@ margin-bottom: 2rem;
     justify-content: center;
     flex-direction: column;
     position: absolute;
-    bottom: 1.2rem;
+    bottom: 1.3rem;
     //left: -.1px;
     padding-bottom: .8rem;
     //padding-top:calc(100vh - 25rem);
