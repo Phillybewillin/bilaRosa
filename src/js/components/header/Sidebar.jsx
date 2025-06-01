@@ -88,6 +88,7 @@ const Sidebar = () => {
     { inactiveIcon: 'bx bx-slider', activeIcon: 'bx bx-slider-alt', text: 'Filters', path: '/filter' },
     { inactiveIcon: 'bx bx-camera-movie', activeIcon: 'bx bxs-camera-movie', text: 'Movies', path: '/z/movie' },
     { inactiveIcon: 'bx bx-tv', activeIcon: 'bx bxs-tv', text: 'Shows', path: '/z/tv' },
+    { inactiveIcon: 'bx bx-collection', activeIcon: 'bx bxs-collection', text: 'Collections', path: '/collections' },
   ];
 
   if (user) {
@@ -109,6 +110,10 @@ const Sidebar = () => {
                 <h2 className="searchabsolutetitle">
                   {searchValue ? `Showing results for '${searchValue}'` : 'Search'}
                 </h2>
+
+                <div className="ADVSERCH" onClick={() => { setHideSearch(true); navigate(`${searchValue ? `/search?query=${searchValue}&filter=all` : '/search'}`, { replace: true }); }}>
+                  advanced search
+                </div>
               </div>
               <div className="searchbar-container">
                 <Input
@@ -159,7 +164,7 @@ const Sidebar = () => {
             {/* Search Button */}
             <div className="icserch">
               <span
-                className={`iconsidebox ${!hideSearch ? 'search-active' : ''}`}
+                className={`iconsidebox ${!hideSearch ? 'active' : ''}`}
                 onClick={() => setHideSearch(!hideSearch)}
               >
                 <i className={!hideSearch ? 'bx bx-search-alt-2' : 'bx bx-search'} style={{ fontSize: '20px' }}></i>
@@ -185,10 +190,7 @@ const Sidebar = () => {
                 )}
               </NavLink>
             ))}
-          </nav>
-
-          {/* Discord */}
-          <div className="discord-container">
+             <div className="discord-container">
             <a
               href="https://discord.gg/ynfvjgHrBd"
               target="_blank"
@@ -199,6 +201,10 @@ const Sidebar = () => {
               <h5 className="iconvz">Join our Discord</h5>
             </a>
           </div>
+          </nav>
+
+          {/* Discord */}
+         
           <div className="logoside">
             <img src={logo} alt="Moviepluto" />
           </div>
