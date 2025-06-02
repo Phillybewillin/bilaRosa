@@ -381,7 +381,24 @@ const MovieGrid = props => {
     );
 
     return (
+        
         <>
+             <ToastContainer
+             toastClassName="blurred-toast"
+             bodyClassName="toast-body"
+             theme="dark"
+             //fontSize="11px"
+          position="bottom-right"
+          autoClose={8000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={true}
+          //rtl={false}
+          pauseOnFocusLoss={false}
+          draggable={false}
+          pauseOnHover={true}
+          icon={false}
+        />
             <div className="sectiongrid">
                 <div className="section_header">
                     <div className="section_search">
@@ -567,19 +584,6 @@ const MovieGrid = props => {
                     <i className="bx bx-chevron-up"></i>
                 </div>
             </div>
-            <ToastContainer
-                theme="dark"
-                position="top-right"
-                autoClose={2500}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss={false}
-                draggable={false}
-                pauseOnHover={false}
-                progressStyle={{ backgroundColor: '#ff0000', color: 'white', borderRadius: '10px' }}
-            />
         </>
     );
 };
