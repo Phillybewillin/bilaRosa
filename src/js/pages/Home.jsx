@@ -291,7 +291,22 @@ const Home = () => {
   return (
     <>
       <Spotlight />
-
+         <ToastContainer
+          toastClassName="blurred-toast"
+          bodyClassName="toast-body"
+          theme="dark"
+          //fontSize="11px"
+          position="bottom-right"
+          autoClose={8000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={true}
+          //rtl={false}
+          pauseOnFocusLoss={false}
+          draggable={false}
+          pauseOnHover={true}
+          icon={false}
+        />
        <motion.div className="movie-nav"  variants={containerVariants} initial="hidden" animate="visible">
         <motion.div className="movie-nav-item" variants={itemVariants}>
           <Link to="/z/movie">
