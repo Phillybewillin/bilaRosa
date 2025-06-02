@@ -1,6 +1,16 @@
 @use '../scss/' as *;
 @use '../scss/breakpoint' as *;
 
+.blurred-toast {
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
+  color: #fff;
+}
+
+.toast-body {
+  font-size: 14px;
+  line-height: 1.4;
+}
 .movie-lists{
   display: flex;
   flex-direction: row;
