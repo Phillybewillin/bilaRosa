@@ -38,7 +38,7 @@ html {
 }
 
 body {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.11);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.071);
   font-family: $font-family;
   //background: linear-gradient(to right, rgb(3, 3, 3), rgb(8, 8, 8));
    color: white;
@@ -51,7 +51,7 @@ a {
 }
 button,
 input {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.11);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.07);
   outline: 0;
   border: 0;
 }
@@ -59,16 +59,16 @@ ul {
   list-style-type: none;
 }
 .blurred-toast {
-  background-color: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: #fff;
 }
 
 .toast-body {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.4;
 }
-
 .container {
   max-width: 1660px;
   margin: auto;
