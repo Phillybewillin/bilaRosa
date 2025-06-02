@@ -203,7 +203,7 @@
     }
     .carousel-wrapper {
         padding: 0 0px;
-        height: 300px;
+        height: 350px;
     }
     .carousel-wrapper h2 {
         font-size: 1.7rem;
@@ -212,7 +212,7 @@
     /* Mobile: 100% width, no scaling/brightness difference */
     .swiper-slide {
         width: 100%; /* Full width on mobile */
-        height: 95%; /* Take full height of swiper */
+        height: 100%; /* Take full height of swiper */
         opacity: 1;
         filter: brightness(.8);
         transform: scale(1);
@@ -227,10 +227,10 @@
    
    
     .slide-title {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
     }
     .action-button {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
     .swiper-button-next,
     .swiper-button-prev {
