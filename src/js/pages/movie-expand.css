@@ -125,8 +125,8 @@
 
 .action-button {
     background: none;
-    border: 4px solid #ffffff6f;
-    border-radius: 50%;
+    border: 3px solid #ffffff8f;
+    border-radius: 15%;
     width: 40px;
     height: 40px;
     cursor: pointer;
