@@ -53,8 +53,7 @@ const App = () => {
 
   return (
     <>
-      <ToastContainer theme="dark" position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} backdrop={true} progressStyle={{ backgroundColor: '#1eff00', color: 'white', borderRadius: '10px' }} />
-
+    
       <AuthContextProvider>
         {!hideHeader && <Header />}
         {!hideSidebar && <Sidebar />}
@@ -66,6 +65,22 @@ const App = () => {
           'mode="wait"' ensures the exiting page animates out before the new one enters.
         */}
         <div style={{ position: 'relative', minHeight: '100vh'  , overflowX: 'hidden' }}> {/* Parent container for absolute positioning */}
+           <ToastContainer
+          toastClassName="blurred-toast"
+          bodyClassName="toast-body"
+          theme="dark"
+          //fontSize="11px"
+          position="bottom-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={true}
+          //rtl={false}
+         
+          draggable={false}
+          pauseOnHover={true}
+          icon={false}
+        />
           <AnimatePresence mode='wait'>
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<AnimatedPage><Home /></AnimatedPage>} />
