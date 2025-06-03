@@ -428,8 +428,7 @@ const Header = () => {
                                         <MenuDivider style={{ backgroundColor: 'grey', borderRadius: '5px' }} />
                                         <MenuItem>
                                             <div className="socialzz">
-                                    
-                                                <div className="lozg" onClick={() => window.open('https://discord.gg/ynfvjgHrBd')}>
+                                                  <div className="lozg" onClick={() => window.open('https://discord.gg/ynfvjgHrBd')}>
                                                     <i className='bx bxl-discord-alt'></i>
                                                 </div>
                                                 <div className="lozg" onClick={() => window.open('https://reddit.com/r/zillaXRxyz')}>
@@ -463,11 +462,15 @@ const Header = () => {
                                         <MenuDivider style={{ backgroundColor: 'grey', borderRadius: '5px' }} />
                                         <MenuItem>
                                             <div className="socialzz">
-                                               
+                                                <div className="lozg" onClick={() => window.open('https://t.me/+MQUUqEx2WXA0ZmZk')}>
+                                                    <i className='bx bxl-telegram'></i>
+                                                </div>
                                                 <div className="lozg" onClick={() => window.open('https://discord.gg/ynfvjgHrBd')}>
                                                     <i className='bx bxl-discord-alt'></i>
                                                 </div>
-                                               
+                                                <div className="lozg" onClick={() => window.open('https://reddit.com/r/zillaXRxyz')}>
+                                                    <i className='bx bxl-reddit'></i>
+                                                </div>
                                             </div>
                                         </MenuItem>
                                         <MenuDivider style={{ backgroundColor: 'pink', borderRadius: '5px' }} />
@@ -481,12 +484,10 @@ const Header = () => {
             {showModal && (
                 <div className="modala">
                     <div className="modal_content">
-                        {showSignup ? <Signup /> : <Login />}
-                        <Button className="btn" onClick={() => setShowSignup(prev => !prev)}>
-                            {showSignup ? 'Switch to Login' : 'Switch to Signup'}
-                        </Button>
-                        <Button className="btn" onClick={() => setShowModal(false)}>Close</Button>
-                    </div>
+                        {showSignup ? <Signup  onClose={() => setShowModal(false)}/> : <Login  onClose={() => setShowModal(false)} />}
+                        
+                        </div>
+                       
                 </div>
             )}
         </>
