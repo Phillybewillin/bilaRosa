@@ -1,108 +1,756 @@
-@use '../../scss/' as *;
+/* account.scss */
 
-
-.account {
-   display: flex;
-   flex-direction: column;
-   min-height: 100vh;
-   background-color: #030303b5;
-   backdrop-filter: blur(40px) !important;
-  
+// Variables for consistent theming
+:root {
+    --primary-color: #ffffff; // Netflix red
+    --secondary-color: #f4f4f4; // White-ish for text
+    --dark-background: #1a1a1a;
+    --dark-card-background: #00000047;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --text-light-grey: rgba(255, 255, 255, 0.7);
+    --default-account-bg-image: url('https://assets.nflxext.com/ffe/siteui/vlv3/a739591e-f495-4603-a162-ead174e9262f/ec1e17d6-3e74-4b5c-a111-ecbf3f15b741/KE-en-20240902-popsignuptwoweeks-perspective_alpha_website_large.jpg');
+    // Using a more generic dark overlay on top of the image to ensure consistent blur effect
+    --default-account-bg: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.9) 100%);
 }
-.user{
+
+.account-page-backdrop {
+    // This is the blurred background image
+    background-color: #141414; // Fallback solid color
+}
+
+.account-page-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--default-account-bg); // Always apply this overlay
+    z-index: -1; // Between backdrop and content
+}
+
+.account-content {
+    position: relative;
+    z-index: 1;
+    padding: 10px;
+    max-width: 100%; // Slightly wider for two columns
+    margin: 0 auto;
+    color: var(--secondary-color);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    padding-left: 4rem;
 
-    width: 98%;
-    margin: 1rem;
-    height: 40vh;
-    @include mobile{
-        height: 34vh;
-        width: 97%;
-        //scale: 1.2;
-    }
-
-}
-.userAvator{
-    margin-top: 2.5rem;
-
-    @include mobile{
-        margin-top: 2rem;
-        //scale: 1.2;
+    @media (max-width: 992px) {
+        padding-left: 0;
     }
 }
-.accountle{
-    margin-top: .3rem;
-    border-bottom: 1px solid pink;
-}
 
-.User{
-    
-    background: linear-gradient(to right, rgb(253, 43, 78), rgb(255, 0, 0));
-   background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-}
-
-
-.shit{
-    margin: .5rem;
-    display: flex;
-    gap: .5rem;
-    flex-direction: row;
-}
-.userem{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+.main-account-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr; // Left column 1 part, right column 2 parts
     gap: 10px;
-    background-color: rgba(77, 77, 77, 0.121);
-    padding: 5px;
-    font-weight: 300;
-    border-radius: 10px;
-   
+    width: 100%;
+    align-items: start; // Align items to the top of their grid cells
+
+    @media (max-width: 992px) {
+        margin-top: 3rem;
+        grid-template-columns: 1fr; // Stack columns on smaller screens
+        gap: 20px;
+    }
 }
-.shi{
+
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-right: 1px; // A little padding for separation
+    @media (max-width: 992px) {
+        padding-right: 0;
+    }
+}
+
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.activity-summary-stats,
+.my-library-section,
+.continue-watching-section {
+    background: rgba(0, 0, 0, 0.356); // Slightly darker overlay for sections
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    width: 100%; // Ensure sections take full width of their column
+}
+
+.user-profile-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    text-align: end;
+     background: rgba(0, 0, 0, 0.304); // Slightly darker overlay for sections
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    padding: 5px;
+    width: 100%
+}
+
+.avatar-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+
+    @media (max-width: 992px) {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.user-avatar-wrapper {
+    position: relative;
     cursor: pointer;
+    //border: 3px solid var(--primary-color);
+    border-radius: 50%;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    //background-color: var(--dark-card-background);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 110px; // Fixed size for the wrapper
+    height: 110px; // Fixed size for the wrapper
+    flex-shrink: 0; // Prevent shrinking
+   box-shadow: 0px 0 30px rgba(253, 253, 253, 0.121);
+   
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 50px rgba(255, 255, 255, 0.194);
+    }
+
+    @include mobile {
+        width: 100px; // Smaller size for mobile
+        height: 100px; // Smaller size for mobile
+    }
+}
+
+.user-emoji-avatar {
+    font-size: 80px;
+    line-height: 1;
+    display: block;
+    border-radius: 50%; // Ensure emoji span also looks circular
+    width: 100px; // Explicit size for emoji if React-Avatar is not used
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.buttonholder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    
+   
+    gap: 5px;
+
+    @media (max-width: 992px) {
+        align-items: center;
+    }
+}
+
+.user-greeting {
+    font-size: 1.2rem;
+    font-weight: 400;
+   // width: 50%;
+    color: rgba(255, 255, 255, 0.116);
+    margin-bottom: 5px;
+   // text-shadow: 2px 2px 4px rgba(219, 188, 188, 0.5);
+}
+
+
+.user-email{
+     background-color: #ffffff10;
+     padding: .5rem 1rem;
+    font-size: .75rem;
+    border-radius: 5px;
+    cursor: pointer;
+    filter: blur(2px);
+    transition: all 0.3s ease;
+    color: #535353;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.998);
+        filter: blur(0);
+       
+    }
+}
+.user-sign-out{
+    background-color: #ffffff10;
+    color: #ffffff;
+    font-size: .75rem;
+    padding: .5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.998);
+        color: black;
+       
+    }
+}
+
+.username-text {
+    color: var(--primary-color);
+    background-color: #ffffff10;
+    padding:  .5rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.user-email-display {
+    font-size: 1.1rem;
+    color: var(--text-light-grey);
+    font-weight: normal;
+    margin-top: 0;
+
+    i {
+        margin-right: 5px;
+        color: var(--primary-color);
+    }
+}
+
+.clear-emoji-btn {
+    display: none;
+    background: rgba(0, 0, 0, 0.47);
+    //border: 1px solid var(--text-light-grey);
+    color: var(--text-light-grey);
+    padding: 8px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: var(--secondary-color);
+        color: var(--secondary-color);
+    }
+}
+
+/* Emoji Picker Modal */
+.emoji-picker-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.emoji-picker-modal {
+    //background-color: var(--dark-background);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    width: 90%;
+    border: 1px solid var(--border-color);
+}
+
+.emoji-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+
+    span {
+        font-size: 32px;
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: var(--dark-card-background);
+        transition: background-color 0.2s ease, transform 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: scale(1.1);
+        }
+    }
+}
+
+.close-emoji-picker-btn {
+    background: rgba(255, 255, 255, 0.089);
+   // border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: .8rem;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        background-color: var(--primary-color);
+        color: black;
+    }
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 40px 0;
+    width: 80%;
+    max-width: 800px;
+
+    &.column-divider {
+        display: none; // Hide default hr between columns
+        @media (max-width: 992px) {
+            display: block; // Show on smaller screens when columns stack
+            width: 100%;
+            margin: 20px 0;
+        }
+    }
+}
+
+
+.activity-summary-stats {
+    text-align: start;
+    h2 {
+        font-size: 1.5rem;
+        color: var(--secondary-color);
+        margin-bottom: 30px;
+        font-weight: bold;
+    }
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); // Smaller min-width for better fit
+    gap: 20px;
+    justify-content: start;
+    align-items: start;
+}
+
+.stat-card {
+    //background-color: var(--dark-card-background);
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    text-align: start;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    i {
+        font-size: 35px;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+    }
+
+    h3 {
+        font-size: 1.1rem;
+        color: var(--secondary-color);
+        margin: 0;
+        font-weight: 600;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary-color);
+        margin: 5px 0;
+    }
+
+    small {
+        font-size: 0.9rem;
+        color: var(--text-light-grey);
+    }
+}
+
+.no-history-message, .empty-state-message {
+    font-size: 1.1rem;
+    color: var(--text-light-grey);
+    padding: 20px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.3);
+    margin-top: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.my-library-section {
+    // SavedMovies component's container
+    min-height: 400px; // Ensure it has some height even if empty
+    display: flex;
+    flex-direction: column;
+}
+
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+
+    .section-title {
+        font-size: 1rem;
+        color: var(--primary-color);
+        font-weight: bold;
+        margin: 0;
+    }
+}
+
+.clear-all-btn {
+    background: none;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+    }
+}
+
+
+
+
+
+.bottom-nav-icons {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 10px 25px;
+    display: flex;
+    gap: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    z-index: 500;
+
+    .icon-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.05);
+        transition: background-color 0.2s ease, transform 0.2s ease;
+        cursor: pointer;
+
+        i {
+            font-size: 28px;
+            color: var(--secondary-color);
+        }
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .main-account-layout {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 992px) {
+    .account-content {
+        padding: 15px;
+    }
+    .user-profile-header,
+    .activity-summary-stats,
+    .my-library-section,
+    .continue-watching-section {
+        padding: 20px;
+    }
+    .user-greeting {
+        font-size: 2.2rem;
+    }
+    .user-emoji-avatar {
+        font-size: 70px;
+    }
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    .continue-watching-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+    .continue-watching-card .card-image {
+        height: 210px;
+    }
+    .bottom-nav-icons {
+        padding: 8px 15px;
+        gap: 15px;
+        .icon-wrapper {
+            width: 45px;
+            height: 45px;
+            i {
+                font-size: 24px;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .user-profile-header {
+        flex-direction: column;
+        align-items: center;
+    }
+    .user-info {
+        text-align: center;
+    }
+    .main-account-layout {
+        padding-top: 0; // Reduce extra space if needed
+    }
+}
+
+@media (max-width: 480px) {
+    .account-content {
+        padding: 10px;
+    }
+    .user-greeting {
+        font-size: 1.8rem;
+    }
+    .user-emoji-avatar {
+        font-size: 60px;
+    }
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .section-title {
+        font-size: 1.8rem;
+    }
+    .clear-all-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .continue-watching-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    .continue-watching-card .card-image {
+        height: 180px;
+    }
+    .bottom-nav-icons {
+        gap: 10px;
+        padding: 6px 10px;
+        .icon-wrapper {
+            width: 40px;
+            height: 40px;
+            i {
+                font-size: 22px;
+            }
+        }
+    }
+}
+
+/* --- Account Page Specific Styles --- */
+
+// Movies Watched Boxes
+.shows-watched-card,
+.movies-watched-card {
+    .movie-boxes-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px; // Space between boxes
+        margin-top: 10px;
+        justify-content: flex-start; // Center the boxes
+    }
+
+    .movie-box-item {
+        position: relative;
+        width: 25px; // Small box size
+        height: 25px;
+        background-color: rgba(252, 252, 252, 0.114); // Darker color for boxes
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-color-light);
+        font-size: 0.8em;
+        cursor: default;
+        transition: transform 0.2s ease-in-out; // Smooth hover effect
+
+        &:hover {
+            transform: translateY(-3px); // Lift on hover
+            .movie-box-tooltip {
+                visibility: visible;
+                opacity: 1;
+                transform: translateX(-50%) translateY(-10px); // Show tooltip above
+            }
+        }
+    }
+
+    .movie-box-tooltip {
+        visibility: hidden;
+        opacity: 0;
+        background-color: rgba(255, 255, 255, 0.123); // Darker tooltip background
+        color: white;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 8px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%; // Position above the box
+        left: 50%;
+        transform: translateX(-50%) translateY(0); // Initial position
+        transition: opacity 0.3s, transform 0.3s;
+        white-space: nowrap; // Prevent text wrapping
+        font-size: 0.75em; // Smaller font for tooltip
+        pointer-events: none; // Allow interaction with elements below
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgba(255, 255, 255, 0.169) transparent transparent transparent; // Arrow pointing down
+        }
+    }
+
+    .more-movies-box {
+        background-color: var(--accent-color); // Different color for '+X' box
+        font-weight: bold;
+        color: var(--text-color-dark);
+        font-size: 0.7em; // Smaller font for '+X'
+    }
+
+    .no-movies-message {
+        font-style: italic;
+        color: var(--text-color-secondary);
+        margin-top: 10px;
+        font-size: 0.9em;
+    }
+}
+
+// Watch Streak Visualizer
+.streak-visualizer {
     display: flex;
     justify-content: space-around;
-    align-items: center;
-    //text-align: center;
-    min-width: 10px;
-    font-size: small;
-    padding: 10px;
-    border-radius: 10px;
-    background-color: #ffffff0f;
-}
-.accounttitle{
-   
-    text-align: center;
-}
-.dh{
-    padding: 1rem;
-  font-size: 3rem;
+    align-items: flex-end;
+    margin-top: 15px;
+    padding: 0 1px;
+    width: 100%;
+    box-sizing: border-box;
 
-}
-.history{
-    overflow: auto;
+    .day-marker {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.8em;
+        color: var(--text-color-secondary);
+        position: relative;
+        padding-bottom: 8px; // Space for the dot
 
-}
-.clear{
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    padding: 0 1rem;
-    gap: .5rem;
-    transition: all .4s ease;
-    cursor: pointer;
+        .day-name {
+            font-weight: 500;
+        }
 
-    &:hover{
-        color: rgba(255, 137, 220, 0.856);
+        &.today {
+            .day-name {
+                color: pink; // Highlight today's name
+                font-weight: bold;
+            }
+        }
+
+        .streak-dot {
+            width: 15px;
+            height: 8px;
+            border-radius: 25%;
+            background-color: pink; // Default dot color
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 1px solid pink;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        &.watched-day .streak-dot {
+            background-color: pink; // Green for watched days
+            box-shadow: 0 0 8px pink; // Glow effect for watched
+        }
     }
-    &:focus{
-        color: red;
+}
+
+// Blur filter fix for backdrop
+.account-page-backdrop {
+    filter: blur(75px) !important; // Ensure the blur applies correctly
+    -webkit-filter: blur(75px) !important;
+}
+
+// General adjustments for better spacing/sizing if needed, based on existing styles
+
+
+
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+// Responsive adjustments for smaller screens
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr; // Stack cards on smaller screens
+    }
+    .movies-watched-card .movie-boxes-container {
+        justify-content: center;
+    }
+    .streak-visualizer {
+        padding: 0 5px;
     }
 }

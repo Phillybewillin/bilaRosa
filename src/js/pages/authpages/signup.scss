@@ -1,188 +1,184 @@
 @use '../../scss/' as *;
 
-
-
-.signup {
+.signup-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+   // background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
     display: flex;
+    cursor: pointer;
     justify-content: center;
     align-items: center;
-    position: relative;
-    width: 400px;
-    height: 400px;
-    //border: 1px solid rgba(255, 192, 203, 0.244);
-    margin-top: 6rem;
-    padding: 3rem 2rem;
-    background-color: rgb(0, 0, 0);
-    border-radius: 30px;
-    //margin-bottom: 1rem;
-   
+    z-index: 10; /* High z-index to ensure it's on top */
+    
     @include mobile {
-        width: 100%;
-        height: 100%;
-           
+        // Adjust for mobile if needed, though fixed should generally work
+    }
 }
 
+.signup {
+    position: relative; /* Keep relative for inner positioning */
+    width: 400px;
+    height: 400px;
+    padding: 3rem 2rem;
+    background-color: rgba(0, 0, 0, 0.742);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.073);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
+    z-index: 1001; /* Higher than overlay to ensure content is above */
+
+    @include mobile {
+        width: 90%; /* Adjust width for mobile */
+        height: auto; /* Adjust height for mobile */
+        max-height: 80vh; /* Prevent it from being too tall on small screens */
+        margin: 20px; /* Add some margin */
+        overflow-y: auto; /* Allow scrolling if content overflows */
+    }
 }
+
 .signup__contentcontainer{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
     height: 100%;
 
     input{
-    width: 300px;
-    margin-top: 1rem;
-    //margin-left: 2rem;
+    width: 340px;
+    margin-top: .3rem;
     background-color: rgba(255, 255, 255, 0.1);
     color: rgb(112, 112, 112);
-    padding: .9rem 1rem;
+    padding: .8rem 1rem;
     margin-bottom: .7rem;
     border-radius: 10px;
 
     &:focus{
         outline: none;
         color: #ffffffda;
-        border : 1px solid  $main-bg
+        border : 1px solid  $main-bg;
     }
-    
-   
- }
+}
 
- .signuptitle{
-    padding: 2rem;
-   // border-bottom: 1px solid rgba(253, 0, 42, 0.26);
-    width: 100%;
-    background: linear-gradient(to right, rgb(255, 4, 134), rgb(255, 0, 0));
-    background-clip: text;
-   -webkit-background-clip: text;
-   -webkit-text-fill-color: transparent;
-    font-size: 1.7rem;
-    text-align: center;
+.signuptitle{
+    padding: 7rem 0;
+   font-size: 1.5rem;
+   padding-bottom: 1rem;
+   color: rgb(150, 150, 86);
+    //text-align: start;
+}
 
- }
- .passbutton{
-    background-color: rgba(155, 0, 36, 0.263);
-    padding: 5px;
-    border-radius: 10px;
-    scale: 1.3;
+.error-message{
+   position: absolute;
+    left: 1rem;
+    color: rgb(126, 129, 82);
+    font-size: .8rem;
+    margin-top: .5rem;}
+.passbutton{
+    background-color: rgba(255, 255, 255, 0.084);
+    padding: 11px;
+    border-radius: 0 10px 10px 0px;
+    scale: 1;
     color: white;
- }
- .form-group {
+}
+.form-group {
     position: relative;
     margin-bottom: 1px;
-  }
-  .butncont{
+}
+.butncont{
     position: absolute;
-    right: 10px;
-    bottom: 1.2rem;
-  }
-  .form-group label {
+    right: 1px;
+    bottom: .7rem;
+}
+.form-group label {
     display: block;
     margin-bottom: 1px;
-  }
-  
-  .form-actions {
+}
+
+.form-actions {
     text-align: right;
-  }
-  
-  .form-actions button[type="submit"] {
+}
+
+.form-actions button[type="submit"] {
     background-color: #4CAF50;
     color: #fff;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  .form-actions button[type="submit"]:hover {
-    background-color: #3e8e41;
-  }
+}
 
-  @include mobile {
+.form-actions button[type="submit"]:hover {
+    background-color: #3e8e41;
+}
+
+@include mobile {
     justify-content: center;
     input{
-      width: 300px;
-      max-width: 300px;
-      margin-top: 2rem;
-      //margin-left: 2rem;
-      background-color: rgba(255, 255, 255, 0.1);
-      color: rgb(112, 112, 112);
-      padding: .9rem 1rem;
-      margin-bottom: 1rem;
-      border-radius: 10px;
-  
-      &:focus{
-          outline: none;
-          color: #ffffffda;
-          border : 1px solid  $main-bg
-      }
-      
-     
-   }
-  
-   .signuptitle{
-      padding: 2rem;
-     // border-bottom: 1px solid rgba(253, 0, 42, 0.26);
-      width: 100%;
-      background: linear-gradient(to right, rgb(255, 4, 134), rgb(255, 0, 0));
-      background-clip: text;
-     -webkit-background-clip: text;
-     -webkit-text-fill-color: transparent;
-      font-size: 3.5rem;
-      text-align: center;
-  
-   }
-   .passbutton{
-      background-color: rgba(155, 0, 36, 0.263);
-      padding: 5px;
-      border-radius: 10px;
-      scale: 1.3;
-      color: white;
-   }
-   .form-group {
-      position: relative;
-      margin-bottom: 1px;
+        width: 330px;
+        max-width: 330px;
+        margin-top: 2rem;
+        background-color: rgba(255, 255, 255, 0.059);
+        color: rgb(112, 112, 112);
+        padding: .9rem 1rem;
+        margin-bottom: 1rem;
+        border-radius: 10px;
+
+        &:focus{
+            outline: none;
+            color: #ffffffda;
+            border : 1px solid  $main-bg;
+        }
     }
+
+    
+    .passbutton{
+        padding: 10px;
+        color: white;
+    }
+    .form-group {
+        position: relative;
+        margin-bottom: 1px;
+    }
+
     .butncont{
-      position: absolute;
-      right: 10px;
-      bottom: 1.5rem;
+        position: absolute;
+        right: 0px;
+        bottom: 1rem;
     }
+   
     .form-group label {
-      display: block;
-      margin-bottom: 1px;
+        display: block;
+        margin-bottom: 1px;
     }
-    
+
     .form-actions {
-      text-align: right;
+        text-align: right;
     }
-    
+
     .form-actions button[type="submit"] {
-      background-color: #4CAF50;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
     }
-    
+
     .form-actions button[type="submit"]:hover {
-      background-color: #3e8e41;
+        background-color: #3e8e41;
     }
-  
 }
-
-
 }
 .fogetpassword{
-  position: absolute;
-  bottom: 10px;
-  font-size: .8rem;
-  margin-top: 10px;
-  text-align: end;
-  right: 10px;
+    position: absolute;
+    bottom: 10px;
+    font-size: .8rem;
+    margin-top: 10px;
+    text-align: end;
+    right: 10px;
 }
 
 .help{
@@ -194,6 +190,32 @@
     justify-content: space-between;
 }
 .logolog{
-  position: absolute;
-  top: -20px;
+    position: absolute;
+    left: 15px;
+    top: 0px;
+    //z-index: -1;
+    opacity: .9;
+
+    img{
+        width: 250px;
+        height: 100px;
+        object-fit: contain;
+    }
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    border: 2px solid gray;
+    padding: .4rem .7rem;
+    border-radius: 20%;
+    color: white;
+    cursor: pointer;
+    &:hover {
+        border-color: $main-bg; // Assuming $main-color is defined
+    }
 }
