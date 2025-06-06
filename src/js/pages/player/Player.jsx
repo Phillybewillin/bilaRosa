@@ -716,7 +716,7 @@ useEffect(() => {
     
     if (!prioritizedValue || !options.find((option) => option.value === prioritizedValue)) {
       //toast.info("Defaulting to Granadilla");
-      prioritizedValue = options[4].value;
+      prioritizedValue = options[0].value;
     }
     
     const selectedOpt = options.find((option) => option.value === prioritizedValue);
