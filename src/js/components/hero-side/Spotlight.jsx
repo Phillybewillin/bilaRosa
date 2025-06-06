@@ -210,11 +210,19 @@ const Spotlight = () => {
 
     // Data for slides (refactored for cleaner code)
     const slidesData = [
+          {
+            id: 870028, type: 'movie', title: 'the accountant 2', number: 'R',
+            image: 'https://image.tmdb.org/t/p/original/abznrQ6EAxV7vZglaS5umsrTNOS.jpg',
+            logo: 'https://image.tmdb.org/t/p/original/dNZAN3YNlOT23tIaWlB6EBHVYG7.png',
+            genres: ['ACTION', 'CRIME', 'THRILLER'], release: 'MOVIE | 18 APR 2025', rating: '71%',
+            overview: 'Do you like puzzles?',
+            dropShadow: 'drop-shadow(0 0 3rem rgba(137, 105, 77, 0.39))'
+        },
         {
             id: 1233413, type: 'movie', title: 'sinners', number: 'R',
             image: 'https://image.tmdb.org/t/p/original/nAxGnGHOsfzufThz20zgmRwKur3.jpg',
             logo: 'https://image.tmdb.org/t/p/w500/neDI3TKo5Pe3hBxas3SHAM83T2e.png',
-            genres: ['HORROR', 'MYSTERY', 'THRILLER'], release: 'MOVIE | 18 APR 2025', rating: '71%',
+            genres: ['HORROR', 'MYSTERY', 'THRILLER'], release: 'MOVIE | 18 APR 2025', rating: '74%',
             overview: 'Trying to leave their troubled lives behind, twin brothers return to their hometown to start again, only to discover that an even',
             dropShadow: 'drop-shadow(0 0 3rem rgba(198, 23, 7, 0.39))'
         },
