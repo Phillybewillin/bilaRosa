@@ -49,15 +49,16 @@ export default function Player() {
   const [collection, setCollection] = useState([]);
 
   const options = [
-   { value: "https://vidjoy.pro/embed/", label: "DURIAN" },
+   { value: "https://111movies.com/", label: "PEACH" },
    { value: "https://moviesapi.club/", label: "GRANADILLA" },
-   { value: "https://player.vidsrc.co/embed/", label: "MANGOSTEEN" },
    { value: "https://vidfast.pro/", label: " CANTALOUPE" },
-   { value: "https://vidora.su/", label: "DRAGONFRUIT" },
+   { value: "https://player.vidsrc.co/embed/", label: "MANGOSTEEN" },
    { value: "https://player.autoembed.cc/embed/", label: "STRAWBERRY"},
+   { value: "https://vidora.su/", label: "DRAGONFRUIT" },
    { value: "https://vidzee.wtf/", label: "TANGERINE" },
    { value: "https://vidzee.wtf/2", label: "TANGERINE 4K" },
    { value: "https://vidsrc.rip/embed/", label: "PERSIMMON" },
+   { value: "https://vidjoy.pro/embed/", label: "DURIAN" },
    { value: "https://vidlink.pro/", label: "PINEBERRY" },
    { value: "https://player.videasy.net/", label: "APPLE 4K"},
    { value: "https://vidsrc.me/embed/", label: "KIWI" },
@@ -65,7 +66,7 @@ export default function Player() {
    { value: "https://autoembed.pro/embed/", label: "LEMON" },
    { value: "https://vidsrc.cc/v2/embed/", label: "CHERRY" },
    { value: "https://vidsrc.xyz/embed/", label: "BANANA" },
-    { value: "https://player.autoembed.cc/", label: "WATERMELON" },
+   { value: "https://player.autoembed.cc/", label: "WATERMELON" },
   
  ];
   
@@ -735,7 +736,9 @@ useEffect(() => {
     let src = "";
     if (iframeUrl === "https://moviesapi.club/") {
       src = `${iframeUrl}tv/${id}-${currentSeason}-${currentEpisode}`;
-    }  else if (iframeUrl === "https://vidfast.pro/") {
+    } else if (iframeUrl === "https://111movies.com/") {
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+    } else if (iframeUrl === "https://vidfast.pro/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
     } else if (iframeUrl === "https://vidjoy.pro/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?adFree=true`;
@@ -781,6 +784,8 @@ useEffect(() => {
   const handlemovieIframeSrc = () => {
     let src = "";
     if (iframeUrl === "https://moviesapi.club/") {
+      src = `${iframeUrl}movie/${id}`;
+    } else if (iframeUrl === "https://111movies.com/") {
       src = `${iframeUrl}movie/${id}`;
     }else if (iframeUrl === "https://vidjoy.pro/embed/") {
       src = `${iframeUrl}movie/${id}?adFree=true`;
