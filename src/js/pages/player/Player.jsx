@@ -49,9 +49,9 @@ export default function Player() {
   const [collection, setCollection] = useState([]);
 
   const options = [
-   { value: "https://111movies.com/", label: "PEACH" },
-   { value: "https://moviesapi.club/", label: "GRANADILLA" },
-   { value: "https://vidfast.pro/", label: " CANTALOUPE" },
+  { value: "https://vidfast.pro/", label: " CANTALOUPE" },
+  { value: "https://moviesapi.club/", label: "GRANADILLA" },
+  { value: "https://111movies.com/", label: "PEACH" },
    { value: "https://player.vidsrc.co/embed/", label: "MANGOSTEEN" },
    { value: "https://player.autoembed.cc/embed/", label: "STRAWBERRY"},
    { value: "https://vidora.su/", label: "DRAGONFRUIT" },
@@ -1834,7 +1834,7 @@ const renderEpisodes = () => {
                               }`}
                             >
                               <h4 className="seasons__name">
-                                Season {item.season_number}
+                                SN-{item.season_number}
                               </h4>
                             </div>
                           </div>
@@ -1863,7 +1863,7 @@ const renderEpisodes = () => {
               </>
             )}
             {
-              collection && (
+              collection && collection.parts && (
                 <div className="recommendationsfull">
                   <h3 className="recohead">Collections </h3>
                   <div className="recoholderfull">
