@@ -49,9 +49,9 @@ export default function Player() {
   const [collection, setCollection] = useState([]);
 
   const options = [
-  { value: "https://vidfast.pro/", label: " CANTALOUPE" },
-  { value: "https://moviesapi.club/", label: "GRANADILLA" },
-  { value: "https://111movies.com/", label: "PEACH" },
+   { value: "https://moviesapi.club/", label: "GRANADILLA" },
+   { value: "https://vidfast.pro/", label: " CANTALOUPE" },
+   { value: "https://111movies.com/", label: "PEACH" },
    { value: "https://player.vidsrc.co/embed/", label: "MANGOSTEEN" },
    { value: "https://player.autoembed.cc/embed/", label: "STRAWBERRY"},
    { value: "https://vidora.su/", label: "DRAGONFRUIT" },
