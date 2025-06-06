@@ -229,9 +229,9 @@ setEpisodeLayoutMode((prev) => (prev % 3) + 1);
         .split(" ")
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" ");
-      document.title = `Currently Watching ${decodedTitle}`;
+      document.title = `Currently Streaming ${decodedTitle} on MoviePluto`;
       if (season_number && episode_number) {
-        document.title = `Currently Watching ${decodedTitle} • S${currentSeason} • E${currentEpisode}`;
+        document.title = `Currently Streaming ${decodedTitle} • S${currentSeason} • E${currentEpisode} on MoviePluto`;
       }
     }
     if (id && currentSeason) {
@@ -303,7 +303,7 @@ setEpisodeLayoutMode((prev) => (prev % 3) + 1);
       //console.warn(`handleIframeError triggered by: ${reason}`);
   
       const currentOption = options.find(option => option.value === iframeUrl);
-      if (currentOption?.label === "GRANADILLA") {
+      if (currentOption?.value === "https://vidfast.pro/") {
         //console.info("Error detected, but current source is GRANADILLA. Not switching.");
         //toast.warn("Issue detected on GRANADILLA, but no failover is configured.");
         return;
@@ -314,7 +314,7 @@ setEpisodeLayoutMode((prev) => (prev % 3) + 1);
         return;
       }
   
-      errorCountRef.current[iframeUrl] = (errorCountRef.current[iframeUrl] || 0) + 1;
+       errorCountRef.current[iframeUrl] = (errorCountRef.current[iframeUrl] || 0) + 1;
   
       if (errorCountRef.current[iframeUrl] > 2) {
         toast.error("Multiple retries failed for this source. Stopping attempts.");
@@ -739,7 +739,7 @@ useEffect(() => {
     } else if (iframeUrl === "https://111movies.com/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
     } else if (iframeUrl === "https://vidfast.pro/") {
-      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?theme=9B59B6&autoPlay=true&title=false&poster=true&nextButton=true&autoNext=true`;
     } else if (iframeUrl === "https://vidjoy.pro/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?adFree=true`;
     }
@@ -750,7 +750,7 @@ useEffect(() => {
       src = `https://vidzee.wtf/tv/${id}/${currentSeason}/${currentEpisode}`;
     }
     else if (iframeUrl === "https://vidlink.pro/") {
-      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?poster=true&autoplay=false&icons=vid`;
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?poster=true&autoplay=true&icons=vid`;
     } else if (iframeUrl === "https://autoembed.pro/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
     } else if (iframeUrl === "https://player.videasy.net/") {
@@ -766,7 +766,7 @@ useEffect(() => {
     } else if (iframeUrl === "https://vidsrc.xyz/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
     } else if (iframeUrl === "https://vidora.su/") {
-      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?colour=ff0059&autoplay=true&autonextepisode=false&backbutton=https%3A%2F%2Fvidora.su%2F&pausescreen=true`;
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}?colour=ff0059&autoplay=true&autonextepisode=false`;
     } else if (iframeUrl === "https://player.vidsrc.co/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
     } else if (iframeUrl === "https://player.autoembed.cc/") {
@@ -795,7 +795,7 @@ useEffect(() => {
       src = `https://vidzee.wtf/movie/4k/${id}`;
     }
     else if (iframeUrl === "https://vidfast.pro/") {
-      src = `${iframeUrl}movie/${id}`;
+      src = `${iframeUrl}movie/${id}?theme=9B59B6&autoPlay=true`;
     } else if (iframeUrl === "https://vidlink.pro/") {
       src = `${iframeUrl}movie/${id}?poster=true&autoplay=false&nextbutton=true&icons=vid`;
     } else if (iframeUrl === "https://player.autoembed.cc/embed/") {
