@@ -210,11 +210,19 @@ const Spotlight = () => {
 
     // Data for slides (refactored for cleaner code)
     const slidesData = [
+         {
+            id: 1376434, type: 'movie', title: 'predator killer of killers', number: 'R',
+            image: 'https://image.tmdb.org/t/p/original/cBgJJS19kVxedaLWPBbAi7Mh8wM.jpg',
+            logo: 'https://image.tmdb.org/t/p/original/jCAF2HRnJkhqrFOr2bsr3Vfgn7D.png',
+            genres: ['ACTION', 'ANIMATION', 'SCI-FI'], release: 'MOVIE | 05 JUN 2025', rating: '81%',
+            overview: 'This original animated anthology follows three of the fiercest warriors in human history: a Viking raider guiding her young son on a bloody quest for revenge, a ninja in feudal Japan who turns against his Samurai brother in a brutal battle for succession',
+            dropShadow: 'drop-shadow(0 0 3rem rgba(123, 96, 85, 0.39))'
+        },
           {
             id: 870028, type: 'movie', title: 'the accountant 2', number: 'R',
             image: 'https://image.tmdb.org/t/p/original/abznrQ6EAxV7vZglaS5umsrTNOS.jpg',
             logo: 'https://image.tmdb.org/t/p/original/dNZAN3YNlOT23tIaWlB6EBHVYG7.png',
-            genres: ['ACTION', 'CRIME', 'THRILLER'], release: 'MOVIE | 18 APR 2025', rating: '71%',
+            genres: ['ACTION', 'CRIME', 'THRILLER'], release: 'MOVIE | 18 MAR 2025', rating: '71%',
             overview: 'Do you like puzzles?',
             dropShadow: 'drop-shadow(0 0 3rem rgba(137, 105, 77, 0.39))'
         },
@@ -228,11 +236,12 @@ const Spotlight = () => {
         },
         {
             id: 60625, type: 'tv', title: 'Rick and Morty ', number: 'TV-14',
-            image: 'https://image.tmdb.org/t/p/original/mgcgx7LVsB9ko2wvbj6yQeyrrzr.jpg',
+            image: 'https://image.tmdb.org/t/p/original/uGy4DCmM33I7l86W7iCskNkvmLD.jpg',
             logo: 'https://image.tmdb.org/t/p/w500/yX4zH78qqpIfBKvsxccy33bEZGO.png',
             genres: ['ANIMATION', 'COMEDY', 'SCI-FI & FANTASY'], release: 'TV | 04 DEC 2013', rating: '86%',
-            overview: 'The twosome you have been waiting for', selectedSeason: 1, episodeNumber: 1,
-            dropShadow: 'drop-shadow(0 0 3rem rgba(143, 142, 141, 0.27)'
+            overview: 'Rick is a mentally-unbalanced but scientifically gifted old man who has recently reconnected with his family. He spends most of his time involving his young grandson Morty in dangerous, outlandish adventures throughout space and alternate universes. ', 
+            selectedSeason: 1, episodeNumber: 1,
+            dropShadow: 'drop-shadow(0 0 3rem rgba(0, 136, 8, 0.27)'
         },
         {
             id: 247718, type: 'tv', title: 'Mobland', number: 'TV-MA',
