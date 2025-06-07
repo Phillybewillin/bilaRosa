@@ -146,16 +146,20 @@ const Detail = () => {
     getVideos();
   }, [category, id ]);
 
-  useEffect(() => {
-    if(!item?.title){
-       document.title = ` Loading... - Watch It on MoviePluto`;
-    };
-    
-    document.title = `${item?.title || item?.name } - Watch It on MoviePluto`;
-    scrollToTop();
-    
-    //console.log('items:', items);
-  }, [category, id , item]);
+useEffect(() => {
+  let title = 'Where to watch';
+
+  if (!item?.title && !item?.name) {
+    title = 'Watch';
+  } else {
+    const name = item.title || item.name;
+    title = `Where to watch ${name} | MoviePluto`;
+  }
+
+  document.title = title;
+  scrollToTop();
+}, [category, id, item]);
+
    
   const handleRemoveFromWatchlist = async (item) => {
     await removeFromWatchlist(user?.uid, item.id);
