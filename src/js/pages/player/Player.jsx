@@ -49,8 +49,9 @@ export default function Player() {
   const [collection, setCollection] = useState([]);
 
   const options = [
-   { value: "https://moviesapi.club/", label: "GRANADILLA" },
+  
    { value: "https://vidfast.pro/", label: " CANTALOUPE" },
+   { value: "https://moviesapi.club/", label: "GRANADILLA" },
    { value: "https://111movies.com/", label: "PEACH" },
    { value: "https://player.vidsrc.co/embed/", label: "MANGOSTEEN" },
    { value: "https://player.autoembed.cc/embed/", label: "STRAWBERRY"},
@@ -229,9 +230,9 @@ setEpisodeLayoutMode((prev) => (prev % 3) + 1);
         .split(" ")
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" ");
-      document.title = `Currently Streaming ${decodedTitle} on MoviePluto`;
+      document.title = `Currently Streaming ${decodedTitle} | MoviePluto`;
       if (season_number && episode_number) {
-        document.title = `Currently Streaming ${decodedTitle} • S${currentSeason} • E${currentEpisode} on MoviePluto`;
+        document.title = `Currently Streaming ${decodedTitle} • S${currentSeason} • E${currentEpisode} | MoviePluto`;
       }
     }
     if (id && currentSeason) {
