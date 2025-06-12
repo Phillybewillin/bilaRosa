@@ -1,9 +1,8 @@
 # wrangler.toml
-name = "bila-rosa" # This will be the name of your Cloudflare Pages project
-#main = "src/index.ts" # Placeholder, not strictly used for static Pages deployments
-compatibility_date = "2024-01-01" # Set to a recent date, e.g., "2024-06-13" or today's date
-                               # This ensures your Worker/Pages environment uses recent features.
+name = "bila-rosa" # Ensure this matches the name in your Cloudflare dashboard
+main = "src/main.jsx"            # This is your Worker's entry point (even if it's minimal)
+compatibility_date = "2025-06-13" # Or whatever today's date is, or a very recent date
 
-# This section tells Cloudflare Pages where your built output will be
-[pages]
-build_output_dir = "./dist"
+# THIS IS THE CRUCIAL CHANGE for Workers with static assets
+[assets]
+directory = "./dist" # Point this to your Vite build output directory
