@@ -4,6 +4,7 @@
 .blurred-toast {
   background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: #fff;
 }
 
@@ -67,7 +68,7 @@
   position: relative;
 
   @include mobile {
-    height: 32vh;
+    height: 52vh;
     //background-color: #ba24247f;
     //backdrop-filter: blur(10px);
   }
@@ -81,13 +82,19 @@
   font-size: 12px;
  // filter: drop-shadow(0 0 1rem rgba(210, 210, 210, 0.128));
   position: absolute;
-  top: 3px;
+  top: 7px;
   left: 5px;
   //padding:  .2rem;
   //background-color: #1414145f;
   z-index: 20;
  // border-radius: 7px;
   //margin: 10px;
+
+  .youtube-mode-layout & {
+    top: 4px;
+    //background-color: #ba24247f;
+    //backdrop-filter: blur(10px);
+  }
 
   @include mobile {
     top: -7px;
@@ -109,7 +116,7 @@
     font-size: 1rem;
     font-weight: 500;
     color: white;
-    border-radius: 20px ;
+    border-radius: 10px ;
 
     @include flex(center, flex-start);
 
@@ -119,13 +126,15 @@
        // filter: drop-shadow(0 0 1rem rgba(49, 19, 19, 0.55));
         @include mobile {
           //position: absolute;
-            width: 30px;
+            width: 140px;
             margin-right: 0;
         }
     }
    
     @include mobile {
-      display : none;
+      right: 3px;
+      top: 0px;
+     // display : none;
         
     }
 }
@@ -150,10 +159,10 @@
 .navi{
   display: flex;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.096);
-  padding: 7px;
-  border: 2px solid rgba(255, 255, 255, 0.411);
-  padding: 8px ;
+  background-color: rgba(255, 255, 255, 0.055);
+  padding: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.073);
+   padding: 8px ;
   //border-left: 1px solid rgba(248, 109, 141, 0.968);
  
   cursor: pointer;
@@ -161,8 +170,8 @@
   font-size: .85rem;
   font-weight: 400;
   color: rgb(255, 255, 255);
-  border-radius: 50%; ;
-  opacity: .7;
+  border-radius: 20%; 
+  opacity: .9;
 
   @include mobile{
     margin-left: 1rem;
@@ -172,17 +181,17 @@
 .navih{
   display: flex;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.096);
+  background-color: rgba(255, 255, 255, 0.055);
   padding: 8px;
-  border: 2px solid rgba(255, 255, 255, 0.411);
+  border: 2px solid rgba(255, 255, 255, 0.073);
   cursor: pointer;
   margin: 2px 3px;
   font-size: 1.3rem;
   font-weight: 500;
   color: rgb(255, 255, 255);
   //border-left: 1px solid rgba(255, 27, 42, 0.968);
-  border-radius: 50%;
-  opacity: .7;
+  border-radius: 20%;
+  opacity: .9;
 
   @include mobile{
     scale: 1.2;
@@ -194,6 +203,40 @@
 }
 .navih:hover{
  opacity: 1;
+}
+
+.hax{
+  display: flex;
+}
+.haxandroid{
+  display: none;
+
+  @include mobile{
+    display: flex;
+    margin-bottom: 2rem;
+  }
+
+}
+.haxposter{
+  img{
+    height: 100px;
+    padding-left: .4rem;
+    border-radius: 10px;
+  }
+}
+
+.haxoverview{
+  font-size: .72rem;
+  padding: 5px 10px;
+  background-color: #ffffff0b;
+  color: #6a6a6a;
+  margin-left: 10px;
+  margin-right: 2px;
+  border-radius: 10px;
+
+  @include mobile{
+    font-size: .8rem;
+  }
 }
 
 .episodes_title{
@@ -286,14 +329,24 @@
   flex-direction: row;
   position: absolute;
   background-color: #ffffff0c;
-  padding: 5px 10px;
+  padding: 6px 10px;
   border-radius: 15px;
   left: 6.5rem;
-  top: 7px;
+  top: 10.3px;
+
+  .youtube-mode-layout &{
+    left: 6.5rem;
+    top: 5px;
+  }
+  @include tablet {
+    
+    //top: -.5rem;
+    left: 10.5rem;
+  }
   @include mobile {
     
     top: -.5rem;
-    left: 75vw;
+    left: 10.5rem;
   }
 }
 .watchnow{
@@ -324,7 +377,7 @@
  top: 0rem;
   z-index: 1 !important;
   cursor: pointer;
-  width: 49%;
+  width: 35%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -425,14 +478,14 @@
 .rea{
   display: flex;
   position: absolute;
-  right: .2rem;
+  left: 14rem;
   cursor: pointer;
-  top: 4.5px;
+  top: .6rem;
   z-index: 100;
   //display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 300px;
+  width: 160px;
   flex-direction: row;
   gap: 10px;
   border-radius: 10px;
@@ -440,16 +493,24 @@
   font-weight: 400;
   background-color: #ffffff0e;
   //backdrop-filter: blur(10px);
- // padding: 10px 15px;
+ padding: 10px 15px;
+ overflow: hidden;
  padding-right: 10px;
+ cursor: pointer;
  transition: all .4s ease-in-out;
-  
+  @include tablet {
+    display: none;
+  }
+
   @include mobile {
-    left: 8.8rem;
-    top: -1.4rem;
-    position: absolute;
-    margin: 1rem .5rem;
-    width: 180px;
+   
+    position: relative;
+    left: .2rem;
+    top: 4.7rem;
+    width: 30%;
+    display: flex;
+    //margin: 1rem .5rem;
+    
     //display: none;
   }
 }
@@ -466,12 +527,16 @@
 }
 .rea:hover{
   scale: 0.97;
+  cursor: pointer;
   background-color: #3a290188;
 }
 .reaimg{
-  width: auto;
-  height: 50px;
-  border-radius: 10px 0 0 10px;
+  width: 60px;
+  position: absolute;
+  right: 0px;
+  filter: blur(20px) brightness(.7);
+  height: 100%;
+ // border-radius: 10px 0 0 10px;
 
   @include mobile {
     height: 40px;
@@ -482,10 +547,11 @@
   //z-index: 999999;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content:flex-end ;
   flex-direction: row;
+  max-width: 100%;
   gap: 10px;
-  margin-top: 3rem;
+  margin-top: 0rem;
   font-size: .8rem;
   //background-color: #16161671;
   //backdrop-filter: blur(10px);
@@ -668,6 +734,10 @@
         border-radius: 15px;
       }
     }
+  }
+  .logozz{
+    right: 0px;
+    top: 0px;
   }
 
   // Right side: sidebar with controls and info
@@ -888,27 +958,30 @@
     margin: .2rem;
     //display: flex;
     z-index: 1000 ! important;
-    //position: absolute;
-    //top: -15px;
-    //right: 0px;
+    position: absolute;
+    top: 5.5px;
+    left: 0px;
     align-items:  center;
     justify-content: space-between;
     flex-direction: row;
    gap: 20px;
   
-   text-align: end;
-   text-wrap: wrap;
-    border-radius: 20px 40px 40px 70px;
+   text-align: center;
+   text-wrap: nowrap;
+    border-radius: 7px;
     width: 40%;
-    font-size: .8rem ;
-    //font-weight: 300;
+    font-size: .7rem ;
+    font-weight: 500;
     background-color: #ffffff0b;
     //backdrop-filter: blur(10px);
     //padding: 0px;
     cursor: pointer;
-    padding-right: .4rem;
+    
    transition: all .4s ease-in-out;
   
+  }
+   .watchnow.left{
+    width: 49%;
   }
 }
 
@@ -917,9 +990,9 @@
   margin: .2rem;
   //display: flex;
   z-index: 1000 ! important;
-  position: absolute;
-  top: 5px;
-  right: 0;
+  // position: absolute;
+  // top: 5px;
+  // right: 0;
   align-items:  center;
   justify-content: space-between;
   flex-direction: row;
@@ -928,26 +1001,28 @@
  overflow: hidden;
  text-wrap: wrap;
   border-radius: 5px;
-  width: 50%;
+  width: 40%;
   font-size: .8rem ;
   font-weight: 300;
   background-color: #ffffff09;
   //backdrop-filter: blur(10px);
-  padding: 0px;
+  padding: 10px 10px;
   cursor: pointer;
-  padding-right: .5rem;
+  
  transition: all .4s ease-in-out;
 
 }
 
 .rearoimg{
-  width: auto;
-  max-height: 50px;
-  filter: brightness(.7);
-  min-height: auto;
+  width: 60px;
+  height: 100%;
+  filter: brightness(.8) blur(19px);
+  position: absolute;
+  right: 0;
+  z-index: -1;
   object-fit: cover;
   
-  border-radius: 10px 0 0 10px;
+  border-radius: 0;
 }
 .rearo:hover{
   scale: .95;
@@ -982,6 +1057,7 @@
   border-radius: 15px;
   font-size: .7rem;
 }
+
 .episode_nameabo{
   //z-index: 30;
   position: absolute;
@@ -1039,16 +1115,18 @@
   }
   .episode_posterabos{
     height: 120px;
-    max-width: 59% ;
+    max-width: 49% ;
     object-fit: cover;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
   }
+ 
   .episodes_itemz {
     position: relative;
     padding: 0px;
-    padding-right: .5rem;
+    gap: 10px;
+    padding-right: .2rem;
     text-align: start;
     background-color: #c9c9c908;
     cursor: pointer;
@@ -1067,8 +1145,8 @@
        text-align: start;
       color: white;
       //background-color: #00000015;
-      padding: 2px 0px;
-      border-radius: 5px;
+      padding: 2px 10px;
+      //border-radius: 5px;
       font-size: .85rem;
       font-weight: 500;
       opacity: 1;
@@ -1076,6 +1154,7 @@
     .episode_overviewabo{
       color: grey;
       font-size: .7rem;
+      padding-left: 10px;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
@@ -1287,7 +1366,7 @@
     top: 0;
     z-index: 1001 !important;
     width: 100% !important;
-    height: 30vh;
+    height: 50vh;
   }
   
 }
