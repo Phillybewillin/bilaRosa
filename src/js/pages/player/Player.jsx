@@ -49,16 +49,16 @@ export default function Player() {
   const [collection, setCollection] = useState([]);
 
   const options = [
-  
-   { value: "https://vidfast.pro/", label: " CANTALOUPE" },
-   { value: "https://moviesapi.club/", label: "GRANADILLA" },
-   { value: "https://111movies.com/", label: "PEACH" },
-   { value: "https://player.vidsrc.co/embed/", label: "MANGOSTEEN" },
+   { value: "https://player.vidsrc.co/embed/", label: "MANGOSTEEN"},
+     { value: "https://moviesapi.club/", label: "GRANADILLA" },
+   { value: "https://vidfast.pro/", label: "CANTALOUPE" },
    { value: "https://player.autoembed.cc/embed/", label: "STRAWBERRY"},
    { value: "https://vidora.su/", label: "DRAGONFRUIT" },
+   { value: "https://111movies.com/", label: "PEACH" },
+   { value: "https://rivestream.org/embed", label: "GUAVA" },
    { value: "https://vidzee.wtf/", label: "TANGERINE" },
    { value: "https://vidzee.wtf/2", label: "TANGERINE 4K" },
-   { value: "https://vidsrc.rip/embed/", label: "PERSIMMON" },
+   { value: "https://vidsrc.rip/embed/", label: "PERSIMMON"},
    { value: "https://vidjoy.pro/embed/", label: "DURIAN" },
    { value: "https://vidlink.pro/", label: "PINEBERRY" },
    { value: "https://player.videasy.net/", label: "APPLE 4K"},
@@ -66,9 +66,8 @@ export default function Player() {
    { value: "https://embed.su/embed/", label: "GRAPE" },
    { value: "https://autoembed.pro/embed/", label: "LEMON" },
    { value: "https://vidsrc.cc/v2/embed/", label: "CHERRY" },
-   { value: "https://vidsrc.xyz/embed/", label: "BANANA" },
-   { value: "https://player.autoembed.cc/", label: "WATERMELON" },
-  
+   { value: "https://vidsrc.vip/embed/", label: "BANANA" },
+   { value: "https://player.autoembed.cc/", label: "WATERMELON" }, 
  ];
   
   // -------------------------------
@@ -761,7 +760,7 @@ useEffect(() => {
     }  else if (iframeUrl === "https://vidsrc.cc/v2/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
     } else if (iframeUrl === "https://embed.su/embed/") {
-      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}&autoplay=true`;
     } else if (iframeUrl === "https://vidsrc.me/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
     } else if (iframeUrl === "https://vidsrc.xyz/embed/") {
@@ -771,10 +770,12 @@ useEffect(() => {
     } else if (iframeUrl === "https://player.vidsrc.co/embed/") {
       src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
     } else if (iframeUrl === "https://player.autoembed.cc/") {
-      src = `${iframeUrl}embed/tv/${id}/${currentSeason}/${currentEpisode}?server=6`;
+      src = `${iframeUrl}embed/tv/${id}/${currentSeason}/${currentEpisode}?server=2&autoplay`;
+    } else if (iframeUrl === "https://rivestream.org/embed") {
+      src = `${iframeUrl}?type=tv&id=${id}&s=${currentSeason}&e=${currentEpisode}&autoplay`;
     }
     else if (iframeUrl === "https://vidsrc.rip/embed/") {
-      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}`;
+      src = `${iframeUrl}tv/${id}/${currentSeason}/${currentEpisode}&autoplay`;
     } else {
       src = iframeUrl;
     }
@@ -794,6 +795,8 @@ useEffect(() => {
       src = `${iframeUrl}movie/multi.php?id=${id}`;
     }else if (iframeUrl === "https://vidzee.wtf/2") {
       src = `https://vidzee.wtf/movie/4k/${id}`;
+    } else if (iframeUrl === "https://rivestream.org/embed") {
+      src = `${iframeUrl}?type=movie&id=${id}`;
     }
     else if (iframeUrl === "https://vidfast.pro/") {
       src = `${iframeUrl}movie/${id}?theme=9B59B6&autoPlay=true`;
@@ -1306,12 +1309,12 @@ const renderEpisodes = () => {
           theme="dark"
           //fontSize="11px"
           position="bottom-right"
-          autoClose={3000}
+          autoClose={8000}
           hideProgressBar={false}
-          
+          newestOnTop={false}
           closeOnClick={true}
           //rtl={false}
-         
+          pauseOnFocusLoss={false}
           draggable={false}
           pauseOnHover={true}
           icon={false}
@@ -1379,58 +1382,12 @@ const renderEpisodes = () => {
             <div className="youtube-player">
               
               <div className="zsa">
-              <div className="hevdo">
-  {currentEpisode < totalEpisodes ? (
-    // NEXT EPISODE in current committed season
-    (() => {
-      const nextEpisode = episodes.find(
-        (ep) => ep.episode_number === currentEpisode + 1
-      );
-
-      return nextEpisode ? (
-        <div
-          className="rearo"
-          onClick={() => handleQuickEpisodeClickNext(currentEpisode + 1)}
-        >
-          <img
-            className="rearoimg"
-            src={apiConfig.w200Image(nextEpisode.still_path)}
-            alt=""
-          />
-          NEXT UP : EP {currentEpisode + 1}
-          <i className="bx bx-right-arrow"></i>
-        </div>
-      ) : null;
-    })()
-  ) : totalseasons > 1 && currentSeason < totalseasons ? (
-    // NEXT SEASON START — still based on current committed season
-    (() => {
-      const nextSeason = seasons.find(
-        (s) => s.season_number === currentSeason + 1
-      );
-
-      return nextSeason ? (
-        <div
-          className="rearo"
-          onClick={() => {
-            // Do not commit season yet — just preview/fetch episodes
-            handleQuickSeasonClickNext(currentSeason + 1);
-          }}
-        >
-          <img
-            className="rearoimg"
-            src={apiConfig.w200Image(nextSeason.poster_path)}
-            alt=""
-          />
-          NEXT UP : SN {currentSeason + 1} EP 1
-          <i className="bx bx-right-arrow"></i>
-        </div>
-      ) : null;
-    })()
-  ) : null}
-</div>
-
-                <div className="haxnoititle">
+              <div className="hax">
+               <div className="haxposter">
+                <img src={apiConfig.w200Image(itemData.poster_path)} alt="" />
+              </div>
+          <div className="zsak">
+            <div className="haxnoititle">
                      Currently Watching:
                 </div>
                  <div className="haxnoiholder">
@@ -1451,7 +1408,19 @@ const renderEpisodes = () => {
                   )
                 }
                
+          
+                </div>
+                <div className="haxoverview">{itemData.overview}</div>
+                
+                    <div className="logozz" onClick={() => navigate("/")}>
+                  <img src={logo} alt="Pluto" />
+                  
+                </div>
+                
+          </div>
+                
               </div>
+
               <div className="sertop">
                 <div className="layout-toggles">
                   {category === "tv" && (
@@ -1475,10 +1444,7 @@ const renderEpisodes = () => {
                   </button>
                 </div>
   
-                <div className="logozz" onClick={() => navigate("/")}>
-                  <img src={logo} alt="ZillaXR" />
-                  
-                </div>
+              
                 <div className="menu">
                   <div className="navih" onClick={handleHome}>
                     <i className="bx bx-home-alt-2"></i>
@@ -1572,6 +1538,56 @@ const renderEpisodes = () => {
             <div className="youtube-sidebar">
               
               <div className="servers">
+                          <div className="hevdo">
+  {currentEpisode < totalEpisodes ? (
+    // NEXT EPISODE in current committed season
+    (() => {
+      const nextEpisode = episodes.find(
+        (ep) => ep.episode_number === currentEpisode + 1
+      );
+
+      return nextEpisode ? (
+        <div
+          className="rearo"
+          onClick={() => handleQuickEpisodeClickNext(currentEpisode + 1)}
+        >
+          <img
+            className="rearoimg"
+            src={apiConfig.w200Image(nextEpisode.still_path)}
+            alt=""
+          />
+          NEXT EPISODE
+          <i className="bx bx-right-arrow"></i>
+        </div>
+      ) : null;
+    })()
+  ) : totalseasons > 1 && currentSeason < totalseasons ? (
+    // NEXT SEASON START — still based on current committed season
+    (() => {
+      const nextSeason = seasons.find(
+        (s) => s.season_number === currentSeason + 1
+      );
+
+      return nextSeason ? (
+        <div
+          className="rearo"
+          onClick={() => {
+            // Do not commit season yet — just preview/fetch episodes
+            handleQuickSeasonClickNext(currentSeason + 1);
+          }}
+        >
+          <img
+            className="rearoimg"
+            src={apiConfig.w200Image(nextSeason.poster_path)}
+            alt=""
+          />
+          NEXT UP : SN {currentSeason + 1} EP 1
+          <i className="bx bx-right-arrow"></i>
+        </div>
+      ) : null;
+    })()
+  ) : null}
+</div>
                 <Select
                   className="selectco"
                   value={selectedOption}
@@ -1677,18 +1693,59 @@ const renderEpisodes = () => {
                 )})`,
               }}
             ></div>
-            <div className="player-container">{/* iframe is persistent above */}</div>
+            <div className="player-container">
+              
+            </div>
+             <div className="haxandroid">
+               <div className="haxposter">
+                <img src={apiConfig.w200Image(itemData.poster_path)} alt="" />
+              </div>
+          <div className="zsak">
+            <div className="haxnoititle">
+                     Currently Watching:
+                </div>
+                 <div className="haxnoiholder">
+                 
+                <div className="hanoxi">{itemData.title || itemData.name}</div>
+                {
+                  category === "tv" && (
+                    <div className="haxnoiep">
+                      SN {currentSeason} EP {currentEpisode}
+                    </div>
+                  )
+                }
+                {
+                  category === "movie" && (
+                    <div className="haxnoiep">
+                     {itemData.release_date ? new Date(itemData.release_date).getFullYear() : null}
+                    </div>
+                  )
+                }
+               
+          
+                </div>
+                <div className="haxoverview">{itemData.overview}</div>
+                
+                    <div className="logozz" onClick={() => navigate("/")}>
+                  <img src={logo} alt="Pluto" />
+                  
+                </div>
+                
+          </div>
+                
+              </div>
             <div className="sertop">
+              
               <div className="logozz" onClick={() => navigate("/")}>
                 <img src={logo} alt="MOVIEPLUTO"/>
                 
               </div>
               <div className="menu">
                 <div className="navih" onClick={handleHome}>
-                  <i className="bx bx-home-alt-2"></i>
+                  <i className="bx bx-home-smile"></i>
                 </div>
                 <div className="navi" onClick={handleBack}>
-                  <i className="bx bx-arrow-back"></i>
+                  <i className="bx bx-chevron-left"></i>
                 </div>
               </div>
               {currentEpisode < totalEpisodes ? (
@@ -1707,7 +1764,7 @@ const renderEpisodes = () => {
                     )}
                     alt=""
                   />
-                  NEXT UP : EP {parseInt(currentEpisode) + 1}{" "}
+                  NEXT EPISODE
                   <i className="bx bx-right-arrow"></i>
                 </div>
               ) : totalseasons > 1 && currentSeason < totalseasons ? (
@@ -1835,7 +1892,7 @@ const renderEpisodes = () => {
                               }`}
                             >
                               <h4 className="seasons__name">
-                                SN-{item.season_number}
+                                Season {item.season_number}
                               </h4>
                             </div>
                           </div>
@@ -1864,7 +1921,7 @@ const renderEpisodes = () => {
               </>
             )}
             {
-              collection && collection.parts && (
+              collection && (
                 <div className="recommendationsfull">
                   <h3 className="recohead">Collections </h3>
                   <div className="recoholderfull">
