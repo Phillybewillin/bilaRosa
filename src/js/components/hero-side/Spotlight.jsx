@@ -210,18 +210,26 @@ const Spotlight = () => {
 
     // Data for slides (refactored for cleaner code)
     const slidesData = [
+        {
+            id: 1087891, type: 'movie', title: 'the Amature', number: 'R',
+            image: 'https://image.tmdb.org/t/p/original/6van4BavoNXaZhCPdzLHNQ4Uc8H.jpg',
+            logo: 'https://image.tmdb.org/t/p/w500/dgftNrAd3WDQSvAetE9Q3ggSqZt.png',
+            genres: ['ACTION', 'THRILLER'], release: 'MOVIE | 11 APR 2025', rating: '67%',
+            overview: 'After his life is turned upside down when his wife is killed in a London terrorist attack, a brilliant but ',
+            dropShadow: 'drop-shadow(0 0 3rem rgba(101, 106, 121, 0.39))'
+        },
          {
             id: 1376434, type: 'movie', title: 'predator killer of killers', number: 'R',
-            image: 'https://image.tmdb.org/t/p/original/cBgJJS19kVxedaLWPBbAi7Mh8wM.jpg',
-            logo: 'https://image.tmdb.org/t/p/original/jCAF2HRnJkhqrFOr2bsr3Vfgn7D.png',
+            image: 'https://image.tmdb.org/t/p/original/7X4sA04ZebF4poU0JsbpvPGoy15.jpg',
+            logo: 'https://image.tmdb.org/t/p/w500/jCAF2HRnJkhqrFOr2bsr3Vfgn7D.png',
             genres: ['ACTION', 'ANIMATION', 'SCI-FI'], release: 'MOVIE | 05 JUN 2025', rating: '81%',
             overview: 'This original animated anthology follows three of the fiercest warriors in human history: a Viking raider guiding her young son on a bloody quest for revenge, a ninja in feudal Japan who turns against his Samurai brother in a brutal battle for succession',
-            dropShadow: 'drop-shadow(0 0 3rem rgba(123, 96, 85, 0.39))'
+            dropShadow: 'drop-shadow(0 0 3rem rgba(146, 79, 35, 0.39))'
         },
           {
             id: 870028, type: 'movie', title: 'the accountant 2', number: 'R',
             image: 'https://image.tmdb.org/t/p/original/abznrQ6EAxV7vZglaS5umsrTNOS.jpg',
-            logo: 'https://image.tmdb.org/t/p/original/dNZAN3YNlOT23tIaWlB6EBHVYG7.png',
+            logo: 'https://image.tmdb.org/t/p/w500/dNZAN3YNlOT23tIaWlB6EBHVYG7.png',
             genres: ['ACTION', 'CRIME', 'THRILLER'], release: 'MOVIE | 18 MAR 2025', rating: '71%',
             overview: 'Do you like puzzles?',
             dropShadow: 'drop-shadow(0 0 3rem rgba(137, 105, 77, 0.39))'
