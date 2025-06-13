@@ -146,20 +146,19 @@ const Detail = () => {
     getVideos();
   }, [category, id ]);
 
-useEffect(() => {
+ useEffect(() => {
   let title = 'Where to watch';
 
   if (!item?.title && !item?.name) {
-    title = 'Watch';
+    title = 'Where to watch';
   } else {
     const name = item.title || item.name;
-    title = `Where to watch ${name} | MoviePluto`;
+    title = `Where to watch ${name} for free `;
   }
 
   document.title = title;
   scrollToTop();
 }, [category, id, item]);
-
    
   const handleRemoveFromWatchlist = async (item) => {
     await removeFromWatchlist(user?.uid, item.id);
@@ -170,11 +169,6 @@ useEffect(() => {
     await removeFromFavourites(user?.uid, item.id);
     setLike(false);
   };
-
-
-
-  
-  
 
     const getGenreColor = (genre) => {
         switch (genre) {
@@ -476,36 +470,23 @@ const ringStyle = {
                        <div className="detail-container">
                       
                        <div className="goback">
-                    <button onClick={handleGoBack} className='gobackbtn'><i class='bx bx-arrow-back'></i></button>
+                    <button onClick={handleGoBack} className='gobackbtn'><i class='bx bx-chevron-left'></i></button>
                     </div>
           
                     <div className="banner" style={{backgroundImage: `url(${apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)})`}}></div>
                   
                       <div className="trailller">
 
-                     <Button className='btntrailer' onClick={watchTrailer}><i class='bx bx-joystick-alt'></i>Trailer</Button>
-                         {category === 'movie' && 
-  <>
-    {item.release_date && new Date(item.release_date) > new Date() ? (
-      <div className="timeleft" >
-        <p>Check back in {timeLeft}</p>
-      </div>
-    ) : (
-      <div className="buttonz">
-        <Button className='btnprime' onClick={handlescrolldown}> <i className='bx bx-directions'></i><p className='btntext' ></p></Button>
-        <Button className="btnplay" onClick={() => handlePlayer(item.id, item.name || item.title)}><i className='bx bx-play'></i>  Watch </Button> 
-      </div>
-    )}
-  </>
-}    
+                    { category === 'tv'  &&  <Button className='btntrailer' onClick={watchTrailer}><i class='bx bx-joystick-alt'></i>Watch Trailer</Button>} 
+                       
                      </div>
-                        <div className="movie-content">
+                        <div className={`movie-content ${category === 'tv' ? 'tvactie' : ''}`}>
                            <div className="movie-content__info">
                             <div className="titleholder">
                               <div className="postertitlett">
 
                                  {
-                               title && title !== null &&  title !== '' ? (<img className="postertitle" src={apiConfig.w1280Image(title)} alt="" />) : (<h2 className="title">
+                               title && title !== null &&  title !== '' ? (<img className="postertitle" src={apiConfig.w500Image(title)} alt="" />) : (<h2 className="title">
                                    {item.title || item.name} 
                                    </h2>)
                               }
@@ -532,7 +513,7 @@ const ringStyle = {
                                             <div className="languagezz"  onClick={() => handleRemoveFromWatchlist(item)}><i class='bx bxs-add-to-queue' style={{fontSize:'17px'}} ></i> In my Watchlist</div>
                                
                                         ):(
-                                            <div className="languagez" onClick={() => saveShow(item)}><i class='bx bx-add-to-queue' style={{fontSize:'17px'}} ></i> Add To Watchlist</div>
+                                            <div className="languagez" onClick={() => saveShow(item)}><i class='bx bx-add-to-queue' style={{fontSize:'17px'}} ></i> </div>
                               
                                         )
                                     }
@@ -593,7 +574,23 @@ const ringStyle = {
         </defs>
       </svg>
     </div>
-                    </div>
+                                   </div>
+                                   <div className="watchbutton">
+                                      {category === 'movie' && 
+  <>
+    {item.release_date && new Date(item.release_date) > new Date() ? (
+      <div className="timeleft" >
+        <p>Check back in {timeLeft}</p>
+      </div>
+    ) : (
+      <div className="watchbuttonholder">
+        <Button className='btnplay' onClick={watchTrailer}> <i className='bx bx-joystick'></i> Trailer</Button>
+        <Button className="btnplay" onClick={() => handlePlayer(item.id, item.name || item.title)}><i className='bx bx-play'></i>  Watch </Button> 
+      </div>
+    )}
+  </>
+}    
+                                   </div>
          
      <div className="prodcomp">
      <h4 className='sammzy'>PRODUCTION COMPANIES</h4>
@@ -610,13 +607,7 @@ const ringStyle = {
                                </div>
                             
                                
-                              {category === 'tv' && <Suspense fallback={null}>
-
-                                 <Seasons category={category}
-                              id={item.id} title={item.name || item.title}/> 
-                            
-                                </Suspense>
-                              }
+                             
                               
                              
 
@@ -629,9 +620,20 @@ const ringStyle = {
                                             
 
                         </div>
+                      {category === 'tv' &&
+                        <div className="seasonleft">
+                            <Suspense fallback={null}>
 
-                     
-                           
+                                 <Seasons
+                         id={id}
+                         title={item.name}
+                         category={category} // Still needed for episode fetching in Seasons component
+                         initialSeasonsData={item.seasons} // <--- Pass the seasons data
+                    />
+                                </Suspense>
+                             
+                        </div>
+                        }
                        </div>
                        
                        <Suspense fallback={null}>
