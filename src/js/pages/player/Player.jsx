@@ -50,8 +50,9 @@ export default function Player() {
 
   const options = [
    { value: "https://player.vidsrc.co/embed/", label: "MANGOSTEEN"},
-     { value: "https://moviesapi.club/", label: "GRANADILLA" },
    { value: "https://vidfast.pro/", label: "CANTALOUPE" },
+   { value: "https://moviesapi.club/", label: "GRANADILLA" },
+  
    { value: "https://player.autoembed.cc/embed/", label: "STRAWBERRY"},
    { value: "https://vidora.su/", label: "DRAGONFRUIT" },
    { value: "https://111movies.com/", label: "PEACH" },
@@ -294,56 +295,56 @@ setEpisodeLayoutMode((prev) => (prev % 3) + 1);
   
   
 
-  const errorCountRef = useRef({});
+  // const errorCountRef = useRef({});
 
-  const isOnline = () => navigator.onLine;
+  // const isOnline = () => navigator.onLine;
 
-  const handleIframeError = useCallback(
-    debounce((reason = "unknown") => {
-      //console.warn(`handleIframeError triggered by: ${reason}`);
+ //const handleIframeError = useCallback(
+  //   debounce((reason = "unknown") => {
+  //     //console.warn(`handleIframeError triggered by: ${reason}`);
   
-      const currentOption = options.find(option => option.value === iframeUrl);
-      if (currentOption?.value === "https://vidfast.pro/") {
-        //console.info("Error detected, but current source is GRANADILLA. Not switching.");
-        //toast.warn("Issue detected on GRANADILLA, but no failover is configured.");
-        return;
-      }
+  //     const currentOption = options.find(option => option.value === iframeUrl);
+  //     if (currentOption?.value === "https://vidfast.pro/") {
+  //       //console.info("Error detected, but current source is GRANADILLA. Not switching.");
+  //       //toast.warn("Issue detected on GRANADILLA, but no failover is configured.");
+  //       return;
+  //     }
   
-      if (!isOnline()) {
-        toast.error("You're offline. Please check your connection.");
-        return;
-      }
+  //     if (!isOnline()) {
+  //       toast.error("You're offline. Please check your connection.");
+  //       return;
+  //     }
   
-       errorCountRef.current[iframeUrl] = (errorCountRef.current[iframeUrl] || 0) + 1;
+  //      errorCountRef.current[iframeUrl] = (errorCountRef.current[iframeUrl] || 0) + 1;
   
-      if (errorCountRef.current[iframeUrl] > 2) {
-        toast.error("Multiple retries failed for this source. Stopping attempts.");
-        return;
-      }
+  //     if (errorCountRef.current[iframeUrl] > 2) {
+  //       toast.error("Multiple retries failed for this source. Stopping attempts.");
+  //       return;
+  //     }
   
-      setTriedSources(prev => [...prev, iframeUrl]);
+  //     setTriedSources(prev => [...prev, iframeUrl]);
   
-      const currentIndex = options.findIndex(option => option.value === iframeUrl);
-      let nextOption = null;
+  //     const currentIndex = options.findIndex(option => option.value === iframeUrl);
+  //     let nextOption = null;
   
-      for (let i = 1; i <= options.length; i++) {
-        const candidate = options[(currentIndex + i) % options.length];
-        if (!triedSources.includes(candidate.value)) {
-          nextOption = candidate;
-          break;
-        }
-      }
+  //     for (let i = 1; i <= options.length; i++) {
+  //       const candidate = options[(currentIndex + i) % options.length];
+  //       if (!triedSources.includes(candidate.value)) {
+  //         nextOption = candidate;
+  //         break;
+  //       }
+  //     }
   
-      if (nextOption) {
-        toast.info(`Error detected (${reason}). Switching server to ${nextOption.label}`);
-        setSelectedOption(nextOption);
-        setIframeUrl(nextOption.value);
-      } else {
-        toast.error("All sources failed. Please try again later.");
-      }
-    }, 500),
-    [iframeUrl, options, triedSources]
-  );
+  //     if (nextOption) {
+  //       toast.info(`Error detected (${reason}). Switching server to ${nextOption.label}`);
+  //       setSelectedOption(nextOption);
+  //       setIframeUrl(nextOption.value);
+  //     } else {
+  //       toast.error("All sources failed. Please try again later.");
+  //     }
+  //   }, 500),
+  //   [iframeUrl, options, triedSources]
+  // );
   
 
 useEffect(() => {
@@ -1296,7 +1297,7 @@ const renderEpisodes = () => {
    const handleIframeLoad = () => {
     setLoading(false);
   };
-
+ const [lights , setlights ] = useState(false);
   // -------------------------------
   // RENDERING THE COMPONENTS
   // -------------------------------
@@ -1340,7 +1341,7 @@ const renderEpisodes = () => {
               allowFullScreen
               referrerPolicy="origin"
               onLoad={handleIframeLoad}
-              onError={handleIframeError}
+             // onError={handleIframeError}
             />
           ) : (
             <iframe
@@ -1356,7 +1357,7 @@ const renderEpisodes = () => {
               allowFullScreen
               referrerPolicy="origin"
               onLoad={() => handleIframeLoad()}
-              onError={handleIframeError}
+             // onError={handleIframeError}
             />
           )}
         </div>
@@ -1378,6 +1379,17 @@ const renderEpisodes = () => {
                 )})`,
               }}
             />
+
+            {
+              lights && (
+                <div
+                  className="lights"
+                  onClick={()=> setlights(false)}
+               />
+              )
+            }
+
+
   
             <div className="youtube-player">
               
@@ -1423,6 +1435,9 @@ const renderEpisodes = () => {
 
               <div className="sertop">
                 <div className="layout-toggles">
+                  <button onClick={()=> setlights(true)}>
+                    lights
+                  </button>
                   {category === "tv" && (
                     <button onClick={toggleEpisodeLayout}>
                       {episodeLayoutMode === 1 ? (
